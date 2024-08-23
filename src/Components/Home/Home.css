@@ -1,0 +1,26 @@
+/* src/components/Home.css */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.home-content {
+  flex: 1; /* This makes the content take up the remaining space */
+  padding: 20px;
+  background-color: #f0f8ff;
+  overflow-y: auto; /* Allows scrolling if the content overflows */
+  background-color: blue;
+}

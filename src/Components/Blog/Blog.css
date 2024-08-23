@@ -1,0 +1,26 @@
+/* src/components/Blog.css */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.blog-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-content {
+  flex: 1; /* This makes the content take up the remaining space */
+  padding: 20px;
+  background-color: #f5f5f5;
+  overflow-y: auto; /* Allows scrolling if the content overflows */
+  background-color: red;
+}
