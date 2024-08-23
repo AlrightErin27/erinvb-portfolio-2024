@@ -22,5 +22,21 @@ body {
   padding: 20px;
   background-color: #f0f8ff;
   overflow-y: auto; /* Allows scrolling if the content overflows */
-  background-color: blue;
+}
+
+/* //////////////////// ICON STYLING //////////////////// */
+.Icon {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 5px;
+  height: 5rem;
+  gap: 1rem;
+}
+.icon-img {
+  height: 4rem;
+  width: 4rem;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
