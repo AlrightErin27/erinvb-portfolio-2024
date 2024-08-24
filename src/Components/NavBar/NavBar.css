@@ -1,29 +1,38 @@
-/* src/components/NavBar.css */
-
 nav {
-  background-color: #333;
-  padding: 10px;
+  background-color: rgb(0, 0, 0);
+  padding: 0.7%;
+  font-size: large;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 7%;
   overflow: hidden;
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  gap: 7%;
 }
 
 li {
   display: inline;
 }
 
+.select-li {
+  cursor: none;
+  pointer-events: none;
+}
+
 li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 4%;
   text-decoration: none;
+}
+
+.select-a {
+  color: rgba(255, 255, 255, 0.56);
 }
 
 li a:hover {

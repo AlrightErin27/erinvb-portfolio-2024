@@ -1,16 +1,30 @@
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const NavBar = () => {
+  const [select, setSelect] = useState("home");
+  const components = [
+    { title: "Home", path: "/" },
+    { title: "Blog", path: "/blog" },
+  ];
+
   return (
     <nav>
       <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/blog">Blog</Link>
-        </li>
+        {components.map((comp, idx) => {
+          return (
+            <li key={idx} className={select === comp.title ? "select-li" : ""}>
+              <Link
+                to={comp.path}
+                onClick={() => setSelect(comp.title)}
+                className={select === comp.title ? "select-a" : ""}
+              >
+                {comp.title}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

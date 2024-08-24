@@ -1,13 +1,13 @@
 import "./Home.css";
 
 import Icon from "./Icon";
-import IntroImg from "../../Images/Resume/hello.png";
-import ResumePDF from "../../Images/Resume/ErinVanBruntResumeAug2024.pdf";
-import ResumeIcon from "../../Images/Icons/resumeicon.png";
-import DownLoadIcon from "../../Images/Icons/download.png";
-import LinkedinIcon from "../../Images/Icons/linkedin.png";
-import GithubIcon from "../../Images/Icons/github.png";
-import MediumIcon from "../../Images/Icons/medium.png";
+import IntroImg from "../../Images/Home/Resume/hello.png";
+import ResumePDF from "../../Images/Home/Resume/ErinVanBruntResumeAug2024.pdf";
+import ResumeIcon from "../../Images/Home/Icons/resumeicon.png";
+import DownLoadIcon from "../../Images/Home/Icons/download.png";
+import LinkedinIcon from "../../Images/Home/Icons/linkedin.png";
+import GithubIcon from "../../Images/Home/Icons/github.png";
+import MediumIcon from "../../Images/Home/Icons/medium.png";
 
 const Home = () => {
   const websites = [
@@ -46,7 +46,6 @@ const Home = () => {
     <div className="home-container">
       <div className="home-content">
         <div className="grid-overlay">
-          {/* <h1>Home Page</h1> */}
           <img src={IntroImg} alt="intro" />
           <div className="icons-cont">
             {websites.map((website, idx) => {
