@@ -1,6 +1,7 @@
 import "./Home.css";
 
 import Icon from "./Icon";
+import IntroImg from "../../Images/Resume/hello.png";
 import ResumePDF from "../../Images/Resume/ErinVanBruntResumeAug2024.pdf";
 import ResumeIcon from "../../Images/Icons/resumeicon.png";
 import DownLoadIcon from "../../Images/Icons/download.png";
@@ -44,11 +45,15 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="home-content">
-        <h1>Home Page</h1>
-        <p>TEXT</p>
-        {websites.map((website, idx) => {
-          return <Icon website={website} key={idx} />;
-        })}
+        <div className="grid-overlay">
+          {/* <h1>Home Page</h1> */}
+          <img src={IntroImg} alt="intro" />
+          <div className="icons-cont">
+            {websites.map((website, idx) => {
+              return <Icon website={website} key={idx} />;
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
