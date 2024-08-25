@@ -7,6 +7,7 @@ body {
 
 #root {
   height: 100%;
+  background-color: rgb(157, 155, 103);
 }
 
 .blog-container {

@@ -76,7 +76,7 @@ export default function Concentration1() {
 
     if (newFlippedCards.length === 2) {
       setIsChecking(true);
-      setTimeout(() => checkForMatch(newFlippedCards), 2500);
+      setTimeout(() => checkForMatch(newFlippedCards), 2400);
     } else {
       setFlippedCards(newFlippedCards);
     }

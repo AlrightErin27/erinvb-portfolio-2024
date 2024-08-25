@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Gochi+Hand&family=Platypi:ital,wght@0,300..800;1,300..800&family=Righteous&display=swap");
-/* font-family: "Righteous", sans-serif; */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+/* font-family: "Press Start 2P", system-ui; */
 
 html,
 body {
@@ -15,6 +15,110 @@ body {
 .Games {
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
   height: 100%;
-  background-color: antiquewhite;
+  background-color: rgb(124, 124, 124);
+  background-image: url("../../Images/Games/tile.png"); /* Use your dithered image */
+  background-size: 1.5px; /* Cover the entire background */
+  height: 100vh; /* Full height */
+  margin: 0;
+}
+
+.window {
+  min-width: 300px;
+  width: 20vw;
+  border: 2px solid black;
+  box-shadow: 4px 4px 0px #000;
+  margin: 10%;
+  background-color: #eee;
+  font-size: 2.2vh;
+}
+
+.title-bar {
+  background-color: #ccc;
+  text-align: center;
+  border-bottom: 2px solid black;
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+  align-items: center;
+}
+
+.title-border {
+  background-color: #eee;
+  border: 2px solid black;
+  box-shadow: 2px 2px 0px #000;
+  white-space: nowrap;
+  margin: 5px;
+  padding: 0 12px 0 12px;
+  display: flex;
+  /* gap: ; */
+  padding: 3px;
+  font-size: medium;
+  display: flex;
+  align-items: center;
+}
+
+.folder-header {
+  font-size: 15px;
+}
+.folder-img {
+  height: 2.5vh;
+}
+
+.window-body {
+  padding: 10px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+.folder-section {
+  margin-bottom: 20px;
+}
+
+.folder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.folder-content {
+  width: 100%;
+  height: 80px;
+  border: 1px solid black;
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+  /* border: rgb(73, 169, 9) solid 1px; */
+  /* gap: 42%; */
+}
+
+.links-list {
+  /* background-color: green; */
+  flex: 0 0 95%;
+}
+
+.link-li {
+  padding-left: 2px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.selected-li {
+  background-color: #ccc;
+  padding-left: 2px;
+  cursor: pointer;
+  font-size: 98%;
+}
+
+.link-li:hover {
+  background-color: #ccc;
+}
+
+.scroll-bar {
+  height: 80px;
 }

@@ -14,12 +14,12 @@ const NavBar = () => {
   if (select)
     return (
       <nav>
-        <ul>
+        <ul className="nav-ul">
           {components.map((comp, idx) => {
             return (
               <li
                 key={idx}
-                className={select === comp.title ? "select-li" : ""}
+                className={select === comp.title ? "select-li" : "nav-li"}
               >
                 <Link
                   to={comp.path}

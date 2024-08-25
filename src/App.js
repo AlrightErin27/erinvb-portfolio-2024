@@ -7,6 +7,7 @@ import Blog from "./Components/Blog/Blog";
 
 import Games from "./Components/Games/Games";
 import Concentration from "./Components/Games/Concentration/Concentration";
+import NoughtsAndCrosses from "./Components/Games/NoughtsAndCrosses/NoughtsAndCrosses";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
 
           <Route path="/games" element={<Games />} />
           <Route path="/games/concentration" element={<Concentration />} />
+          <Route
+            path="/games/noughts-&-crosses"
+            element={<NoughtsAndCrosses />}
+          />
         </Routes>
       </div>
     </Router>

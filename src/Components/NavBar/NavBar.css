@@ -4,7 +4,7 @@ nav {
   font-size: large;
 }
 
-ul {
+.nav-ul {
   list-style-type: none;
   margin: 0;
   padding: 0 0 0 7%;
@@ -14,7 +14,7 @@ ul {
   gap: 7%;
 }
 
-li {
+.nav-li {
   display: inline;
 }
 
