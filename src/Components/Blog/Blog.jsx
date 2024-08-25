@@ -1,32 +1,59 @@
-// src/components/Blog.jsx
-import React from "react";
-import "./Blog.css"; // Import the CSS
+import { useEffect, useState } from "react";
+import axios from "axios";
+import "./Blog.css";
 
 const Blog = () => {
+  const [posts, setPosts] = useState([]);
+  const [authorImg, setAuthorImg] = useState([]);
+
+  const getPostData = () => {
+    axios
+      .get(
+        "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@erinmontybruce"
+      )
+      .then((res) => {
+        setPosts(res.data.items);
+        setAuthorImg(res.data.feed.image);
+      })
+      .catch((error) => {
+        console.error("Error using axios:", error);
+      });
+  };
+  useEffect(() => {
+    getPostData();
+  }, []);
+
   return (
     <div className="blog-container">
       <div className="blog-content">
-        <h1>Blog Page</h1>
-        <p>
-          Welcome to the Blog page! This section will take up the entire
-          available space below the navbar.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-          odio. Praesent libero. Sed cursus ante dapibus diam.
-        </p>
-        <p>
-          Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
-          ipsum. Praesent mauris.
-        </p>
-        <p>
-          Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum
-          lacinia arcu eget nulla.
-        </p>
-        <p>
-          Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-          per inceptos himenaeos. Curabitur sodales ligula in libero.
-        </p>
+        <div className="title">
+          <a
+            href="https://medium.com/@erinmontybruce"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div>
+              Erin's Medium Blog
+              <img
+                src={`${authorImg}`}
+                alt="author img"
+                className="author-img"
+              />
+            </div>
+          </a>
+        </div>
+
+        <div className="blog-block">
+          {posts.map((post) => (
+            <div className="posts" key={post.guid}>
+              <h2>{post.title}</h2>
+              <p dangerouslySetInnerHTML={{ __html: post.content }} />
+              <a href={post.link} target="_blank" rel="noreferrer">
+                Read more
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

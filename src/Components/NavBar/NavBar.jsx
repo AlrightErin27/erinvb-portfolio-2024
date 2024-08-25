@@ -4,30 +4,36 @@ import { useState } from "react";
 
 const NavBar = () => {
   const [select, setSelect] = useState("home");
+
   const components = [
     { title: "Home", path: "/" },
     { title: "Blog", path: "/blog" },
+    { title: "Games", path: "/games" },
   ];
 
-  return (
-    <nav>
-      <ul>
-        {components.map((comp, idx) => {
-          return (
-            <li key={idx} className={select === comp.title ? "select-li" : ""}>
-              <Link
-                to={comp.path}
-                onClick={() => setSelect(comp.title)}
-                className={select === comp.title ? "select-a" : ""}
+  if (select)
+    return (
+      <nav>
+        <ul>
+          {components.map((comp, idx) => {
+            return (
+              <li
+                key={idx}
+                className={select === comp.title ? "select-li" : ""}
               >
-                {comp.title}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
+                <Link
+                  to={comp.path}
+                  onClick={() => setSelect(comp.title)}
+                  className={select === comp.title ? "select-a" : ""}
+                >
+                  {comp.title}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    );
 };
 
 export default NavBar;

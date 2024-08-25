@@ -5,6 +5,9 @@ import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Components/Home/Home";
 import Blog from "./Components/Blog/Blog";
 
+import Games from "./Components/Games/Games";
+import Concentration from "./Components/Games/Concentration/Concentration";
+
 function App() {
   return (
     <Router>
@@ -13,6 +16,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
+
+          <Route path="/games" element={<Games />} />
+          <Route path="/games/concentration" element={<Concentration />} />
         </Routes>
       </div>
     </Router>
