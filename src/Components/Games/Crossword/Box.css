@@ -1,6 +1,35 @@
 .Box {
   background-color: #f0f0f0; /* Light gray background for the cells */
-  border: 1px solid #000; /* Border around each cell */
   aspect-ratio: 1; /* Makes the cells square */
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
+  font-size: 1.7vh;
+}
+
+.black-box {
+  background-color: rgb(0, 0, 0);
+}
+
+.white-box {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  background-color: white; /* White color for the white cells */
+  position: relative; /* Relative positioning for absolute children */
+}
+
+.corner {
+  font-size: 1.7vh; /* Font size relative to viewport height */
+  min-height: 0.6vh; /* Minimum height relative to viewport height */
+  padding: 0.2vh; /* Padding relative to viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* Position the corner element absolutely */
+  top: 0; /* Position it at the top edge */
+  left: 0; /* Position it at the left edge */
+  color: #000; /* Black text color for contrast */
+  border-right: solid black 1px;
+  border-bottom: solid black 1px;
+  width: 0.6vw; /* Width relative to viewport width */
+  height: 0.6vw; /* Height relative to viewport width */
 }
