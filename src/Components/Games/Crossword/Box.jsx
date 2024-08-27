@@ -22,7 +22,10 @@ export default function Box({ box, clickBox }) {
         <div
           className="white-box"
           style={
-            correct ? { backgroundColor: "beige", pointerEvents: "none" } : null
+            (correct
+              ? { backgroundColor: "beige", pointerEvents: "none" }
+              : null,
+            box.HL ? { backgroundColor: "yellow" } : null)
           }
           onClick={() => clickBox(box)}
         >

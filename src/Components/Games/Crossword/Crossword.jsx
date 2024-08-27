@@ -6,6 +6,8 @@ import BuffyLogo from "../../../Images/Games/Crossword/logo.png";
 
 export default function Crossword() {
   const [boxes, setBoxes] = useState([]);
+  const [vertHighLight, setVertHighLight] = useState(null);
+  const [horHighLight, setHorHighLight] = useState(null);
 
   const answers = useMemo(
     () => [
@@ -144,6 +146,7 @@ export default function Crossword() {
             q: letter.q,
             corner: letter.corner,
             black: false,
+            HL: false,
           }
         : box;
     });
@@ -175,6 +178,17 @@ export default function Crossword() {
 
   const clickBox = (box) => {
     console.log(box);
+
+    //FIX ME
+    setBoxes(
+      boxes.map((b) => {
+        if (box.word === b.word) {
+          return { ...box, HL: true };
+        } else {
+          return box;
+        }
+      })
+    );
   };
 
   return (
