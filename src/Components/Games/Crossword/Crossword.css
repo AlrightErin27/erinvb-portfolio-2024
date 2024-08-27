@@ -1,0 +1,36 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.Crossword {
+  height: 100%;
+  /* padding-top: 3%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.grid-cont {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr); /* 20 columns */
+  grid-template-rows: repeat(16, 1fr); /* 16 rows */
+  gap: 2px; /* Space between cells, adjust as needed */
+  width: 80vw; /* Adjust this percentage for how much width the grid should take up */
+  max-width: 1000px; /* Optional: Max width to avoid it getting too large */
+  height: auto;
+  /* background-color: green; */
+}
+
+@media (max-width: 600px) {
+  .grid-cont {
+    width: 100vw; /* Adjust grid to take full width on smaller screens */
+  }
+}

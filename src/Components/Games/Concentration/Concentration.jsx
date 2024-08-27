@@ -3,15 +3,15 @@ import { Navigate } from "react-router-dom";
 import "./Concentration.css";
 
 import Card from "./ConCard";
-import img1 from "../../../Images/Concentration/abcs.jpg";
-import img2 from "../../../Images/Concentration/dreaming.jpg";
-import img3 from "../../../Images/Concentration/dreams.jpg";
-import img4 from "../../../Images/Concentration/familyphoto.jpg";
-import img5 from "../../../Images/Concentration/girlmoon.jpg";
-import img6 from "../../../Images/Concentration/ladiesmars.jpg";
-import img7 from "../../../Images/Concentration/newnationalpark.jpg";
-import img8 from "../../../Images/Concentration/pillowtalk.jpg";
-import img9 from "../../../Images/Concentration/playtime.jpg";
+import img1 from "../../../Images/Games/Concentration/abcs.jpg";
+import img2 from "../../../Images/Games/Concentration/dreaming.jpg";
+import img3 from "../../../Images/Games/Concentration/dreams.jpg";
+import img4 from "../../../Images/Games/Concentration/familyphoto.jpg";
+import img5 from "../../../Images/Games/Concentration/girlmoon.jpg";
+import img6 from "../../../Images/Games/Concentration/ladiesmars.jpg";
+import img7 from "../../../Images/Games/Concentration/newnationalpark.jpg";
+import img8 from "../../../Images/Games/Concentration/pillowtalk.jpg";
+import img9 from "../../../Images/Games/Concentration/playtime.jpg";
 
 const initialCards = [
   { id: 1, content: img1 },

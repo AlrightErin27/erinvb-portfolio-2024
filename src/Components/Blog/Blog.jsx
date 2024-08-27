@@ -31,6 +31,7 @@ const Blog = () => {
             href="https://medium.com/@erinmontybruce"
             target="_blank"
             rel="noreferrer"
+            className="title-a"
           >
             <div>
               Erin's Medium Blog
@@ -48,7 +49,12 @@ const Blog = () => {
             <div className="posts" key={post.guid}>
               <h2>{post.title}</h2>
               <p dangerouslySetInnerHTML={{ __html: post.content }} />
-              <a href={post.link} target="_blank" rel="noreferrer">
+              <a
+                href={post.link}
+                target="_blank"
+                rel="noreferrer"
+                className="posts-a"
+              >
                 Read more
               </a>
             </div>

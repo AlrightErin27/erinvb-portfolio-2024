@@ -47,6 +47,12 @@ export default function Games() {
                 >
                   Noughts & Crosses
                 </div>
+                <div
+                  className={select === "crossword" ? "selected-li" : "link-li"}
+                  onClick={() => setSelect("crossword")}
+                >
+                  Crossword
+                </div>
               </div>
 
               <img src={ScrollImg} alt="scroll bar" className="scroll-bar" />

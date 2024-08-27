@@ -1,0 +1,6 @@
+.Box {
+  background-color: #f0f0f0; /* Light gray background for the cells */
+  border: 1px solid #000; /* Border around each cell */
+  aspect-ratio: 1; /* Makes the cells square */
+  box-sizing: border-box;
+}

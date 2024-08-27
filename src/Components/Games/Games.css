@@ -105,14 +105,14 @@ button {
 .link-li {
   padding-left: 2px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .selected-li {
   background-color: #ccc;
   padding-left: 2px;
   cursor: pointer;
-  font-size: 98%;
+  font-size: 15px;
 }
 
 .link-li:hover {

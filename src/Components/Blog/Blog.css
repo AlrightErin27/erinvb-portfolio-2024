@@ -1,6 +1,6 @@
 html,
 body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -8,6 +8,8 @@ body {
 #root {
   height: 100%;
   background-color: rgb(157, 155, 103);
+  min-height: 100%; /* Ensure it takes at least the full height of the viewport */
+  overflow-y: auto;
 }
 
 .blog-container {
@@ -35,7 +37,7 @@ body {
   justify-content: right;
 }
 
-.title a {
+.title-a {
   color: rgb(220, 220, 32);
   text-decoration: none;
 }

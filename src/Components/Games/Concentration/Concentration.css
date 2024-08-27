@@ -16,8 +16,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  font-family: Arial, sans-serif;
-  background-image: url("../../../Images/Concentration/backdrop.gif");
+  background-image: url("../../../Images/Games/Concentration/backdrop.gif");
   background-position: center;
   background-repeat: no-repeat;
   background-color: black;
@@ -43,7 +42,7 @@ body {
   cursor: pointer;
   position: relative;
   transition: color 0.1s ease;
-  font-family: "Righteous", sans-serif;
+
   margin-bottom: 5px;
   white-space: nowrap;
 }
@@ -89,13 +88,14 @@ p {
 }
 
 .card {
-  background-image: url("../../../Images/Concentration/Background-28.jpg");
+  background-image: url("../../../Images/Games/Concentration/Background-28.jpg");
   background-position: center;
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
   aspect-ratio: 2 / 3;
   background-color: rgb(9, 4, 31);
+  border: solid black 3px;
 }
 
 .card.flipped {
