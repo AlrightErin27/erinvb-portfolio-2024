@@ -11,7 +11,7 @@ import img5 from "../../../Images/Games/Concentration/girlmoon.jpg";
 import img6 from "../../../Images/Games/Concentration/ladiesmars.jpg";
 import img7 from "../../../Images/Games/Concentration/newnationalpark.jpg";
 import img8 from "../../../Images/Games/Concentration/pillowtalk.jpg";
-import img9 from "../../../Images/Games/Concentration/playtime.jpg";
+import img9 from "../../../Images/Games/Concentration/yellownumber.jpg";
 
 const initialCards = [
   { id: 1, content: img1 },

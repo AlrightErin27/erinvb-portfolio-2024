@@ -2,15 +2,21 @@ import "./Box.css";
 
 import { useState, useEffect } from "react";
 
-export default function Box({ box, clickBox }) {
+export default function Box({ box, handleHL }) {
   const [text, setText] = useState("");
-  const [correct, setCorrect] = useState(false);
+  const [ansCorrect, setAnsCorrect] = useState(false);
 
   //display corner number if it exists
   function displayCorner() {
     if (box.corner) {
       return <div className="corner">{box.q}</div>;
     }
+  }
+
+  //checks for change in input and takes it to parent function in Crossword.jsx to be set in state
+  function handleChange(e) {
+    setText(e);
+    console.log(ansCorrect);
   }
 
   //function only displays box with content dependant on boolean box.black
@@ -21,13 +27,7 @@ export default function Box({ box, clickBox }) {
       return (
         <div
           className="white-box"
-          style={
-            (correct
-              ? { backgroundColor: "beige", pointerEvents: "none" }
-              : null,
-            box.HL ? { backgroundColor: "yellow" } : null)
-          }
-          onClick={() => clickBox(box)}
+          style={box.highLight === true ? { backgroundColor: "grey" } : null}
         >
           {displayCorner()}
           <input
@@ -35,7 +35,8 @@ export default function Box({ box, clickBox }) {
             type="text"
             value={text}
             maxLength={1}
-            onChange={(e) => setText(e.target.value)}
+            onClick={() => handleHL(box)}
+            onChange={(e) => handleChange(e.target.value)}
             onDoubleClickCapture={() => doubleClick()}
           />
         </div>
@@ -47,13 +48,15 @@ export default function Box({ box, clickBox }) {
   useEffect(() => {
     let input = text.toLocaleLowerCase();
     if (box.char === input) {
-      setCorrect(true);
+      // console.log("CORRECT");
+      setAnsCorrect(true);
     }
   }, [text, box.char]);
 
   function doubleClick() {
     setText(box.char);
-    setCorrect(true);
+    // console.log("CORRECT");
+    setAnsCorrect(true);
   }
 
   return <div className="Box">{displayBox()}</div>;

@@ -6,8 +6,6 @@ import BuffyLogo from "../../../Images/Games/Crossword/logo.png";
 
 export default function Crossword() {
   const [boxes, setBoxes] = useState([]);
-  const [vertHighLight, setVertHighLight] = useState(null);
-  const [horHighLight, setHorHighLight] = useState(null);
 
   const answers = useMemo(
     () => [
@@ -116,7 +114,7 @@ export default function Crossword() {
     return words().flatMap((word) => {
       return Array.from(word.text).map((char, i) => {
         return {
-          char,
+          char: char,
           word: word.text,
           dir: word.dir,
           q: word.question,
@@ -133,6 +131,8 @@ export default function Crossword() {
       black: true,
       key: i + 1,
       id: i + 1,
+      chars: [],
+      words: [],
     }));
 
     const fillArr = initArr.map((box) => {
@@ -140,13 +140,13 @@ export default function Crossword() {
       return letter
         ? {
             ...box,
-            char: letter.char,
-            word: letter.word,
+            chars: box.chars ? box.chars.push(letter.char) : box.chars,
+            words: box.words ? box.words.push(letter.word) : box.words,
             dir: letter.dir,
             q: letter.q,
             corner: letter.corner,
             black: false,
-            HL: false,
+            highLight: false,
           }
         : box;
     });
@@ -158,6 +158,7 @@ export default function Crossword() {
     initGrid();
   }, [initGrid]);
 
+  //display questions
   const sortAndDisplayQuestions = useCallback(
     (inputDir) => {
       const sortedAnswers = answers
@@ -176,20 +177,29 @@ export default function Crossword() {
     [answers]
   );
 
-  const clickBox = (box) => {
-    console.log(box);
-
-    //FIX ME
-    setBoxes(
-      boxes.map((b) => {
-        if (box.word === b.word) {
-          return { ...box, HL: true };
-        } else {
-          return box;
-        }
-      })
-    );
-  };
+  function handleHL(currBox) {
+    // e.preventDefault();
+    console.log(currBox);
+    // setBoxes(
+    //   boxes.map((box) => {
+    //     //   if (currBox.words[0].includes(box.words[0])) {
+    //     //     console.log("HL", box.words);
+    //     //     return { ...box, highLight: true };
+    //     //   } else {
+    //     //     return { ...box, highLight: false };
+    //     //   }
+    //     currBox.words.forEach((currWord) => {
+    //       box.words.forEach((boxWord) => {
+    //         if (currWord === boxWord) {
+    //           return { ...box, highLight: true };
+    //         } else {
+    //           return { ...box, highLight: false };
+    //         }
+    //       });
+    //     });
+    //   })
+    // );
+  }
 
   return (
     <div className="Crossword">
@@ -197,7 +207,7 @@ export default function Crossword() {
       <div className="crossword-cont">
         <div className="grid-cont">
           {boxes.map((box) => (
-            <Box box={box} key={box.id} clickBox={clickBox} />
+            <Box box={box} key={box.id} handleHL={handleHL} />
           ))}
         </div>
         <div className="questions">

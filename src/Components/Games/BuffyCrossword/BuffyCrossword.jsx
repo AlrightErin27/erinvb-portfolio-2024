@@ -1,0 +1,224 @@
+import "./BuffyCrossword.css";
+import { useState, useEffect } from "react";
+import Square from "./Square";
+
+export default function BuffyCrossword() {
+  const [squares, setSquares] = useState([]);
+  const [clicks, setClicks] = useState(0);
+
+  //fills squares instate with data trickled down from questions arr
+  useEffect(() => {
+    const gameData = [
+      {
+        dir: "hor",
+        local: 257,
+        num: 12,
+        q: "What is the name of the high school that Buffy attends in the first three seasons?",
+        a: "Sunnydale High",
+      },
+      {
+        dir: "vert",
+        local: 44,
+        num: 2,
+        q: "What is the full name of Buffy’s best friend who eventually becomes a powerful witch?",
+        a: "Willow Rosenberg",
+      },
+      {
+        dir: "hor",
+        local: 99,
+        num: 5,
+        q: "What is the first name of Buffy’s sister who is introduced in Season 5?",
+        a: "Dawn",
+      },
+      {
+        dir: "vert",
+        local: 52,
+        num: 3,
+        q: "What is the name of the Hellmouth that Sunnydale is built over?",
+        a: "Boca del Infierno",
+      },
+      {
+        dir: "hor",
+        local: 232,
+        num: 10,
+        q: "What is the last name of the principal who replaces Principal Flutie at Sunnydale High and becomes one of Buffy’s adversaries?",
+        a: "Snyder",
+      },
+      {
+        dir: "hor",
+        local: 187,
+        num: 9,
+        q: "In Season 5, Buffy's sister is revealed to be The ___, which has the power to open dimensional portals.",
+        a: "Key",
+      },
+      {
+        dir: "vert",
+        local: 185,
+        num: 8,
+        q: "The ___ is the name of the local nightclub in Sunnydale where Buffy and her friends often hang out?",
+        a: "Bronze",
+      },
+      {
+        dir: "vert",
+        local: 120,
+        num: 6,
+        q: "Which friendly demon, known for his loose, floppy skin and love of kittens, becomes friends with Buffy and the Scooby Gang?",
+        a: "Clem",
+      },
+      {
+        dir: "hor",
+        local: 73,
+        num: 4,
+        q: "___ ___ Spike nickname was given to Spike during his human days before he was turned into a vampire?",
+        a: "Rail Road",
+      },
+      {
+        dir: "vert",
+        local: 9,
+        num: 1,
+        q: "What is Gile's first name?",
+        a: "Rupert",
+      },
+      {
+        dir: "vert",
+        local: 247,
+        num: 11,
+        q: "Who was the vampire that sired Angel, turning him into a vampire in the 18th century?",
+        a: "Darla",
+      },
+      {
+        dir: "hor",
+        local: 129,
+        num: 7,
+        q: "Processed ___ matter was the shocking secret ingredient in the burgers served at the Doublemeat Palace",
+        a: "Vegetable",
+      },
+    ];
+
+    //create a new words array that contains:
+    //the word, its direction, its question # & its location on the grid
+    const words = gameData.map((data) => {
+      //change answer to lowercase and any remove white spaces
+      let altAnswer = data.a.replace(/ /g, "").toLocaleLowerCase();
+      return {
+        fullWord: altAnswer,
+        q: data.num,
+        grid_ID: data.local,
+        dir: data.dir,
+      };
+    });
+    // console.log(...words);
+
+    //create new letters array that contains:
+    //char, word, dir, q, grid_ID & corner piece boolean
+    let letters = [];
+    for (let i = 0; i < words.length; i++) {
+      for (let j = 0; j < words[i].fullWord.length; j++) {
+        letters.push({
+          char: words[i].fullWord[j],
+          word: words[i].fullWord,
+          dir: words[i].dir,
+          q: words[i].q,
+          grid_ID:
+            words[i].dir === "hor"
+              ? words[i].grid_ID + j
+              : words[i].grid_ID + j * 16,
+          corner: j === 0,
+        });
+      }
+    }
+    // console.log(letters[81]);
+
+    //create empty grid of 320 squares
+    const emptySquares = Array.from({ length: 320 }, (_, i) => ({
+      black: true,
+      grid_ID: i + 1,
+      chars: [],
+      words: [],
+      dirs: [],
+      questions: [],
+      highLight: false,
+      corner: false,
+    }));
+    // console.log(emptySquares[319]);
+
+    //then map through those empty cells adding letters array at correct grid_ID's
+    //if two cells have same grid_ID push both words, chars, dirs and q's into the arr's
+    const alteredSquares = emptySquares.map((square) => {
+      const matchingLetters = letters.filter(
+        (letter) => letter.grid_ID === square.grid_ID
+      );
+
+      matchingLetters.forEach((matchingLetter) => {
+        if (!square.chars.includes(matchingLetter.char)) {
+          square.chars.push(matchingLetter.char);
+        }
+        if (!square.words.includes(matchingLetter.word)) {
+          square.words.push(matchingLetter.word);
+        }
+        if (!square.dirs.includes(matchingLetter.dir)) {
+          square.dirs.push(matchingLetter.dir);
+        }
+        if (!square.questions.includes(matchingLetter.q)) {
+          square.questions.push(matchingLetter.q);
+        }
+        if (matchingLetter.corner) {
+          square.corner = true;
+        }
+
+        // Set black to false
+        square.black = false;
+      });
+
+      return square;
+    });
+
+    setSquares(alteredSquares);
+  }, []);
+
+  function clickSquare(selSq) {
+    console.log("SELECT", selSq);
+
+    let arrHL = [];
+    squares.map((sq) => {
+      //does the select cell have one word? -> if yes highlight it
+      if (selSq.words.length === 1) {
+        if (sq.words.includes(selSq.words[0])) {
+          arrHL.push({ ...sq, highLight: true });
+        } else {
+          arrHL.push({ ...sq, highLight: false });
+        }
+      }
+
+      //does the select cell have two words? -> if so highlight hor
+      let direction = clicks === 0 ? "hor" : "vert";
+      if (selSq.words.length === 2) {
+        if (
+          (selSq.dirs[0] === direction && sq.words.includes(selSq.words[0])) ||
+          (selSq.dirs[1] === direction && sq.words.includes(selSq.words[1]))
+        ) {
+          arrHL.push({ ...sq, highLight: true });
+        } else {
+          arrHL.push({ ...sq, highLight: false });
+        }
+      }
+    });
+
+    setSquares(arrHL); //THIS WORKS!!!!!!
+    if (clicks === 0) {
+      setClicks(1);
+    } else if (clicks === 1) {
+      setClicks(0);
+    }
+  }
+
+  return (
+    <div className="BuffyCrossword">
+      <div className="grid">
+        {squares.map((sq) => {
+          return <Square sq={sq} key={sq.grid_ID} clickSquare={clickSquare} />;
+        })}
+      </div>
+    </div>
+  );
+}
