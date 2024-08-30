@@ -294,16 +294,18 @@ export default function Crossword() {
       <div>
         <h3> {dir === "hor" ? "Across" : "Down"}</h3>
         <div>
-          {answers.map((question) => {
-            if (question.dir === dir) {
-              return (
-                <div className="q-li" key={question.num}>
-                  {question.num}. {question.q}
-                </div>
-              );
-            }
-            return null;
-          })}
+          {answers
+            .sort((a, b) => a.num - b.num)
+            .map((question) => {
+              if (question.dir === dir) {
+                return (
+                  <div className="q-li" key={question.num}>
+                    {question.num}. {question.q}
+                  </div>
+                );
+              }
+              return null;
+            })}
         </div>
       </div>
     );

@@ -1,7 +1,4 @@
 .Square {
-  /* background-color: red; */
-  /* height: 2rem; */
-  /* width: 2rem; */
   border: black solid 1px;
   aspect-ratio: 1; /* Makes the cells square */
   /* box-sizing: border-box; */
@@ -19,18 +16,56 @@
   background-color: rgba(255, 255, 255, 0.79);
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: ;
 }
 
 .corner-num {
-  height: 30%;
-  width: 30%;
+  height: 41%;
+  width: fit-content;
+  /* padding: 5%; */
+  /* padding-right: 5%; */
   display: flex;
-  padding: 3%;
   justify-content: center;
-  font-size: smaller;
-  /* background-color: rgb(217, 86, 86); */
+  align-items: center;
+  font-size: clamp(
+    0.3rem,
+    2vw + 0.3rem,
+    0.9rem
+  ); /* Adjusted for better scaling */
   color: black;
-  border-right: 1px black solid;
+  border-right: 1px solid black;
   border-bottom: 1px solid black;
+  /* border-top: 1px solid black; */
   background-color: white;
+  aspect-ratio: 1;
+  overflow: hidden; /* Prevent text overflow */
+}
+
+.corner-num p {
+  margin: 0; /* Remove default margins */
+  line-height: 1; /* Ensure text is vertically centered */
+  text-align: center; /* Center the text within the box */
+  width: 100%; /* Ensure text fits within the box width */
+  font-size: inherit; /* Inherit font size from the parent */
+  overflow: hidden; /* Prevent text overflow */
+  white-space: nowrap; /* Prevent text from wrapping */
+  text-overflow: ellipsis; /* Add ellipsis if the text is too long */
+}
+
+.input {
+  position: relative;
+  background-color: transparent;
+  height: 54%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  width: 90%; /* Ensure text fits within the box width */
+  text-align: center;
+  border: none;
+  outline: none;
+  font-size: larger;
 }
