@@ -1,81 +1,105 @@
-html,
-body {
-  height: 100%;
+/* Base styles */
+body,
+html {
   margin: 0;
   padding: 0;
-  font-size: 16px; /* Base font size */
-  overflow: hidden; /* Prevents double scroll bars on the body */
-}
-
-#root {
+  width: 100%;
   height: 100%;
-  overflow-y: auto; /* Allows the content within #root to scroll */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
 }
 
+/* Flexbox container for the crossword layout */
 .Crossword {
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto; /* Keeps overflow handling within this element */
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100vh;
+  width: 97vw;
+  /* padding: 2vh 2vw; */
 }
 
-.logo-img {
-  height: 17%;
-  filter: brightness(0%);
-  /* border: solid 1px red; */
-}
-
-.crossword-cont {
-  /* border: solid 1px red; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Styling for the questions section */
+.questions {
+  flex: 1;
+  max-width: 40%;
+  min-width: 20%;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 8px;
   overflow-y: auto;
-  height: 100%;
-  padding-top: 19vh;
-  padding-bottom: 9vh;
 }
 
+/* Individual question items */
+.q-li {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  color: #333; /* Darker text color */
+}
+
+/* Styling for the grid container */
 .grid-cont {
+  flex: 2;
+  max-width: 50%;
+  min-width: 50%;
+  padding: 1rem;
+  margin: 1%;
+
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent any overflow */
+}
+
+/* The crossword grid itself */
+.grid {
   display: grid;
   grid-template-columns: repeat(16, 1fr); /* 16 columns */
-  grid-template-rows: repeat(20, 1fr); /* 20 rows */
-  gap: 0.2%; /* Space between cells */
-  width: 50vw; /* Smaller width relative to the viewport */
-  max-width: 37%; /* Smaller max-width */
-  height: auto;
-  max-height: 60vh; /* Smaller max-height */
-  aspect-ratio: 16 / 20; /* Maintain the grid aspect ratio */
+  grid-template-rows: repeat(16, 1fr); /* 16 rows */
+  gap: 0.1rem;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 4px;
 }
 
-.grid-cont div {
-  aspect-ratio: 1; /* Keeps the cells square */
-}
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  .Crossword {
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh 1vw;
+  }
 
-@media (max-width: 600px) {
+  .questions,
   .grid-cont {
-    width: 80vw; /* Adjust grid to take a smaller width on smaller screens */
+    max-width: 100%;
+    min-width: 100%;
+    height: 50vh;
+  }
+
+  .q-li {
+    font-size: 1.5rem; /* Increase font size for better readability */
   }
 }
 
-.questions {
-  width: 50%; /* Smaller width relative to the viewport */
-  max-width: 40%; /* Smaller max-width */
-  height: auto;
-  margin-left: 2%;
-  padding-top: 1%;
-  aspect-ratio: 16 / 20; /* Maintain the grid aspect ratio */
-  font-size: 0.8vw; /* Font size responsive to the viewport width */
-  overflow-wrap: break-word; /* Ensure long words break to avoid overflow */
-  overflow-y: auto; /* Allows questions to be scrollable within their container */
-}
+@media (max-width: 480px) {
+  .Crossword {
+    padding: 1vh 1vw;
+  }
 
-.buffy-img {
-  position: absolute;
-  transform: scaleX(-1);
-  bottom: 0;
-  left: 0;
-  height: 20%;
+  .questions,
+  .grid-cont {
+    height: auto;
+  }
+
+  .q-li {
+    font-size: 1.8rem; /* Further increase font size */
+  }
 }

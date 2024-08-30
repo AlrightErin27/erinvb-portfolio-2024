@@ -47,19 +47,12 @@ export default function Games() {
                 >
                   Noughts & Crosses
                 </div>
+
                 <div
                   className={select === "crossword" ? "selected-li" : "link-li"}
                   onClick={() => setSelect("crossword")}
                 >
                   Crossword
-                </div>
-                <div
-                  className={
-                    select === "buffy-crossword" ? "selected-li" : "link-li"
-                  }
-                  onClick={() => setSelect("buffy-crossword")}
-                >
-                  BuffyCrossword
                 </div>
               </div>
 

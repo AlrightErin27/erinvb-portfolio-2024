@@ -9,7 +9,6 @@ import Games from "./Components/Games/Games";
 import Concentration from "./Components/Games/Concentration/Concentration";
 import NoughtsAndCrosses from "./Components/Games/NoughtsAndCrosses/NoughtsAndCrosses";
 import Crossword from "./Components/Games/Crossword/Crossword";
-import BuffyCrossword from "./Components/Games/BuffyCrossword/BuffyCrossword";
 
 function App() {
   return (
@@ -27,7 +26,6 @@ function App() {
             element={<NoughtsAndCrosses />}
           />
           <Route path="/games/crossword" element={<Crossword />} />
-          <Route path="/games/buffy-crossword" element={<BuffyCrossword />} />
         </Routes>
       </div>
     </Router>

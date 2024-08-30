@@ -14,6 +14,11 @@ export default function Square({ sq, clickSquare }) {
       return (
         <div
           className="white-sq"
+          style={
+            sq.highLight
+              ? { backgroundColor: "rgba(211, 222, 61, 0.59)" }
+              : null
+          }
           onClick={() => {
             clickSquare(sq);
           }}
@@ -24,12 +29,5 @@ export default function Square({ sq, clickSquare }) {
     }
   }
 
-  return (
-    <div
-      className="Square"
-      style={sq.highLight ? { backgroundColor: "black" } : null}
-    >
-      {displayBlackOrWhite()}
-    </div>
-  );
+  return <div className="Square">{displayBlackOrWhite()}</div>;
 }
