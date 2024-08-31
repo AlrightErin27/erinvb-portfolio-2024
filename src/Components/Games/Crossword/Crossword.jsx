@@ -1,10 +1,13 @@
 import "./Crossword.css";
 import { useState, useEffect } from "react";
 import Square from "./Square";
+import Modal from "./BuffyModal";
+import BuffyLogo from "../../../Images/Games/Crossword/logo.png";
 
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
   const [clicks, setClicks] = useState(0);
+  const [selModal, setSelModal] = useState(false);
   const answers = [
     {
       dir: "hor",
@@ -213,7 +216,6 @@ export default function Crossword() {
         });
       }
     }
-    // console.log(letters[81]);
 
     //create empty grid of 320 squares
     const emptySquares = Array.from({ length: 320 }, (_, i) => ({
@@ -311,21 +313,43 @@ export default function Crossword() {
     );
   };
 
+  const handleModal = () => {
+    setSelModal(!selModal);
+  };
+
   return (
     <div className="Crossword">
-      <div className="grid-cont">
-        <div className="grid">
-          {squares.map((sq) => {
-            return (
-              <Square sq={sq} key={sq.grid_ID} clickSquare={clickSquare} />
-            );
-          })}
+      <div className="crossword-cont">
+        <img
+          src={BuffyLogo}
+          alt="Buffy Logo"
+          height="20%"
+          className="buffy-logo"
+        />
+        <div
+          className="grid-cont"
+          style={!selModal ? { zIndex: "100" } : { zIndex: null }}
+        >
+          <div className="grid">
+            {squares.map((sq) => {
+              return (
+                <Square sq={sq} key={sq.grid_ID} clickSquare={clickSquare} />
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      <div className="questions">
-        {displayQs("hor")}
-        {displayQs("vert")}
+        <div className="questions">
+          {displayQs("hor")}
+          {displayQs("vert")}
+        </div>
+        <div className="help" onClick={() => handleModal()}>
+          <h2 className="help-txt">[HELP]</h2>
+        </div>
+        {/* <div className="buffy-img" /> */}
+        {selModal ? (
+          <Modal handleModal={handleModal} answers={answers} />
+        ) : null}
       </div>
     </div>
   );

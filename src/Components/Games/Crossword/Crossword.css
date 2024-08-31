@@ -1,6 +1,4 @@
-/* Base styles */
-body,
-html {
+.Crossword {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -8,16 +6,23 @@ html {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  padding: 2vh 2vw;
 }
 
-.Crossword {
+.crossword-cont {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   height: 100vh;
   width: 97vw;
-  /* padding: 2vh 2vw; */
+}
+
+.buffy-logo {
+  filter: brightness(0%);
+  /* position: absolute;
+  left: 0;
+  top: 0; */
 }
 
 .questions {
@@ -31,7 +36,7 @@ html {
 }
 
 .q-li {
-  font-size: 1.1rem;
+  font-size: 1.7vh;
   margin-bottom: 1rem;
   line-height: 1.5;
   color: black;
@@ -48,6 +53,7 @@ html {
   justify-content: center;
   align-items: center;
   overflow: hidden; /* Prevent any overflow */
+  /* z-index: 100; */
 }
 
 .grid {
@@ -94,3 +100,41 @@ html {
     font-size: 1.8rem; /* Further increase font size */
   }
 }
+
+.help {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  /* background-color: antiquewhite; */
+  height: 25%;
+  width: 20%;
+  text-align: center;
+  background-image: url("../../../Images/Games/Crossword/buffy1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  font-size: 70%;
+}
+
+.help-txt {
+  /* color: red;
+  background-color: black; */
+  text-align: start;
+}
+
+.help:hover {
+  color: white;
+}
+
+/* .buffy-img {
+
+
+
+  height: 24vh;
+  width: 20vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: green;
+} */

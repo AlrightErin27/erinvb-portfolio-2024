@@ -10,6 +10,7 @@ body {
   background-color: rgb(157, 155, 103);
   min-height: 100%; /* Ensure it takes at least the full height of the viewport */
   overflow-y: auto;
+  /* padding: 0 1vw 0 1vw; */
 }
 
 .blog-container {
