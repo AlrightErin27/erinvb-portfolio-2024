@@ -4,6 +4,19 @@ import { useState } from "react";
 export default function BuffyModal({ handleModal, answers }) {
   const [selKey, setSelKey] = useState(false);
 
+  function removeAnswerSpaces(ans) {
+    let ansArr = ans.split("");
+    let word = "";
+    // console.log(ansArr);
+    ansArr.forEach((char) => {
+      if (char !== " ") {
+        word = word.concat(char);
+      }
+    });
+
+    return word;
+  }
+
   const displayOptions = () => {
     return (
       <>
@@ -18,7 +31,18 @@ export default function BuffyModal({ handleModal, answers }) {
   };
 
   const displayAnswers = () => {
-    return <div>ANSE</div>;
+    return (
+      <div className="answers">
+        {answers.map((answer) => {
+          return (
+            <div key={answer.num}>
+              {answer.num}. {removeAnswerSpaces(answer.a)} [
+              {answer.dir === "vert" ? "down" : "across"}]
+            </div>
+          );
+        })}
+      </div>
+    );
   };
 
   return (

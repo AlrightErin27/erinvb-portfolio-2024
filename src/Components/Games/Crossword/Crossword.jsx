@@ -346,7 +346,6 @@ export default function Crossword() {
         <div className="help" onClick={() => handleModal()}>
           <h2 className="help-txt">[HELP]</h2>
         </div>
-        {/* <div className="buffy-img" /> */}
         {selModal ? (
           <Modal handleModal={handleModal} answers={answers} />
         ) : null}

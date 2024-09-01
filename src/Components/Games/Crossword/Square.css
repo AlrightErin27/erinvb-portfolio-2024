@@ -31,9 +31,9 @@
   justify-content: center;
   align-items: center;
   font-size: clamp(
-    0.3rem,
-    2vw + 0.3rem,
-    0.9rem
+    0.1rem,
+    1vw + 0.1rem,
+    0.7vw
   ); /* Adjusted for better scaling */
   color: black;
   border-right: 1px solid black;

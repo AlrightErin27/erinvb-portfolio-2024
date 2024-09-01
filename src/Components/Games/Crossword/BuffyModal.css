@@ -57,3 +57,9 @@
 .key:hover {
   background-image: url("../../../Images/Games/Crossword/keyGiph.gif");
 }
+
+.answers {
+  /* background-color: green; */
+  padding: 15%;
+  margin-bottom: 10%;
+}

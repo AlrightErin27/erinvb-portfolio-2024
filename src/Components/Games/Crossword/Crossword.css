@@ -121,20 +121,9 @@
   /* color: red;
   background-color: black; */
   text-align: start;
+  padding-left: 5%;
 }
 
 .help:hover {
   color: white;
 }
-
-/* .buffy-img {
-
-
-
-  height: 24vh;
-  width: 20vw;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  background-color: green;
-} */
