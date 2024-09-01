@@ -8,6 +8,7 @@ export default function Crossword() {
   const [squares, setSquares] = useState([]);
   const [clicks, setClicks] = useState(0);
   const [selModal, setSelModal] = useState(false);
+
   const answers = [
     {
       dir: "hor",
@@ -265,7 +266,7 @@ export default function Crossword() {
   }, []);
 
   function clickSquare(selSq) {
-    console.log("SELECT", selSq);
+    console.log("SELECT", selSq.grid_ID, ...selSq.words);
 
     let arrHL = squares.map((sq) => {
       let direction = clicks === 0 ? "hor" : "vert";
@@ -333,7 +334,12 @@ export default function Crossword() {
           <div className="grid">
             {squares.map((sq) => {
               return (
-                <Square sq={sq} key={sq.grid_ID} clickSquare={clickSquare} />
+                <Square
+                  sq={sq}
+                  key={sq.grid_ID}
+                  clickSquare={clickSquare}
+                  squares={squares}
+                />
               );
             })}
           </div>
