@@ -1,3 +1,84 @@
-.NoughtsAndCrosses {
-  background-color: red;
+/* NoughtsAndCrosses.css */
+/* font for square's X's and O's */
+@import url("https://fonts.googleapis.com/css2?family=Rye&display=swap");
+/* font-family: "Rye", serif; */
+
+@import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Gochi+Hand&family=Platypi:ital,wght@0,300..800;1,300..800&family=Righteous&display=swap");
+/* font-family: "Righteous", sans-serif; */
+
+.noughts-and-crosses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.noughts-title {
+  font-family: "Rye", serif;
+  font-size: 3vw;
+  font-weight: 100;
+}
+
+.board-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 11.5rem);
+  grid-template-rows: repeat(3, 11.5rem);
+  gap: 5px;
+}
+
+.cell {
+  width: 11.5rem;
+  height: 11.5rem;
+  font-family: "Rye", serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(69, 55, 55, 0.195);
+  border: none;
+  font-size: 5em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cell:hover {
+  background-color: rgba(69, 55, 55, 0.501);
+}
+
+.cell:focus {
+  outline: none;
+}
+
+.cats-game {
+  height: 25rem;
+  width: 25rem;
+  position: absolute;
+  background-image: url("../../../Images/Games/NoughtsAndCrosses/catsGame.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  text-align: center;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-family: "Righteous", sans-serif;
+}
+
+.game-info p {
+  margin: 5px 0;
 }
