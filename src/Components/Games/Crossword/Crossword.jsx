@@ -5,11 +5,11 @@ import Modal from "./BuffyModal";
 import BuffyLogo from "../../../Images/Games/Crossword/logo.png";
 
 export default function Crossword() {
-  // const inputRef = useRef("");
   const [squares, setSquares] = useState([]);
   const [clicks, setClicks] = useState(0);
   const [selModal, setSelModal] = useState(false);
   const [nextGridIdx, setNextGridIdx] = useState(null);
+  const [prevGridIdx, setPrevGridIdx] = useState(null);
 
   const answers = useMemo(
     () => [
@@ -101,29 +101,26 @@ export default function Crossword() {
     []
   );
 
-  //TO DO:
-  //use  onKeyDown={(e) => handleKeyDown(e, index)} to let user delete to tab reverse
-  // const handleKeyDown = (e, index) => {
-  //   if (e.key === "Backspace") {
-  //     const newGrid = [...grid];
-  //     if (newGrid[index].letter === "") {
-  //       // Move focus to the previous square
-  //       if (index > 0) {
-  //         const prevSquare = grid
-  //           .slice(0, index)
-  //           .reverse()
-  //           .find((sq) => sq.wordId.includes(selectedWordId));
-  //         if (prevSquare) {
-  //           document.getElementById(`input-${prevSquare.id}`).focus();
-  //         }
-  //       }
-  //     } else {
-  //       // Clear the current square's letter
-  //       newGrid[index].letter = "";
-  //       setGrid(newGrid);
-  //     }
-  //   }
-  // };
+  const handleBackTab = (sq) => {
+    setPrevGridIdx(null);
+    console.log("FOUND BACKSPACE", sq.grid_ID);
+    //loop begins at index right before curr square
+    for (let i = sq.grid_ID - 1; i >= 1; i--) {
+      if (squares[i].highLight && squares[i].grid_ID !== sq.grid_ID) {
+        setPrevGridIdx(squares[i].grid_ID);
+        console.log(i);
+        break;
+      }
+    }
+  };
+  if (prevGridIdx) {
+    console.log("PREV:", prevGridIdx);
+    let prevInput = document.querySelector(
+      `input.input[data-grid-id="${prevGridIdx}"]`
+    );
+    setPrevGridIdx(null);
+    prevInput.focus();
+  }
 
   //fills squares instate with data trickled down from questions arr
   useEffect(() => {
@@ -205,10 +202,9 @@ export default function Crossword() {
     setSquares(alteredSquares);
   }, [answers]);
 
-  function handleUserInput(e, sq) {
+  function handleUserInput(sq) {
     console.log(sq);
     setNextGridIdx(null);
-    console.log(e);
 
     //set currSq and find what will be next squares dom input
     for (let i = 0 + sq.grid_ID; i < squares.length; i++) {
@@ -306,6 +302,7 @@ export default function Crossword() {
                   key={sq.grid_ID}
                   clickSquare={clickSquare}
                   handleUserInput={handleUserInput}
+                  handleBackTab={handleBackTab}
                 />
               );
             })}

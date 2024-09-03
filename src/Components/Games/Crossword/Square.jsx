@@ -1,7 +1,12 @@
 import "./Square.css";
 import { useState, useEffect, useRef } from "react";
 
-export default function Square({ sq, clickSquare, handleUserInput }) {
+export default function Square({
+  sq,
+  clickSquare,
+  handleUserInput,
+  handleBackTab,
+}) {
   const inputRef = useRef("");
   const [text, setText] = useState("");
   const [sqCorrect, setSqCorrect] = useState(false);
@@ -21,7 +26,7 @@ export default function Square({ sq, clickSquare, handleUserInput }) {
   function handleChange(e) {
     setText(e.target.value);
     // console.log(e);
-    handleUserInput(e, sq);
+    handleUserInput(sq);
   }
 
   function handleDoubleClick() {
@@ -62,6 +67,9 @@ export default function Square({ sq, clickSquare, handleUserInput }) {
             value={text.toLocaleUpperCase()}
             maxLength={1}
             onChange={(e) => handleChange(e)}
+            onKeyDown={(e) =>
+              e.code === "Backspace" ? handleBackTab(sq) : null
+            }
             ref={inputRef}
             data-grid-id={sq.grid_ID}
           />
