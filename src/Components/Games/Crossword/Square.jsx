@@ -2,81 +2,39 @@ import "./Square.css";
 import { useState, useEffect, useRef } from "react";
 
 export default function Square({
-  sq,
-  clickSquare,
-  handleUserInput,
-  handleBackTab,
+  square: { idx, blackout, corner, questionIds, char, keyId },
 }) {
-  const inputRef = useRef("");
   const [text, setText] = useState("");
-  const [sqCorrect, setSqCorrect] = useState(false);
-  const [doubleClick, setDoubleClick] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const inputRef = useRef("");
 
+  // Check if the square is correct whenever the text changes
   useEffect(() => {
-    if (text.toLocaleLowerCase() === sq.chars[0]) {
-      // console.log("MATCH");
-      setSqCorrect(true);
-    } else if (doubleClick) {
-      // console.log("CHEATER");
-      setText(sq.chars[0]);
-      setSqCorrect(true);
-    }
-  }, [text, doubleClick, sq.chars]);
+    setIsCorrect(text === char);
+  }, [text, char]);
 
-  function handleChange(e) {
-    setText(e.target.value);
-    // console.log(e);
-    handleUserInput(sq);
-  }
+  const handleInputChange = (e) => {
+    setText(e.target.value.toLowerCase());
+  };
 
-  function handleDoubleClick() {
-    setDoubleClick(true);
-  }
-
-  function displayCorner() {
-    if (sq.corner) {
-      return (
-        <div className="corner-num">
-          <p>{sq.questions[0]}</p>
-        </div>
-      );
-    }
-  }
-
-  function displayBlackOrWhite() {
-    if (sq.black) {
-      return <div className="black-sq" />;
-    } else {
-      return (
-        <div
-          className="white-sq"
-          style={
-            sq.highLight
-              ? { backgroundColor: "rgba(211, 222, 61, 0.59)" }
-              : null
-          }
-        >
-          {displayCorner()}
-          <input
-            onDoubleClickCapture={() => handleDoubleClick()}
-            onClick={() => {
-              clickSquare(sq);
-            }}
-            className="input"
-            style={sqCorrect ? { color: "red", pointerEvents: "none" } : null}
-            value={text.toLocaleUpperCase()}
-            maxLength={1}
-            onChange={(e) => handleChange(e)}
-            onKeyDown={(e) =>
-              e.code === "Backspace" ? handleBackTab(sq) : null
-            }
-            ref={inputRef}
-            data-grid-id={sq.grid_ID}
-          />
-        </div>
-      );
-    }
-  }
-
-  return <div className="Square">{displayBlackOrWhite()}</div>;
+  return (
+    <div className="Square">
+      <div className={blackout ? "blackout" : isCorrect ? "correct" : "white"}>
+        {!blackout && (
+          <>
+            {corner && <div className="corner-num">{questionIds}</div>}
+            <input
+              className="input"
+              value={text.toLocaleUpperCase()}
+              maxLength={1}
+              data-grid-id={idx}
+              ref={inputRef}
+              onChange={handleInputChange}
+              id={keyId}
+            />
+          </>
+        )}
+      </div>
+    </div>
+  );
 }

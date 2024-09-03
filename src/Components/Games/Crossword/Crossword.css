@@ -1,12 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+
 .Crossword {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100vh; /* Ensures it covers the full viewport height */
   box-sizing: border-box;
   display: flex;
+  flex-direction: column; /* Stack title on top of crossword content */
   justify-content: center;
-  padding: 2vh 2vw;
+  align-items: center;
+  padding: 0vh 2vw;
+  background: url("../../../Images/Games/Crossword/wallpaper.png") no-repeat
+    center center fixed;
+  background-size: cover; /* Use the provided image as the background */
+  background-position: center 5%;
+}
+
+.title {
+  font-family: "Bangers", cursive; /* Retro, comic-style font */
+  color: #b6c6d9; /* Vampire-inspired red */
+  text-shadow: 2px 2px 4px #000, 0 0 10px #91a2a9; /* Shadow and glow for an edgy effect */
+  font-size: 3rem; /* Large, bold text */
+  text-align: center; /* Center the title */
+  margin-bottom: 2rem; /* Increased space between title and grid */
+  letter-spacing: 2px; /* Slightly spaced letters for a dramatic effect */
+  display: block; /* Ensure the title takes full width */
+  background-color: rgba(0, 0, 0, 0.47);
 }
 
 .crossword-cont {
@@ -14,32 +34,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  height: 100vh;
   width: 97vw;
-}
-
-.buffy-logo {
-  filter: brightness(0%);
-  /* position: absolute;
-  left: 0;
-  top: 0; */
-}
-
-.questions {
-  flex: 1;
-  max-width: 40%;
-  min-width: 20%;
-  padding: 1%;
-  margin: 1%;
-  border-radius: 8px;
-  overflow-y: auto;
-}
-
-.q-li {
-  font-size: 1.7vh;
-  margin-bottom: 1rem;
-  line-height: 1.5;
-  color: black;
+  padding-bottom: 6rem;
 }
 
 .grid-cont {
@@ -52,18 +48,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Prevent any overflow */
-  /* z-index: 100; */
+  overflow: hidden;
+  background-color: rgba(42, 42, 42, 0.7); /* Darker background */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(16, 1fr); /* 16 columns */
-  grid-template-rows: repeat(16, 1fr); /* 16 rows */
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
   gap: 0.1rem;
   width: 100%;
   height: 100%;
   border-radius: 4px;
+}
+
+.questions {
+  font-family: "Montserrat", sans-serif;
+  flex: 1;
+  max-width: 40%;
+  min-width: 20%;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 8px;
+  overflow-y: auto;
+  background-color: #2a2a2a7d; /* Dark background for questions */
+  color: #f0f0f0; /* Light text color */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* Subtle shadow */
+}
+
+.questions p {
+  font-size: 1.7vh;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  color: #f0f0f0; /* Light text color */
 }
 
 /* Media queries for smaller screens */
@@ -74,15 +92,10 @@
     padding: 1vh 1vw;
   }
 
-  .questions,
   .grid-cont {
     max-width: 100%;
     min-width: 100%;
     height: 50vh;
-  }
-
-  .q-li {
-    font-size: 1rem;
   }
 }
 
@@ -91,39 +104,7 @@
     padding: 1vh 1vw;
   }
 
-  .questions,
   .grid-cont {
     height: auto;
   }
-
-  .q-li {
-    font-size: 1.8rem; /* Further increase font size */
-  }
-}
-
-.help {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  cursor: pointer;
-  /* background-color: antiquewhite; */
-  height: 25%;
-  width: 20%;
-  text-align: center;
-  background-image: url("../../../Images/Games/Crossword/buffy1.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: bottom;
-  font-size: 70%;
-}
-
-.help-txt {
-  /* color: red;
-  background-color: black; */
-  text-align: start;
-  padding-left: 5%;
-}
-
-.help:hover {
-  color: white;
 }
