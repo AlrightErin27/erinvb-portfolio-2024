@@ -13,20 +13,24 @@
   padding: 0vh 2vw;
   background: url("../../../Images/Games/Crossword/wallpaper.png") no-repeat
     center center fixed;
-  background-size: cover; /* Use the provided image as the background */
-  background-position: center 5%;
+  background-size: cover;
+  background-position: center 0.1%;
 }
 
-.title {
-  font-family: "Bangers", cursive; /* Retro, comic-style font */
-  color: #b6c6d9; /* Vampire-inspired red */
-  text-shadow: 2px 2px 4px #000, 0 0 10px #91a2a9; /* Shadow and glow for an edgy effect */
-  font-size: 3rem; /* Large, bold text */
-  text-align: center; /* Center the title */
-  margin-bottom: 2rem; /* Increased space between title and grid */
-  letter-spacing: 2px; /* Slightly spaced letters for a dramatic effect */
-  display: block; /* Ensure the title takes full width */
-  background-color: rgba(0, 0, 0, 0.47);
+.crossword-title {
+  font-family: "Bangers", cursive;
+  color: #94b9e6;
+  text-shadow: 2px 2px 4px #000, 0 0 10px #91a2a9;
+  font-size: clamp(
+    2rem,
+    5vw,
+    3rem
+  ); /* Dynamic text size: min 2rem, max 4rem, scales with viewport */
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 70vw;
+  letter-spacing: 2px;
+  display: block;
 }
 
 .crossword-cont {
@@ -49,8 +53,8 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-color: rgba(42, 42, 42, 0.7); /* Darker background */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+  background-color: rgba(0, 0, 0, 0.513);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .grid {
@@ -72,8 +76,8 @@
   margin: 1%;
   border-radius: 8px;
   overflow-y: auto;
-  background-color: #2a2a2a7d; /* Dark background for questions */
-  color: #f0f0f0; /* Light text color */
+  background-color: rgba(0, 0, 0, 0.513);
+  color: #f0f0f0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* Subtle shadow */
 }
 
@@ -81,7 +85,7 @@
   font-size: 1.7vh;
   margin-bottom: 1rem;
   line-height: 1.5;
-  color: #f0f0f0; /* Light text color */
+  color: #f0f0f0;
 }
 
 /* Media queries for smaller screens */
@@ -107,4 +111,18 @@
   .grid-cont {
     height: auto;
   }
+}
+
+.Key-button {
+  background-color: grey;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.Key-button:hover {
+  background-color: darkgrey;
 }

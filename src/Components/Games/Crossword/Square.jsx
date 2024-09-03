@@ -2,7 +2,9 @@ import "./Square.css";
 import { useState, useEffect, useRef } from "react";
 
 export default function Square({
-  square: { idx, blackout, corner, questionIds, char, keyId },
+  square,
+  square: { idx, blackout, corner, questionIds, char, keyId, highlight },
+  clickSquare,
 }) {
   const [text, setText] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
@@ -19,7 +21,10 @@ export default function Square({
 
   return (
     <div className="Square">
-      <div className={blackout ? "blackout" : isCorrect ? "correct" : "white"}>
+      <div
+        className={blackout ? "blackout" : isCorrect ? "correct" : "white"}
+        style={highlight ? { backgroundColor: "grey" } : null}
+      >
         {!blackout && (
           <>
             {corner && <div className="corner-num">{questionIds}</div>}
@@ -31,6 +36,7 @@ export default function Square({
               ref={inputRef}
               onChange={handleInputChange}
               id={keyId}
+              onClick={() => clickSquare(square)}
             />
           </>
         )}

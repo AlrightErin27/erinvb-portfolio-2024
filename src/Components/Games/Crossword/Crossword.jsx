@@ -1,13 +1,19 @@
 import "./Crossword.css";
-
 import { useState, useEffect } from "react";
 
 import Data from "./Data";
 import Square from "./Square";
+import Key from "./Key";
+
+// TO DO
+// have double click display square's char
+// make tab go forward
+//entering a char go forward
+//backspace go backwards
 
 export default function Crossword() {
-  //STATE
   const [squares, setSquares] = useState([]);
+  const [isKeyOpen, setIsKeyOpen] = useState(false);
 
   //useEffect runs only on page's 1st render
   //populates squares in state
@@ -68,12 +74,6 @@ export default function Crossword() {
     setSquares(populateSquares);
   }, []);
 
-  function renderGrid() {
-    return squares.map((square) => {
-      return <Square key={square.idx} square={square} />;
-    });
-  }
-
   function renderQuestions(dir) {
     return (
       <div>
@@ -94,16 +94,67 @@ export default function Crossword() {
     );
   }
 
+  // Function to toggle modal visibility
+  const toggleKey = () => {
+    setIsKeyOpen(!isKeyOpen);
+  };
+
+  //HIGHLIGHT WORD:
+  //onClick set the square to select in state
+  //then see if the other squares have the select's word
+  function clickSquare(currSquare) {
+    // Remove highlights from all squares
+    setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
+
+    // Determine the word to highlight
+    let word;
+    if (currSquare.idx === 73) {
+      word = currSquare.firstClick ? "railroad" : "rupert";
+      setSquares((sqs) =>
+        sqs.map((sq) =>
+          sq.idx === currSquare.idx
+            ? { ...sq, firstClick: !currSquare.firstClick }
+            : sq
+        )
+      );
+    } else {
+      word = currSquare.words[0];
+    }
+
+    // Highlight the squares that share the selected word
+    setSquares((sqs) =>
+      sqs.map((sq) =>
+        sq.words?.includes(word) ? { ...sq, highlight: true } : sq
+      )
+    );
+  }
+
   return (
     <div className="Crossword">
-      <h1 className="title">Buffy the Vampire Slayer: Wordplay with a Bite</h1>
+      <h1 className="crossword-title">
+        Buffy the Vampire Slayer: Cryptic Crossword
+      </h1>
       <div className="crossword-cont">
         <div className="grid-cont">
-          <div className="grid">{renderGrid()}</div>
+          <div className="grid">
+            {squares.map((square) => {
+              return (
+                <Square
+                  key={square.idx}
+                  square={square}
+                  clickSquare={clickSquare}
+                />
+              );
+            })}
+          </div>
         </div>
         <div className="questions">
           {renderQuestions("vert")}
           {renderQuestions("hor")}
+          <button className="Key-button" onClick={toggleKey}>
+            Key
+          </button>
+          {isKeyOpen && <Key onClose={toggleKey} />}
         </div>
       </div>
     </div>
