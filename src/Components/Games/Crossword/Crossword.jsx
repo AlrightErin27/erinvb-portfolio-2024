@@ -78,7 +78,19 @@ export default function Crossword() {
       );
     });
 
-    setSquares(populateSquares);
+    setSquares(
+      populateSquares.map((sq) => {
+        if (sq.dirs && sq.dirs.length === 2) {
+          const sortedDirs = sq.dirs.sort((a, b) => {
+            if (a === "hor" && b === "vert") return -1;
+            if (a === "vert" && b === "hor") return 1;
+            return 0; // No change needed if they are already in order or if they are the same
+          });
+          return { ...sq, dirs: sortedDirs };
+        }
+        return sq;
+      })
+    );
   }, []);
 
   function renderQuestions(dir) {
@@ -112,7 +124,7 @@ export default function Crossword() {
     // Reset traverse grid
     setTraverseGrid((prevState) => ({
       ...prevState,
-      curr: null,
+      curr: currSquare.idx,
       next: null,
       prev: null,
     }));
@@ -124,8 +136,8 @@ export default function Crossword() {
     if (currSquare.words.length === 2) {
       word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
       direction = currSquare.firstClick
-        ? currSquare.dirs[0]
-        : currSquare.dirs[1];
+        ? currSquare.dirs[1]
+        : currSquare.dirs[0];
       setSquares((sqs) =>
         sqs.map((sq) =>
           sq.idx === currSquare.idx
@@ -141,11 +153,21 @@ export default function Crossword() {
     //lets traverse the grid!
     let offset = direction === "hor" ? 1 : 15;
     let nextIdx = currSquare.idx + offset;
+
     if (!squares[nextIdx].blackout) {
       setTraverseGrid((prevState) => ({
         ...prevState,
-        curr: currSquare.idx,
         next: nextIdx,
+      }));
+    }
+
+    let prevOffset = direction === "hor" ? 1 : 17;
+    let prevIdx = currSquare.idx - prevOffset;
+    if (prevIdx > 1 && !squares[prevIdx].blackout) {
+      let gridId = direction === "hor" ? prevIdx : prevIdx + 1;
+      setTraverseGrid((prevState) => ({
+        ...prevState,
+        prev: gridId,
       }));
     }
 
@@ -156,7 +178,7 @@ export default function Crossword() {
       )
     );
   }
-  console.log("CURR:", traverseGrid.curr, "NEXT", traverseGrid.next);
+  console.log(traverseGrid);
   return (
     <div className="Crossword">
       <h1 className="crossword-title">
