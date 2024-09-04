@@ -5,11 +5,12 @@ import Data from "./Data";
 import Square from "./Square";
 import Key from "./Key";
 
-// TO DO
-// have double click display square's char
+// TO DO🪲
+// have double click display square's char✅
 // make tab go forward
 //entering a char go forward
 //backspace go backwards
+// add any custom hooks
 
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
@@ -100,16 +101,15 @@ export default function Crossword() {
   };
 
   //HIGHLIGHT WORD:
-  //onClick set the square to select in state
-  //then see if the other squares have the select's word
   function clickSquare(currSquare) {
+    console.log(currSquare);
     // Remove highlights from all squares
     setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
 
     // Determine the word to highlight
     let word;
-    if (currSquare.idx === 73) {
-      word = currSquare.firstClick ? "railroad" : "rupert";
+    if (currSquare.words.length === 2) {
+      word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
       setSquares((sqs) =>
         sqs.map((sq) =>
           sq.idx === currSquare.idx

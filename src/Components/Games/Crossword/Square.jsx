@@ -8,6 +8,7 @@ export default function Square({
 }) {
   const [text, setText] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
+  const [doubleClick, setDoubleClick] = useState(false);
   const inputRef = useRef("");
 
   // Check if the square is correct whenever the text changes
@@ -37,6 +38,7 @@ export default function Square({
               onChange={handleInputChange}
               id={keyId}
               onClick={() => clickSquare(square)}
+              onDoubleClick={() => setText(char)}
             />
           </>
         )}

@@ -38,7 +38,7 @@ const Data = [
     dir: "hor",
     local: 187,
     num: 9,
-    q: "In Season 5, Buffy's sister is revealed to be The ___, which has the power to open dimensional portals.",
+    q: "Buffy's sister is revealed to be The ___, which has the power to open dimensional portals.",
     a: "Key",
   },
   {

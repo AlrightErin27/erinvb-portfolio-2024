@@ -34,12 +34,11 @@
 }
 
 .white:hover {
-  background-color: #889bb7fb; /* Slightly lighter on hover */
   box-shadow: 0 0 10px rgba(183, 200, 220, 0.8); /* Soft glow effect using a color from the image */
 }
 
 .correct {
-  background-color: inherit;
+  background-color: #a7b0bd;
   pointer-events: none;
   height: 100%;
   width: 100%;
@@ -50,8 +49,7 @@
 }
 
 .correct .input {
-  color: #000; /* Ensure the text color inside the input is black */
-  font-weight: 700;
+  color: #25255a; /* Ensure the text color inside the input is black */
 }
 
 .corner-num {
