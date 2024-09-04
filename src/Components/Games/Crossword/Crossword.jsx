@@ -5,13 +5,9 @@ import Data from "./Data";
 import Square from "./Square";
 import Key from "./Key";
 
-// TO DO🪲
-// ??BUGGGG ALERT: FIX DUMB GRID TRAVERSE ARFG
-// have double click display square's char✅
-// make tab go forward
-//entering a char go forward
-//backspace go backwards
-// add any custom hooks
+//  let prevInput = document.querySelector(
+//    `input.input[data-grid-id="${prevGridIdx}"]`
+//  );
 
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
@@ -121,12 +117,13 @@ export default function Crossword() {
     setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
 
     // Determine the word to highlight
-    let word, direction;
+    // let word, direction;
+    let word;
     if (currSquare.words.length === 2) {
       word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
-      direction = currSquare.firstClick
-        ? currSquare.dirs[1]
-        : currSquare.dirs[0];
+      // direction = currSquare.firstClick
+      //   ? currSquare.dirs[1]
+      //   : currSquare.dirs[0];
       setSquares((sqs) =>
         sqs.map((sq) =>
           sq.idx === currSquare.idx
@@ -136,7 +133,7 @@ export default function Crossword() {
       );
     } else {
       word = currSquare.words[0];
-      direction = currSquare.dirs[0];
+      // direction = currSquare.dirs[0];
     }
 
     // let runs = word.length;
