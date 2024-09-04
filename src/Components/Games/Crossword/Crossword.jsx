@@ -15,6 +15,12 @@ import Key from "./Key";
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
+  // const [nextSquare, setNextSquare] = useState(null);
+  const [traverseGrid, setTraverseGrid] = useState({
+    curr: null,
+    next: null,
+    prev: null,
+  });
 
   //useEffect runs only on page's 1st render
   //populates squares in state
@@ -100,16 +106,26 @@ export default function Crossword() {
     setIsKeyOpen(!isKeyOpen);
   };
 
-  //HIGHLIGHT WORD:
+  //handles squares being clicked and adds highlights to matched words
   function clickSquare(currSquare) {
-    console.log(currSquare);
+    // console.log(currSquare);
+    // Reset traverse grid
+    setTraverseGrid((prevState) => ({
+      ...prevState,
+      curr: null,
+      next: null,
+      prev: null,
+    }));
     // Remove highlights from all squares
     setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
 
     // Determine the word to highlight
-    let word;
+    let word, direction;
     if (currSquare.words.length === 2) {
       word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
+      direction = currSquare.firstClick
+        ? currSquare.dirs[0]
+        : currSquare.dirs[1];
       setSquares((sqs) =>
         sqs.map((sq) =>
           sq.idx === currSquare.idx
@@ -119,6 +135,18 @@ export default function Crossword() {
       );
     } else {
       word = currSquare.words[0];
+      direction = currSquare.dirs[0];
+    }
+
+    //lets traverse the grid!
+    let offset = direction === "hor" ? 1 : 15;
+    let nextIdx = currSquare.idx + offset;
+    if (!squares[nextIdx].blackout) {
+      setTraverseGrid((prevState) => ({
+        ...prevState,
+        curr: currSquare.idx,
+        next: nextIdx,
+      }));
     }
 
     // Highlight the squares that share the selected word
@@ -128,7 +156,7 @@ export default function Crossword() {
       )
     );
   }
-
+  console.log("CURR:", traverseGrid.curr, "NEXT", traverseGrid.next);
   return (
     <div className="Crossword">
       <h1 className="crossword-title">
