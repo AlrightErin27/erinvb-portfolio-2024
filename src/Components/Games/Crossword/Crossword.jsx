@@ -16,12 +16,8 @@ import Key from "./Key";
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
-  // const [nextSquare, setNextSquare] = useState(null);
-  const [traverseGrid, setTraverseGrid] = useState({
-    curr: null,
-    next: null,
-    prev: null,
-  });
+  const [currIdx, setCurrIdx] = useState(null);
+  const [nextIdx, setNextIdx] = useState(null);
 
   //useEffect runs only on page's 1st render
   //populates squares in state
@@ -119,37 +115,15 @@ export default function Crossword() {
     setIsKeyOpen(!isKeyOpen);
   };
 
-  //sets traverse grid into state, just next and prev
-  //runs when a square is clicked in clickSquare fxn
-  function handleTraverseGrid(square, dir) {
-    const step = dir === "hor" ? 1 : 16;
-    const prevIdx = square.idx - step;
-    const nextIdx = square.idx + step;
-
-    if (squares[prevIdx] && prevIdx > 1) {
-      setTraverseGrid((prevState) => ({ ...prevState, prev: prevIdx }));
-    }
-
-    if (squares[nextIdx] && nextIdx < 319) {
-      setTraverseGrid((prevState) => ({ ...prevState, next: nextIdx }));
-    }
-  }
-
-  if (traverseGrid.curr) {
-    console.log(traverseGrid);
-  }
   //handles squares being clicked and adds highlights to matched words
   function clickSquare(currSquare) {
-    // console.log(currSquare);
-    // Reset traverse grid
-    setTraverseGrid((prevState) => ({
-      ...prevState,
-      curr: currSquare.idx,
-      next: null,
-      prev: null,
-    }));
+    console.log(currSquare);
+
     // Remove highlights from all squares
     setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
+    // reset index's for grid traverse
+    setCurrIdx(null);
+    setNextIdx(null);
 
     // Determine the word to highlight
     let word, direction;
@@ -170,8 +144,35 @@ export default function Crossword() {
       direction = currSquare.dirs[0];
     }
 
-    handleTraverseGrid(currSquare, direction);
+    let runs = word.length;
+    let firstMatch = null;
+    let offset = direction === "vert" ? 1 : 0;
 
+    // VERT/HOR AND FORWARD
+    if (direction && word) {
+      for (
+        let i = currSquare.idx + offset;
+        i < squares.length && runs > 0;
+        i++
+      ) {
+        const square = squares[i];
+
+        if (Array.isArray(square?.words) && square.words.includes(word)) {
+          firstMatch = square;
+          --runs;
+          break;
+        } else {
+          setNextIdx(null);
+        }
+      }
+
+      // Ensure firstMatch is not null before setting nextIdx
+      if (firstMatch) {
+        setNextIdx(firstMatch.idx);
+      } else {
+        setNextIdx(null); // Handle the case where no match is found
+      }
+    }
     // Highlight the squares that share the selected word
     setSquares((sqs) =>
       sqs.map((sq) =>
