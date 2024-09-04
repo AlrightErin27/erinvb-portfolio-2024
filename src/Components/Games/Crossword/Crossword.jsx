@@ -6,6 +6,7 @@ import Square from "./Square";
 import Key from "./Key";
 
 // TO DO🪲
+// ??BUGGGG ALERT: FIX DUMB GRID TRAVERSE ARFG
 // have double click display square's char✅
 // make tab go forward
 //entering a char go forward
@@ -118,6 +119,25 @@ export default function Crossword() {
     setIsKeyOpen(!isKeyOpen);
   };
 
+  //sets traverse grid into state, just next and prev
+  //runs when a square is clicked in clickSquare fxn
+  function handleTraverseGrid(square, dir) {
+    const step = dir === "hor" ? 1 : 16;
+    const prevIdx = square.idx - step;
+    const nextIdx = square.idx + step;
+
+    if (squares[prevIdx] && prevIdx > 1) {
+      setTraverseGrid((prevState) => ({ ...prevState, prev: prevIdx }));
+    }
+
+    if (squares[nextIdx] && nextIdx < 319) {
+      setTraverseGrid((prevState) => ({ ...prevState, next: nextIdx }));
+    }
+  }
+
+  if (traverseGrid.curr) {
+    console.log(traverseGrid);
+  }
   //handles squares being clicked and adds highlights to matched words
   function clickSquare(currSquare) {
     // console.log(currSquare);
@@ -150,26 +170,7 @@ export default function Crossword() {
       direction = currSquare.dirs[0];
     }
 
-    //lets traverse the grid!
-    let offset = direction === "hor" ? 1 : 15;
-    let nextIdx = currSquare.idx + offset;
-
-    if (!squares[nextIdx].blackout) {
-      setTraverseGrid((prevState) => ({
-        ...prevState,
-        next: nextIdx,
-      }));
-    }
-
-    let prevOffset = direction === "hor" ? 1 : 17;
-    let prevIdx = currSquare.idx - prevOffset;
-    if (prevIdx > 1 && !squares[prevIdx].blackout) {
-      let gridId = direction === "hor" ? prevIdx : prevIdx + 1;
-      setTraverseGrid((prevState) => ({
-        ...prevState,
-        prev: gridId,
-      }));
-    }
+    handleTraverseGrid(currSquare, direction);
 
     // Highlight the squares that share the selected word
     setSquares((sqs) =>
@@ -178,7 +179,7 @@ export default function Crossword() {
       )
     );
   }
-  console.log(traverseGrid);
+
   return (
     <div className="Crossword">
       <h1 className="crossword-title">
