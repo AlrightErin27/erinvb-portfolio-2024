@@ -1,19 +1,15 @@
 import "./Square.css";
 import { useState, useEffect, useRef } from "react";
 
-export default function Square({
-  square,
-  square: { idx, blackout, corner, questionIds, char, keyId, highlight },
-  clickSquare,
-}) {
+export default function Square({ square, clickSquare }) {
   const [text, setText] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
   const inputRef = useRef("");
 
   // Check if the square is correct whenever the text changes
   useEffect(() => {
-    setIsCorrect(text === char);
-  }, [text, char]);
+    setIsCorrect(text === square.char);
+  }, [text, square.char]);
 
   const handleInputChange = (e) => {
     setText(e.target.value.toLowerCase());
@@ -22,22 +18,27 @@ export default function Square({
   return (
     <div className="Square">
       <div
-        className={blackout ? "blackout" : isCorrect ? "correct" : "white"}
-        style={highlight ? { backgroundColor: "grey" } : null}
+        className={
+          square.blackout ? "blackout" : isCorrect ? "correct" : "white"
+        }
+        style={square.highlight ? { backgroundColor: "grey" } : null}
       >
-        {!blackout && (
+        {!square.blackout && (
           <>
-            {corner && <div className="corner-num">{questionIds}</div>}
+            {square.corner && (
+              <div className="corner-num">{square.questionIds}</div>
+            )}
             <input
               className="input"
               value={text.toLocaleUpperCase()}
               maxLength={1}
-              data-grid-id={idx}
+              data-grid-id={square.idx}
               ref={inputRef}
               onChange={handleInputChange}
-              id={keyId}
+              id={square.keyId}
               onClick={() => clickSquare(square)}
-              onDoubleClick={() => setText(char)}
+              onDoubleClick={() => setText(square.char)}
+              tabIndex={square.onTab ? -1 : 0}
             />
           </>
         )}

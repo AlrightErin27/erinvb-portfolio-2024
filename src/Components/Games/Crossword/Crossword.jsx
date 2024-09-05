@@ -5,9 +5,8 @@ import Data from "./Data";
 import Square from "./Square";
 import Key from "./Key";
 
-//  let prevInput = document.querySelector(
-//    `input.input[data-grid-id="${prevGridIdx}"]`
-//  );
+//add numbers idx associated with words and their letters
+//jump to first letter of next question in question order
 
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
@@ -60,6 +59,7 @@ export default function Crossword() {
           blackout: false,
           highlight: false,
           idx,
+          onTab: false,
           char: "",
           dirs: [],
           words: [],
@@ -111,14 +111,17 @@ export default function Crossword() {
 
   //handles squares being clicked and adds highlights to matched words
   function clickSquare(currSquare) {
-    console.log(currSquare);
+    // console.log(currSquare);
 
     // Remove highlights from all squares
-    setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
+    setSquares((sqs) =>
+      sqs.map((sq) => ({ ...sq, highlight: false, onTab: true }))
+    );
 
     // Determine the word to highlight
-    // let word, direction;
     let word;
+    // let direction;
+
     if (currSquare.words.length === 2) {
       word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
       // direction = currSquare.firstClick
@@ -136,39 +139,10 @@ export default function Crossword() {
       // direction = currSquare.dirs[0];
     }
 
-    // let runs = word.length;
-    // let firstMatch = null;
-    // let offset = direction === "vert" ? 1 : 0;
-
-    // VERT/HOR AND FORWARD
-    // if (direction && word) {
-    //   for (
-    //     let i = currSquare.idx + offset;
-    //     i < squares.length && runs > 0;
-    //     i++
-    //   ) {
-    //     const square = squares[i];
-
-    //     if (Array.isArray(square?.words) && square.words.includes(word)) {
-    //       firstMatch = square;
-    //       --runs;
-    //       break;
-    //     } else {
-    //       setNextIdx(null);
-    //   }
-    // }
-
-    // Ensure firstMatch is not null before setting nextIdx
-    // if (firstMatch) {
-    //   setNextIdx(firstMatch.idx);
-    // } else {
-    //   setNextIdx(null); // Handle the case where no match is found
-    // }
-    // }
     // Highlight the squares that share the selected word
     setSquares((sqs) =>
       sqs.map((sq) =>
-        sq.words?.includes(word) ? { ...sq, highlight: true } : sq
+        sq.words?.includes(word) ? { ...sq, highlight: true, onTab: false } : sq
       )
     );
   }
@@ -187,6 +161,7 @@ export default function Crossword() {
                   key={square.idx}
                   square={square}
                   clickSquare={clickSquare}
+                  squares={squares}
                 />
               );
             })}
@@ -195,7 +170,7 @@ export default function Crossword() {
         <div className="questions">
           {renderQuestions("vert")}
           {renderQuestions("hor")}
-          <button className="Key-button" onClick={toggleKey}>
+          <button className="Key-button" onClick={toggleKey} tabIndex={-1}>
             Key
           </button>
           {isKeyOpen && <Key onClose={toggleKey} />}
