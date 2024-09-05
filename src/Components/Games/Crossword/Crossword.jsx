@@ -10,18 +10,23 @@ import Key from "./Key";
 
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
+  const [words, setWords] = useState([]);
+  const [currWord, setCurrWord] = useState(null);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
 
   //useEffect runs only on page's 1st render
   //populates squares in state
   useEffect(() => {
     //get each letter from each word of Data array
-    const letters = Data.map(({ a, num, local, dir }) => ({
+    const words = Data.map(({ a, num, local, dir }) => ({
       word: a.replace(/ /g, "").toLowerCase(),
       questionId: num,
       idx: local,
       dir,
-    })).flatMap(({ word, questionId, idx, dir }) =>
+    }));
+    setWords(words);
+
+    const letters = words.flatMap(({ word, questionId, idx, dir }) =>
       word.split("").map((char, j) => ({
         char,
         word,
@@ -112,7 +117,7 @@ export default function Crossword() {
   //handles squares being clicked and adds highlights to matched words
   function clickSquare(currSquare) {
     // console.log(currSquare);
-
+    setCurrWord(null);
     // Remove highlights from all squares
     setSquares((sqs) =>
       sqs.map((sq) => ({ ...sq, highlight: false, onTab: true }))
@@ -139,6 +144,7 @@ export default function Crossword() {
       // direction = currSquare.dirs[0];
     }
 
+    setCurrWord(word);
     // Highlight the squares that share the selected word
     setSquares((sqs) =>
       sqs.map((sq) =>
@@ -162,6 +168,8 @@ export default function Crossword() {
                   square={square}
                   clickSquare={clickSquare}
                   squares={squares}
+                  words={words}
+                  currWord={currWord}
                 />
               );
             })}
