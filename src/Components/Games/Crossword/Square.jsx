@@ -5,7 +5,7 @@ export default function Square({
   square,
   clickSquare,
   squares,
-  words,
+  // words,
   currWord,
 }) {
   const [text, setText] = useState("");
@@ -28,44 +28,44 @@ export default function Square({
   };
 
   // Monitor the highlighted square and update currWord and nextWordStartIndex
-  useEffect(() => {
-    if (square.highlight && currWord) {
-      const currIdx = words.findIndex((word) => word.word === currWord);
-      let first = null,
-        last = null;
+  // useEffect(() => {
+  //   if (square.highlight && currWord) {
+  //     const currIdx = words.findIndex((word) => word.word === currWord);
+  //     let first = null,
+  //       last = null;
 
-      //loop through squares, if you find the first letter that matches words and it highlight
-      //that is the first letter and check to see if it's index matches this current index
-      for (let i = 0; i < squares.length; i++) {
-        if (squares[i].highlight && !squares[i].blackout) {
-          const curr = squares[i];
-          if (curr.words.includes(currWord)) {
-            if (!first) {
-              first = curr;
-            }
-            // Always set lastLetter to the current square as we iterate
-            last = curr;
-          }
-        }
-      }
+  //     //loop through squares, if you find the first letter that matches words and it highlight
+  //     //that is the first letter and check to see if it's index matches this current index
+  //     for (let i = 0; i < squares.length; i++) {
+  //       if (squares[i].highlight && !squares[i].blackout) {
+  //         const curr = squares[i];
+  //         if (curr.words.includes(currWord)) {
+  //           if (!first) {
+  //             first = curr;
+  //           }
+  //           // Always set lastLetter to the current square as we iterate
+  //           last = curr;
+  //         }
+  //       }
+  //     }
 
-      // Now, check if the current square is the first or last letter
-      const isFirst = first && first.idx === square.idx;
-      const isLast = last && last.idx === square.idx;
+  //     // Now, check if the current square is the first or last letter
+  //     const isFirst = first && first.idx === square.idx;
+  //     const isLast = last && last.idx === square.idx;
 
-      setData((prev) => ({
-        ...prev,
-        currWord: currWord,
-        nextWord: words[currIdx + 1].word,
-        isFirstLetter: isFirst,
-        isLastLetter: isLast,
-      }));
-    }
-  }, [square.highlight, currWord, squares]);
+  //     setData((prev) => ({
+  //       ...prev,
+  //       currWord: currWord,
+  //       nextWord: words[currIdx + 1].word,
+  //       isFirstLetter: isFirst,
+  //       isLastLetter: isLast,
+  //     }));
+  //   }
+  // }, [square.highlight, currWord, squares]);
 
-  if (square.highlight && data.currWord) {
-    console.log(data);
-  }
+  // if (square.highlight && data.currWord) {
+  //   console.log(data);
+  // }
 
   return (
     <div className="Square">
@@ -87,11 +87,10 @@ export default function Square({
               data-grid-id={square.idx}
               ref={inputRef}
               onChange={handleInputChange}
-              id={square.keyId}
+              id={square.kIdx}
               onClick={() => clickSquare(square)}
               onDoubleClick={() => setText(square.char)}
-              tabIndex={square.onTab ? -1 : 0}
-              // onFocus={handleFocus}
+              // tabIndex={square.onTab ? -1 : 0}
             />
           </>
         )}

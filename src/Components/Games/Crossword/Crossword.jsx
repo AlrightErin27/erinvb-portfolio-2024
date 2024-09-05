@@ -10,7 +10,6 @@ import Key from "./Key";
 
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
-  const [words, setWords] = useState([]);
   const [currWord, setCurrWord] = useState(null);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
 
@@ -18,15 +17,12 @@ export default function Crossword() {
   //populates squares in state
   useEffect(() => {
     //get each letter from each word of Data array
-    const words = Data.map(({ a, num, local, dir }) => ({
+    const letters = Data.map(({ a, num, local, dir }) => ({
       word: a.replace(/ /g, "").toLowerCase(),
       questionId: num,
       idx: local,
       dir,
-    }));
-    setWords(words);
-
-    const letters = words.flatMap(({ word, questionId, idx, dir }) =>
+    })).flatMap(({ word, questionId, idx, dir }) =>
       word.split("").map((char, j) => ({
         char,
         word,
@@ -64,12 +60,11 @@ export default function Crossword() {
           blackout: false,
           highlight: false,
           idx,
-          onTab: false,
           char: "",
           dirs: [],
           words: [],
           questionIds: [],
-          keyId: Math.random() - 0.5,
+          kIdx: Math.random() - 0.5,
         }
       );
     });
@@ -117,15 +112,12 @@ export default function Crossword() {
   //handles squares being clicked and adds highlights to matched words
   function clickSquare(currSquare) {
     // console.log(currSquare);
-    setCurrWord(null);
+
     // Remove highlights from all squares
-    setSquares((sqs) =>
-      sqs.map((sq) => ({ ...sq, highlight: false, onTab: true }))
-    );
+    setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
 
     // Determine the word to highlight
     let word;
-    // let direction;
 
     if (currSquare.words.length === 2) {
       word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
@@ -148,7 +140,7 @@ export default function Crossword() {
     // Highlight the squares that share the selected word
     setSquares((sqs) =>
       sqs.map((sq) =>
-        sq.words?.includes(word) ? { ...sq, highlight: true, onTab: false } : sq
+        sq.words?.includes(word) ? { ...sq, highlight: true } : sq
       )
     );
   }
@@ -168,7 +160,6 @@ export default function Crossword() {
                   square={square}
                   clickSquare={clickSquare}
                   squares={squares}
-                  words={words}
                   currWord={currWord}
                 />
               );
