@@ -148,37 +148,86 @@ export default function Crossword() {
     );
   }
 
-  function moveFocus(currSquare, direction) {
-    const gridSize = 16; // Grid is 16 wide
+  /////////////////////////////////////////////
+  const moveFocusBackward = (currSquare, direction) => {
+    const gridSize = 16;
 
-    // Find the index of the current square
     let currentIdx = squares.findIndex(
       (square) => square.idx === currSquare.idx
     );
 
     if (direction === "hor") {
-      // Move to the next square horizontally
-      for (let i = currentIdx + 1; i < squares.length; i++) {
-        const nextSquare = squares[i];
-        if (!nextSquare.blackout && nextSquare.dirs.includes("hor")) {
-          focusSquare(nextSquare.idx); // Focus this square
+      for (let i = currentIdx - 1; i >= 0; i--) {
+        const prevSquare = squares[i];
+        if (!prevSquare.blackout && prevSquare.dirs.includes("hor")) {
+          focusSquare(prevSquare.idx);
           return;
         }
       }
     } else if (direction === "vert") {
-      // Move to the next square vertically (in steps of grid width)
-      for (let i = currentIdx + gridSize; i < squares.length; i += gridSize) {
-        const nextSquare = squares[i];
-        if (!nextSquare.blackout && nextSquare.dirs.includes("vert")) {
-          focusSquare(nextSquare.idx); // Focus this square
+      for (let i = currentIdx - gridSize; i >= 0; i -= gridSize) {
+        const prevSquare = squares[i];
+        if (!prevSquare.blackout && prevSquare.dirs.includes("vert")) {
+          focusSquare(prevSquare.idx);
           return;
         }
       }
     }
 
-    // If no valid square found in current direction, wrap around to the opposite direction
-    moveToOppositeDirection(currSquare);
+    moveToOppositeDirectionBackward(currSquare);
+  };
+
+  function moveToOppositeDirectionBackward(currSquare) {
+    if (currDir === "hor") {
+      // Switch to the last vertical square
+      for (let i = squares.length - 1; i >= 0; i--) {
+        const square = squares[i];
+        if (!square.blackout && square.dirs.includes("vert")) {
+          focusSquare(square.idx); // Focus the last vertical square
+          return;
+        }
+      }
+    } else if (currDir === "vert") {
+      // Switch to the last horizontal square
+      for (let i = squares.length - 1; i >= 0; i--) {
+        const square = squares[i];
+        if (!square.blackout && square.dirs.includes("hor")) {
+          focusSquare(square.idx); // Focus the last horizontal square
+          return;
+        }
+      }
+    }
   }
+
+  /////////////////////////////////////////////
+
+  const moveFocus = (currSquare, direction) => {
+    const gridSize = 16; // Grid is 16 wide
+
+    let currentIdx = squares.findIndex(
+      (square) => square.idx === currSquare.idx
+    );
+
+    if (direction === "hor") {
+      for (let i = currentIdx + 1; i < squares.length; i++) {
+        const nextSquare = squares[i];
+        if (!nextSquare.blackout && nextSquare.dirs.includes("hor")) {
+          focusSquare(nextSquare.idx);
+          return;
+        }
+      }
+    } else if (direction === "vert") {
+      for (let i = currentIdx + gridSize; i < squares.length; i += gridSize) {
+        const nextSquare = squares[i];
+        if (!nextSquare.blackout && nextSquare.dirs.includes("vert")) {
+          focusSquare(nextSquare.idx);
+          return;
+        }
+      }
+    }
+
+    moveToOppositeDirection(currSquare);
+  };
 
   function moveToOppositeDirection(currSquare) {
     if (currDir === "hor") {
@@ -225,6 +274,7 @@ export default function Crossword() {
                   clickSquare={clickSquare}
                   moveFocus={moveFocus}
                   currDir={currDir}
+                  moveFocusBackward={moveFocusBackward}
                 />
               );
             })}
