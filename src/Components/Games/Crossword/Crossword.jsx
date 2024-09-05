@@ -10,8 +10,9 @@ import Key from "./Key";
 
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
-  const [currWord, setCurrWord] = useState(null);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
+  const [currDir, setCurrDir] = useState(null);
+  // const [currWord, setCurrWord] = useState(null);
 
   //useEffect runs only on page's 1st render
   //populates squares in state
@@ -111,19 +112,20 @@ export default function Crossword() {
 
   //handles squares being clicked and adds highlights to matched words
   function clickSquare(currSquare) {
-    // console.log(currSquare);
-
+    console.log(currSquare);
+    // setCurrWord(null);
+    setCurrDir(null);
     // Remove highlights from all squares
     setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
 
     // Determine the word to highlight
-    let word;
+    let word, direction;
 
     if (currSquare.words.length === 2) {
       word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
-      // direction = currSquare.firstClick
-      //   ? currSquare.dirs[1]
-      //   : currSquare.dirs[0];
+      direction = currSquare.firstClick
+        ? currSquare.dirs[1]
+        : currSquare.dirs[0];
       setSquares((sqs) =>
         sqs.map((sq) =>
           sq.idx === currSquare.idx
@@ -133,16 +135,78 @@ export default function Crossword() {
       );
     } else {
       word = currSquare.words[0];
-      // direction = currSquare.dirs[0];
+      direction = currSquare.dirs[0];
     }
-
-    setCurrWord(word);
+    // console.log(direction);
+    // setCurrWord(word);
+    setCurrDir(direction);
     // Highlight the squares that share the selected word
     setSquares((sqs) =>
       sqs.map((sq) =>
         sq.words?.includes(word) ? { ...sq, highlight: true } : sq
       )
     );
+  }
+
+  function moveFocus(currSquare, direction) {
+    const gridSize = 16; // Grid is 16 wide
+
+    // Find the index of the current square
+    let currentIdx = squares.findIndex(
+      (square) => square.idx === currSquare.idx
+    );
+
+    if (direction === "hor") {
+      // Move to the next square horizontally
+      for (let i = currentIdx + 1; i < squares.length; i++) {
+        const nextSquare = squares[i];
+        if (!nextSquare.blackout && nextSquare.dirs.includes("hor")) {
+          focusSquare(nextSquare.idx); // Focus this square
+          return;
+        }
+      }
+    } else if (direction === "vert") {
+      // Move to the next square vertically (in steps of grid width)
+      for (let i = currentIdx + gridSize; i < squares.length; i += gridSize) {
+        const nextSquare = squares[i];
+        if (!nextSquare.blackout && nextSquare.dirs.includes("vert")) {
+          focusSquare(nextSquare.idx); // Focus this square
+          return;
+        }
+      }
+    }
+
+    // If no valid square found in current direction, wrap around to the opposite direction
+    moveToOppositeDirection(currSquare);
+  }
+
+  function moveToOppositeDirection(currSquare) {
+    if (currDir === "hor") {
+      // Switch to the first vertical square
+      for (let i = 0; i < squares.length; i++) {
+        const square = squares[i];
+        if (!square.blackout && square.dirs.includes("vert")) {
+          focusSquare(square.idx); // Focus the first vertical square
+          return;
+        }
+      }
+    } else if (currDir === "vert") {
+      // Switch to the first horizontal square
+      for (let i = 0; i < squares.length; i++) {
+        const square = squares[i];
+        if (!square.blackout && square.dirs.includes("hor")) {
+          focusSquare(square.idx); // Focus the first horizontal square
+          return;
+        }
+      }
+    }
+  }
+
+  function focusSquare(idx) {
+    const squareInput = document.querySelector(`input[data-grid-id="${idx}"]`);
+    if (squareInput) {
+      squareInput.focus(); // Focus the square
+    }
   }
 
   return (
@@ -159,8 +223,8 @@ export default function Crossword() {
                   key={square.idx}
                   square={square}
                   clickSquare={clickSquare}
-                  squares={squares}
-                  currWord={currWord}
+                  moveFocus={moveFocus}
+                  currDir={currDir}
                 />
               );
             })}
