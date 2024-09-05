@@ -1,13 +1,7 @@
 import "./Square.css";
 import { useState, useEffect, useRef } from "react";
 
-export default function Square({
-  square,
-  clickSquare,
-  moveFocus,
-  currDir,
-  moveFocusBackward,
-}) {
+export default function Square({ square, clickSquare, moveFocus, currDir }) {
   const [text, setText] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
   const inputRef = useRef(null);
@@ -15,11 +9,28 @@ export default function Square({
   // Check if the square is correct whenever the text changes
   useEffect(() => {
     setIsCorrect(text === square.char);
-    moveFocus(square, currDir);
+    moveFocus(square, currDir, 1);
   }, [text, square.char]);
 
   const handleInputChange = (e) => {
     setText(e.target.value.toLowerCase());
+  };
+
+  const handleBackspace = (e) => {
+    if (e.key === "Backspace") {
+      e.preventDefault(); // Prevent default backspace behavior
+
+      if (text === "") {
+        // Case 1: Input is empty, move to the previous square
+        moveFocus(square, currDir, -1);
+      } else if (!isCorrect) {
+        // Case 2a: Input is incorrect, clear it
+        setText(""); // Clear the input
+      } else {
+        // Case 2b: Input is correct, move to the previous square
+        moveFocus(square, currDir, -1);
+      }
+    }
   };
 
   return (
@@ -45,15 +56,15 @@ export default function Square({
               id={square.kIdx}
               onClick={() => clickSquare(square)}
               onDoubleClick={() => setText(square.char)}
-              // tabIndex={square.onTab ? -1 : 0}
               onFocus={() => clickSquare(square)}
               onKeyDown={(e) => {
                 if (e.key === "Tab") {
                   e.preventDefault(); // Prevent default tab behavior
-                  moveFocus(square, currDir); // Move forward based on currDir
-                } else if (e.key === "Backspace") {
-                  e.preventDefault(); // Prevent the default backspace behavior
-                  moveFocusBackward(square, currDir); // Move backward based on currDir
+                  moveFocus(square, currDir, 1); // Move forward based on currDir
+                } else {
+                  // e.preventDefault(); // Prevent default backspace behavior
+                  // moveFocus(square, currDir, -1); // Move backward based on currDir
+                  handleBackspace(e);
                 }
               }}
               tabIndex="0"

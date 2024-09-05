@@ -148,103 +148,58 @@ export default function Crossword() {
     );
   }
 
-  /////////////////////////////////////////////
-  const moveFocusBackward = (currSquare, direction) => {
-    const gridSize = 16;
-
-    let currentIdx = squares.findIndex(
-      (square) => square.idx === currSquare.idx
-    );
-
-    if (direction === "hor") {
-      for (let i = currentIdx - 1; i >= 0; i--) {
-        const prevSquare = squares[i];
-        if (!prevSquare.blackout && prevSquare.dirs.includes("hor")) {
-          focusSquare(prevSquare.idx);
-          return;
-        }
-      }
-    } else if (direction === "vert") {
-      for (let i = currentIdx - gridSize; i >= 0; i -= gridSize) {
-        const prevSquare = squares[i];
-        if (!prevSquare.blackout && prevSquare.dirs.includes("vert")) {
-          focusSquare(prevSquare.idx);
-          return;
-        }
-      }
-    }
-
-    moveToOppositeDirectionBackward(currSquare);
-  };
-
-  function moveToOppositeDirectionBackward(currSquare) {
-    if (currDir === "hor") {
-      // Switch to the last vertical square
-      for (let i = squares.length - 1; i >= 0; i--) {
-        const square = squares[i];
-        if (!square.blackout && square.dirs.includes("vert")) {
-          focusSquare(square.idx); // Focus the last vertical square
-          return;
-        }
-      }
-    } else if (currDir === "vert") {
-      // Switch to the last horizontal square
-      for (let i = squares.length - 1; i >= 0; i--) {
-        const square = squares[i];
-        if (!square.blackout && square.dirs.includes("hor")) {
-          focusSquare(square.idx); // Focus the last horizontal square
-          return;
-        }
-      }
-    }
-  }
-
-  /////////////////////////////////////////////
-
-  const moveFocus = (currSquare, direction) => {
+  function moveFocus(currSquare, direction, step) {
     const gridSize = 16; // Grid is 16 wide
 
+    // Find the index of the current square
     let currentIdx = squares.findIndex(
       (square) => square.idx === currSquare.idx
     );
 
     if (direction === "hor") {
-      for (let i = currentIdx + 1; i < squares.length; i++) {
+      for (let i = currentIdx + step; i >= 0 && i < squares.length; i += step) {
         const nextSquare = squares[i];
         if (!nextSquare.blackout && nextSquare.dirs.includes("hor")) {
-          focusSquare(nextSquare.idx);
+          focusSquare(nextSquare.idx); // Focus this square
           return;
         }
       }
     } else if (direction === "vert") {
-      for (let i = currentIdx + gridSize; i < squares.length; i += gridSize) {
+      for (
+        let i = currentIdx + step * gridSize;
+        i >= 0 && i < squares.length;
+        i += step * gridSize
+      ) {
         const nextSquare = squares[i];
         if (!nextSquare.blackout && nextSquare.dirs.includes("vert")) {
-          focusSquare(nextSquare.idx);
+          focusSquare(nextSquare.idx); // Focus this square
           return;
         }
       }
     }
 
-    moveToOppositeDirection(currSquare);
-  };
+    // If no valid square is found in the current direction, wrap around to the opposite direction
+    moveToOppositeDirection(currSquare, step);
+  }
 
-  function moveToOppositeDirection(currSquare) {
+  function moveToOppositeDirection(currSquare, step) {
     if (currDir === "hor") {
-      // Switch to the first vertical square
-      for (let i = 0; i < squares.length; i++) {
+      // Move to the first or last vertical square depending on step
+      const startIdx = step > 0 ? 0 : squares.length - 1;
+      for (let i = startIdx; i >= 0 && i < squares.length; i += step) {
         const square = squares[i];
         if (!square.blackout && square.dirs.includes("vert")) {
-          focusSquare(square.idx); // Focus the first vertical square
+          focusSquare(square.idx); // Focus the first/last vertical square
           return;
         }
       }
     } else if (currDir === "vert") {
-      // Switch to the first horizontal square
-      for (let i = 0; i < squares.length; i++) {
+      // Move to the first or last horizontal square depending on step
+      const startIdx = step > 0 ? 0 : squares.length - 1;
+      for (let i = startIdx; i >= 0 && i < squares.length; i += step) {
         const square = squares[i];
         if (!square.blackout && square.dirs.includes("hor")) {
-          focusSquare(square.idx); // Focus the first horizontal square
+          focusSquare(square.idx); // Focus the first/last horizontal square
           return;
         }
       }
@@ -274,7 +229,6 @@ export default function Crossword() {
                   clickSquare={clickSquare}
                   moveFocus={moveFocus}
                   currDir={currDir}
-                  moveFocusBackward={moveFocusBackward}
                 />
               );
             })}
