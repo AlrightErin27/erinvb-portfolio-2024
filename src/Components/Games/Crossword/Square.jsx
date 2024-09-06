@@ -2,15 +2,21 @@ import "./Square.css";
 import { useState, useEffect, useRef } from "react";
 
 export default function Square({ square, clickSquare, moveFocus, currDir }) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
-  const inputRef = useRef(null);
+  const squareRef = useRef(null);
 
   // Check if the square is correct whenever the text changes
   useEffect(() => {
     setIsCorrect(text === square.char);
     moveFocus(square, currDir, 1);
   }, [text, square.char]);
+
+  useEffect(() => {
+    if (text === "") {
+      squareRef.current?.focus(); // Ensure the focus is set after text changes
+    }
+  }, [text]); // This effect will run every time the `text` changes
 
   const handleInputChange = (e) => {
     setText(e.target.value.toLowerCase());
@@ -48,10 +54,10 @@ export default function Square({ square, clickSquare, moveFocus, currDir }) {
             )}
             <input
               className="input"
-              value={text.toLocaleUpperCase()}
+              value={text ? text.toLocaleUpperCase() : ""}
               maxLength={1}
               data-grid-id={square.idx}
-              ref={inputRef}
+              ref={squareRef}
               onChange={handleInputChange}
               id={square.kIdx}
               onClick={() => clickSquare(square)}
