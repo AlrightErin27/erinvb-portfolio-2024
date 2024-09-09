@@ -19,12 +19,12 @@ const NavBar = () => {
             return (
               <li
                 key={idx}
-                className={select === comp.title ? "select-li" : "nav-li"}
+                // className={select === comp.title ? "select-li" : "nav-li"}
               >
                 <Link
                   to={comp.path}
                   onClick={() => setSelect(comp.title)}
-                  className={select === comp.title ? "select-a" : ""}
+                  // className={select === comp.title ? "select-a" : ""}
                 >
                   {comp.title}
                 </Link>

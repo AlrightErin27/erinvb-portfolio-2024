@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Navigate } from "react-router-dom";
 import "./Concentration.css";
 
 import Card from "./ConCard";
@@ -39,7 +38,6 @@ export default function Concentration1() {
   const [flippedCards, setFlippedCards] = useState([]);
   const [matches, setMatches] = useState(0);
   const [isChecking, setIsChecking] = useState(false);
-  const [backToGames, setBackToGames] = useState(false);
 
   const shuffleCards = (cardsArray) => {
     return cardsArray
@@ -105,22 +103,8 @@ export default function Concentration1() {
     resetGame();
   }
 
-  //It back btn pressed this checks the state and brings you back to games page
-  if (backToGames) {
-    // console.log("Take me awayyyyyyy");
-    return <Navigate to="/games" />;
-  }
-
   return (
     <div className="Concentration">
-      <div className="game-controls">
-        <button onClick={() => setBackToGames(true)} className="con-btn">
-          Back To Games
-        </button>
-        <button onClick={resetGame} className="con-btn">
-          Restart
-        </button>
-      </div>
       <div className="game-board">
         {cards.map((card, idx) => (
           <Card
@@ -130,6 +114,11 @@ export default function Concentration1() {
             handleCardClick={handleCardClick}
           />
         ))}
+      </div>
+      <div className="game-controls">
+        <button onClick={resetGame} className="con-btn">
+          Restart
+        </button>
       </div>
     </div>
   );
