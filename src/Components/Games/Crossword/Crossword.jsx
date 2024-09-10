@@ -1,18 +1,14 @@
 import "./Crossword.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import Data from "./Data";
 import Square from "./Square";
 import Key from "./Key";
 
-//add numbers idx associated with words and their letters
-//jump to first letter of next question in question order
-
 export default function Crossword() {
   const [squares, setSquares] = useState([]);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
   const [currDir, setCurrDir] = useState(null);
-  // const [currWord, setCurrWord] = useState(null);
 
   //useEffect runs only on page's 1st render
   //populates squares in state
@@ -111,7 +107,7 @@ export default function Crossword() {
   };
 
   //handles squares being clicked and adds highlights to matched words
-  function clickSquare(currSquare) {
+  const clickSquare = useCallback((currSquare) => {
     console.log(currSquare);
     // setCurrWord(null);
     setCurrDir(null);
@@ -137,8 +133,7 @@ export default function Crossword() {
       word = currSquare.words[0];
       direction = currSquare.dirs[0];
     }
-    // console.log(direction);
-    // setCurrWord(word);
+
     setCurrDir(direction);
     // Highlight the squares that share the selected word
     setSquares((sqs) =>
@@ -146,7 +141,7 @@ export default function Crossword() {
         sq.words?.includes(word) ? { ...sq, highlight: true } : sq
       )
     );
-  }
+  }, []);
 
   function moveFocus(currSquare, direction, step) {
     const gridSize = 16; // Grid is 16 wide
@@ -179,10 +174,10 @@ export default function Crossword() {
     }
 
     // If no valid square is found in the current direction, wrap around to the opposite direction
-    moveToOppositeDirection(currSquare, step);
+    moveToOppositeDirection(step);
   }
 
-  function moveToOppositeDirection(currSquare, step) {
+  function moveToOppositeDirection(step) {
     if (currDir === "hor") {
       // Move to the first or last vertical square depending on step
       const startIdx = step > 0 ? 0 : squares.length - 1;
