@@ -9,6 +9,7 @@ export default function Crossword() {
   const [squares, setSquares] = useState([]);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
   const [currDir, setCurrDir] = useState(null);
+  const [prevWord, setPrevWord] = useState(null); // State to store the previously highlighted word
 
   //useEffect runs only on page's 1st render
   //populates squares in state
@@ -107,41 +108,76 @@ export default function Crossword() {
   };
 
   //handles squares being clicked and adds highlights to matched words
-  const clickSquare = useCallback((currSquare) => {
-    console.log(currSquare);
-    // setCurrWord(null);
-    setCurrDir(null);
-    // Remove highlights from all squares
-    setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
+  const clickSquare = useCallback(
+    (currSquare) => {
+      console.log(currSquare);
+      // setCurrWord(null);
+      setCurrDir(null);
+      // Remove highlights from all squares
+      setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
 
-    // Determine the word to highlight
-    let word, direction;
+      // Determine the word to highlight
+      let word, direction;
+      if (currSquare.words.length === 2) {
+        // Check if prevWord exists and matches either word in the square
+        if (prevWord && currSquare.words.includes(prevWord)) {
+          if (currSquare.firstClick) {
+            // If firstClick is true, prefer the prevWord
+            word =
+              prevWord === currSquare.words[0]
+                ? currSquare.words[0]
+                : currSquare.words[1];
+            direction =
+              prevWord === currSquare.words[0]
+                ? currSquare.dirs[0]
+                : currSquare.dirs[1];
+          } else {
+            // If firstClick is false, pick the other word
+            word =
+              prevWord === currSquare.words[0]
+                ? currSquare.words[1]
+                : currSquare.words[0];
+            direction =
+              prevWord === currSquare.words[0]
+                ? currSquare.dirs[1]
+                : currSquare.dirs[0];
+          }
+        } else {
+          // If no prevWord or prevWord doesn't match any word, default to currSquare.words[0]
+          word = currSquare.firstClick
+            ? currSquare.words[0]
+            : currSquare.words[1];
+          direction = currSquare.firstClick
+            ? currSquare.dirs[0]
+            : currSquare.dirs[1];
+        }
 
-    if (currSquare.words.length === 2) {
-      word = currSquare.firstClick ? currSquare.words[0] : currSquare.words[1];
-      direction = currSquare.firstClick
-        ? currSquare.dirs[1]
-        : currSquare.dirs[0];
+        // Toggle firstClick state for the next click
+        setSquares((sqs) =>
+          sqs.map((sq) =>
+            sq.idx === currSquare.idx
+              ? { ...sq, firstClick: !currSquare.firstClick }
+              : sq
+          )
+        );
+      } else {
+        // Only one word exists
+        word = currSquare.words[0];
+        direction = currSquare.dirs[0];
+      }
+
+      setCurrDir(direction);
+      // Update the previously highlighted word
+      setPrevWord(word);
+      // Highlight the squares that share the selected word
       setSquares((sqs) =>
         sqs.map((sq) =>
-          sq.idx === currSquare.idx
-            ? { ...sq, firstClick: !currSquare.firstClick }
-            : sq
+          sq.words?.includes(word) ? { ...sq, highlight: true } : sq
         )
       );
-    } else {
-      word = currSquare.words[0];
-      direction = currSquare.dirs[0];
-    }
-
-    setCurrDir(direction);
-    // Highlight the squares that share the selected word
-    setSquares((sqs) =>
-      sqs.map((sq) =>
-        sq.words?.includes(word) ? { ...sq, highlight: true } : sq
-      )
-    );
-  }, []);
+    },
+    [prevWord]
+  );
 
   function moveFocus(currSquare, direction, step) {
     const gridSize = 16; // Grid is 16 wide
