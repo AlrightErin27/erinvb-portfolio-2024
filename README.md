@@ -1,1 +1,111 @@
-# Erin Van Brunt's 2024 Software Dev Portfolio
+# Erin Van Brunt's Portfolio
+
+Welcome to my personal portfolio, showcasing my work as a Full-Stack Software Engineer with a strong focus on front-end development and user-centered design. My projects range from web applications and games to complex e-commerce platforms. Each project highlights my commitment to creating elegant, intuitive, and responsive user experiences.
+
+---
+
+## About Me
+
+I am a **Full-Stack Software Engineer** with a unique blend of technical expertise and artistic sensibility. My primary focus is on **front-end development**, where I specialize in building **user-friendly, responsive web applications**. I am passionate about transforming complex problems into elegant, innovative solutions.
+
+My experience spans a diverse range of projects, including crafting intricate game mechanics and developing robust e-commerce platforms. Whether it's delivering game logic or designing intuitive UI/UX, I strive to create high-quality applications that resonate with users.
+
+### Key Strengths:
+
+- Expertise in **JavaScript**, **React.js**, and **CSS** for front-end development.
+- Strong grasp of **back-end technologies** like **Node.js** and **Express**.
+- Comprehensive understanding of **responsive design** and ensuring cross-platform consistency.
+- Dedication to delivering exceptional user experiences through intuitive and visually appealing designs.
+
+---
+
+## Projects
+
+This portfolio contains multiple projects that showcase my technical and creative capabilities. Below are brief descriptions of the key projects, with links to more detailed `README.md` files that delve into their specific technologies and design decisions.
+
+### 1. **Noughts and Crosses (Tic-Tac-Toe)**
+
+A classic turn-based game that allows two players to compete by placing their marks on a 3x3 grid. The game tracks wins, ties, and rounds played, offering a simple but engaging experience.
+
+- Built using **React.js** for component-based architecture.
+- State management with **useState** to track the current player, grid, and win conditions.
+
+For more details, please refer to the [Noughts and Crosses README](./NoughtsAndCrosses/README.md).
+
+### 2. **Concentration (Memory Matching Game)**
+
+A memory game where players flip over cards to match pairs. The game offers randomized card layouts and tracks successful matches.
+
+- Utilizes **React.js** to manage game states, including flipped cards and matched pairs.
+- Employs a custom card shuffling algorithm for a unique experience with each playthrough.
+
+For more details, please refer to the [Concentration README](./Concentration/README.md).
+
+### 3. **Crossword Puzzle Game**
+
+An interactive crossword puzzle that allows players to fill in clues by either clicking or using keyboard navigation.
+
+- Features custom keyboard navigation and state management for an intuitive user experience.
+- Game logic tracks correct entries and highlights active words dynamically.
+
+For more details, please refer to the [Crossword README](./Crossword/README.md).
+
+---
+
+## Technologies and Skills
+
+### Front-End:
+
+- **React.js**: My primary framework for building interactive and responsive user interfaces.
+- **JavaScript (ES6+)**: Used to implement game logic, event handling, and DOM manipulation.
+- **HTML5** and **CSS3**: For structuring web pages and providing visual styling, ensuring clean and responsive design.
+- **Responsive Design**: Creating applications that adapt seamlessly to different screen sizes and devices.
+
+### Back-End:
+
+- **Node.js**: For server-side logic and API handling.
+- **Express.js**: Used for routing and handling requests in web applications.
+- **REST APIs**: Experience in building and consuming APIs.
+
+### Tools:
+
+- **Git/GitHub**: Version control for managing code and collaborating on projects.
+- **Webpack**: For bundling JavaScript modules and managing dependencies.
+- **npm**: Managing project dependencies and automating build processes.
+
+---
+
+## How to Use This Portfolio
+
+Feel free to explore each project folder, where you will find additional documentation (`README.md`) files explaining the technologies, design approaches, and instructions to run each project locally. Each game or application is designed to be interactive and user-friendly, with a focus on smooth navigation and responsive behavior.
+
+To view a project locally:
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the specific project directory:
+   ```bash
+   cd <project-directory>
+   ```
+3. Install the necessary dependencies:
+   ```bash
+   npm install
+   ```
+4. Run the project:
+   ```bash
+   npm start
+   ```
+5. The project will be accessible at `http://localhost:3000`.
+
+---
+
+## Contact
+
+For more information about my work or to discuss potential collaborations, feel free to reach out!
+
+- **Email**: erinmontybruce@gmail.com
+- **[LinkedIn](https://www.linkedin.com/in/erinvanbrunt)**
+- **[Github](https://github.com/AlrightErin27)**
+- **[Medium Blog](https://medium.com/@erinmontybruce)**
