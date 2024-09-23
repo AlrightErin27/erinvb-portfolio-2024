@@ -12,13 +12,25 @@
   align-items: center;
   justify-content: center;
   font-family: Arial, sans-serif;
-  margin: 20px;
+  /* margin: 20px; */
+  height: 100vh;
+
+  background-image: url("../../../Images/Games/NoughtsAndCrosses/stilllife.png");
+  background-position: center;
+  background-size: 110%;
+  transform: hue;
 }
 
 .noughts-title {
   font-family: "Rye", serif;
+  text-align: center;
   font-size: 3vw;
   font-weight: 100;
+  padding: 4px 0 4px 0;
+  color: white;
+  /* background-color: rgba(100, 95, 119, 0.617); */
+  border: solid white 1px;
+  width: 31.35%;
 }
 
 .board-cont {
@@ -43,11 +55,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(69, 55, 55, 0.195);
-  border: none;
+  border: solid white 1px;
+  background-color: transparent;
+  /* border: none; */
   font-size: 5em;
   cursor: pointer;
   transition: background-color 0.3s;
+  color: white;
 }
 
 .cell:hover {
@@ -70,13 +84,17 @@
 }
 
 .game-info {
+  color: white;
   display: flex;
+  /* background-color: rgba(64, 63, 68, 0.617); */
+  border: solid white 1px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1px;
   font-size: 1.2em;
   font-family: "Righteous", sans-serif;
+  width: 31.35%;
 }
 
 .game-info p {

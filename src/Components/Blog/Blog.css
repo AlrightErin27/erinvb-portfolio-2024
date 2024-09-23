@@ -7,13 +7,20 @@ body {
 
 #root {
   height: 100%;
-  background-color: rgb(122, 121, 81);
+  background-color: rgb(172, 170, 100);
   min-height: 100%; /* Ensure it takes at least the full height of the viewport */
   overflow-y: auto;
   /* padding: 0 1vw 0 1vw; */
+}
+
+.blog-overlay {
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
   background-image: url("../../Images/Blog/hex.png");
   background-repeat: space 1px;
   background-size: 1%;
+  background-color: rgba(49, 53, 77, 0.515);
 }
 
 .blog-container {
