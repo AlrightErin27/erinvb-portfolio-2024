@@ -2,15 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./Concentration.css";
 
 import Card from "./ConCard";
-import img1 from "../../../Images/Games/Concentration/abcs.jpg";
-import img2 from "../../../Images/Games/Concentration/dreaming.jpg";
-import img3 from "../../../Images/Games/Concentration/dreams.jpg";
-import img4 from "../../../Images/Games/Concentration/familyphoto.jpg";
-import img5 from "../../../Images/Games/Concentration/girlmoon.jpg";
-import img6 from "../../../Images/Games/Concentration/ladiesmars.jpg";
-import img7 from "../../../Images/Games/Concentration/newnationalpark.jpg";
-import img8 from "../../../Images/Games/Concentration/pillowtalk.jpg";
-import img9 from "../../../Images/Games/Concentration/yellownumber.jpg";
+import img1 from "../../../Images/Games/Concentration/img1.png";
+import img2 from "../../../Images/Games/Concentration/img2.png";
+import img3 from "../../../Images/Games/Concentration/img3.png";
+import img4 from "../../../Images/Games/Concentration/img4.png";
+import img5 from "../../../Images/Games/Concentration/img5.png";
+import img6 from "../../../Images/Games/Concentration/img6.png";
+import img7 from "../../../Images/Games/Concentration/img7.png";
+import img8 from "../../../Images/Games/Concentration/img8.png";
+import img9 from "../../../Images/Games/Concentration/img9.png";
 
 const initialCards = [
   { id: 1, content: img1 },
