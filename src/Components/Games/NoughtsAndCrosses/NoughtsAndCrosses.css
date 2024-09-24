@@ -12,13 +12,10 @@
   align-items: center;
   justify-content: center;
   font-family: Arial, sans-serif;
-  /* margin: 20px; */
   height: 100vh;
-
   background-image: url("../../../Images/Games/NoughtsAndCrosses/stilllife.png");
   background-position: center;
   background-size: 110%;
-  transform: hue;
 }
 
 .noughts-title {
@@ -28,9 +25,8 @@
   font-weight: 100;
   padding: 4px 0 4px 0;
   color: white;
-  /* background-color: rgba(100, 95, 119, 0.617); */
   border: solid white 1px;
-  width: 31.35%;
+  width: 30.4%;
 }
 
 .board-cont {
@@ -43,22 +39,27 @@
 
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 11.5rem);
-  grid-template-rows: repeat(3, 11.5rem);
-  gap: 5px;
+  grid-template-columns: repeat(
+    3,
+    10vw
+  ); /* Each cell takes 30% of viewport width */
+  grid-template-rows: repeat(
+    3,
+    10vw
+  ); /* Each cell has the same height as width */
+  gap: 0.1vw; /* Gap between cells, scaling with the viewport width */
 }
 
 .cell {
-  width: 11.5rem;
-  height: 11.5rem;
+  width: 100%; /* Takes full width defined by grid */
+  height: 100%; /* Makes height equal to width */
   font-family: "Rye", serif;
   display: flex;
   align-items: center;
   justify-content: center;
   border: solid white 1px;
   background-color: transparent;
-  /* border: none; */
-  font-size: 5em;
+  font-size: 5vw; /* Font size scales with viewport width */
   cursor: pointer;
   transition: background-color 0.3s;
   color: white;
@@ -86,15 +87,17 @@
 .game-info {
   color: white;
   display: flex;
-  /* background-color: rgba(64, 63, 68, 0.617); */
   border: solid white 1px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 1px;
-  font-size: 1.2em;
-  font-family: "Righteous", sans-serif;
-  width: 31.35%;
+  font-size: clamp(1.2vh, 20%, 50%);
+  font-family: monospace;
+  width: 30.4%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .game-info p {
