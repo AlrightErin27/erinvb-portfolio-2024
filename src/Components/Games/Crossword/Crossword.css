@@ -21,11 +21,7 @@
   font-family: "Bangers", cursive;
   color: #94b9e6;
   text-shadow: 2px 2px 4px #000, 0 0 10px #91a2a9;
-  font-size: clamp(
-    2rem,
-    5vw,
-    3rem
-  ); /* Dynamic text size: min 2rem, max 4rem, scales with viewport */
+  font-size: clamp(2rem, 5vw, 3rem);
   text-align: center;
   margin-bottom: 2rem;
   width: 70vw;

@@ -36,7 +36,40 @@ body {
     linear-gradient(45deg, rgba(190, 146, 146, 0.2), rgba(0, 0, 0, 0.2));
 }
 
+.game-board {
+  perspective: 600px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  width: 60%;
+  height: 80%;
+  min-width: 30rem;
+  /* border: solid black 3px; */
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.card {
+  background-image: url("../../../Images/Games/Concentration/back.png");
+  background-position: center;
+  background-size: 87%;
+  background-repeat: no-repeat;
+  /* border-radius: 10px; */
+  cursor: pointer;
+  user-select: none;
+  aspect-ratio: 2 / 3;
+}
+
+.card.flipped {
+  background-size: cover;
+  background-size: 87%;
+  background-repeat: no-repeat;
+}
+
 .game-controls {
+  position: relative;
+  padding-top: 0.05%;
+  font-size: clamp(0.5rem, 1.4vw, 3rem);
 }
 
 .game-controls:hover {
@@ -75,34 +108,4 @@ body {
 
 p {
   font-size: 1.2em;
-}
-
-.game-board {
-  perspective: 600px;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 20px;
-  width: 60%;
-  height: 80%;
-  min-width: 30rem;
-  /* border: solid black 3px; */
-  padding: 1rem 1rem 0.5rem 1rem;
-}
-
-.card {
-  background-image: url("../../../Images/Games/Concentration/back.png");
-  background-position: center;
-  background-size: 87%;
-  background-repeat: no-repeat;
-  /* border-radius: 10px; */
-  cursor: pointer;
-  user-select: none;
-  aspect-ratio: 2 / 3;
-}
-
-.card.flipped {
-  background-size: cover;
-  background-size: 87%;
-  background-repeat: no-repeat;
 }
