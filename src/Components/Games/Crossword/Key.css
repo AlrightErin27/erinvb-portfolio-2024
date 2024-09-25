@@ -28,7 +28,7 @@
 .summon {
   all: unset;
   /* Additional styles if needed to maintain functionality */
-  cursor: pointer; /* Ensure the button still has a pointer cursor */
+  cursor: pointer !important;
   display: inline-block; /* Maintain block-level behavior */
   text-decoration: underline;
   padding-right: 3px;
@@ -45,5 +45,5 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }

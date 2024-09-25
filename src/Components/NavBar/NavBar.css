@@ -19,8 +19,6 @@ nav {
 }
 
 .select-li {
-  cursor: none;
-  pointer-events: none;
 }
 
 li a {
