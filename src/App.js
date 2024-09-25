@@ -6,10 +6,13 @@ import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Components/Home/Home";
 import Blog from "./Components/Blog/Blog";
 import Resume from "./Components/Home/Resume/Resume";
+
 import Games from "./Components/Games/Games";
 import Concentration from "./Components/Games/Concentration/Concentration";
 import NoughtsAndCrosses from "./Components/Games/NoughtsAndCrosses/NoughtsAndCrosses";
 import Crossword from "./Components/Games/Crossword/Crossword";
+
+import Shop from "./Components/Shop/Shop";
 
 function App() {
   return (
@@ -28,6 +31,8 @@ function App() {
             element={<NoughtsAndCrosses />}
           />
           <Route path="/games/crossword" element={<Crossword />} />
+
+          <Route path="/shop" element={<Shop />} />
         </Routes>
       </div>
     </Router>

@@ -9,6 +9,7 @@ const NavBar = () => {
     { title: "Home", path: "/" },
     { title: "Blog", path: "/blog" },
     { title: "Games", path: "/games" },
+    { title: "Shop", path: "/shop" },
   ];
 
   if (select)
