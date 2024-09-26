@@ -1,0 +1,276 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+:root {
+  --primary-color: #111111;
+  --secondary-color: #e1e1e1;
+  --accent-color: rgb(17, 73, 95);
+  --button-highlight: #cccccc;
+  --text-color: #f8f7f3;
+  --background-shape-color: #e0e0e0;
+  --hover-scale: 1.08;
+}
+
+.Shop {
+  height: fit-content;
+  font-family: "Playfair Display", serif;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+.shop-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: clamp(20px, 3vw, 50px);
+  background-color: var(--secondary-color);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Repeating Shape Background for Texture */
+.shop-container:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+    circle,
+    var(--background-shape-color) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+/* Typography */
+.header {
+  text-align: center;
+  font-size: clamp(28px, 5vw, 48px);
+  margin-bottom: clamp(30px, 5vw, 50px);
+  letter-spacing: 2px;
+  /* text-transform: uppercase; */
+  height: 21rem;
+  display: flex;
+  background-color: rgb(230, 230, 227);
+  background-image: url("../../Images/Shop/bluedress.jpg");
+  background-size: 29rem;
+  background-repeat: no-repeat;
+  background-position: right;
+  border-bottom: 3rem solid var(--accent-color);
+}
+
+.evie-logo {
+  height: 100%;
+  padding-left: 12%;
+  padding-top: 4%;
+}
+
+.autumn-ad {
+  height: 65%;
+  padding: 1%;
+}
+.sub-header {
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.shop-subheader {
+  text-align: center;
+  font-size: clamp(18px, 3vw, 28px);
+  color: white;
+  margin: clamp(10px, 2vw, 20px) 0;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Inputs */
+.shop-input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  font-family: "Playfair Display", serif;
+  margin: 20px auto;
+  padding: clamp(12px, 1.5vw, 20px);
+  font-size: clamp(14px, 1.5vw, 18px);
+  border: 2px solid var(--button-highlight);
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shop-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 12px rgb(2, 2, 148);
+}
+
+/* Button Styles with Sophisticated Animations */
+.shop-button {
+  background-color: rgb(2, 2, 10);
+  color: var(--text-color);
+  padding: clamp(5px, 0.5vw, 20px);
+  margin: 15px;
+  border: 2px solid var(black);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: clamp(16px, 1.5vw, 22px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.shop-button:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.shop-button:hover {
+  transform: scale(var(--hover-scale));
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.shop-button:hover:before {
+  width: 0%;
+  height: 0%;
+  top: 50%;
+  left: 50%;
+}
+/* ////////////////////////////////// */
+/* Carousel container styling */
+.clothes-cont {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 20px;
+  padding: 20px;
+  margin-top: 40px;
+  white-space: nowrap; /* Prevent wrapping */
+  scrollbar-width: none; /* Hide scrollbar */
+  -webkit-overflow-scrolling: touch;
+}
+
+.clothes-cont::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Webkit browsers */
+}
+
+/* Arrow Styling */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10; /* Ensure arrows are visible */
+}
+
+.carousel-arrow.left {
+  left: 10px; /* Adjusted position */
+}
+
+.carousel-arrow.right {
+  right: 10px; /* Adjusted position to ensure visibility */
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Carousel item styling */
+.clothes-item {
+  flex: 0 0 auto;
+  background-color: var(--primary-color);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: clamp(220px, 22vw, 400px); /* Larger size */
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  word-wrap: break-word; /* Ensures long text wraps */
+  overflow-wrap: break-word; /* Break words if necessary */
+}
+
+.clothes-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.clothes-item:hover {
+  transform: scale(1.05); /* Enlarge item on hover */
+}
+
+/* Clothes Item Hover Effects */
+.clothes-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.clothes-item h2 {
+  font-size: clamp(18px, 2vw, 24px);
+  margin: 10px 0;
+  color: var(--text-color);
+}
+
+.clothes-item p {
+  font-size: clamp(14px, 1.5vw, 18px);
+  margin-bottom: 15px;
+  color: var(--text-color);
+  word-wrap: break-word; /* Ensures long text wraps */
+  overflow-wrap: break-word; /* Prevent overflow of text */
+  white-space: normal; /* Ensure text can break to new lines */
+  max-width: 100%; /* Limit the width of the text to the item container */
+}
+
+.clothes-item .price {
+  font-weight: bold;
+  font-size: clamp(16px, 1.5vw, 22px);
+  color: white;
+}
+
+/* Add to Cart Button */
+.clothes-item button {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: clamp(14px, 1vw, 18px);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.clothes-item button:hover {
+  background-color: var(--button-highlight);
+  transform: scale(1.05);
+}
+/* //////////////////////////////////// */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shop-container {
+    padding: clamp(15px, 4vw, 30px);
+  }
+}

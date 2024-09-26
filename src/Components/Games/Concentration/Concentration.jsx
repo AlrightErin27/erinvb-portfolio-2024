@@ -117,7 +117,7 @@ export default function Concentration1() {
       </div>
       <div className="game-controls">
         <button onClick={resetGame} className="con-btn">
-          • restart •
+          restart
         </button>
       </div>
     </div>

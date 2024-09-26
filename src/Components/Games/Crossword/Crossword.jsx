@@ -110,8 +110,8 @@ export default function Crossword() {
   //handles squares being clicked and adds highlights to matched words
   const clickSquare = useCallback(
     (currSquare) => {
-      console.log(currSquare);
-      // setCurrWord(null);
+      // console.log(currSquare);
+
       setCurrDir(null);
       // Remove highlights from all squares
       setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));

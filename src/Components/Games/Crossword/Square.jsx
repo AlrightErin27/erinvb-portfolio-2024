@@ -10,6 +10,7 @@ export default function Square({ square, clickSquare, moveFocus, currDir }) {
   useEffect(() => {
     setIsCorrect(text === square.char);
     moveFocus(square, currDir, 1);
+    // eslint-disable-next-line
   }, [text, square.char]);
 
   useEffect(() => {
