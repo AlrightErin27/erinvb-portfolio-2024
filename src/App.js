@@ -13,6 +13,7 @@ import NoughtsAndCrosses from "./Components/Games/NoughtsAndCrosses/NoughtsAndCr
 import Crossword from "./Components/Games/Crossword/Crossword";
 
 import Shop from "./Components/Shop/Shop";
+import ShopAccount from "./Components/Shop/Account";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/games/crossword" element={<Crossword />} />
 
           <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/account" element={<ShopAccount />} />
         </Routes>
       </div>
     </Router>

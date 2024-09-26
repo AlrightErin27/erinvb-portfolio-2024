@@ -2,7 +2,7 @@
 :root {
   --primary-color: #111111;
   --secondary-color: #e1e1e1;
-  --accent-color: rgb(17, 73, 95);
+  --accent-color: rgb(29, 95, 122);
   --button-highlight: #cccccc;
   --text-color: #f8f7f3;
   --background-shape-color: #e0e0e0;
@@ -17,7 +17,7 @@
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  height: 100vh;
+  height: fit-content;
 }
 
 .shop-container {
@@ -58,7 +58,7 @@
   /* text-transform: uppercase; */
   height: 21rem;
   display: flex;
-  background-color: rgb(230, 230, 227);
+  background-color: var(--secondary-color);
   background-image: url("../../Images/Shop/bluedress.jpg");
   background-size: 29rem;
   background-repeat: no-repeat;
@@ -76,13 +76,15 @@
   height: 65%;
   padding: 1%;
 }
+
 .sub-header {
-  /* background-color: green; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2%;
 }
+
 .shop-subheader {
   text-align: center;
   font-size: clamp(18px, 3vw, 28px);
@@ -116,46 +118,43 @@
 
 /* Button Styles with Sophisticated Animations */
 .shop-button {
-  background-color: rgb(2, 2, 10);
-  color: var(--text-color);
-  padding: clamp(5px, 0.5vw, 20px);
-  margin: 15px;
-  border: 2px solid var(black);
-  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: clamp(16px, 1.5vw, 22px);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.shop-button:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300%;
-  height: 300%;
-  background: rgba(255, 255, 255, 0.2);
-  transition: width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
+  margin: 3px;
+  font-size: clamp(14px, 1vw, 18px);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .shop-button:hover {
-  transform: scale(var(--hover-scale));
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--button-highlight);
+  transform: scale(1.05);
 }
 
-.shop-button:hover:before {
-  width: 0%;
-  height: 0%;
-  top: 50%;
-  left: 50%;
-}
 /* ////////////////////////////////// */
-/* Carousel container styling */
+.shop-nav {
+  /* background-color: var(--secondary-color); */
+  display: flex;
+  justify-content: start;
+}
+
+.account-icon {
+  max-height: 3rem;
+  filter: invert(0.9);
+  margin-left: 2%;
+  cursor: pointer;
+  border-radius: 10px;
+  border: black 2px solid;
+}
+
+.account-icon:hover {
+  filter: invert(0.2);
+  background-color: rgb(222, 222, 222);
+}
+
 .clothes-cont {
   display: flex;
   overflow-x: auto; /* Enable horizontal scrolling */
@@ -198,17 +197,19 @@
 
 /* Carousel item styling */
 .clothes-item {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: space-between; /* Space between the image/text and the button */
+  align-items: center; /* Center all content horizontally */
   flex: 0 0 auto;
   background-color: var(--primary-color);
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: clamp(220px, 22vw, 400px); /* Larger size */
+  width: clamp(220px, 22vw, 400px);
   text-align: center;
   transition: transform 0.3s ease;
   cursor: pointer;
-  word-wrap: break-word; /* Ensures long text wraps */
-  overflow-wrap: break-word; /* Break words if necessary */
 }
 
 .clothes-item img {
@@ -260,6 +261,8 @@
   cursor: pointer;
   font-size: clamp(14px, 1vw, 18px);
   transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: auto; /* Pushes the button to the bottom */
+  align-self: center; /* Center the button horizontally */
 }
 
 .clothes-item button:hover {
@@ -267,6 +270,13 @@
   transform: scale(1.05);
 }
 /* //////////////////////////////////// */
+
+.footer {
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: end;
+  padding: 0.25%;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
