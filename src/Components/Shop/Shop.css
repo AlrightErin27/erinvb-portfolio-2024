@@ -66,15 +66,23 @@
   border-bottom: 3rem solid var(--accent-color);
 }
 
-.evie-logo {
+.e-logo {
   height: 100%;
   padding-left: 12%;
   padding-top: 4%;
 }
 
-.autumn-ad {
-  height: 65%;
-  padding: 1%;
+.account-icon {
+  max-height: 3rem;
+  margin: 7%;
+  cursor: pointer;
+  border-radius: 10px;
+  border: black 2px solid;
+}
+
+.account-icon:hover {
+  filter: invert(0.05);
+  background-color: rgb(222, 222, 222);
 }
 
 .sub-header {
@@ -139,20 +147,6 @@
   /* background-color: var(--secondary-color); */
   display: flex;
   justify-content: start;
-}
-
-.account-icon {
-  max-height: 3rem;
-  filter: invert(0.9);
-  margin-left: 2%;
-  cursor: pointer;
-  border-radius: 10px;
-  border: black 2px solid;
-}
-
-.account-icon:hover {
-  filter: invert(0.2);
-  background-color: rgb(222, 222, 222);
 }
 
 .clothes-cont {

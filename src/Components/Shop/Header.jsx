@@ -1,10 +1,19 @@
 import "./Shop.css";
-import EvieLogo from "../../Images/Shop/EvieLogo.png";
+import ELogo from "../../Images/Shop/EvieLogo.png";
+import icon from "../../Images/Shop/account.png";
 
-export default function Header() {
+export default function Header({ setCart }) {
   return (
     <div className="header">
-      <img className="evie-logo" src={EvieLogo} alt="evie-logo" />
+      <div className="shop-nav">
+        <img
+          src={icon}
+          alt="account icon"
+          className="account-icon"
+          onClick={() => setCart(true)}
+        />
+      </div>
+      <img className="e-logo" src={ELogo} alt="e-logo" />
     </div>
   );
 }
