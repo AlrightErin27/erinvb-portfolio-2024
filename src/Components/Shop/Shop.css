@@ -165,6 +165,12 @@
 }
 
 /* Arrow Styling */
+.carousel-wrapper {
+  position: relative;
+  overflow: visible; /* Ensure the arrows aren't hidden by overflow */
+  width: 100vw;
+}
+
 .carousel-arrow {
   position: absolute;
   top: 50%;
@@ -172,21 +178,22 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 10px;
+  font-size: clamp(1.5rem, 2vw, 2.5rem); /* Responsive font size */
   cursor: pointer;
-  z-index: 10; /* Ensure arrows are visible */
+  z-index: 10;
+  padding: 10px; /* Add padding for better touch targets */
 }
 
 .carousel-arrow.left {
-  left: 10px; /* Adjusted position */
+  left: clamp(5px, 5vw, 30px); /* Responsive left position */
 }
 
 .carousel-arrow.right {
-  right: 10px; /* Adjusted position to ensure visibility */
+  right: clamp(5px, 5vw, 30px); /* Responsive right position */
 }
 
 .carousel-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 /* Carousel item styling */
