@@ -32,7 +32,7 @@ export default function Body() {
               <h2>{item.title}</h2>
               <p>{item.description}</p>
               <p className="price">{item.price}</p>
-              <button>Add to Cart</button>
+              <button className="shop-button">Add to Cart</button>
             </div>
           ))}
         </div>
