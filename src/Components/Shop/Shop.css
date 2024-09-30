@@ -102,6 +102,21 @@
   text-transform: uppercase;
 }
 
+.body-con {
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  border: 1px red solid;
+}
+
+.account-icon {
+  height: auto;
+  width: 3rem;
+  filter: invert(1);
+  border: 1px solid white;
+  border: 1px red solid;
+}
+
 /* Inputs */
 .shop-input {
   display: block;

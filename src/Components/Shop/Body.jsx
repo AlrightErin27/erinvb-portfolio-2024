@@ -2,7 +2,6 @@ import { useRef } from "react";
 
 import "./Shop.css";
 import items from "./Items";
-import icon from "../../Images/Shop/account.png";
 
 export default function Body() {
   const containerRef = useRef(null);

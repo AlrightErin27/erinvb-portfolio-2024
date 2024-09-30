@@ -6,7 +6,8 @@ import "./Shop.css";
 import Header from "./Header";
 import Body from "./Body";
 import Footer from "./Footer";
-import Cart from "./Cart";
+
+import CartIcon from "../../Images/Shop/account.png";
 
 const Shop = () => {
   const [username, setUsername] = useState("");
@@ -15,7 +16,7 @@ const Shop = () => {
   const [purchases, setPurchases] = useState([]);
   const [lastLogin, setLastLogin] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cart, setCart] = useState(false);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const navigate = useNavigate();
@@ -54,17 +55,14 @@ const Shop = () => {
 
   return (
     <div className="Shop">
-      <Header setCart={setCart} />
+      <Header />
       <div className="sub-header">
         {" "}
         {isLoggedIn ? (
-          <>
-            {cart ? (
-              <Cart purchases={purchases} lastLogin={lastLogin} />
-            ) : (
-              <Body />
-            )}
-          </>
+          <div className="body-con">
+            <img src={CartIcon} alt="account icon" className="account-icon" />
+            <Body />
+          </div>
         ) : (
           <>
             <h2 className="shop-subheader">Login or Register</h2>
