@@ -60,7 +60,10 @@ const Shop = () => {
         {" "}
         {isLoggedIn ? (
           <div className="body-con">
-            <img src={CartIcon} alt="account icon" className="account-icon" />
+            <div className="icon-con">
+              <img src={CartIcon} alt="account icon" className="account-icon" />
+            </div>
+
             <Body />
           </div>
         ) : (
