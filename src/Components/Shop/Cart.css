@@ -1,0 +1,25 @@
+.Cart {
+  position: absolute;
+  top: 50%; /* Position it in the middle of the viewport */
+  left: 50%; /* Position it in the middle of the viewport */
+  transform: translate(-50%, -50%); /* Offset the modal to truly center it */
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 300px; /* Set a fixed or relative width */
+  z-index: 9999; /* Ensure it's on top of other content */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-button-cont {
+  width: 100%;
+
+  text-align: end;
+}
+.cart-img {
+  height: 4rem;
+  width: auto;
+}

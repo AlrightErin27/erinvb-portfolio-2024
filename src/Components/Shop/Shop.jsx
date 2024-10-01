@@ -1,140 +1,170 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Modal from "react-modal";
-import Items from "./Items";
+import { useNavigate } from "react-router-dom";
+import "./Shop.css";
 
-Modal.setAppElement("#root");
+import Header from "./Header";
+import Body from "./Body";
+import Footer from "./Footer";
+import Cart from "./Cart";
+import CartButton from "./CartButton";
 
-function Shop() {
-  const [user, setUser] = useState(null);
-  const [cart, setCart] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [lastLogin, setLastLogin] = useState("");
-  const [purchases, setPurchases] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
+const Shop = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [purchases, setPurchases] = useState([]);
+  const [lastLogin, setLastLogin] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    let sum = cart.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-    setTotalPrice(sum);
-  }, [cart]);
-
-  const register = async () => {
-    try {
-      await axios.post("http://localhost:5000/register", {
-        username,
-        password,
-      });
-      alert("Registered successfully!");
-    } catch (error) {
-      alert("Error registering user");
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+      fetchUserData(token);
     }
-  };
+  }, []);
 
-  const login = async () => {
+  const fetchUserData = async (token) => {
     try {
-      const response = await axios.post("http://localhost:5000/login", {
-        username,
-        password,
+      const response = await axios.get(`${API_URL}/user`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setUser(response.data);
-      setLastLogin(response.data.lastLogin);
       setPurchases(response.data.purchases);
+      setLastLogin(response.data.lastLogin);
     } catch (error) {
-      alert("Error logging in");
+      console.error("Failed to fetch user data", error);
+      handleLogout();
     }
   };
 
-  const addToCart = (item) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find(
-        (cartItem) => cartItem._id === item._id
+  const handleRegister = async () => {
+    try {
+      await axios.post(`${API_URL}/register`, { username, password });
+      alert("Registration successful! Please log in.");
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+          "Registration failed. Please try again."
       );
-      if (existingItem) {
-        return prevCart.map((cartItem) =>
-          cartItem._id === item._id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/login`, {
+        username,
+        password,
+      });
+      localStorage.setItem("token", response.data.token);
+      setIsLoggedIn(true);
+      setPurchases(response.data.purchases);
+      setLastLogin(response.data.lastLogin);
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed. Please try again.");
+    }
+  };
+
+  const handlePurchase = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No authentication token found. Please log in again.");
+      }
+
+      await axios.post(
+        `${API_URL}/purchase`,
+        { cartItems },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setCartItems([]);
+      setPurchases([...purchases, ...cartItems]);
+      alert("Purchase successful!");
+    } catch (error) {
+      if (error.response?.status === 401) {
+        handleLogout();
+        alert("Your session has expired. Please log in again.");
+      } else {
+        alert(
+          error.response?.data?.message ||
+            "Failed to complete purchase. Please try again."
         );
       }
-      return [...prevCart, { ...item, quantity: 1 }];
-    });
+    }
   };
 
-  const removeFromCart = (itemId) => {
-    setCart((prevCart) => prevCart.filter((item) => item._id !== itemId));
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setPurchases([]);
+    setLastLogin(null);
+    setCartItems([]);
+    navigate("/shop");
   };
 
-  const checkout = async () => {
-    await axios.post("http://localhost:5000/purchase", {
-      userId: user.userId,
-      cartItems: cart,
-    });
-    setCart([]);
-    alert("Purchase successful!");
-  };
+  const handleCart = () => setShowCart(!showCart);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const addToCart = (item) => setCartItems((prevItems) => [...prevItems, item]);
 
   return (
-    <div>
-      {!user ? (
-        <div>
-          <h2>Login / Register</h2>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={login}>Login</button>
-          <button onClick={register}>Register</button>
-        </div>
-      ) : (
-        <div>
-          <button onClick={openModal}>View Cart</button>
-          <button onClick={() => setUser(null)}>Logout</button>
-          <Items addToCart={addToCart} />
-        </div>
-      )}
-
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <h2>Your Cart</h2>
-        {cart.map((item) => (
-          <div key={item._id}>
-            <img src={item.image} alt={item.title} />
-            <p>{item.title}</p>
-            <p>{item.price}</p>
-            <p>Quantity: {item.quantity}</p>
-            <button onClick={() => removeFromCart(item._id)}>Remove</button>
+    <div className="Shop">
+      <Header />
+      <div className="sub-header">
+        {isLoggedIn ? (
+          <div className="body-con">
+            <div className="icon-con">
+              <CartButton handleCart={handleCart} />
+            </div>
+            {showCart && (
+              <Cart
+                lastLogin={lastLogin}
+                purchases={purchases}
+                handleCloseCart={() => setShowCart(false)}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+                handlePurchase={handlePurchase}
+              />
+            )}
+            <Body addToCart={addToCart} />
           </div>
-        ))}
-        <h3>Total: ${totalPrice}</h3>
-        <button onClick={checkout}>Purchase</button>
-        <button onClick={closeModal}>Close</button>
-        <p>Last login: {lastLogin}</p>
-        <h4>Past Purchases:</h4>
-        {purchases.map((purchase, index) => (
-          <div key={index}>
-            <p>{purchase.title}</p>
-            <p>{purchase.price}</p>
-          </div>
-        ))}
-      </Modal>
+        ) : (
+          <>
+            <h2 className="shop-subheader">Login or Register</h2>
+            <input
+              className="shop-input"
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="shop-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div>
+              <button className="shop-button" onClick={handleRegister}>
+                Register
+              </button>
+              <button className="shop-button" onClick={handleLogin}>
+                Log In
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+      <div className="footer">
+        {isLoggedIn && <Footer handleLogout={handleLogout} />}
+      </div>
     </div>
   );
-}
+};
 
 export default Shop;
