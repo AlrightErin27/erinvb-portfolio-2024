@@ -1,106 +1,140 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import "./Shop.css";
+import Modal from "react-modal";
+import Items from "./Items";
 
-import Header from "./Header";
-import Body from "./Body";
-import Footer from "./Footer";
+Modal.setAppElement("#root");
 
-import CartIcon from "../../Images/Shop/account.png";
+function Shop() {
+  const [user, setUser] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [lastLogin, setLastLogin] = useState("");
+  const [purchases, setPurchases] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-const Shop = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
-  const [purchases, setPurchases] = useState([]);
-  const [lastLogin, setLastLogin] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const navigate = useNavigate();
+  useEffect(() => {
+    let sum = cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(sum);
+  }, [cart]);
 
-  const handleRegister = async () => {
-    await axios.post("http://localhost:5001/register", { username, password });
-    alert("Registration successful! Please log in.");
+  const register = async () => {
+    try {
+      await axios.post("http://localhost:5000/register", {
+        username,
+        password,
+      });
+      alert("Registered successfully!");
+    } catch (error) {
+      alert("Error registering user");
+    }
   };
 
-  const handleLogin = async () => {
-    const response = await axios.post("http://localhost:5001/login", {
-      username,
-      password,
+  const login = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
+        username,
+        password,
+      });
+      setUser(response.data);
+      setLastLogin(response.data.lastLogin);
+      setPurchases(response.data.purchases);
+    } catch (error) {
+      alert("Error logging in");
+    }
+  };
+
+  const addToCart = (item) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (cartItem) => cartItem._id === item._id
+      );
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem._id === item._id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      }
+      return [...prevCart, { ...item, quantity: 1 }];
     });
-    setToken(response.data.token);
-    setPurchases(response.data.purchases);
-    setLastLogin(response.data.lastLogin);
-    setIsLoggedIn(true);
   };
 
-  const handlePurchase = async (item) => {
-    const response = await axios.post("http://localhost:5001/purchase", {
-      token,
-      item,
+  const removeFromCart = (itemId) => {
+    setCart((prevCart) => prevCart.filter((item) => item._id !== itemId));
+  };
+
+  const checkout = async () => {
+    await axios.post("http://localhost:5000/purchase", {
+      userId: user.userId,
+      cartItems: cart,
     });
-    setPurchases(response.data.purchases);
+    setCart([]);
+    alert("Purchase successful!");
   };
 
-  const handleLogout = () => {
-    setToken("");
-    setIsLoggedIn(false);
-    setPurchases([]);
-    setLastLogin(null);
-    navigate("/shop");
-  };
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
 
   return (
-    <div className="Shop">
-      <Header />
-      <div className="sub-header">
-        {" "}
-        {isLoggedIn ? (
-          <div className="body-con">
-            <div className="icon-con">
-              <img src={CartIcon} alt="account icon" className="account-icon" />
-            </div>
+    <div>
+      {!user ? (
+        <div>
+          <h2>Login / Register</h2>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={login}>Login</button>
+          <button onClick={register}>Register</button>
+        </div>
+      ) : (
+        <div>
+          <button onClick={openModal}>View Cart</button>
+          <button onClick={() => setUser(null)}>Logout</button>
+          <Items addToCart={addToCart} />
+        </div>
+      )}
 
-            <Body />
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <h2>Your Cart</h2>
+        {cart.map((item) => (
+          <div key={item._id}>
+            <img src={item.image} alt={item.title} />
+            <p>{item.title}</p>
+            <p>{item.price}</p>
+            <p>Quantity: {item.quantity}</p>
+            <button onClick={() => removeFromCart(item._id)}>Remove</button>
           </div>
-        ) : (
-          <>
-            <h2 className="shop-subheader">Login or Register</h2>
-            <input
-              className="shop-input"
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="shop-input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div>
-              {" "}
-              <button className="shop-button" onClick={handleRegister}>
-                Register
-              </button>
-              <button className="shop-button" onClick={handleLogin}>
-                Log In
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-
-      <div className="footer">
-        {isLoggedIn ? <Footer handleLogout={handleLogout} /> : <></>}
-      </div>
+        ))}
+        <h3>Total: ${totalPrice}</h3>
+        <button onClick={checkout}>Purchase</button>
+        <button onClick={closeModal}>Close</button>
+        <p>Last login: {lastLogin}</p>
+        <h4>Past Purchases:</h4>
+        {purchases.map((purchase, index) => (
+          <div key={index}>
+            <p>{purchase.title}</p>
+            <p>{purchase.price}</p>
+          </div>
+        ))}
+      </Modal>
     </div>
   );
-};
+}
 
 export default Shop;

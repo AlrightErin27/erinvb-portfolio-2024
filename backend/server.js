@@ -3,32 +3,24 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-
-// Initialize Express app
+const bodyParser = require("body-parser");
 const app = express();
-app.use(express.json());
+
 app.use(cors());
+app.use(bodyParser.json());
 
-//in terminal
-//"ps aux | grep mongod"; && in backend of this project run "node server.js"
-
-// Connect to MongoDB (replace with your MongoDB URI)
-mongoose
-  .connect("mongodb://localhost:27017/shopDB")
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB connection error:", err));
-
-// Define User Schema
-const userSchema = new mongoose.Schema({
-  username: { type: String, unique: true },
+const UserSchema = new mongoose.Schema({
+  username: String,
   password: String,
+  purchases: Array,
   lastLogin: Date,
-  purchases: [String],
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", UserSchema);
 
-// Register Route
+mongoose.connect("mongodb://localhost:27017/shop");
+
+// User registration
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -39,40 +31,38 @@ app.post("/register", async (req, res) => {
     lastLogin: new Date(),
   });
   await newUser.save();
-  res.json({ message: "User registered successfully" });
+  res.status(201).json({ message: "User registered successfully!" });
 });
 
-// Login Route
+// User login
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   if (!user) return res.status(400).json({ message: "User not found" });
-
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ message: "Incorrect password" });
+  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
+  const token = jwt.sign({ userId: user._id }, "secretKey", {
+    expiresIn: "1h",
+  });
   user.lastLogin = new Date();
   await user.save();
-
-  const token = jwt.sign({ id: user._id }, "secret", { expiresIn: "1h" });
-  res.json({ token, purchases: user.purchases, lastLogin: user.lastLogin });
+  res.json({ token, lastLogin: user.lastLogin, purchases: user.purchases });
 });
 
-// Purchase Route
+// Get user data (cart and past purchases)
+app.get("/user/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  res.json({ lastLogin: user.lastLogin, purchases: user.purchases });
+});
+
+// Purchase items
 app.post("/purchase", async (req, res) => {
-  const { token, item } = req.body;
-  try {
-    const decoded = jwt.verify(token, "secret");
-    const user = await User.findById(decoded.id);
-    user.purchases.push(item);
-    await user.save();
-    res.json({ message: "Purchase successful", purchases: user.purchases });
-  } catch (error) {
-    res.status(401).json({ message: "Unauthorized" });
-  }
+  const { userId, cartItems } = req.body;
+  const user = await User.findById(userId);
+  user.purchases.push(...cartItems);
+  await user.save();
+  res.json({ message: "Purchase successful!" });
 });
 
-// Start the server on port 5001
-app.listen(5001, () => {
-  console.log("Backend server running on port 5001");
-});
+app.listen(5001, () => console.log("Server started on port 5001"));

@@ -7,6 +7,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.0",
     "react": "^18.3.1",
     "react-card-flip": "^1.2.3",
     "react-dom": "^18.3.1",
@@ -41,5 +47,10 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-private-property-in-object": "^7.24.7"
-  }
+  },
+  "description": "Welcome to my personal portfolio, showcasing my work as a Full-Stack Software Engineer with a strong focus on front-end development and user-centered design. My projects range from web applications and games to complex e-commerce platforms. Each project highlights my commitment to creating elegant, intuitive, and responsive user experiences.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
