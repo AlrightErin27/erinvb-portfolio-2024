@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Shop.css";
@@ -19,7 +19,35 @@ const Shop = () => {
   const [cartItems, setCartItems] = useState([]);
   const [purchases, setPurchases] = useState([]);
   const [lastLogin, setLastLogin] = useState(null);
+  const [loggedInUsername, setLoggedInUsername] = useState("");
   const navigate = useNavigate();
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setPurchases([]);
+    setLastLogin(null);
+    setCartItems([]);
+    setLoggedInUsername("");
+    navigate("/shop");
+  }, [navigate]);
+
+  const fetchUserData = useCallback(
+    async (token) => {
+      try {
+        const response = await axios.get(`${API_URL}/user`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPurchases(response.data.purchases);
+        setLastLogin(response.data.lastLogin);
+        setLoggedInUsername(response.data.username);
+      } catch (error) {
+        console.error("Failed to fetch user data", error);
+        handleLogout();
+      }
+    },
+    [handleLogout]
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -27,20 +55,7 @@ const Shop = () => {
       setIsLoggedIn(true);
       fetchUserData(token);
     }
-  }, []);
-
-  const fetchUserData = async (token) => {
-    try {
-      const response = await axios.get(`${API_URL}/user`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setPurchases(response.data.purchases);
-      setLastLogin(response.data.lastLogin);
-    } catch (error) {
-      console.error("Failed to fetch user data", error);
-      handleLogout();
-    }
-  };
+  }, [fetchUserData]);
 
   const handleRegister = async () => {
     try {
@@ -64,6 +79,7 @@ const Shop = () => {
       setIsLoggedIn(true);
       setPurchases(response.data.purchases);
       setLastLogin(response.data.lastLogin);
+      setLoggedInUsername(username);
     } catch (error) {
       alert(error.response?.data?.message || "Login failed. Please try again.");
     }
@@ -84,7 +100,7 @@ const Shop = () => {
 
       setCartItems([]);
       setPurchases([...purchases, ...cartItems]);
-      alert("Purchase successful!");
+      // alert("Purchase successful!");
     } catch (error) {
       if (error.response?.status === 401) {
         handleLogout();
@@ -96,15 +112,6 @@ const Shop = () => {
         );
       }
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    setPurchases([]);
-    setLastLogin(null);
-    setCartItems([]);
-    navigate("/shop");
   };
 
   const handleCart = () => setShowCart(!showCart);
@@ -122,6 +129,7 @@ const Shop = () => {
             </div>
             {showCart && (
               <Cart
+                username={loggedInUsername}
                 lastLogin={lastLogin}
                 purchases={purchases}
                 handleCloseCart={() => setShowCart(false)}

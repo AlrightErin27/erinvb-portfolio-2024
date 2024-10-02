@@ -1,162 +1,162 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
 :root {
-  --primary-color: #fefefe; /* White */
-  --secondary-color: #111111; /* Black */
-  --accent-color: #c5a880; /* Muted gold */
-  --text-color: #5a5a5a; /* Dark grey */
+  --primary-color: #fefefe;
+  --secondary-color: #111111;
+  --accent-color: #c5a880;
+  --text-color: #5a5a5a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .Shop {
-  height: fit-content;
   font-family: "Playfair Display", serif;
   background-color: var(--primary-color);
   color: var(--text-color);
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  height: fit-content;
-}
-
-.shop-container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: clamp(20px, 3vw, 50px);
-  background-color: var(--secondary-color);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Repeating Shape Background for Texture */
-.shop-container:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(
-    circle,
-    var(--background-shape-color) 1px,
-    transparent 1px
-  );
-  background-size: 30px 30px;
-  opacity: 0.15;
-  z-index: -1;
-}
-
-/* Typography */
-.header {
-  text-align: center;
-  font-size: clamp(28px, 5vw, 48px);
-  margin-bottom: clamp(30px, 5vw, 50px);
-  letter-spacing: 2px;
-  /* text-transform: uppercase; */
-  height: 21rem;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
+}
+
+.header {
   background-color: var(--secondary-color);
-  background-image: url("../../Images/Shop/bluedress.jpg");
-  background-size: 29rem;
-  background-repeat: no-repeat;
-  background-position: right;
-  border-bottom: 3rem solid var(--accent-color);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 .e-logo {
-  height: 100%;
-  padding-left: 12%;
-  padding-top: 4%;
+  height: 15rem;
   filter: invert(0.8);
-}
-
-.sub-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2%;
-}
-
-.shop-subheader {
-  text-align: center;
-  font-size: clamp(18px, 3vw, 28px);
-  color: white;
-  margin: clamp(10px, 2vw, 20px) 0;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.icon-con {
-  height: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .account-icon {
   width: 3rem;
-  max-height: 3rem;
+  height: 3rem;
   cursor: pointer;
-  border-radius: 10px;
-  border: black 2px solid;
-  margin-left: 94%;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  display: flex;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
 }
 
 .account-icon:hover {
-  filter: invert(0.05);
-  background-color: rgb(222, 222, 222);
+  background-color: var(--text-color);
 }
 
-/* Inputs */
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shop-subheader {
+  text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
 .shop-input {
   display: block;
   width: 100%;
-  max-width: 400px;
-  font-family: "Playfair Display", serif;
-  margin: 20px auto;
-  padding: clamp(12px, 1.5vw, 20px);
-  font-size: clamp(14px, 1.5vw, 18px);
-  border: 2px solid var(--button-highlight);
-  border-radius: 6px;
-  background-color: var(--accent-color);
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 2px solid var(--accent-color);
+  border-radius: 5px;
+  background-color: var(--primary-color);
   color: var(--text-color);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.shop-input:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 12px rgb(192, 192, 196);
-}
-
-/* ////////////////////////////////// */
-.shop-nav {
-  /* background-color: var(--secondary-color); */
+.button-container {
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
+}
+
+.shop-button {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.shop-button:hover {
+  background-color: var(--text-color);
+  transform: translateY(-2px);
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 0 2rem;
 }
 
 .clothes-cont {
   display: flex;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  gap: 20px;
-  padding: 20px;
-  margin-top: 40px;
-  white-space: nowrap; /* Prevent wrapping */
-  scrollbar-width: none; /* Hide scrollbar */
-  -webkit-overflow-scrolling: touch;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .clothes-cont::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for Webkit browsers */
+  display: none;
 }
 
-/* Arrow Styling */
-.carousel-wrapper {
-  position: relative;
-  overflow: visible; /* Ensure the arrows aren't hidden by overflow */
-  width: 100vw;
+.clothes-item {
+  flex: 0 0 auto;
+  width: calc(33.333% - 1rem);
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transition: transform 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+
+.clothes-item .shop-button {
+  width: fit-content;
+  margin-top: auto;
+}
+
+.clothes-item:hover {
+  transform: translateY(-5px);
+}
+
+.clothes-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 
 .carousel-arrow {
@@ -164,108 +164,72 @@
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  color: var(--primary-color);
   border: none;
-  font-size: clamp(1.5rem, 2vw, 2.5rem); /* Responsive font size */
+  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   z-index: 10;
-  padding: 10px; /* Add padding for better touch targets */
 }
 
 .carousel-arrow.left {
-  left: clamp(5px, 5vw, 30px); /* Responsive left position */
+  left: 0.5rem;
 }
 
 .carousel-arrow.right {
-  right: clamp(5px, 5vw, 30px); /* Responsive right position */
+  right: 0.5rem;
 }
-
-.carousel-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-/* Carousel item styling */
-.clothes-item {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: space-between; /* Space between the image/text and the button */
-  align-items: center; /* Center all content horizontally */
-  flex: 0 0 auto;
-  background-color: var(--primary-color);
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: clamp(220px, 22vw, 400px);
-  text-align: center;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-.clothes-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.clothes-item:hover {
-  transform: scale(1.05); /* Enlarge item on hover */
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.clothes-item h2 {
-  font-size: clamp(18px, 2vw, 24px);
-  margin: 10px 0;
-  color: var(--text-color);
-}
-
-.clothes-item p {
-  font-size: clamp(14px, 1.5vw, 18px);
-  margin-bottom: 15px;
-  color: var(--text-color);
-  word-wrap: break-word; /* Ensures long text wraps */
-  overflow-wrap: break-word; /* Prevent overflow of text */
-  white-space: normal; /* Ensure text can break to new lines */
-  max-width: 100%; /* Limit the width of the text to the item container */
-}
-
-.clothes-item .price {
-  font-weight: bold;
-  font-size: clamp(16px, 1.5vw, 22px);
-  color: var(--text-color);
-}
-
-/* Add to Cart Button */
-.shop-button {
-  background-color: transparent;
-  color: var(--accent-color); /* Initial button text color */
-  border: 2px solid var(--accent-color); /* Border matches the accent color */
-  padding: 12px 20px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin: 2px;
-}
-
-.shop-button:hover {
-  background-color: var(
-    --accent-color
-  ); /* Background changes to accent color */
-  color: var(--primary-color); /* Text changes to primary color (white) */
-  transform: scale(1.05); /* Slightly enlarge button on hover */
-}
-/* //////////////////////////////////// */
 
 .footer {
   background-color: var(--secondary-color);
-  display: flex;
-  justify-content: end;
-  padding: 0.25%;
+  color: var(--primary-color);
+  padding: 1rem;
+  text-align: right;
 }
 
-/* Responsive Design */
+@media (max-width: 1024px) {
+  .clothes-item {
+    width: calc(50% - 1rem);
+  }
+}
+
 @media (max-width: 768px) {
-  .shop-container {
-    padding: clamp(15px, 4vw, 30px);
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .e-logo {
+    margin-bottom: 1rem;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .clothes-item {
+    width: calc(100% - 1rem);
+  }
+
+  .carousel-arrow {
+    font-size: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .shop-button {
+    width: 100%;
   }
 }

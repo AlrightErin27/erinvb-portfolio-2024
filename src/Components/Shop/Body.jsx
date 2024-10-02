@@ -1,17 +1,65 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect, useState } from "react";
 import "./Shop.css";
 import items from "./Items";
 
 export default function Body({ addToCart }) {
   const containerRef = useRef(null);
+  const [duplicatedItems, setDuplicatedItems] = useState([]);
+  const [isScrolling, setIsScrolling] = useState(false);
 
-  const scroll = useCallback((direction) => {
-    const scrollAmount = containerRef.current.clientWidth;
-    containerRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
+  useEffect(() => {
+    // Duplicate the items array to create a seamless loop
+    setDuplicatedItems([...items, ...items, ...items]);
   }, []);
+
+  const scroll = useCallback(
+    (direction) => {
+      if (isScrolling) return;
+      setIsScrolling(true);
+
+      const container = containerRef.current;
+      const itemWidth = container.children[0].offsetWidth;
+      const gap = 20; // Assuming 20px gap between items, adjust if different
+      const scrollAmount = itemWidth + gap;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+
+      let newScrollPosition;
+
+      if (direction === "left") {
+        newScrollPosition = container.scrollLeft - scrollAmount;
+        if (newScrollPosition <= 0) {
+          // If we've scrolled to the start, prepare to jump to the middle set
+          container.style.scrollBehavior = "auto";
+          container.scrollLeft = maxScroll / 3;
+          setTimeout(() => {
+            container.style.scrollBehavior = "smooth";
+            container.scrollLeft -= scrollAmount;
+          }, 0);
+        } else {
+          container.scrollLeft = newScrollPosition;
+        }
+      } else {
+        newScrollPosition = container.scrollLeft + scrollAmount;
+        if (newScrollPosition >= maxScroll) {
+          // If we've scrolled to the end, prepare to jump to the first set
+          container.style.scrollBehavior = "auto";
+          container.scrollLeft = maxScroll / 3;
+          setTimeout(() => {
+            container.style.scrollBehavior = "smooth";
+            container.scrollLeft += scrollAmount;
+          }, 0);
+        } else {
+          container.scrollLeft = newScrollPosition;
+        }
+      }
+
+      // Reset scrolling state after animation
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 300); // Adjust this timeout to match your CSS transition duration
+    },
+    [isScrolling]
+  );
 
   const handleKeyDown = useCallback(
     (e, direction) => {
@@ -34,8 +82,8 @@ export default function Body({ addToCart }) {
       </button>
 
       <div className="clothes-cont" ref={containerRef}>
-        {items.map((item, index) => (
-          <div className="clothes-item" key={index}>
+        {duplicatedItems.map((item, index) => (
+          <div className="clothes-item" key={`${item.title}-${index}`}>
             <img src={item.image} alt={item.title} />
             <h2>{item.title}</h2>
             <p>{item.description}</p>

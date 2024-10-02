@@ -1,25 +1,171 @@
 .Cart {
-  position: absolute;
-  top: 50%; /* Position it in the middle of the viewport */
-  left: 50%; /* Position it in the middle of the viewport */
-  transform: translate(-50%, -50%); /* Offset the modal to truly center it */
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  width: 300px; /* Set a fixed or relative width */
-  z-index: 9999; /* Ensure it's on top of other content */
-  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  z-index: 9999;
+  font-family: "Playfair Display", serif;
+  text-align: left;
   display: flex;
   flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .cart-button-cont {
   width: 100%;
-
   text-align: end;
+  margin-bottom: 20px;
 }
+
+.cart-button-cont button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-button-cont button:hover {
+  background-color: var(--accent-color);
+}
+
 .cart-img {
   height: 4rem;
   width: auto;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.Cart ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.Cart li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.Cart li:last-child {
+  border-bottom: none;
+}
+
+.item-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-weight: bold;
+}
+
+.item-price {
+  color: var(--accent-color);
+}
+
+.item-quantity {
+  font-style: italic;
+}
+
+.Cart li button {
+  margin-left: 10px;
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.Cart li button:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+.Cart p {
+  margin: 10px 0;
+}
+
+.Cart h3 {
+  color: var(--secondary-color);
+  margin-top: 30px;
+}
+
+.shop-p {
+  font-style: italic;
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+}
+
+.total-cost {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+.Cart button[aria-label="Proceed to Checkout"] {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+  align-self: center;
+}
+
+.Cart button[aria-label="Proceed to Checkout"]:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+.past-purchases li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.purchase-title {
+  margin-right: 10px;
+}
+
+.purchase-price {
+  font-weight: bold;
+}
+
+.thank-you-message {
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--accent-color);
+}
+
+.empty-cart-message {
+  text-align: center;
+  font-style: italic;
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .Cart {
+    width: 95%;
+    padding: 20px;
+  }
 }
