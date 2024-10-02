@@ -1,4 +1,4 @@
-# Erin Van Brunt's Software Dev Portfolio
+# Erin Van Brunt's Software Engineer Portfolio
 
 Welcome to my personal portfolio, showcasing my work as a Full-Stack Software Engineer with a strong focus on front-end development and user-centered design. My projects range from web applications and games to complex e-commerce platforms. Each project highlights my commitment to creating elegant, intuitive, and responsive user experiences.
 
