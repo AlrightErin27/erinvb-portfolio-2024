@@ -10,7 +10,6 @@ body {
   background-color: black;
   min-height: 100%; /* Ensure it takes at least the full height of the viewport */
   overflow-y: auto;
-  /* padding: 0 1vw 0 1vw; */
 }
 
 .blog-overlay {
@@ -18,9 +17,10 @@ body {
   width: 100vw;
   overflow-y: auto;
   background-image: url("../../Images/Blog/hex.png");
-  background-repeat: space 1px;
-  background-size: 0.8%;
-  background-color: rgb(124, 143, 102);
+  background-repeat: space;
+  background-size: 10px;
+  filter: blur(20);
+  background-color: rgba(254, 240, 235, 0.848);
 }
 
 .blog-container {
@@ -37,11 +37,11 @@ body {
 }
 
 .title {
-  width: 100%;
-  margin-bottom: 20px;
+  width: fit-content;
+  margin: 1%;
   background-color: rgba(0, 0, 0, 0.787);
   border-radius: 15px;
-  padding: 20px;
+  padding: 2% 19% 2% 19%;
   font-size: 40px;
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@ body {
 }
 
 .title-a {
-  color: rgb(220, 220, 32);
+  color: rgb(244, 207, 195);
   text-decoration: none;
 }
 
@@ -59,10 +59,6 @@ body {
 
 .blog-block {
   width: 100%;
-  /* margin-bottom: 20px; */
-  /* background-color: rgba(238, 5, 5, 0.787); */
-  /* border-radius: 15px; */
-  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,12 +74,13 @@ body {
 }
 
 .posts {
-  margin: 20px;
-  width: 100%;
+  /* margin: 20px; */
+  width: fit-content;
   border: 8px black solid;
   border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.49);
-  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.737);
+  margin: 2%;
+  padding: 2%;
 }
 
 .posts h2 {
@@ -91,7 +88,7 @@ body {
   text-align: center;
   text-decoration: underline;
   /* background-color: aliceblue; */
-  color: rgb(220, 220, 32);
+  color: rgb(244, 207, 195);
 }
 
 .posts p {
