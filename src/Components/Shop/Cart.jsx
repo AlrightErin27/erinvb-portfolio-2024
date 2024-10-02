@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Cart.css";
+import "./CSS/Cart.css";
 
 export default function Cart({
   username,

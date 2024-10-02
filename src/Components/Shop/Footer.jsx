@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Footer.css";
+import "./CSS/Footer.css";
 
 import image1 from "../../Images/Shop/Banner/1.png";
 import image2 from "../../Images/Shop/Banner/2.png";
@@ -10,7 +10,7 @@ import image6 from "../../Images/Shop/Banner/6.png";
 import image7 from "../../Images/Shop/Banner/7.png";
 
 export default function Footer({ handleLogout }) {
-  const images = [image1, image2, image3, image4, image5, image6, image7];
+  const images = [image5, image4, image1, image2, image3, image6, image7];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Footer({ handleLogout }) {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   return (
     <footer>

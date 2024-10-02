@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useEffect, useState } from "react";
-import "./Body.css";
+import "./CSS/Body.css";
 import items from "./Items";
 
 export default function Body({ addToCart }) {

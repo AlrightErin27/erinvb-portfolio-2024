@@ -105,21 +105,22 @@ export default function Concentration1() {
 
   return (
     <div className="Concentration">
-      <div className="game-board">
-        {cards.map((card, idx) => (
-          <Card
-            card={card}
-            key={idx}
-            idx={idx}
-            handleCardClick={handleCardClick}
-          />
-        ))}
+      <div className="con-wrap">
+        <div className="game-board">
+          {cards.map((card, idx) => (
+            <Card
+              card={card}
+              key={idx}
+              idx={idx}
+              handleCardClick={handleCardClick}
+            />
+          ))}
+        </div>
+        <div className="game-controls"></div>
       </div>
-      <div className="game-controls">
-        <button onClick={resetGame} className="con-btn">
-          restart
-        </button>
-      </div>
+      <button onClick={resetGame} className="con-btn">
+        • restart •
+      </button>
     </div>
   );
 }

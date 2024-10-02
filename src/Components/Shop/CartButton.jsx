@@ -1,5 +1,5 @@
 import React from "react";
-import "./Shop.css";
+import "./CSS/Shop.css";
 import CartIcon from "../../Images/Shop/account.png";
 
 export default function CartButton({ handleCart }) {

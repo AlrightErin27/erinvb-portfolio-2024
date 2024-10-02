@@ -1,4 +1,4 @@
-import "./Header.css";
+import "./CSS/Header.css";
 import ELogo from "../../Images/Shop/EvieLogo.png";
 
 export default function Header() {

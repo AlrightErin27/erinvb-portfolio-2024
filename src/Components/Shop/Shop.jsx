@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Shop.css";
+import "./CSS/Shop.css";
 
 import Header from "./Header";
 import Entry from "./Entry";

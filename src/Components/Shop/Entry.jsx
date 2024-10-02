@@ -1,5 +1,5 @@
 import React from "react";
-import "./Entry.css";
+import "./CSS/Entry.css";
 
 export default function Entry({
   username,
