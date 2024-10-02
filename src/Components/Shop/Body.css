@@ -1,0 +1,157 @@
+/* Body.css */
+
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+.product-area {
+  flex-grow: 1;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 0 3rem; /* Accommodates arrows */
+}
+
+.clothes-cont {
+  display: flex;
+  overflow-x: hidden;
+  gap: 20px;
+  padding: 20px 0;
+  margin-top: 40px;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.clothes-cont::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: clamp(1.5rem, 2vw, 2.5rem);
+  cursor: pointer;
+  z-index: 10;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-arrow.left {
+  left: 0;
+}
+
+.carousel-arrow.right {
+  right: 0;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.clothes-item {
+  flex: 0 0 auto;
+  width: calc(33.333% - 20px); /* Base width for larger screens */
+  background-color: var(--primary-color);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clothes-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+.clothes-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.clothes-item h2 {
+  font-size: clamp(18px, 2vw, 24px);
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.clothes-item p {
+  font-size: clamp(14px, 1.5vw, 18px);
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+}
+
+.clothes-item .price {
+  font-weight: bold;
+  font-size: clamp(16px, 1.5vw, 22px);
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.clothes-item .shop-button {
+  margin-top: auto;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  width: fit-content;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.clothes-item .shop-button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1200px) {
+  .clothes-item {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  .clothes-item {
+    width: calc(100% - 20px);
+  }
+
+  .carousel-arrow {
+    font-size: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

@@ -7,6 +7,7 @@ import img6 from "../../Images/Shop/skirt.jpg";
 import img7 from "../../Images/Shop/ruffledress.jpg";
 import img8 from "../../Images/Shop/pixie.jpg";
 import img9 from "../../Images/Shop/trousers.jpg";
+import img10 from "../../Images/Shop/olive.jpg";
 
 const items = [
   {
@@ -56,20 +57,26 @@ const items = [
     title: "Ivory Boho Dress",
     description:
       "Romantic floor-length ivory cotton dress with a high-neck bow for a boho-chic vibe.",
-    price: 220,
+    price: 430,
   },
   {
     image: img8,
     title: "White & Brown Pea Coat",
     description:
       "Elegant single-breasted pea coat in white and rich brown, thick with sophisticated charm.",
-    price: 400,
+    price: 270,
   },
   {
     image: img9,
     title: "Tweed Trouser",
     description: "Cream tweed pleated men's trouser.",
     price: 220,
+  },
+  {
+    image: img10,
+    title: "Olive Suite Jacket",
+    description: "Commanding military inspired wood coat with pewter buttons.",
+    price: 180,
   },
 ];
 

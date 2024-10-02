@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Shop.css";
 
 import Header from "./Header";
+import Entry from "./Entry";
 import Body from "./Body";
 import Footer from "./Footer";
 import Cart from "./Cart";
@@ -138,34 +139,18 @@ const Shop = () => {
                 handlePurchase={handlePurchase}
               />
             )}
+
             <Body addToCart={addToCart} />
           </div>
         ) : (
-          <>
-            <h2 className="shop-subheader">Login or Register</h2>
-            <input
-              className="shop-input"
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="shop-input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div>
-              <button className="shop-button" onClick={handleRegister}>
-                Register
-              </button>
-              <button className="shop-button" onClick={handleLogin}>
-                Log In
-              </button>
-            </div>
-          </>
+          <Entry
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            handleRegister={handleRegister}
+            handleLogin={handleLogin}
+          />
         )}
       </div>
       <div className="footer">
