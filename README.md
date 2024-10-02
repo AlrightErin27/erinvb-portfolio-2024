@@ -10,10 +10,16 @@ I am a **Full-Stack Software Engineer** with a unique blend of technical experti
 
 My experience spans a diverse range of projects, including crafting intricate game mechanics and developing robust e-commerce platforms. Whether it's delivering game logic or designing intuitive UI/UX, I strive to create high-quality applications that resonate with users.
 
+## About Me
+
+I am a **Full-Stack Software Engineer** with a unique blend of technical expertise and artistic sensibility. My primary focus is on **front-end development**, where I specialize in building **user-friendly, responsive web applications**. I am passionate about transforming complex problems into elegant, innovative solutions.
+
+My experience spans a diverse range of projects, including crafting intricate game mechanics and developing robust e-commerce platforms. Whether it's delivering game logic or designing intuitive UI/UX, I strive to create high-quality applications that resonate with users.
+
 ### Key Strengths:
 
 - Expertise in **JavaScript**, **React.js**, and **CSS** for front-end development.
-- Strong grasp of **back-end technologies** like **Node.js** and **Express**.
+- Strong grasp of **back-end technologies** like **Node.js**, **MongoDB** and **Express**.
 - Comprehensive understanding of **responsive design** and ensuring cross-platform consistency.
 - Dedication to delivering exceptional user experiences through intuitive and visually appealing designs.
 
@@ -30,7 +36,7 @@ A classic turn-based game that allows two players to compete by placing their ma
 - Built using **React.js** for component-based architecture.
 - State management with **useState** to track the current player, grid, and win conditions.
 
-For more details, please refer to the [Noughts and Crosses README](./NoughtsAndCrosses/README.md).
+For more details, please refer to the [Noughts and Crosses README](./src/Components/Games/NoughtsAndCrosses/README.md).
 
 ### 2. **Concentration (Memory Matching Game)**
 
@@ -39,7 +45,7 @@ A memory game where players flip over cards to match pairs. The game offers rand
 - Utilizes **React.js** to manage game states, including flipped cards and matched pairs.
 - Employs a custom card shuffling algorithm for a unique experience with each playthrough.
 
-For more details, please refer to the [Concentration README](./Concentration/README.md).
+For more details, please refer to the [Concentration README](./src/Components/Games/Concentration/README.md).
 
 ### 3. **Crossword Puzzle Game**
 
@@ -48,7 +54,26 @@ An interactive crossword puzzle that allows players to fill in clues by either c
 - Features custom keyboard navigation and state management for an intuitive user experience.
 - Game logic tracks correct entries and highlights active words dynamically.
 
-For more details, please refer to the [Crossword README](./Crossword/README.md).
+For more details, please refer to the [Crossword README](./src/Components/Games/Crossword/README.md).
+
+### 4. **Evie & Co. - High-End Online Fashion Shop**
+
+Evie & Co. is a **React.js-based e-commerce platform** for a high-end online fashion shop. The shop features an elegant, London-inspired aesthetic that combines mod, Victorian, and punk styles. Users can browse, shop, and manage their accounts with a sleek and intuitive user experience.
+
+#### Features:
+
+- **Interactive Shopping Experience**: Users can browse, add items to their cart, and proceed to checkout with a dynamic and responsive UI.
+- **User Authentication**: Secure user registration, login, and session management, allowing for saved purchase histories and stored user details.
+- **Product and Order Management**: The app supports real-time product availability tracking and displays order confirmation details after checkout.
+
+#### Technologies:
+
+- **React.js** for front-end user interface
+- **MongoDB** and **Mongoose** for database and schema modeling
+- **Node.js** and **Express.js** for backend server logic
+- **CSS** for responsive and sleek design
+
+For more details, please refer to the [Shop README](./src/Components/Shop/README.md).
 
 ---
 
