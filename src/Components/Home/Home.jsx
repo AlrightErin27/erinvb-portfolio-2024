@@ -42,6 +42,7 @@ const Home = () => {
       pdf: null,
     },
   ];
+
   return (
     <div className="home-container">
       <div className="home-content">

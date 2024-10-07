@@ -1,8 +1,24 @@
 import "./Resume.css";
+import Icon from "../../../Images/Home/Icons/download.png";
+import PDF from "../../../Images/Home/Resume/ErinVanBruntResumeAug2024.pdf";
 
 const Resume = () => {
+  const downloadFile = () => {
+    const el = document.createElement("a");
+    el.href = PDF;
+    el.download = "ErinVanBruntResume.pdf";
+    document.body.appendChild(el);
+    el.click();
+  };
+
   return (
     <div className="resume-container">
+      <img
+        src={Icon}
+        alt="download resume PDF"
+        className="dl-icon"
+        onClick={downloadFile}
+      />
       {/* Header Section */}
       <div className="resume-header">
         <h1>Erin Van Brunt</h1>
