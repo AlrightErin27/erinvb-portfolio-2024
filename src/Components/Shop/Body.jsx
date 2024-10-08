@@ -6,10 +6,18 @@ export default function Body({ addToCart }) {
   const containerRef = useRef(null);
   const [duplicatedItems, setDuplicatedItems] = useState([]);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     // Duplicate the items array to create a seamless loop
     setDuplicatedItems([...items, ...items, ...items]);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const scroll = useCallback(
@@ -83,7 +91,13 @@ export default function Body({ addToCart }) {
 
       <div className="clothes-cont" ref={containerRef}>
         {duplicatedItems.map((item, index) => (
-          <div className="clothes-item" key={`${item.title}-${index}`}>
+          <div
+            className="clothes-item"
+            key={`${item.title}-${index}`}
+            style={{
+              width: isMobile ? "calc(100% - 20px)" : "calc(33.333% - 20px)",
+            }}
+          >
             <img src={item.image} alt={item.title} />
             <h2>{item.title}</h2>
             <p>{item.description}</p>

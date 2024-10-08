@@ -141,17 +141,28 @@
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    padding: 1rem;
+  .carousel-wrapper {
+    padding: 0 1.5rem;
   }
 
   .clothes-item {
     width: calc(100% - 20px);
   }
 
-  .carousel-arrow {
-    font-size: 1.5rem;
-    width: 2.5rem;
-    height: 2.5rem;
+  .clothes-item h2 {
+    font-size: 1.2rem;
+  }
+
+  .clothes-item p {
+    font-size: 0.9rem;
+  }
+
+  .clothes-item .price {
+    font-size: 1.1rem;
+  }
+
+  .clothes-item .shop-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
 }

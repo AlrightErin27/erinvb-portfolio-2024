@@ -70,6 +70,23 @@
   }
 
   .shop-button {
-    width: 100%;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    width: auto;
+    min-width: 80px; /* Slightly smaller minimum width for mobile */
+    max-width: 150px; /* Smaller maximum width for mobile */
+  }
+
+  .footer {
+    padding: 0.5rem;
+  }
+
+  .about {
+    width: 95vw;
+    font-size: 0.8rem;
+  }
+
+  .banner {
+    height: 20rem;
   }
 }
