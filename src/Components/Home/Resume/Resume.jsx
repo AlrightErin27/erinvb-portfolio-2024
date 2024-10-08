@@ -1,3 +1,4 @@
+import React from "react";
 import "./Resume.css";
 import Icon from "../../../Images/Home/Icons/download.png";
 import PDF from "../../../Images/Home/Resume/ErinVanBruntResumeAug2024.pdf";
@@ -9,18 +10,12 @@ const Resume = () => {
     el.download = "ErinVanBruntResume.pdf";
     document.body.appendChild(el);
     el.click();
+    document.body.removeChild(el);
   };
 
   return (
     <div className="resume-container">
-      <img
-        src={Icon}
-        alt="download resume PDF"
-        className="dl-icon"
-        onClick={downloadFile}
-      />
-      {/* Header Section */}
-      <div className="resume-header">
+      <header className="resume-header">
         <h1>Erin Van Brunt</h1>
         <p>
           Eugene, OR | (541) 543-4781 |{" "}
@@ -32,7 +27,6 @@ const Resume = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {" "}
             LinkedIn
           </a>{" "}
           |
@@ -41,7 +35,6 @@ const Resume = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {" "}
             GitHub
           </a>{" "}
           |
@@ -50,14 +43,16 @@ const Resume = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {" "}
             Medium Blog
           </a>
         </p>
-      </div>
+        <button className="download-btn" onClick={downloadFile}>
+          <img src={Icon} alt="download resume PDF" className="dl-icon" />
+          Download PDF
+        </button>
+      </header>
 
-      {/* Front-End Developer Section */}
-      <div className="section">
+      <section className="resume-section">
         <h2>Front-End Software Developer</h2>
         <p>
           As a versatile "unicorn" blending art and technology, I am a
@@ -68,12 +63,11 @@ const Resume = () => {
           collaborative mindset consistently bring innovative, visually engaging
           solutions to life.
         </p>
-      </div>
+      </section>
 
-      {/* Technical Skills Section */}
-      <div className="section">
+      <section className="resume-section">
         <h2>Technical Skills</h2>
-        <ul>
+        <ul className="skills-list">
           <li>
             <strong>Languages:</strong> Java, JavaScript (ES6+), TypeScript,
             Ruby, Python, HTML5, CSS3, SQL
@@ -106,7 +100,7 @@ const Resume = () => {
             Agile/Scrum, Version Control, CI/CD
           </li>
         </ul>
-      </div>
+      </section>
 
       {/* Projects Section */}
       <div className="section">
@@ -288,9 +282,9 @@ const Resume = () => {
       </div>
 
       {/* Refs Section */}
-      <div className="section">
+      <footer className="resume-footer">
         <p>* References available upon request.</p>
-      </div>
+      </footer>
     </div>
   );
 };
