@@ -17,8 +17,8 @@ body {
   width: 100%;
   overflow-y: auto;
   background-image: url("../../Images/Blog/hex.png");
-  background-repeat: space;
-  background-size: 10px;
+  background-repeat: repeat;
+  background-size: 11px; /* Set this to the original size of your hexagon image */
   background-color: rgba(254, 240, 235, 0.848);
 }
 

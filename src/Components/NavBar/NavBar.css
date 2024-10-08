@@ -1,38 +1,102 @@
-nav {
-  background-color: rgb(0, 0, 0);
-  padding: 0.7%;
-  font-size: large;
+:root {
+  --color-background: #2c2c2c;
+  --color-text-primary: #e0e0e0;
+  --color-text-selected: #ffffff;
+  --color-border: #4a4a4a;
+  --color-hover-bg: rgba(255, 255, 255, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-accent: #a0a0a0;
+  --color-crt-effect1: rgba(44, 44, 44, 0);
+  --color-crt-effect2: rgba(0, 0, 0, 0.15);
+  --color-crt-effect-r: rgba(128, 128, 128, 0.03);
+  --color-crt-effect-g: rgba(128, 128, 128, 0.02);
+  --color-crt-effect-b: rgba(128, 128, 128, 0.03);
+}
+
+.vintage-nav {
+  background-color: var(--color-background);
+  font-family: "Courier New", Courier, monospace;
+  padding: 0.5rem;
+  border-bottom: 2px solid var(--color-border);
+  box-shadow: 0 0 10px var(--color-shadow);
 }
 
 .nav-ul {
   list-style-type: none;
   margin: 0;
-  padding: 0 0 0 7%;
-  overflow: hidden;
+  padding: 0;
   display: flex;
-  /* justify-content: space-around; */
-  gap: 7%;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .nav-li {
-  display: inline;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
-.select-li {
-}
-
-li a {
+.nav-link {
   display: block;
-  color: white;
+  color: var(--color-text-primary);
   text-align: center;
-  padding: 4%;
+  padding: 0.5rem 1rem;
   text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.select-a {
-  color: rgba(255, 255, 255, 0.56);
+.nav-link:hover,
+.select-link {
+  background-color: var(--color-hover-bg);
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 0 5px var(--color-shadow);
 }
 
-li a:hover {
-  background-color: #111;
+.select-li .nav-link {
+  color: var(--color-text-selected);
+}
+
+/* Subtle CRT screen effect */
+.vintage-nav::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+      var(--color-crt-effect1) 50%,
+      var(--color-crt-effect2) 50%
+    ),
+    linear-gradient(
+      90deg,
+      var(--color-crt-effect-r),
+      var(--color-crt-effect-g),
+      var(--color-crt-effect-b)
+    );
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .nav-ul {
+    align-items: center;
+  }
+
+  .nav-li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-link {
+    padding: 0.75rem;
+  }
 }

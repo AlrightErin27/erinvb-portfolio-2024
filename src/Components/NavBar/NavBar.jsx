@@ -14,18 +14,20 @@ const NavBar = () => {
 
   if (select)
     return (
-      <nav>
+      <nav className="vintage-nav">
         <ul className="nav-ul">
           {components.map((comp, idx) => {
             return (
               <li
                 key={idx}
-                // className={select === comp.title ? "select-li" : "nav-li"}
+                className={`nav-li ${select === comp.title ? "select-li" : ""}`}
               >
                 <Link
                   to={comp.path}
                   onClick={() => setSelect(comp.title)}
-                  // className={select === comp.title ? "select-a" : ""}
+                  className={`nav-link ${
+                    select === comp.title ? "select-link" : ""
+                  }`}
                 >
                   {comp.title}
                 </Link>
