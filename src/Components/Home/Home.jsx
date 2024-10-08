@@ -1,5 +1,5 @@
+import React from "react";
 import "./Home.css";
-
 import Icon from "./Icon";
 import IntroImg from "../../Images/Home/Resume/hello.png";
 import ResumePDF from "../../Images/Home/Resume/ErinVanBruntResumeAug2024.pdf";
@@ -49,9 +49,9 @@ const Home = () => {
         <div className="grid-overlay">
           <img src={IntroImg} alt="intro" />
           <div className="icons-cont">
-            {websites.map((website, idx) => {
-              return <Icon website={website} key={idx} />;
-            })}
+            {websites.map((website, idx) => (
+              <Icon website={website} key={idx} />
+            ))}
           </div>
         </div>
       </div>

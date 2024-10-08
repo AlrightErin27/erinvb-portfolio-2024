@@ -34,18 +34,15 @@ body {
 }
 
 .home-content img {
-  /* border: solid yellow 2px; */
   height: 100%;
   padding-left: 10%;
 }
 
 .icons-cont {
-  /* border: solid salmon 2px; */
   padding-top: 10%;
-  /* height: 100%; */
 }
 
-/* //////////////////// ICON STYLING //////////////////// */
+/* ICON STYLING */
 .Icon {
   display: flex;
   justify-content: left;
@@ -58,20 +55,99 @@ body {
   text-decoration: none;
   color: transparent;
   font-size: 0%;
-  /* border: solid rgb(38, 34, 34) 2px; */
 }
+
 .Icon:hover {
   color: black;
   filter: invert(100%) sepia(5%) saturate(500%) hue-rotate(350deg);
   mix-blend-mode: normal;
   font-size: 1rem;
 }
+
 .icon-img {
   width: 3.5vw;
   height: 3.5vw;
-  min-width: 30px; /* Minimum size */
-  max-width: 100px; /* Maximum size */
+  min-width: 30px;
+  max-width: 100px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .grid-overlay {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-size: 1.5%;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .home-content img {
+    height: auto;
+    width: 90%;
+    max-width: 400px;
+    padding-left: 0;
+    margin-top: 5%;
+  }
+
+  .icons-cont {
+    padding-top: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 0;
+    position: static;
+    height: auto;
+    background-color: #aa9496;
+    background-image: url("../../Images/Home/squareImg.png");
+    background-size: 2.2%;
+    background-repeat: space;
+    border-top: black solid 2px;
+  }
+
+  .Icon {
+    flex-direction: column;
+    height: 2%;
+    min-height: auto;
+    max-height: none;
+    padding: 10px;
+    align-items: center;
+    color: black;
+    font-size: 0.8rem;
+  }
+
+  .icon-img {
+    width: 40px;
+    height: 40px;
+    min-width: auto;
+  }
+
+  .Icon:hover {
+    font-size: 0.8rem;
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .grid-overlay {
+    background-size: 2%;
+  }
+
+  .home-content img {
+    width: 95%;
+  }
+
+  .Icon {
+    width: 45%;
+  }
+
+  .icon-img {
+    width: 35px;
+    height: 35px;
+  }
 }
