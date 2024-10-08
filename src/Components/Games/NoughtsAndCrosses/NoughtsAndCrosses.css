@@ -6,6 +6,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Gochi+Hand&family=Platypi:ital,wght@0,300..800;1,300..800&family=Righteous&display=swap");
 /* font-family: "Righteous", sans-serif; */
 
+:root {
+  --game-width: 30.9vw; /* Keep your existing value */
+  --gap-width: 0.27vw; /* Define gap width as a variable for easy adjustment */
+}
+
 .noughts-and-crosses {
   display: flex;
   flex-direction: column;
@@ -16,6 +21,8 @@
   background-image: url("../../../Images/Games/NoughtsAndCrosses/stilllife.png");
   background-position: center;
   background-size: 110%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .noughts-title {
@@ -23,10 +30,11 @@
   text-align: center;
   font-size: 3vw;
   font-weight: 100;
-  padding: 4px 0 4px 0;
+  padding: 5px 11px 5px 11px;
   color: white;
   border: solid white 1px;
-  width: 30.4%;
+  width: var(--game-width);
+  margin-bottom: 3%;
 }
 
 .board-cont {
@@ -35,19 +43,16 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  width: var(--game-width);
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(
-    3,
-    10vw
-  ); /* Each cell takes 30% of viewport width */
-  grid-template-rows: repeat(
-    3,
-    10vw
-  ); /* Each cell has the same height as width */
-  gap: 0.1vw; /* Gap between cells, scaling with the viewport width */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--gap-width);
+  width: var(--game-width);
+  aspect-ratio: 1 / 1; /* Ensures the board is square */
 }
 
 .cell {
@@ -59,7 +64,7 @@
   justify-content: center;
   border: solid white 1px;
   background-color: transparent;
-  font-size: 5vw;
+  font-size: calc(var(--game-width) / 6);
   transition: background-color 0.3s;
   color: white;
 }
@@ -73,14 +78,31 @@
 }
 
 .cats-game {
-  height: 25rem;
-  width: 25rem;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25vw; /* Responsive width */
+  height: 25vw; /* Maintain aspect ratio */
+  max-width: 25rem; /* Maximum size */
+  max-height: 25rem;
   background-image: url("../../../Images/Games/NoughtsAndCrosses/catsGame.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  text-align: center;
+  filter: drop-shadow(
+    0 0 10px rgba(255, 255, 255, 0.7)
+  ); /* White glow effect */
+  animation: catGlow 2s infinite alternate; /* Pulsating glow animation */
+}
+
+@keyframes catGlow {
+  from {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
+  }
 }
 
 .game-info {
@@ -91,14 +113,75 @@
   align-items: center;
   justify-content: center;
   margin-top: 1px;
-  font-size: clamp(1.35vh, 30%, 50%);
+  padding: 10px;
   font-family: monospace;
-  width: 30.4%;
+  width: var(--game-width);
+  box-sizing: border-box;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-width: fit-content;
 }
 
 .game-info p {
   margin: 5px 0;
+  font-size: clamp(12px, 1.2vw, 18px);
+  text-align: center;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Responsive styles for smartphone screens */
+@media screen and (max-width: 767px) {
+  :root {
+    --game-width: 77vw; /* Adjust to match your mobile title width */
+    --gap-width: 1vw; /* Adjust gap for mobile as per your existing style */
+  }
+
+  .noughts-and-crosses {
+    background-size: cover; /* Ensure the background covers the entire container */
+    background-attachment: scroll; /* Allow scrolling on mobile devices */
+    height: auto; /* Allow the height to adjust based on content */
+    min-height: 100vh; /* Ensure it at least fills the viewport height */
+    padding: 20px 0;
+  }
+
+  .noughts-title {
+    font-size: 6vw;
+    margin-bottom: 5%;
+    width: var(--game-width);
+  }
+
+  .noughts-title {
+    font-size: 6vw;
+
+    margin-bottom: 5%;
+    width: 77vw;
+  }
+
+  .board {
+    width: var(--game-width);
+  }
+
+  .cell {
+    font-size: calc(var(--game-width) / 6); /* Adjust font size for mobile */
+  }
+
+  .cats-game {
+    width: 60vw;
+    height: 60vw;
+    max-width: none;
+    max-height: none;
+  }
+
+  .game-info {
+    width: var(--game-width);
+    font-size: 3vw;
+    margin-top: 5%;
+  }
+
+  .cats-game {
+    height: 60vw;
+    width: 60vw;
+  }
 }
