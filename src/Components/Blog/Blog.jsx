@@ -5,23 +5,43 @@ import "./Blog.css";
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [authorImg, setAuthorImg] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const getPostData = () => {
-    axios
-      .get(
-        "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@erinmontybruce"
-      )
-      .then((res) => {
-        setPosts(res.data.items);
-        setAuthorImg(res.data.feed.image);
+    setLoading(true);
+    fetch(
+      "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@erinmontybruce"
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPosts(data.items);
+        setAuthorImg(data.feed.image);
+        setLoading(false);
       })
       .catch((error) => {
-        console.error("Error using axios:", error);
+        console.error("Error fetching blog posts:", error);
+        setError("Failed to load blog posts. Please try again later.");
+        setLoading(false);
       });
   };
+
   useEffect(() => {
     getPostData();
   }, []);
+
+  if (loading) {
+    return <div className="loading">Loading blog posts...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
   return (
     <div className="blog-overlay">
