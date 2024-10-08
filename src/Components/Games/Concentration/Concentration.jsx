@@ -106,6 +106,9 @@ export default function Concentration1() {
   return (
     <div className="Concentration">
       <div className="con-wrap">
+        <button onClick={resetGame} className="con-btn">
+          • restart •
+        </button>
         <div className="game-board">
           {cards.map((card, idx) => (
             <Card
@@ -118,9 +121,6 @@ export default function Concentration1() {
         </div>
         <div className="game-controls"></div>
       </div>
-      <button onClick={resetGame} className="con-btn">
-        • restart •
-      </button>
     </div>
   );
 }

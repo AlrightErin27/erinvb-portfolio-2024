@@ -1,44 +1,139 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@300;400;500;600;700&display=swap");
-/* 
-  font-family: "Cormorant Unicase", serif;
-  font-weight: 300;
-  font-style: normal; */
 
 html,
 body {
-  height: 10 0%;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* #root {
-  height: 80%;
-} */
-
 .Concentration {
-  height: 100%;
-  padding-top: 2%;
+  min-height: 100vh;
+  height: fit-content;
+  padding: 2% 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 80%;
-  padding-bottom: 5%;
-  filter: contrast(1.3);
-  background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.982),
-      rgba(18, 58, 99, 0.598)
+  justify-content: flex-start;
+  background-color: #f5e8c9; /* Pastel tan base */
+  background-image: radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 253, 208, 0.7) 0%,
+      transparent 60%
     ),
-    linear-gradient(45deg, rgba(190, 146, 146, 0.2), rgba(0, 0, 0, 0.2));
+    repeating-linear-gradient(
+      45deg,
+      rgba(173, 216, 230, 0.1) 0px,
+      rgba(173, 216, 230, 0.1) 2px,
+      transparent 2px,
+      transparent 10px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(0, 0, 0, 0.05) 0px,
+      rgba(0, 0, 0, 0.05) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.Concentration::before,
+.Concentration::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 20s infinite ease-in-out;
+}
+
+.Concentration::before {
+  top: -100px;
+  left: -100px;
+  animation-delay: -5s;
+}
+
+.Concentration::after {
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -15s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(50px, 50px);
+  }
+  50% {
+    transform: translate(100px, 0);
+  }
+  75% {
+    transform: translate(50px, -50px);
+  }
 }
 
 .con-wrap {
-  height: fit-content;
+  width: 95%;
+  max-width: 1000px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin: 3rem;
+  margin: 1rem auto;
+  padding: 1rem 1rem;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.game-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem; /* Increased bottom margin */
+  padding: 1rem 0; /* Added padding to top and bottom */
+}
+
+.con-btn {
+  height: auto; /* Changed from fixed height to auto */
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  background-position: center;
+  background-size: cover;
+  outline: none;
+  border: none;
+  margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-family: "Cormorant Unicase", serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #4a4a4a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.5rem; /* Increased padding */
+  border-radius: 5px;
+  display: inline-flex; /* Changed to inline-flex */
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally */
+  line-height: 1.2; /* Adjust line height for better text alignment */
+}
+
+.con-btn:hover {
+  background-color: rgba(51, 64, 68, 0.3);
+  color: #000;
+}
+
+.con-btn:focus {
+  box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.3);
 }
 
 .game-board {
@@ -46,75 +141,61 @@ body {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 1%;
+  gap: 0.5vw;
   width: 100%;
-  height: 100%;
-  min-width: 60em;
-  max-width: 100em;
-  /* border: solid black 3px; */
-  padding: 0;
-  /* margin-bottom: 1%; */
+  aspect-ratio: 2 / 1;
+  margin: 0 auto;
 }
 
 .card {
   background-image: url("../../../Images/Games/Concentration/back.png");
   background-position: center;
-  background-size: 87%;
+  background-size: contain;
   background-repeat: no-repeat;
-  /* border-radius: 10px; */
   cursor: pointer;
   user-select: none;
   aspect-ratio: 2 / 3;
+  width: 100%;
+  height: 100%;
+  min-width: 30px;
+  min-height: 45px;
+  transition: transform 0.3s ease;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card.flipped {
-  background-size: cover;
-  background-size: 87%;
-  background-repeat: no-repeat;
-}
-
-.game-controls {
-  position: relative;
-  padding-top: 0.05%;
-  font-size: clamp(0.5rem, 1.4vw, 3rem);
-}
-
-.game-controls:hover {
-  color: white;
-}
-
-.con-btn {
-  /* background-image: url("../../../Images/Games/Concentration/sun.png"); */
-  height: 1rem;
-  font-size: 140%;
-  background-position: center;
-  background-size: cover;
-  outline: none;
-  border: none;
-  background-color: transparent;
-  font-family: "Cormorant Unicase", serif;
-  font-weight: 300;
-  font-style: normal;
-  position: absolute;
-  color: blanchedalmond;
-}
-
-.con-btn:hover {
-  color: white;
-}
-
-.con-btn::after {
-}
-
-.con-btn:hover::after {
-  width: 100%;
-  left: 0;
-}
-
-.con-btn:focus {
-  color: #f7f0d9;
+  background-size: contain;
 }
 
 p {
-  font-size: 1.2em;
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  margin-top: 1rem;
+  color: #4a4a4a;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .Concentration {
+    padding: 1rem 0;
+  }
+
+  .con-wrap {
+    width: 98%;
+  }
+
+  .game-board {
+    gap: 0.3vw;
+  }
+}
+
+/* Media query for very small screens */
+@media (max-width: 320px) {
+  .card {
+    min-width: 20px;
+    min-height: 30px;
+  }
 }
