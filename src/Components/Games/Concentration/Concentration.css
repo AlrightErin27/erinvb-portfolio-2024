@@ -119,12 +119,12 @@ body {
   color: #4a4a4a;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 0.5rem 1.5rem; /* Increased padding */
+  padding: 0.5rem 1.5rem;
   border-radius: 5px;
-  display: inline-flex; /* Changed to inline-flex */
-  align-items: center; /* Center text vertically */
-  justify-content: center; /* Center text horizontally */
-  line-height: 1.2; /* Adjust line height for better text alignment */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
 }
 
 .con-btn:hover {

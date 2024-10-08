@@ -9,7 +9,9 @@ export default function Crossword() {
   const [squares, setSquares] = useState([]);
   const [isKeyOpen, setIsKeyOpen] = useState(false);
   const [currDir, setCurrDir] = useState(null);
-  const [prevWord, setPrevWord] = useState(null); // State to store the previously highlighted word
+  const [prevWord, setPrevWord] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showQuestions, setShowQuestions] = useState(true);
 
   //useEffect runs only on page's 1st render
   //populates squares in state
@@ -80,6 +82,15 @@ export default function Crossword() {
         return sq;
       })
     );
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   function renderQuestions(dir) {
@@ -265,14 +276,24 @@ export default function Crossword() {
             })}
           </div>
         </div>
-        <div className="questions">
-          {renderQuestions("vert")}
-          {renderQuestions("hor")}
-          <button className="Key-button" onClick={toggleKey} tabIndex={-1}>
-            Key
+        {isMobile && (
+          <button
+            className="mobile-questions-toggle"
+            onClick={() => setShowQuestions(!showQuestions)}
+          >
+            {showQuestions ? "Hide Questions" : "Show Questions"}
           </button>
-          {isKeyOpen && <Key onClose={toggleKey} />}
-        </div>
+        )}
+        {(!isMobile || showQuestions) && (
+          <div className={`questions ${isMobile ? "mobile" : ""}`}>
+            {renderQuestions("vert")}
+            {renderQuestions("hor")}
+            <button className="Key-button" onClick={toggleKey} tabIndex={-1}>
+              Key
+            </button>
+            {isKeyOpen && <Key onClose={toggleKey} />}
+          </div>
+        )}
       </div>
     </div>
   );

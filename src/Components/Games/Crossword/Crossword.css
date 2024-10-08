@@ -84,31 +84,6 @@
   color: #f0f0f0;
 }
 
-/* Media queries for smaller screens */
-@media (max-width: 768px) {
-  .Crossword {
-    flex-direction: column;
-    align-items: center;
-    padding: 1vh 1vw;
-  }
-
-  .grid-cont {
-    max-width: 100%;
-    min-width: 100%;
-    height: 50vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .Crossword {
-    padding: 1vh 1vw;
-  }
-
-  .grid-cont {
-    height: auto;
-  }
-}
-
 .Key-button {
   background-color: grey;
   color: white;
@@ -121,4 +96,68 @@
 
 .Key-button:hover {
   background-color: darkgrey;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  .Crossword {
+    padding: 1vh 1vw;
+  }
+
+  .crossword-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    width: 90vw;
+  }
+
+  .crossword-cont {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .grid-cont {
+    max-width: 95%;
+    min-width: 95%;
+    margin-bottom: 2rem;
+  }
+
+  .questions {
+    max-width: 95%;
+    min-width: 95%;
+  }
+}
+
+.mobile-questions-toggle {
+  background-color: rgba(0, 0, 0, 0.513);
+  color: #f0f0f0;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-questions-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 480px) {
+  .Crossword {
+    padding: 1vh 1vw;
+  }
+
+  .grid-cont {
+    height: auto;
+  }
+
+  .grid {
+    gap: 0.05rem;
+  }
+
+  .questions p {
+    font-size: 1.4vh;
+  }
 }

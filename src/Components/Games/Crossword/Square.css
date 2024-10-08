@@ -99,3 +99,37 @@
   outline: none;
   border: none;
 }
+
+@media (max-width: 768px) {
+  .Square {
+    font-size: 80%;
+  }
+
+  .corner-num {
+    font-size: clamp(0.5rem, 2vw, 0.8rem);
+    height: 35%;
+    width: 35%;
+  }
+
+  .input {
+    height: 65%;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .Square {
+    font-size: 70%;
+  }
+
+  .corner-num {
+    font-size: clamp(0.4rem, 2vw, 0.7rem);
+    height: 40%;
+    width: 50%;
+  }
+
+  .input {
+    height: 60%;
+    font-size: 0.9rem;
+  }
+}
