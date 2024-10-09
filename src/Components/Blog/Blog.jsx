@@ -3,7 +3,7 @@ import "./Blog.css";
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
-  const [authorImg, setAuthorImg] = useState([]);
+  const [authorImg, setAuthorImg] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -44,6 +44,18 @@ const Blog = () => {
 
   return (
     <div className="blog-overlay">
+      {[...Array(50)].map((_, i) => (
+        <div
+          key={i}
+          className="star"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 5}s`,
+          }}
+        />
+      ))}
+      <div className="scanning-line"></div>
       <div className="blog-container">
         <div className="blog-content">
           <div className="title">
@@ -53,21 +65,24 @@ const Blog = () => {
               rel="noreferrer"
               className="title-a"
             >
-              <div>
-                Erin's Medium Blog
-                <img
-                  src={`${authorImg}`}
-                  alt="author img"
-                  className="author-img"
-                />
-              </div>
+              <span className="horizontal-glitch" data-text="Erin's Dev Blog">
+                Erin's Dev Blog
+              </span>
+              <img
+                src={authorImg}
+                alt="author img"
+                className="author-img horizontal-glitch"
+                data-text=""
+              />
             </a>
           </div>
 
           <div className="blog-block">
             {posts.map((post) => (
               <div className="posts" key={post.guid}>
-                <h2>{post.title}</h2>
+                <h2 className="glitch-text" data-text={post.title}>
+                  {post.title}
+                </h2>
                 <p dangerouslySetInnerHTML={{ __html: post.content }} />
                 <a
                   href={post.link}

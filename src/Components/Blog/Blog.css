@@ -1,3 +1,15 @@
+:root {
+  --background-color: #0a0a0a;
+  --text-color: #e0e0e0;
+  --neon-color: #00ffff;
+  --neon-color-alt: #00ffaa;
+  --title-background: rgba(0, 20, 40, 0.8);
+  --post-background: rgba(0, 20, 40, 0.6);
+  --glitch-color-1: #ff00de;
+  --glitch-color-2: #00ff00;
+}
+
+/* Reset styles */
 html,
 body {
   min-height: 100%;
@@ -7,19 +19,43 @@ body {
 
 #root {
   height: 100%;
-  background-color: black;
+  background-color: var(--background-color);
   min-height: 100%;
   overflow-y: auto;
 }
 
+/* Sci-fi starship background */
 .blog-overlay {
   min-height: 100vh;
   width: 100%;
   overflow-y: auto;
-  background-image: url("../../Images/Blog/hex.png");
-  background-repeat: repeat;
-  background-size: 11px; /* Set this to the original size of your hexagon image */
-  background-color: rgba(254, 240, 235, 0.848);
+  background-color: var(--background-color);
+  background-image: linear-gradient(
+      0deg,
+      transparent 24%,
+      rgba(32, 255, 255, 0.05) 25%,
+      rgba(32, 255, 255, 0.05) 26%,
+      transparent 27%,
+      transparent 74%,
+      rgba(32, 255, 255, 0.05) 75%,
+      rgba(32, 255, 255, 0.05) 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      rgba(32, 255, 255, 0.05) 25%,
+      rgba(32, 255, 255, 0.05) 26%,
+      transparent 27%,
+      transparent 74%,
+      rgba(32, 255, 255, 0.05) 75%,
+      rgba(32, 255, 255, 0.05) 76%,
+      transparent 77%,
+      transparent
+    );
+  background-size: 50px 50px;
+  box-shadow: inset 0 0 50px rgba(0, 255, 255, 0.15);
 }
 
 .blog-container {
@@ -33,14 +69,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+  color: var(--text-color);
   width: 100%;
 }
 
+/* Title styles */
 .title {
   width: 100%;
   margin: 1% 0;
-  background-color: rgba(0, 0, 0, 0.787);
+  background-color: var(--title-background);
   border-radius: 15px;
   padding: 2%;
   font-size: clamp(24px, 5vw, 40px);
@@ -48,52 +85,147 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 8px black solid;
+  border: 4px solid var(--neon-color);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .title-a {
-  color: rgb(244, 207, 195);
+  color: var(--neon-color);
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.title-text {
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--neon-color);
 }
 
 .title:hover {
-  background-color: black;
+  background-color: rgba(0, 40, 80, 0.8);
 }
 
+/* Horizontal glitch effect for title */
+.horizontal-glitch {
+  position: relative;
+  overflow: hidden;
+}
+
+.horizontal-glitch::before,
+.horizontal-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--title-background);
+}
+
+.horizontal-glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--glitch-color-1);
+  animation: h-glitch-1 2s infinite linear alternate-reverse;
+}
+
+.horizontal-glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--glitch-color-2);
+  animation: h-glitch-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes h-glitch-1 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes h-glitch-2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+
+/* Author image styles */
+.author-img {
+  width: clamp(100px, 20vw, 200px);
+  height: clamp(100px, 20vw, 200px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid var(--neon-color);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  animation: imagePulse 2s infinite alternate;
+}
+
+@keyframes imagePulse {
+  0% {
+    box-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color);
+  }
+  100% {
+    box-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color),
+      0 0 30px var(--neon-color);
+  }
+}
+
+/* Blog post styles */
 .blog-block {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.author-img {
-  width: clamp(80px, 15vw, 170px);
-  height: clamp(80px, 15vw, 170px);
-  border-radius: 50%;
-  margin: 20px 0;
-  border: 8px black solid;
 }
 
 .posts {
   width: 100%;
-  border: 8px black solid;
+  border: 2px solid var(--neon-color);
   border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.737);
+  background-color: var(--post-background);
   margin: 2% 0;
   padding: 4%;
   box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  position: relative;
+  text-align: center;
+}
+
+.posts::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 65%,
+    rgba(0, 255, 255, 0.1) 100%
+  );
+  animation: flicker 10s infinite;
+  z-index: 1;
+}
+
+.posts h2,
+.posts p,
+.posts-a {
+  position: relative;
+  z-index: 2;
 }
 
 .posts h2 {
   font-size: clamp(20px, 4vw, 30px);
   text-align: center;
   text-decoration: underline;
-  color: rgb(244, 207, 195);
+  color: var(--neon-color);
 }
 
 .posts p {
@@ -101,40 +233,250 @@ body {
   line-height: 1.5;
 }
 
-.posts figure {
+.posts img {
+  max-width: 90%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.posts-a {
+  color: var(--neon-color);
+  font-size: clamp(14px, 3vw, 16px);
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid var(--neon-color);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  background-color: rgba(0, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.posts-a:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Loading and error states */
+.loading,
+.error {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: clamp(12px, 2.5vw, 16px);
+  height: 100vh;
+  font-size: 24px;
+  color: var(--neon-color);
+  background-color: var(--background-color);
 }
 
-.posts figure img {
-  max-width: 100%;
-  height: auto;
+/* Scanning line effect */
+.scanning-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 255, 255, 0.5);
+  animation: scan 10s linear infinite;
+  z-index: 1000;
+  pointer-events: none;
 }
 
-.posts a {
-  color: rgb(220, 220, 32);
-  font-size: clamp(14px, 3vw, 16px);
+@keyframes scan {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 100%;
+  }
 }
 
+/* Glitch text effect for post titles */
+.glitch-text {
+  position: relative;
+  color: var(--neon-color);
+  font-size: clamp(20px, 4vw, 30px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--post-background);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--glitch-color-1);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-1 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--glitch-color-2);
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim-2 4s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(132px, 350px, 101px, 30px);
+  }
+  20% {
+    clip: rect(51px, 350px, 87px, 30px);
+  }
+  40% {
+    clip: rect(92px, 350px, 43px, 30px);
+  }
+  60% {
+    clip: rect(147px, 350px, 115px, 30px);
+  }
+  80% {
+    clip: rect(16px, 350px, 71px, 30px);
+  }
+  100% {
+    clip: rect(69px, 350px, 56px, 30px);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    top: -1px;
+    left: 1px;
+    clip: rect(29px, 350px, 24px, 30px);
+  }
+  20% {
+    top: 1px;
+    left: -1px;
+    clip: rect(45px, 350px, 34px, 30px);
+  }
+  40% {
+    top: -1px;
+    left: 1px;
+    clip: rect(82px, 350px, 67px, 30px);
+  }
+  60% {
+    top: 1px;
+    left: -1px;
+    clip: rect(99px, 350px, 114px, 30px);
+  }
+  80% {
+    top: -1px;
+    left: 1px;
+    clip: rect(17px, 350px, 41px, 30px);
+  }
+  100% {
+    top: 1px;
+    left: -1px;
+    clip: rect(53px, 350px, 27px, 30px);
+  }
+}
+
+/* Cool additional touch: Starfield background */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+}
+
+.star:nth-child(3n) {
+  width: 3px;
+  height: 3px;
+}
+
+.star:nth-child(5n) {
+  animation: twinkle 5s infinite;
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
   .blog-container {
     width: 95vw;
     padding: 10px;
   }
 
-  .author-img {
-    height: 20vh;
-    width: auto;
+  .title {
+    padding: 4% 2%;
   }
 
-  .title {
-    padding: 4%;
+  .title-a {
+    flex-direction: column;
   }
 
   .posts {
     padding: 6%;
+  }
+
+  .author-img {
+    width: clamp(80px, 18vw, 150px);
+    height: clamp(80px, 18vw, 150px);
+  }
+
+  .posts h2 {
+    font-size: clamp(18px, 3.5vw, 24px);
+  }
+
+  .posts p {
+    font-size: clamp(14px, 3vw, 16px);
+  }
+
+  .posts-a {
+    font-size: clamp(14px, 3vw, 16px);
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    padding: 6% 2%;
+  }
+
+  .author-img {
+    width: clamp(70px, 16vw, 120px);
+    height: clamp(70px, 16vw, 120px);
+  }
+
+  .posts h2 {
+    font-size: clamp(16px, 3vw, 20px);
+  }
+
+  .posts p {
+    font-size: clamp(12px, 2.5vw, 14px);
+  }
+
+  .posts-a {
+    font-size: clamp(12px, 2.5vw, 14px);
+    padding: 6px 12px;
   }
 }

@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
 :root {
-  --color-background: #2c2c2c;
-  --color-text-primary: #e0e0e0;
+  --color-background: #ada3a4;
+  --color-text-primary: #000000;
   --color-text-selected: #ffffff;
   --color-border: #4a4a4a;
   --color-hover-bg: rgba(255, 255, 255, 0.1);
@@ -15,7 +17,7 @@
 
 .vintage-nav {
   background-color: var(--color-background);
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Outfit", sans-serif;
   padding: 0.5rem;
   border-bottom: 2px solid var(--color-border);
   box-shadow: 0 0 10px var(--color-shadow);
@@ -26,7 +28,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 1rem;
 }
 
