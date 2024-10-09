@@ -53,6 +53,14 @@ export default function Games() {
                 >
                   Crossword
                 </div>
+                <div
+                  className={
+                    select === "cemetery-run" ? "selected-li" : "link-li"
+                  }
+                  onClick={() => setSelect("cemetery-run")}
+                >
+                  Cemetery Run
+                </div>
               </div>
 
               <img src={ScrollImg} alt="scroll bar" className="scroll-bar" />

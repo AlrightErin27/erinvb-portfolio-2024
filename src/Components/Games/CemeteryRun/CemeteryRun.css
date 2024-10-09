@@ -1,0 +1,194 @@
+/* CemeteryRun.css */
+:root {
+  --bg-color: #1a0f26;
+  --text-color: #f0cb5c;
+  --accent-color: #ff6b1a;
+  --secondary-color: #8b0000;
+  --canvas-border: #4a0e4e;
+}
+
+@font-face {
+  font-family: "ArcadeClassic";
+  src: url("https://db.onlinewebfonts.com/t/f1b5af45bc88364edd8de2a8cc8113f9.woff2")
+    format("woff2");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  font-family: "ArcadeClassic", "Courier New", Courier, monospace;
+}
+
+.cemetery-run {
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.game-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 4px 4px 0px var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.game-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-canvas {
+  border: 4px solid var(--canvas-border);
+  box-shadow: 0 0 20px rgba(255, 107, 26, 0.5);
+  image-rendering: pixelated;
+  width: 100%;
+  height: auto;
+}
+
+.start-button-container {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%); */
+}
+
+.game-info {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(26, 15, 38, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.game-over-text {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+  text-shadow: 2px 2px 0px var(--secondary-color);
+}
+
+.start-button,
+.restart-button {
+  background-color: var(--accent-color);
+  border: none;
+  color: var(--bg-color);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.5rem;
+  margin: 20px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+  font-family: "ArcadeClassic", "Courier New", Courier, monospace;
+}
+
+.start-button:hover,
+.restart-button:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+.past-games {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.past-games h2 {
+  font-size: 2rem;
+  color: var(--accent-color);
+  margin-bottom: 15px;
+}
+
+.past-games ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.past-games li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .game-title {
+    font-size: 2rem;
+  }
+
+  .game-info {
+    font-size: 1.2rem;
+  }
+
+  .start-button,
+  .restart-button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+
+  .game-over-text {
+    font-size: 2rem;
+  }
+
+  .past-games h2 {
+    font-size: 1.5rem;
+  }
+
+  .past-games li {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 1.5rem;
+  }
+
+  .game-info {
+    font-size: 1rem;
+  }
+
+  .start-button,
+  .restart-button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+
+  .game-over-text {
+    font-size: 1.5rem;
+  }
+
+  .past-games h2 {
+    font-size: 1.2rem;
+  }
+
+  .past-games li {
+    font-size: 0.9rem;
+  }
+}
