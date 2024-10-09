@@ -56,7 +56,18 @@ An interactive crossword puzzle that allows players to fill in clues by either c
 
 For more details, please refer to the [Crossword README](./src/Components/Games/Crossword/README.md).
 
-### 4. **Evie & Co. - High-End Online Fashion Shop**
+### 4. **CemeteryRun Game**
+
+CemeteryRun is a web-based game developed using React and HTML5 Canvas. It's an engaging side-scrolling game where players control a character jumping over obstacles in a spooky cemetery setting.
+
+- Implements game physics and collision detection using **JavaScript** and **HTML5 Canvas**.
+- Utilizes **React.js** for efficient state management and component-based architecture.
+- Features responsive design for cross-device compatibility.
+- Incorporates progressive difficulty to enhance player engagement.
+
+For more details, please refer to the [CemeteryRun README](./src/Components/Games/CemeteryRun/README.md).
+
+### 5. **Evie & Co. - High-End Online Fashion Shop**
 
 Evie & Co. is a **React.js-based e-commerce platform** for a high-end online fashion shop. The shop features an elegant, London-inspired aesthetic that combines mod, Victorian, and punk styles. Users can browse, shop, and manage their accounts with a sleek and intuitive user experience.
 
@@ -110,27 +121,3 @@ To view a project locally:
    ```bash
    git clone <repository-url>
    ```
-2. Navigate to the specific project directory:
-   ```bash
-   cd <project-directory>
-   ```
-3. Install the necessary dependencies:
-   ```bash
-   npm install
-   ```
-4. Run the project:
-   ```bash
-   npm start
-   ```
-5. The project will be accessible at `http://localhost:3000`.
-
----
-
-## Contact
-
-For more information about my work or to discuss potential collaborations, feel free to reach out!
-
-- **Email**: erinmontybruce@gmail.com
-- **[LinkedIn](https://www.linkedin.com/in/erinvanbrunt)**
-- **[Github](https://github.com/AlrightErin27)**
-- **[Medium Blog](https://medium.com/@erinmontybruce)**
