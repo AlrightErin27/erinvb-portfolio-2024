@@ -1,5 +1,3 @@
-// src/App.js
-// import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
@@ -32,7 +30,7 @@ function App() {
             element={<NoughtsAndCrosses />}
           />
           <Route path="/games/crossword" element={<Crossword />} />
-          <Route path="/games/cemetary-run" element={<CemeteryRun />} />
+          <Route path="/games/cemetery-run" element={<CemeteryRun />} />
 
           <Route path="/shop" element={<Shop />} />
         </Routes>
