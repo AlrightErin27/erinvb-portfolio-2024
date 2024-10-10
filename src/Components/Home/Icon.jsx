@@ -12,19 +12,31 @@ const Icon = ({ website }) => {
   };
 
   return (
-    <Link
-      className="Icon"
-      to={website.url}
-      target={!website.pdf || website.url === "/resume" ? `_blank` : null}
-      onClick={website.pdf ? downloadFile : null}
-      rel="noopener noreferrer"
-    >
-      <div
-        className="icon-img"
-        style={{ backgroundImage: `url(${website.img})` }}
-      />
-      <span className="icon-name">{website.name}</span>
-    </Link>
+    <>
+      {!website.pdf && !website.url ? (
+        <Link className="Icon" to="mailto:erinmontybruce@gmail.com">
+          <div
+            className="icon-img"
+            style={{ backgroundImage: `url(${website.img})` }}
+          />
+          <span className="icon-name">erinmontybruce@gmail.com</span>
+        </Link>
+      ) : (
+        <Link
+          className="Icon"
+          to={website.url}
+          target={!website.pdf || website.url === "/resume" ? `_blank` : null}
+          onClick={website.pdf ? downloadFile : null}
+          rel="noopener noreferrer"
+        >
+          <div
+            className="icon-img"
+            style={{ backgroundImage: `url(${website.img})` }}
+          />
+          <span className="icon-name">{website.name}</span>
+        </Link>
+      )}
+    </>
   );
 };
 

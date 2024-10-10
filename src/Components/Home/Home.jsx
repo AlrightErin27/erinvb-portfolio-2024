@@ -8,6 +8,7 @@ import DownLoadIcon from "../../Images/Home/Icons/download.png";
 import LinkedinIcon from "../../Images/Home/Icons/linkedin.png";
 import GithubIcon from "../../Images/Home/Icons/github.png";
 import MediumIcon from "../../Images/Home/Icons/medium.png";
+import EmailIcon from "../../Images/Home/Icons/email.png";
 
 const Home = () => {
   const websites = [
@@ -39,6 +40,12 @@ const Home = () => {
       name: "medium blog",
       url: "https://medium.com/@erinmontybruce",
       img: MediumIcon,
+      pdf: null,
+    },
+    {
+      name: "email",
+      url: null,
+      img: EmailIcon,
       pdf: null,
     },
   ];
