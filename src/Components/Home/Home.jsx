@@ -5,6 +5,7 @@ import IntroImg from "../../Images/Home/Resume/hello.png";
 import ResumePDF from "../../Images/Home/Resume/ErinVanBruntResumeAug2024.pdf";
 import ResumeIcon from "../../Images/Home/Icons/resumeicon.png";
 import DownLoadIcon from "../../Images/Home/Icons/download.png";
+import VideoIcon from "../../Images/Home/Icons/video.png";
 import LinkedinIcon from "../../Images/Home/Icons/linkedin.png";
 import GithubIcon from "../../Images/Home/Icons/github.png";
 import MediumIcon from "../../Images/Home/Icons/medium.png";
@@ -23,6 +24,12 @@ const Home = () => {
       url: null,
       img: DownLoadIcon,
       pdf: ResumePDF,
+    },
+    {
+      name: "project videos",
+      url: "/project-videos",
+      img: VideoIcon,
+      pdf: null,
     },
     {
       name: "linkedin",
