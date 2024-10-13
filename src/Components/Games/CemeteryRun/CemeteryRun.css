@@ -7,12 +7,6 @@
   --canvas-border: #4a0e4e;
 }
 
-@font-face {
-  font-family: "ArcadeClassic";
-  src: url("https://db.onlinewebfonts.com/t/f1b5af45bc88364edd8de2a8cc8113f9.woff2")
-    format("woff2");
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -59,14 +53,6 @@ body {
   height: auto;
 }
 
-.start-button-container {
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%); */
-}
-
 .game-info {
   margin-top: 20px;
   font-size: 1.5rem;
@@ -107,7 +93,7 @@ body {
   border-radius: 8px;
   transition: background-color 0.3s;
   text-transform: uppercase;
-  font-family: "ArcadeClassic", "Courier New", Courier, monospace;
+  /* font-family: "ArcadeClassic", "Courier New", Courier, monospace; */
 }
 
 .start-button:hover,

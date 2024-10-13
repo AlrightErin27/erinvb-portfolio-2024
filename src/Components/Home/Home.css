@@ -19,8 +19,9 @@ body {
   flex: 1;
   overflow-y: auto;
   align-items: end;
-  background-image: url("../../Images/Home/subtle-background.jpg");
-  background-size: cover;
+  background-image: url("../../Images/Home/clouds.jpg");
+  background-size: 101%;
+  background-position: center;
 }
 
 .grid-overlay {
@@ -28,9 +29,11 @@ body {
   width: 100%;
   background-image: url("../../Images/Home/squareImg.png");
   background-size: 0.77%;
-  background-repeat: space;
+  background-repeat: repeat;
   display: flex;
   justify-content: center;
+  animation: subtleMove 35s infinite;
+  animation-delay: 10s;
 }
 
 .home-content img {
@@ -74,6 +77,22 @@ body {
   background-repeat: no-repeat;
 }
 
+@keyframes subtleMove {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  25% {
+    background-position: 2px 2px;
+  }
+  50% {
+    background-position: 0 4px;
+  }
+  75% {
+    background-position: -2px 2px;
+  }
+}
+
 /* Mobile styles */
 @media screen and (max-width: 768px) {
   .grid-overlay {
@@ -106,7 +125,7 @@ body {
     background-color: #aa9496;
     background-image: url("../../Images/Home/squareImg.png");
     background-size: 2.2%;
-    background-repeat: space;
+    background-repeat: repeat;
     border-top: black solid 2px;
   }
 
