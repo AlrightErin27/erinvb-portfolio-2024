@@ -1,6 +1,6 @@
 :root {
   --background-color: #0a0a0a;
-  --text-color: #e0e0e0;
+  --text-color: #f7f7f7;
   --neon-color: #00ffff;
   --neon-color-alt: #00ffaa;
   --title-background: rgba(0, 20, 40, 0.8);
@@ -69,7 +69,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--text-color);
+  color: rgb(228, 228, 228);
   width: 100%;
 }
 
