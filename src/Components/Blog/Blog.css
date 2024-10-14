@@ -110,7 +110,8 @@ body {
 }
 
 .title:hover {
-  background-color: rgba(0, 40, 80, 0.8);
+  filter: invert(0.3);
+  background-color: transparent;
 }
 
 /* Horizontal glitch effect for title */
