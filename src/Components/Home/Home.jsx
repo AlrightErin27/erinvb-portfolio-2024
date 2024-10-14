@@ -60,6 +60,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="home-content">
+        <div className="color-shift-overlay"></div>
         <div className="grid-overlay">
           <img src={IntroImg} alt="intro" />
           <div className="icons-cont">

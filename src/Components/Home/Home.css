@@ -24,18 +24,30 @@ body {
   background-size: 115%;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
+}
+
+.color-shift-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(100, 149, 237, 0.2);
+  mix-blend-mode: color;
+  animation: colorShift 10s infinite alternate;
 }
 
 .grid-overlay {
   height: 100%;
   width: 100%;
   background-image: url("../../Images/Home/squareImg.png");
-  background-size: 0.77%;
+  background-size: 17px 17px;
   background-repeat: repeat;
   display: flex;
   justify-content: center;
-  /* animation: subtleMove 35s infinite;
-  animation-delay: 10s; */
+  position: relative;
+  z-index: 1;
 }
 
 .home-content img {
@@ -79,21 +91,15 @@ body {
   background-repeat: no-repeat;
 }
 
-/* @keyframes subtleMove {
+@keyframes colorShift {
   0%,
   100% {
-    background-position: 0 0;
-  }
-  25% {
-    background-position: 2px 2px;
+    opacity: 0;
   }
   50% {
-    background-position: 0 4px;
+    opacity: 1;
   }
-  75% {
-    background-position: -2px 2px;
-  }
-} */
+}
 
 /* Mobile styles */
 @media screen and (max-width: 768px) {
@@ -101,9 +107,9 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-size: 1.5%;
     height: auto;
     min-height: 100%;
+    background-size: 17px 17px;
   }
 
   .home-content {
@@ -125,24 +131,30 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
     padding: 10px 0 10rem 0;
     position: static;
     height: auto;
-    background-color: #dfdacf;
-    background-image: url("../../Images/Home/squareImg.png");
-    background-size: 2.2%;
-    background-repeat: repeat;
+    background-color: rgba(223, 218, 207, 0.8);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 17px 17px;
     border-top: black solid 2px;
   }
 
   .Icon {
     flex-direction: column;
-    height: 2%;
+    height: auto;
     min-height: auto;
     max-height: none;
     padding: 10px;
     align-items: center;
+    width: auto;
+    color: transparent;
+    font-size: 0;
+    transition: all 0.3s ease;
+  }
+
+  .Icon:hover {
     color: black;
     font-size: 0.8rem;
   }
@@ -153,15 +165,20 @@ body {
     min-width: auto;
   }
 
-  .Icon:hover {
-    font-size: 0.8rem;
-    text-decoration: underline;
+  .icon-name {
+    display: none;
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  .Icon:hover .icon-name {
+    display: block;
   }
 }
 
 @media screen and (max-width: 480px) {
   .grid-overlay {
-    background-size: 2%;
+    background-size: 10px 10px;
   }
 
   .home-content {
@@ -174,7 +191,7 @@ body {
   }
 
   .Icon {
-    width: 45%;
+    width: 25%;
   }
 
   .icon-img {
