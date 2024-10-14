@@ -4,6 +4,12 @@ This project is a **React.js-based e-commerce platform** for a high-end online f
 
 ---
 
+## Medium Blog Posts:
+
+[https://medium.com/@erinmontybruce/schema-and-the-city-when-code-breaks-and-so-does-your-heart-c383e18687aa](https://medium.com/@erinmontybruce/schema-and-the-city-when-code-breaks-and-so-does-your-heart-c383e18687aa)
+
+[https://medium.com/@erinmontybruce/how-to-build-a-goblin-store-with-react-express-and-mongodb-1ef3f99d43f7](https://medium.com/@erinmontybruce/how-to-build-a-goblin-store-with-react-express-and-mongodb-1ef3f99d43f7)
+
 ## 1. Overview and User Walkthrough
 
 ### Shop Overview:

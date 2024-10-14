@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ProjectVideos.css";
 
 const projectsData = [
@@ -34,16 +34,18 @@ const projectsData = [
 const ProjectVideos = () => {
   const [projects, setProjects] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const projectRefs = useRef({});
 
   useEffect(() => {
-    // In a real application, you might fetch this data from an API
     setProjects(projectsData);
+    if (projectsData.length > 0) {
+      setSelectedProject(projectsData[0].id);
+    }
 
-    // Check for user's preferred color scheme
     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     setIsDarkMode(prefersDarkScheme.matches);
 
-    // Listen for changes to color scheme preference
     const handleChange = (event) => setIsDarkMode(event.matches);
     prefersDarkScheme.addListener(handleChange);
 
@@ -51,38 +53,61 @@ const ProjectVideos = () => {
   }, []);
 
   useEffect(() => {
-    // Apply the current mode to the body
-    document.body.classList.toggle("light-mode", !isDarkMode);
+    document.body.classList.toggle("pv-light-mode", !isDarkMode);
   }, [isDarkMode]);
 
   const toggleMode = () => {
     setIsDarkMode((prevMode) => !prevMode);
   };
 
+  const handleProjectSelect = (projectId) => {
+    setSelectedProject(projectId);
+    if (projectRefs.current[projectId]) {
+      projectRefs.current[projectId].scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="projects-container">
-      <button className="mode-toggle" onClick={toggleMode}>
-        Switch to {isDarkMode ? "light" : "dark"} mode
+    <div className="pv-container">
+      <button className="pv-toggle" onClick={toggleMode}>
+        {isDarkMode ? "Light" : "Dark"}
       </button>
-      <h1 className="projects-title">Project Walkthroughs</h1>
-      <div className="projects-list">
+      <h1 className="pv-title">Project Walkthroughs</h1>
+
+      <div className="pv-selector">
+        <select
+          value={selectedProject}
+          onChange={(e) => handleProjectSelect(Number(e.target.value))}
+          className="pv-dropdown"
+        >
+          {projects.map((project) => (
+            <option key={project.id} value={project.id}>
+              {project.title} - {project.techUsed.join(", ")}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="pv-list">
         {projects.map((project) => (
-          <div key={project.id} className="project-card">
-            <h2 className="project-title">{project.title}</h2>
-            <p className="project-date">Date: {project.date}</p>
-            <div className="video-container">
-              <video controls>
-                <source src={project.videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-            <div className="project-details">
-              <h3>Project Notes:</h3>
-              <p>{project.notes}</p>
-              <h3>Technologies Used:</h3>
-              <ul className="tech-list">
+          <div
+            key={project.id}
+            className="pv-card"
+            ref={(el) => (projectRefs.current[project.id] = el)}
+          >
+            <h2 className="pv-card-title">{project.title}</h2>
+            <p className="pv-date">Date: {project.date}</p>
+            <video className="pv-video" controls>
+              <source src={project.videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="pv-details">
+              <h3 className="pv-heading">Project Notes:</h3>
+              <p className="pv-notes">{project.notes}</p>
+              <h3 className="pv-heading">Technologies Used:</h3>
+              <ul className="pv-tech">
                 {project.techUsed.map((tech, index) => (
-                  <li key={index} className="tech-item">
+                  <li key={index} className="pv-tech-item">
                     {tech}
                   </li>
                 ))}

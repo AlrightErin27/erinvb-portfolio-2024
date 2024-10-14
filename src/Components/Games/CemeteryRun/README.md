@@ -12,6 +12,10 @@
 8. [Contributing](#contributing)
 9. [License](#license)
 
+## Medium Blog Post
+
+[https://medium.com/@erinmontybruce/cemetery-run-canvas-react-js-game-733f5b1fd8a2](https://medium.com/@erinmontybruce/cemetery-run-canvas-react-js-game-733f5b1fd8a2)
+
 ## Overview
 
 CemeteryRun is a web-based game I developed using React and HTML5 Canvas. It showcases the integration of modern web technologies with game development techniques to create an interactive and responsive gaming experience.

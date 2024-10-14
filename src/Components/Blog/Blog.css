@@ -26,6 +26,7 @@ body {
 
 /* Sci-fi starship background */
 .blog-overlay {
+  font-family: "Cutive Mono", monospace;
   min-height: 100vh;
   width: 100%;
   overflow-y: auto;

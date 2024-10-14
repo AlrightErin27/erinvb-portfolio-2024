@@ -13,6 +13,7 @@ body {
 }
 
 .Games {
+  font-family: "Cutive Mono", monospace;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */

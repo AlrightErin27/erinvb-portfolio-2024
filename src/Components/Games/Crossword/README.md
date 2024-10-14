@@ -2,6 +2,12 @@
 
 A React-based interactive crossword puzzle game that allows users to navigate and solve crossword grids using both mouse clicks and keyboard input. This game was developed with a focus on creating an intuitive, fluid user experience, leveraging modern web development tools and techniques.
 
+## Medium Blog Post:
+
+[https://medium.com/@erinmontybruce/enhancing-user-interaction-in-my-crossword-puzzle-game-ec7b9d7f62b1](https://medium.com/@erinmontybruce/enhancing-user-interaction-in-my-crossword-puzzle-game-ec7b9d7f62b1)
+
+[https://medium.com/@erinmontybruce/crafting-a-buffy-themed-crossword-puzzle-in-react-a-slayers-journey-8b94580f89d7](https://medium.com/@erinmontybruce/crafting-a-buffy-themed-crossword-puzzle-in-react-a-slayers-journey-8b94580f89d7)
+
 ## 1. Overview and User Walkthrough
 
 ### Game Overview:

@@ -10,12 +10,6 @@ I am a **Full-Stack Software Engineer** with a unique blend of technical experti
 
 My experience spans a diverse range of projects, including crafting intricate game mechanics and developing robust e-commerce platforms. Whether it's delivering game logic or designing intuitive UI/UX, I strive to create high-quality applications that resonate with users.
 
-## About Me
-
-I am a **Full-Stack Software Engineer** with a unique blend of technical expertise and artistic sensibility. My primary focus is on **front-end development**, where I specialize in building **user-friendly, responsive web applications**. I am passionate about transforming complex problems into elegant, innovative solutions.
-
-My experience spans a diverse range of projects, including crafting intricate game mechanics and developing robust e-commerce platforms. Whether it's delivering game logic or designing intuitive UI/UX, I strive to create high-quality applications that resonate with users.
-
 ### Key Strengths:
 
 - Expertise in **JavaScript**, **React.js**, and **CSS** for front-end development.
@@ -86,6 +80,26 @@ Evie & Co. is a **React.js-based e-commerce platform** for a high-end online fas
 
 For more details, please refer to the [Shop README](./src/Components/Shop/README.md).
 
+### 6. **Project Videos Component**
+
+The Project Videos Component is a React-based application designed to showcase development project walkthroughs. It provides an intuitive interface for users to view and navigate through various project videos, complete with project details and technologies used.
+
+#### Features:
+
+- Responsive design that works on desktop and mobile devices
+- Video playback functionality
+- Project selection dropdown for easy navigation
+- Light/Dark mode toggle
+- Detailed project information display
+
+#### Technologies:
+
+- **React.js** for building the user interface
+- **CSS3** with Flexbox and Grid for responsive layout
+- **HTML5** for video playback
+
+For more details, please refer to the [Project Videos Component README](./src/Components/Home/ProjectVideos/README.md).
+
 ---
 
 ## Technologies and Skills
@@ -101,6 +115,7 @@ For more details, please refer to the [Shop README](./src/Components/Shop/README
 
 - **Node.js**: For server-side logic and API handling.
 - **Express.js**: Used for routing and handling requests in web applications.
+- **MongoDB**: NoSQL database for flexible and scalable data storage.
 - **REST APIs**: Experience in building and consuming APIs.
 
 ### Tools:
@@ -119,5 +134,17 @@ To view a project locally:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/yourusername/portfolio.git
    ```
+
+## Contact
+
+I'm always open to new opportunities and collaborations. Feel free to reach out to me at:
+
+- Email: [erinmontybruce@gmail.com](mailto:erinmontybruce@gmail.com)
+- LinkedIn: [https://www.linkedin.com/in/erin-van-brunt/](https://www.linkedin.com/in/erin-van-brunt/)
+- GitHub: [https://github.com/AlrightErin27](https://github.com/AlrightErin27)
+
+Thank you for visiting my portfolio!
+
+[Medium Blog](https://medium.com/@erinmontybruce)
