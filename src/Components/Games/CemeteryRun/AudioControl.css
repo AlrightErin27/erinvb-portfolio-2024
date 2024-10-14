@@ -1,0 +1,49 @@
+.audio-control {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.icon-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.audio-icon {
+  width: 60%;
+  height: 60%;
+  filter: invert(80%) sepia(32%) saturate(4940%) hue-rotate(341deg)
+    brightness(101%) contrast(101%); /* This will make the icon #ff6b1a */
+}
+
+.music-off::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: #ff6b1a;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Hover effect */
+.audio-control:hover .icon-wrapper {
+  opacity: 0.8;
+}
+
+/* Focus styles for accessibility */
+.audio-control:focus {
+  /* outline: 2px solid #ff6b1a; 
+  outline-offset: 2px; */
+}

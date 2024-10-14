@@ -3,6 +3,7 @@ import "./CemeteryRun.css";
 import Canvas from "./Canvas";
 import Controls from "./Controls";
 import GameInfo from "./GameInfo";
+import AudioControl from "./AudioControl";
 
 const CemeteryRun = () => {
   const [gameOver, setGameOver] = useState(false);
@@ -39,7 +40,12 @@ const CemeteryRun = () => {
           restartGame={restartGame}
         />
       </div>
-      <GameInfo score={score} timeLeft={timeLeft} />
+      <div className="cr-bottom-container">
+        <div className="cr-info-audio-container">
+          <GameInfo score={score} timeLeft={timeLeft} />
+        </div>
+        <AudioControl />
+      </div>
     </div>
   );
 };
