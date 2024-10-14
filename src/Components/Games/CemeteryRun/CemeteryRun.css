@@ -1,21 +1,17 @@
 /* CemeteryRun.css */
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&display=swap");
+
 :root {
-  --bg-color: #1a0f26;
-  --text-color: #f0cb5c;
-  --accent-color: #ff6b1a;
-  --secondary-color: #8b0000;
-  --canvas-border: #4a0e4e;
+  --cr-bg-color: #1a0f26;
+  --cr-text-color: #f0cb5c;
+  --cr-accent-color: #ff6b1a;
+  --cr-secondary-color: #8b0000;
+  --cr-canvas-border: #4a0e4e;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-color);
-}
-
-.cemetery-run {
-  font-family: "ArcadeClassic", "Courier New", Courier, monospace;
-  color: var(--text-color);
+.cr-cemetery-run {
+  font-family: "Jersey 10", "Courier New", Courier, monospace;
+  color: var(--cr-text-color);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,18 +19,77 @@ body {
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
+  background-color: var(--cr-bg-color);
+  background-image: linear-gradient(
+      rgba(26, 15, 38, 0.7),
+      rgba(26, 15, 38, 0.7)
+    ),
+    url("../../../Images/Games/CemeteryRun/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
 }
 
-.game-title {
-  font-size: 3rem;
+.cr-cemetery-run::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06)
+    );
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  animation: cr-flicker 0.15s infinite;
+  z-index: 2;
+}
+
+@keyframes cr-flicker {
+  0% {
+    opacity: 0.97;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0.97;
+  }
+}
+
+.cr-game-title {
+  font-size: 4rem;
   margin-bottom: 20px;
-  text-shadow: 4px 4px 0px var(--secondary-color);
+  text-shadow: 4px 4px 0px var(--cr-secondary-color),
+    8px 8px 0px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
   text-align: center;
+  color: var(--cr-accent-color);
+  animation: cr-glow 2s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 3;
 }
 
-.game-container {
+@keyframes cr-glow {
+  from {
+    text-shadow: 4px 4px 0px var(--cr-secondary-color),
+      8px 8px 0px rgba(0, 0, 0, 0.3);
+  }
+  to {
+    text-shadow: 4px 4px 0px var(--cr-secondary-color),
+      8px 8px 0px rgba(0, 0, 0, 0.3), 0 0 20px var(--cr-accent-color);
+  }
+}
+
+.cr-game-container {
   position: relative;
   width: 100%;
   max-width: 1000px;
@@ -43,46 +98,107 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 
-.game-canvas {
-  border: 4px solid var(--canvas-border);
-  box-shadow: 0 0 20px rgba(255, 107, 26, 0.5);
+.cr-game-canvas {
+  border: 8px solid var(--cr-canvas-border);
+  box-shadow: 0 0 20px rgba(255, 107, 26, 0.5), 0 0 40px rgba(255, 107, 26, 0.3);
   image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
   width: 100%;
   height: auto;
+  border-radius: 8px;
+  transform: scale(1.01);
 }
 
-.game-info {
+.cr-game-canvas-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  overflow: hidden;
+}
+
+.cr-game-canvas-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhJREFUeNpi+P//fwMTAwMDEwMDAwMIAAQYABEKA38bfIPxAAAAAElFTkSuQmCC");
+  background-repeat: repeat;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.cr-game-info {
   margin-top: 20px;
   font-size: 1.5rem;
   text-align: center;
   text-transform: uppercase;
+  background-color: rgba(26, 15, 38, 0.7);
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid var(--cr-accent-color);
+  position: relative;
+  z-index: 3;
 }
 
-.game-over {
+.cr-score,
+.cr-time-left {
+  margin: 5px 0;
+}
+
+.cr-game-over {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background-color: rgba(26, 15, 38, 0.8);
-  padding: 20px;
-  border-radius: 10px;
+  background-color: rgba(26, 15, 38, 0.9);
+  padding: 40px;
+  border-radius: 16px;
+  border: 4px solid var(--cr-accent-color);
+  box-shadow: 0 0 30px rgba(255, 107, 26, 0.7);
+  z-index: 5;
 }
 
-.game-over-text {
-  font-size: 3rem;
+.cr-game-over-text {
+  font-size: 4rem;
   margin-bottom: 20px;
-  color: var(--accent-color);
-  text-shadow: 2px 2px 0px var(--secondary-color);
+  color: var(--cr-accent-color);
+  text-shadow: 4px 4px 0px var(--cr-secondary-color);
+  animation: cr-shake 0.5s ease-in-out;
 }
 
-.start-button,
-.restart-button {
-  background-color: var(--accent-color);
+@keyframes cr-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+  }
+}
+
+.cr-start-button,
+.cr-restart-button {
+  background-color: var(--cr-accent-color);
   border: none;
-  color: var(--bg-color);
+  color: var(--cr-bg-color);
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -91,90 +207,59 @@ body {
   margin: 20px 2px;
   cursor: pointer;
   border-radius: 8px;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
   text-transform: uppercase;
-  /* font-family: "ArcadeClassic", "Courier New", Courier, monospace; */
+  font-family: "Jersey 10", "Courier New", Courier, monospace;
+  box-shadow: 0 4px 0 var(--cr-secondary-color);
+  position: relative;
+  z-index: 3;
 }
 
-.start-button:hover,
-.restart-button:hover {
-  background-color: var(--text-color);
-  color: var(--bg-color);
+.cr-start-button:hover,
+.cr-restart-button:hover {
+  background-color: var(--cr-text-color);
+  color: var(--cr-bg-color);
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--cr-secondary-color);
 }
 
-.past-games {
-  margin-top: 30px;
-  text-align: center;
+.cr-start-button:active,
+.cr-restart-button:active {
+  transform: translateY(4px);
+  box-shadow: none;
 }
 
-.past-games h2 {
-  font-size: 2rem;
-  color: var(--accent-color);
-  margin-bottom: 15px;
-}
-
-.past-games ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.past-games li {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
+/* Responsive styles */
 @media (max-width: 768px) {
-  .game-title {
-    font-size: 2rem;
+  .cr-game-title {
+    font-size: 3rem;
   }
-
-  .game-info {
+  .cr-game-info {
     font-size: 1.2rem;
   }
-
-  .start-button,
-  .restart-button {
+  .cr-start-button,
+  .cr-restart-button {
     font-size: 1.2rem;
-    padding: 10px 20px;
+    padding: 12px 24px;
   }
-
-  .game-over-text {
-    font-size: 2rem;
-  }
-
-  .past-games h2 {
-    font-size: 1.5rem;
-  }
-
-  .past-games li {
-    font-size: 1rem;
+  .cr-game-over-text {
+    font-size: 3rem;
   }
 }
 
 @media (max-width: 480px) {
-  .game-title {
-    font-size: 1.5rem;
+  .cr-game-title {
+    font-size: 2rem;
   }
-
-  .game-info {
+  .cr-game-info {
     font-size: 1rem;
   }
-
-  .start-button,
-  .restart-button {
+  .cr-start-button,
+  .cr-restart-button {
     font-size: 1rem;
-    padding: 8px 16px;
+    padding: 10px 20px;
   }
-
-  .game-over-text {
-    font-size: 1.5rem;
-  }
-
-  .past-games h2 {
-    font-size: 1.2rem;
-  }
-
-  .past-games li {
-    font-size: 0.9rem;
+  .cr-game-over-text {
+    font-size: 2.5rem;
   }
 }

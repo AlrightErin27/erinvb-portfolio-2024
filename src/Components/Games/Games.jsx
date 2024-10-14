@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Games.css";
 import FolderIcon from "../../Images/Games/folder.png";
@@ -36,17 +36,20 @@ export default function Games() {
     setIsDragging(true);
   };
 
-  const handleScrollbarMouseUp = () => {
+  const handleScrollbarMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
-  const handleScrollbarMouseMove = (e) => {
-    if (isDragging) {
-      const { top, height } = scrollbarRef.current.getBoundingClientRect();
-      const dragPosition = (e.clientY - top) / height;
-      scrollToPosition(dragPosition);
-    }
-  };
+  const handleScrollbarMouseMove = useCallback(
+    (e) => {
+      if (isDragging) {
+        const { top, height } = scrollbarRef.current.getBoundingClientRect();
+        const dragPosition = (e.clientY - top) / height;
+        scrollToPosition(dragPosition);
+      }
+    },
+    [isDragging]
+  );
 
   const scrollToPosition = (percentage) => {
     if (linksListRef.current) {
@@ -63,7 +66,7 @@ export default function Games() {
       document.removeEventListener("mousemove", handleScrollbarMouseMove);
       document.removeEventListener("mouseup", handleScrollbarMouseUp);
     };
-  }, [isDragging]);
+  }, [handleScrollbarMouseMove, handleScrollbarMouseUp]);
 
   const games = [
     { id: "concentration", name: "Concentration" },
