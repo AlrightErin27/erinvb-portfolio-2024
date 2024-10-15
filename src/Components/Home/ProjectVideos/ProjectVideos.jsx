@@ -1,35 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ProjectVideos.css";
-
-const projectsData = [
-  {
-    id: 1,
-    title: "E-commerce Platform Redesign",
-    date: "2023-09-15",
-    videoUrl: "https://example.com/video1.mp4",
-    notes:
-      "Complete overhaul of the user interface and checkout process, focusing on improved user experience and conversion rates.",
-    techUsed: ["React", "Node.js", "MongoDB", "Stripe API"],
-  },
-  {
-    id: 2,
-    title: "AI-Powered Chat Assistant",
-    date: "2023-11-30",
-    videoUrl: "https://example.com/video2.mp4",
-    notes:
-      "Developed an intelligent chatbot using natural language processing to enhance customer support efficiency.",
-    techUsed: ["Python", "TensorFlow", "Flask", "Docker"],
-  },
-  {
-    id: 3,
-    title: "Blockchain-based Supply Chain Tracker",
-    date: "2024-02-10",
-    videoUrl: "https://example.com/video3.mp4",
-    notes:
-      "Created a decentralized application for transparent and secure tracking of product origins and shipments.",
-    techUsed: ["Solidity", "Ethereum", "Web3.js", "React"],
-  },
-];
+import projectsData from "./ProjectsData";
 
 const ProjectVideos = () => {
   const [projects, setProjects] = useState([]);
@@ -38,18 +9,24 @@ const ProjectVideos = () => {
   const projectRefs = useRef({});
 
   useEffect(() => {
-    setProjects(projectsData);
-    if (projectsData.length > 0) {
+    console.log("Imported projectsData:", projectsData);
+
+    if (Array.isArray(projectsData) && projectsData.length > 0) {
+      setProjects(projectsData);
       setSelectedProject(projectsData[0].id);
+      console.log("Projects set in state:", projectsData);
+    } else {
+      console.error("projectsData is not a valid array:", projectsData);
+      setProjects([]);
     }
 
     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     setIsDarkMode(prefersDarkScheme.matches);
 
     const handleChange = (event) => setIsDarkMode(event.matches);
-    prefersDarkScheme.addListener(handleChange);
+    prefersDarkScheme.addEventListener("change", handleChange);
 
-    return () => prefersDarkScheme.removeListener(handleChange);
+    return () => prefersDarkScheme.removeEventListener("change", handleChange);
   }, []);
 
   useEffect(() => {
@@ -67,6 +44,76 @@ const ProjectVideos = () => {
     }
   };
 
+  const renderVideo = (project) => {
+    if (project.videoUrl.includes("vimeo.com")) {
+      return (
+        <div className="pv-video-container">
+          <iframe
+            src={project.videoUrl}
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            title={project.title}
+          ></iframe>
+        </div>
+      );
+    } else if (project.videoUrl) {
+      return (
+        <div className="pv-video-container">
+          <video className="pv-video" controls>
+            <source src={project.videoUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      );
+    } else {
+      return <div className="pv-video-placeholder">No video available</div>;
+    }
+  };
+
+  const renderProjectLinks = (project) => {
+    return (
+      <div className="pv-links">
+        {project.github && (
+          <a
+            href={project.github}
+            className="pv-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        )}
+        {project.url && (
+          <a
+            href={project.url}
+            className="pv-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Website
+          </a>
+        )}
+        {!project.github && !project.url && (
+          <span className="pv-link-placeholder">No links available</span>
+        )}
+      </div>
+    );
+  };
+
+  console.log("Current projects state:", projects);
+
+  if (projects.length === 0) {
+    return (
+      <div>
+        Loading projects... If this persists, there might be an issue with the
+        data.
+      </div>
+    );
+  }
+
   return (
     <div className="pv-container">
       <button className="pv-toggle" onClick={toggleMode}>
@@ -82,7 +129,7 @@ const ProjectVideos = () => {
         >
           {projects.map((project) => (
             <option key={project.id} value={project.id}>
-              {project.title} - {project.techUsed.join(", ")}
+              {project.title}
             </option>
           ))}
         </select>
@@ -97,13 +144,11 @@ const ProjectVideos = () => {
           >
             <h2 className="pv-card-title">{project.title}</h2>
             <p className="pv-date">Date: {project.date}</p>
-            <video className="pv-video" controls>
-              <source src={project.videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {renderVideo(project)}
             <div className="pv-details">
               <h3 className="pv-heading">Project Notes:</h3>
               <p className="pv-notes">{project.notes}</p>
+              {renderProjectLinks(project)}
               <h3 className="pv-heading">Technologies Used:</h3>
               <ul className="pv-tech">
                 {project.techUsed.map((tech, index) => (

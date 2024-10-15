@@ -2,6 +2,20 @@
 
 Welcome to my personal portfolio, showcasing my work as a Full-Stack Software Engineer with a strong focus on front-end development and user-centered design. My projects range from web applications and games to complex e-commerce platforms. Each project highlights my commitment to creating elegant, intuitive, and responsive user experiences.
 
+## Table of Contents
+
+- [About Me](#about-me)
+- [Projects](#projects)
+  1. [Noughts and Crosses (Tic-Tac-Toe)](#1-noughts-and-crosses-tic-tac-toe)
+  2. [Concentration (Memory Matching Game)](#2-concentration-memory-matching-game)
+  3. [Crossword Puzzle Game](#3-crossword-puzzle-game)
+  4. [CemeteryRun Game](#4-cemeteryrun-game)
+  5. [Evie & Co. - High-End Online Fashion Shop](#5-evie--co---high-end-online-fashion-shop)
+  6. [Medium Blog - Tech Insights and Tutorials](#6-medium-blog---tech-insights-and-tutorials)
+- [Technologies and Skills](#technologies-and-skills)
+- [How to Use This Portfolio](#how-to-use-this-portfolio)
+- [Contact](#contact)
+
 ---
 
 ## About Me
@@ -80,27 +94,19 @@ Evie & Co. is a **React.js-based e-commerce platform** for a high-end online fas
 
 For more details, please refer to the [Shop README](./src/Components/Shop/README.md).
 
-### 6. **Project Videos Component**
+### 6. **Medium Blog - Tech Insights and Tutorials**
 
-The Project Videos Component is a React-based application designed to showcase development project walkthroughs. It provides an intuitive interface for users to view and navigate through various project videos, complete with project details and technologies used.
+My Medium blog is a React-based platform where I share insights, experiences, and tutorials on various aspects of software development. It showcases my ability to communicate complex technical concepts clearly and engagingly, while also demonstrating my skills in working with APIs and asynchronous JavaScript.
 
-#### Features:
+- **Built with React**: The blog component is developed using React, showcasing my front-end development skills.
+- **Axios for API Integration**: Utilizes Axios to fetch blog posts from Medium's third-party API, demonstrating my ability to work with external data sources.
+- **Dynamic Content**: Automatically updates with my latest Medium posts, keeping the content fresh and relevant.
+- **Topics covered**: React.js, JavaScript, Web Development best practices, and more.
+- **Responsive Design**: Ensures a seamless reading experience across various devices and screen sizes.
 
-- Responsive design that works on desktop and mobile devices
-- Video playback functionality
-- Project selection dropdown for easy navigation
-- Light/Dark mode toggle
-- Detailed project information display
+You can read my latest articles and follow my blog at [https://medium.com/@erinmontybruce](https://medium.com/@erinmontybruce).
 
-#### Technologies:
-
-- **React.js** for building the user interface
-- **CSS3** with Flexbox and Grid for responsive layout
-- **HTML5** for video playback
-
-For more details, please refer to the [Project Videos Component README](./src/Components/Home/ProjectVideos/README.md).
-
----
+## For more details on the technical implementation, please refer to the [Blog README](./src/Components/Blog/README.md).
 
 ## Technologies and Skills
 

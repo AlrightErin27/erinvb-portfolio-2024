@@ -79,7 +79,12 @@ body {
   color: black;
   filter: invert(100%) sepia(5%) saturate(500%) hue-rotate(350deg);
   mix-blend-mode: normal;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(170, 166, 161, 0.8),
+    /* Small inner glow */ 0 0 10px rgba(165, 165, 165, 0.7),
+    /* Medium glow */ 0 0 15px rgba(123, 123, 123, 0.6),
+    /* Outer glow */ 0 0 20px rgba(201, 201, 201, 0.5); /* Extended glow */
 }
 
 .icon-img {
