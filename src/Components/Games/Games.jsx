@@ -73,6 +73,7 @@ export default function Games() {
     { id: "noughts-&-crosses", name: "Noughts & Crosses" },
     { id: "crossword", name: "Crossword" },
     { id: "cemetery-run", name: "Cemetery Run" },
+    { id: "art-studio", name: "Art Studio" },
   ];
 
   return (

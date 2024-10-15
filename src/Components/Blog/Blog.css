@@ -230,8 +230,8 @@ body {
   color: var(--neon-color);
 }
 
-.posts p {
-  font-size: clamp(14px, 3vw, 16px);
+.posts-p {
+  font-size: clamp(20px, 4vw, 16px);
   line-height: 1.5;
 }
 

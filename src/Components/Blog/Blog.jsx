@@ -83,7 +83,10 @@ const Blog = () => {
                 <h2 className="glitch-text" data-text={post.title}>
                   {post.title}
                 </h2>
-                <p dangerouslySetInnerHTML={{ __html: post.content }} />
+                <p
+                  className="posts-p"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
                 <a
                   href={post.link}
                   target="_blank"
