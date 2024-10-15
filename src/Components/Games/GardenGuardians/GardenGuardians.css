@@ -74,6 +74,9 @@ h1 {
   background-color: #c8e6c9;
   transition: background-color 0.3s;
   overflow: hidden;
+  /* background-image: url("../../../Images/Games/GardenGuardians/grass.jpg");
+  background-size: 200%;
+  background-repeat: no-repeat; */
 }
 
 .garden-square:hover {

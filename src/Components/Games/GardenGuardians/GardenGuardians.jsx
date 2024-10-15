@@ -26,7 +26,8 @@ const GardenGuardians = () => {
   const [guardMode, setGuardMode] = useState(false);
 
   const images = {
-    gardenPlants: [clover1, clover2, clover3, flower1, flower2, flower3],
+    gardenPlants: [clover1, clover2, clover3],
+    pests: [flower1, flower2, flower3],
     flag: flagImage,
     gnome: gnomeImage,
   };
@@ -70,11 +71,13 @@ const GardenGuardians = () => {
         (randomRow !== clickedRow || randomCol !== clickedCol)
       ) {
         newBoard[randomRow][randomCol].hasPest = true;
+        newBoard[randomRow][randomCol].image =
+          images.pests[Math.floor(Math.random() * images.pests.length)];
         pestsPlaced++;
       }
     }
 
-    // Calculate neighbor pests and assign random images
+    // Calculate neighbor pests and assign random images to non-pest squares
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         if (!newBoard[row][col].hasPest) {
@@ -83,11 +86,6 @@ const GardenGuardians = () => {
             row,
             col
           );
-          newBoard[row][col].image =
-            images.gardenPlants[
-              Math.floor(Math.random() * images.gardenPlants.length)
-            ];
-        } else {
           newBoard[row][col].image =
             images.gardenPlants[
               Math.floor(Math.random() * images.gardenPlants.length)
@@ -130,20 +128,13 @@ const GardenGuardians = () => {
     if (firstClick) {
       newBoard = placePestsAndCalculateNeighbors(row, col);
       setFirstClick(false);
-      // Reveal the clicked square and its neighbors
-      revealSquare(newBoard, row, col);
-      for (let r = -1; r <= 1; r++) {
-        for (let c = -1; c <= 1; c++) {
-          revealSquare(newBoard, row + r, col + c);
-        }
-      }
+    }
+
+    if (newBoard[row][col].hasPest) {
+      setGameOver(true);
+      revealAll(newBoard);
     } else {
-      if (newBoard[row][col].hasPest) {
-        setGameOver(true);
-        revealAll(newBoard);
-      } else {
-        revealSquare(newBoard, row, col);
-      }
+      revealSquare(newBoard, row, col);
     }
 
     checkWin(newBoard);
@@ -223,7 +214,9 @@ const GardenGuardians = () => {
                   key={`${rowIndex}-${colIndex}`}
                   {...square}
                   onClick={() => handleSquareClick(rowIndex, colIndex)}
-                  flagImage={images.gnome}
+                  flagImage={images.flag}
+                  gnomeImage={images.gnome}
+                  gameOver={gameOver}
                 />
               ))}
             </div>
