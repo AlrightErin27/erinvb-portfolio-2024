@@ -100,7 +100,7 @@ const projectsData = [
     github:
       "https://github.com/AlrightErin27/erinvb-portfolio-2024/tree/main/src/Components/Games/Concentration",
     url: "www.erinvanbrunt.com/games/concentration",
-    videoUrl: "https://example.com/video3.mp4",
+    videoUrl: "https://player.vimeo.com/video/1020038152",
     notes:
       "Crafted an engaging memory game featuring Tarot card imagery, built with React.js and enhanced with ReactCardFlip for smooth animations. This project showcases the implementation of complex game logic, state management, and the integration of third-party libraries to create an immersive user experience.",
     techUsed: [

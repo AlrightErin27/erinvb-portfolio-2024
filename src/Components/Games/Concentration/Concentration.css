@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 
-.Concentration {
+.conc-container {
   min-height: 100vh;
   height: fit-content;
   padding: 2% 0;
@@ -40,30 +40,30 @@ body {
   box-sizing: border-box;
 }
 
-.Concentration::before,
-.Concentration::after {
+.conc-container::before,
+.conc-container::after {
   content: "";
   position: absolute;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
-  animation: float 20s infinite ease-in-out;
+  animation: conc-float 20s infinite ease-in-out;
 }
 
-.Concentration::before {
+.conc-container::before {
   top: -100px;
   left: -100px;
   animation-delay: -5s;
 }
 
-.Concentration::after {
+.conc-container::after {
   bottom: -100px;
   right: -100px;
   animation-delay: -15s;
 }
 
-@keyframes float {
+@keyframes conc-float {
   0%,
   100% {
     transform: translate(0, 0);
@@ -79,7 +79,7 @@ body {
   }
 }
 
-.con-wrap {
+.conc-wrap {
   width: 95%;
   max-width: 1000px;
   flex-grow: 1;
@@ -96,7 +96,7 @@ body {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.game-controls {
+.conc-game-controls {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -104,7 +104,7 @@ body {
   padding: 1rem 0; /* Added padding to top and bottom */
 }
 
-.con-btn {
+.conc-btn {
   height: auto; /* Changed from fixed height to auto */
   font-size: clamp(1rem, 2vw, 1.5rem);
   background-position: center;
@@ -127,16 +127,16 @@ body {
   line-height: 1.2;
 }
 
-.con-btn:hover {
+.conc-btn:hover {
   background-color: rgba(51, 64, 68, 0.3);
   color: #000;
 }
 
-.con-btn:focus {
+.conc-btn:focus {
   box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.3);
 }
 
-.game-board {
+.conc-game-board {
   perspective: 600px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -147,7 +147,7 @@ body {
   margin: 0 auto;
 }
 
-.card {
+.conc-card {
   background-image: url("../../../Images/Games/Concentration/back.png");
   background-position: center;
   background-size: contain;
@@ -163,32 +163,32 @@ body {
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
-.card:hover {
+.conc-card:hover {
   transform: translateY(-5px);
 }
 
-.card.flipped {
+.conc-card.conc-flipped {
   background-size: contain;
 }
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-  .Concentration {
+  .conc-container {
     padding: 1rem 0;
   }
 
-  .con-wrap {
+  .conc-wrap {
     width: 98%;
   }
 
-  .game-board {
+  .conc-game-board {
     gap: 0.3vw;
   }
 }
 
 /* Media query for very small screens */
 @media (max-width: 320px) {
-  .card {
+  .conc-card {
     min-width: 20px;
     min-height: 30px;
   }

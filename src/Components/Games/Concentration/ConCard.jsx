@@ -14,8 +14,8 @@ export default function ConCard({ card, idx, handleCardClick }) {
               }
             : null
         }
-        className={`card ${
-          card.isFlipped || card.isMatched ? "flipped" : "not-flipped"
+        className={`conc-card ${
+          card.isFlipped || card.isMatched ? "conc-flipped" : "conc-not-flipped"
         }`}
         onClick={() => handleCardClick(idx)}
       />
@@ -28,8 +28,8 @@ export default function ConCard({ card, idx, handleCardClick }) {
               }
             : null
         }
-        className={`card ${
-          card.isFlipped || card.isMatched ? "flipped" : "not-flipped"
+        className={`conc-card ${
+          card.isFlipped || card.isMatched ? "conc-flipped" : "conc-not-flipped"
         }`}
         onClick={() => handleCardClick(idx)}
       />

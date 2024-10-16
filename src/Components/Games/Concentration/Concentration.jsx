@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./Concentration.css";
 
 import Card from "./ConCard";
+
 import img1 from "../../../Images/Games/Concentration/img1.png";
 import img2 from "../../../Images/Games/Concentration/img2.png";
 import img3 from "../../../Images/Games/Concentration/img3.png";
@@ -33,7 +34,7 @@ const initialCards = [
   { id: 18, content: img9 },
 ];
 
-export default function Concentration1() {
+export default function Concentration() {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matches, setMatches] = useState(0);
@@ -56,10 +57,9 @@ export default function Concentration1() {
     setFlippedCards([]);
     setMatches(0);
     setIsChecking(false);
-  }, []); // useCallback with an empty dependency array ensures resetGame doesn't change between renders
+  }, []);
 
   useEffect(() => {
-    // Shuffle cards at the start
     resetGame();
   }, [resetGame]);
 
@@ -98,18 +98,17 @@ export default function Concentration1() {
     setIsChecking(false);
   };
 
-  //if all matches have been found
   if (matches === cards.length / 2) {
     resetGame();
   }
 
   return (
-    <div className="Concentration">
-      <div className="con-wrap">
-        <button onClick={resetGame} className="con-btn">
+    <div className="conc-container">
+      <div className="conc-wrap">
+        <button onClick={resetGame} className="conc-btn">
           • restart •
         </button>
-        <div className="game-board">
+        <div className="conc-game-board">
           {cards.map((card, idx) => (
             <Card
               card={card}
@@ -119,7 +118,7 @@ export default function Concentration1() {
             />
           ))}
         </div>
-        <div className="game-controls"></div>
+        {/* <div className="conc-game-controls"></div> */}
       </div>
     </div>
   );
