@@ -51,19 +51,23 @@ const projectsData = [
     github:
       "https://github.com/AlrightErin27/erinvb-portfolio-2024/tree/main/src/Components/Blog",
     url: "www.erinvanbrunt.com/blog",
-    videoUrl: "https://example.com/video2.mp4",
+    videoUrl: "https://player.vimeo.com/video/1020009691",
     notes:
       "Implemented a dynamic blog integration system that fetches and displays content from Medium using Axios and the RSS2JSON API. This project showcases proficiency in working with external APIs, asynchronous JavaScript, and creating responsive layouts for optimal content presentation.",
     techUsed: [
       "React.js",
       "Axios",
       "External API Integration",
+      "Fetch",
+      "RSS2JSON API",
       "Asynchronous JavaScript",
       "State Management",
       "Error Handling",
       "Responsive Design",
       "CSS Grid/Flexbox",
-      "Pagination",
+      "CSS Keyframes Animation",
+      "JSX",
+      "Postman",
       "Content Optimization",
     ],
   },
@@ -118,7 +122,7 @@ const projectsData = [
     github:
       "https://github.com/AlrightErin27/erinvb-portfolio-2024/tree/main/src/Components/Games/NoughtsAndCrosses",
     url: "www.erinvanbrunt.com/games/noughts-&-crosses",
-    videoUrl: "https://example.com/video5.mp4",
+    videoUrl: "https://player.vimeo.com/video/1019997466",
     notes:
       "Developed a visually striking implementation of the classic Tic-Tac-Toe game using React.js. The application features a dark floral background with a high-contrast UI, demonstrating proficiency in creating aesthetically pleasing and functional web applications with attention to user experience and design principles.",
     techUsed: [
@@ -129,8 +133,6 @@ const projectsData = [
       "Responsive Design",
       "Game Logic Implementation",
       "UI/UX Best Practices",
-      "Performance Optimization",
-      "Cross-browser Testing",
     ],
   },
   {
