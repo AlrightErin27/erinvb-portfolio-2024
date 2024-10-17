@@ -12,15 +12,21 @@ const Canvas = ({
   setGameOver,
   setScore,
   setTimeLeft,
+  restartGame,
 }) => {
+  // Refs for canvas and game elements
   const canvasRef = useRef(null);
   const ghostRef = useRef(null);
   const headstone1Ref = useRef(null);
   const headstone2Ref = useRef(null);
   const headstone3Ref = useRef(null);
   const backgroundRef = useRef(null);
-  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 400 });
 
+  // State for canvas size and game status
+  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 400 });
+  const [isWinner, setIsWinner] = useState(false);
+
+  // Effect for loading game images
   useEffect(() => {
     const loadImage = (src) => {
       return new Promise((resolve, reject) => {
@@ -31,6 +37,7 @@ const Canvas = ({
       });
     };
 
+    // Load all game images
     Promise.all([
       loadImage(ghostImage),
       loadImage(headstone1),
@@ -46,6 +53,7 @@ const Canvas = ({
     });
   }, []);
 
+  // Effect for handling canvas resizing
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
@@ -61,6 +69,7 @@ const Canvas = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Main game logic effect
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -76,6 +85,7 @@ const Canvas = ({
 
     const scaleFactor = canvasSize.width / 800;
 
+    // Ghost object with jump method
     const ghost = {
       x: canvasSize.width * 0.1,
       y: ghostY,
@@ -105,6 +115,7 @@ const Canvas = ({
       },
     };
 
+    // Function to create new obstacles
     const createObstacle = () => {
       const headstones = [
         headstone1Ref.current,
@@ -125,6 +136,7 @@ const Canvas = ({
       };
     };
 
+    // Function to draw the scrolling background
     const drawBackground = () => {
       if (backgroundRef.current) {
         const bgWidth = backgroundRef.current.width;
@@ -173,6 +185,7 @@ const Canvas = ({
         ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
       }
 
+      // Draw ground
       ctx.fillStyle = "#4a0e4e";
       ctx.fillRect(
         0,
@@ -182,9 +195,11 @@ const Canvas = ({
       );
     };
 
+    // Function to draw the ghost
     const drawGhost = () => {
       if (ghostRef.current) {
         if (!gameStarted) {
+          // Hover effect when game hasn't started
           hoverOffset += 0.05 * hoverDirection;
           if (Math.abs(hoverOffset) > 10) {
             hoverDirection *= -1;
@@ -208,6 +223,7 @@ const Canvas = ({
       }
     };
 
+    // Function to draw obstacles
     const drawObstacles = () => {
       obstacles.forEach((obstacle) => {
         if (obstacle.image) {
@@ -222,6 +238,7 @@ const Canvas = ({
       });
     };
 
+    // Main game update function
     const updateGame = () => {
       ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
       drawBackground();
@@ -233,6 +250,7 @@ const Canvas = ({
           obstacle.x -= speed;
         });
 
+        // Create new obstacles
         if (
           frameCount % Math.max(180 - Math.floor(frameCount / 500), 90) ===
           0
@@ -240,10 +258,12 @@ const Canvas = ({
           obstacles.push(createObstacle());
         }
 
+        // Remove off-screen obstacles
         obstacles = obstacles.filter(
           (obstacle) => obstacle.x > -obstacle.width
         );
 
+        // Check for collisions
         const collision = obstacles.some(
           (obstacle) =>
             ghost.x < obstacle.x + obstacle.width &&
@@ -253,11 +273,13 @@ const Canvas = ({
 
         if (collision) {
           setGameOver(true);
+          setIsWinner(false);
         }
 
         frameCount++;
         setScore(Math.floor(frameCount / 10));
 
+        // Increase speed every 1000 frames
         if (frameCount % 1000 === 0) {
           speed += 0.3 * scaleFactor;
         }
@@ -266,6 +288,7 @@ const Canvas = ({
       animationFrameId = requestAnimationFrame(updateGame);
     };
 
+    // Event handlers for keyboard and touch controls
     const handleKeyDown = (e) => {
       if (e.code === "Space" && gameStarted && !gameOver) {
         e.preventDefault();
@@ -284,6 +307,7 @@ const Canvas = ({
     canvas.addEventListener("touchstart", handleTouch);
     updateGame();
 
+    // Timer logic
     let timerInterval;
     if (gameStarted && !gameOver) {
       timerInterval = setInterval(() => {
@@ -291,6 +315,7 @@ const Canvas = ({
           if (prevTime <= 1) {
             clearInterval(timerInterval);
             setGameOver(true);
+            setIsWinner(true); // Player wins if time runs out
             return 0;
           }
           return prevTime - 1;
@@ -298,6 +323,7 @@ const Canvas = ({
       }, 1000);
     }
 
+    // Cleanup function
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       canvas.removeEventListener("touchstart", handleTouch);
@@ -314,6 +340,16 @@ const Canvas = ({
         height={canvasSize.height}
         className="cr-game-canvas"
       />
+      {gameOver && (
+        <div className="cr-game-over">
+          <p className="cr-game-over-text">
+            {isWinner ? "Winner!" : "Game Over!"}
+          </p>
+          <button onClick={restartGame} className="cr-restart-button">
+            Restart Game
+          </button>
+        </div>
+      )}
     </div>
   );
 };

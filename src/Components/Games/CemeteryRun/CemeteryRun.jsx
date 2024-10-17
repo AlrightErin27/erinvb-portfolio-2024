@@ -10,12 +10,14 @@ const CemeteryRun = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(90);
+  const [hasEverStarted, setHasEverStarted] = useState(false);
 
   const startGame = () => {
     setGameStarted(true);
     setGameOver(false);
     setScore(0);
     setTimeLeft(90);
+    setHasEverStarted(true);
   };
 
   const restartGame = () => {
@@ -32,18 +34,22 @@ const CemeteryRun = () => {
           setGameOver={setGameOver}
           setScore={setScore}
           setTimeLeft={setTimeLeft}
-        />
-        <Controls
-          gameStarted={gameStarted}
-          gameOver={gameOver}
-          startGame={startGame}
           restartGame={restartGame}
         />
       </div>
       <div className="cr-bottom-container">
-        <div className="cr-info-audio-container">
-          <GameInfo score={score} timeLeft={timeLeft} />
-        </div>
+        {!hasEverStarted && (
+          <Controls
+            gameStarted={gameStarted}
+            gameOver={gameOver}
+            startGame={startGame}
+          />
+        )}
+        {hasEverStarted && (
+          <div className="cr-info-audio-container">
+            <GameInfo score={score} timeLeft={timeLeft} />
+          </div>
+        )}
         <AudioControl />
       </div>
     </div>
