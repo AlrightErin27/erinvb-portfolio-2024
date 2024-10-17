@@ -21,7 +21,7 @@ body {
   overflow-y: auto;
   align-items: end;
   background-image: url("../../Images/Home/clouds.jpg");
-  background-size: 115%;
+  background-size: 127%;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
@@ -140,7 +140,7 @@ body {
     padding: 10px 0 10rem 0;
     position: static;
     height: auto;
-    background-color: rgba(223, 218, 207, 0.8);
+    background-color: rgb(223, 218, 207);
     background-image: linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
     background-size: 16.5px 16.5px;
@@ -155,14 +155,9 @@ body {
     padding: 10px;
     align-items: center;
     width: auto;
-    color: transparent;
-    font-size: 0;
-    transition: all 0.3s ease;
-  }
-
-  .Icon:hover {
     color: black;
     font-size: 0.8rem;
+    transition: all 0.3s ease;
   }
 
   .icon-img {
@@ -172,9 +167,18 @@ body {
   }
 
   .icon-name {
-    display: none;
+    display: block;
     text-align: center;
     margin-top: 5px;
+    max-width: 100%; /* Ensure text doesn't overflow the icon width */
+    word-wrap: break-word; /* Allow long words to break and wrap */
+  }
+
+  /* Specific styling for email icon text */
+  .Icon[href^="mailto:"] .icon-name {
+    font-size: 0.7rem; /* Slightly smaller font for email */
+    max-width: 90px; /* Limit width to force wrapping */
+    line-height: 1.2; /* Tighten line height for wrapped text */
   }
 
   .Icon:hover .icon-name {
@@ -196,6 +200,10 @@ body {
     width: 95%;
   }
 
+  .icons-cont {
+    height: 40vh;
+  }
+
   .Icon {
     width: 25%;
   }
@@ -203,5 +211,95 @@ body {
   .icon-img {
     width: 35px;
     height: 35px;
+  }
+}
+
+/* iPad-specific styles */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .home-content {
+    background-size: 221%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .grid-overlay {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 70%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .home-content::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background-color: rgb(223, 218, 207);
+    border-top: 5px black solid;
+    z-index: 1;
+  }
+
+  .home-content img {
+    height: 100%;
+    width: auto;
+    max-width: 70%;
+    object-fit: contain;
+    object-position: left bottom;
+    padding-left: 0;
+    margin-bottom: 0;
+    align-self: flex-end;
+  }
+
+  .icons-cont {
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
+    padding: 0;
+    position: relative;
+    background-color: transparent;
+    border-top: none;
+    margin-right: 2%;
+    color: black;
+  }
+
+  .Icon {
+    flex-direction: row;
+    height: auto;
+    min-height: auto;
+    max-height: none;
+    padding: 5% 0;
+    align-items: center;
+    width: 100%;
+    color: black; /* Changed from transparent to black */
+    font-size: 1rem; /* Changed from 0 to 1rem */
+  }
+
+  .icon-img {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    margin-right: 10px;
+  }
+
+  .icon-name {
+    display: inline;
+  }
+
+  /* Specific styling for email icon text on very small screens */
+  .Icon[href^="mailto:"] .icon-name {
+    font-size: 0.6rem; /* Even smaller font for email on very small screens */
+    max-width: 80px; /* Further limit width on very small screens */
+  }
+
+  .Icon:hover .icon-name {
+    display: inline;
   }
 }
