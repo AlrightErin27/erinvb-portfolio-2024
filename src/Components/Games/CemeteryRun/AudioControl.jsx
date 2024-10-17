@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AudioIcon from "../../../Images/Games/CemeteryRun/sound.png";
-import gameMusic from "./Audio/background.wav";
-import "./AudioControl.css"; // We'll create this CSS file next
+import "./AudioControl.css";
 
-const AudioControl = () => {
-  const [isMusicOn, setIsMusicOn] = useState(false);
-  const [audio] = useState(new Audio(gameMusic));
+const AudioControl = ({ isMusicOn, toggleMusic }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleMusic();
+  };
 
-  useEffect(() => {
-    audio.loop = true;
-    return () => {
-      audio.pause();
-    };
-  }, [audio]);
-
-  const toggleMusic = () => {
-    if (isMusicOn) {
-      audio.pause();
-    } else {
-      audio.play();
+  const handleKeyDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Only toggle if Enter or Space is pressed
+    if (e.key === "Enter") {
+      toggleMusic();
     }
-    setIsMusicOn(!isMusicOn);
   };
 
   return (
-    <button className="audio-control" onClick={toggleMusic}>
+    <button
+      className="audio-control"
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      aria-label={isMusicOn ? "Mute music" : "Unmute music"}
+    >
       <div className={`icon-wrapper ${isMusicOn ? "" : "music-off"}`}>
-        <img src={AudioIcon} alt="Audio control" className="audio-icon" />
+        <img src={AudioIcon} alt="" className="audio-icon" />
       </div>
     </button>
   );

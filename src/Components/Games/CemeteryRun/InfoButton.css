@@ -1,0 +1,98 @@
+.info-button-container {
+  position: relative;
+}
+
+.info-button {
+  background-color: var(--cr-accent-color);
+  color: var(--cr-bg-color);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.info-button:hover {
+  background-color: var(--cr-text-color);
+}
+
+.info-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.info-modal {
+  background-color: var(--cr-bg-color);
+  border: 2px solid var(--cr-accent-color);
+  border-radius: 8px;
+  padding: clamp(10px, 3vw, 20px);
+  z-index: 1001;
+  width: clamp(280px, 90%, 400px);
+  max-height: clamp(200px, 60vh, 400px);
+  overflow-y: auto;
+  color: var(--cr-text-color);
+  font-size: clamp(12px, 2vw, 16px);
+  display: flex;
+  flex-direction: column;
+}
+
+.info-modal h2 {
+  color: var(--cr-accent-color);
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: clamp(16px, 3vw, 22px);
+}
+
+.info-modal p {
+  margin-bottom: clamp(8px, 1.5vw, 12px);
+  line-height: 1.4;
+}
+
+.info-modal button {
+  background-color: var(--cr-accent-color);
+  color: var(--cr-bg-color);
+  border: none;
+  padding: clamp(5px, 1.5vw, 8px) clamp(10px, 2.5vw, 15px);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Jersey 10", "Courier New", Courier, monospace;
+  font-size: clamp(12px, 2vw, 16px);
+  align-self: flex-end;
+  margin-top: auto;
+}
+
+.info-modal button:hover {
+  background-color: var(--cr-text-color);
+}
+
+@media (max-width: 480px) {
+  .info-modal {
+    width: 85%;
+    padding: 12px;
+    max-height: 70vh;
+  }
+}
+
+@media (max-height: 600px) {
+  .info-modal {
+    max-height: 60vh;
+  }
+}
+
+@media (max-height: 400px) {
+  .info-modal {
+    max-height: 80vh;
+  }
+}
