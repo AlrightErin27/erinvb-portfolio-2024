@@ -10,7 +10,6 @@
 6. [Canvas API](#canvas-api)
 7. [Challenges and Solutions](#challenges-and-solutions)
 8. [Contributing](#contributing)
-9. [License](#license)
 
 ## Medium Blog Post
 

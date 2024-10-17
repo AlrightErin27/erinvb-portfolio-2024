@@ -12,7 +12,6 @@ A sleek, cyberpunk-themed personal blog built with React.js, featuring a Medium 
 - [Usage](#usage)
 - [API](#api)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 

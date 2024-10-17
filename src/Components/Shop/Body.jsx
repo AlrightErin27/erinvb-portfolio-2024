@@ -27,7 +27,7 @@ export default function Body({ addToCart }) {
 
       const container = containerRef.current;
       const itemWidth = container.children[0].offsetWidth;
-      const gap = 20; // Assuming 20px gap between items, adjust if different
+      const gap = 20;
       const scrollAmount = itemWidth + gap;
       const maxScroll = container.scrollWidth - container.clientWidth;
 
@@ -36,7 +36,6 @@ export default function Body({ addToCart }) {
       if (direction === "left") {
         newScrollPosition = container.scrollLeft - scrollAmount;
         if (newScrollPosition <= 0) {
-          // If we've scrolled to the start, prepare to jump to the middle set
           container.style.scrollBehavior = "auto";
           container.scrollLeft = maxScroll / 3;
           setTimeout(() => {
