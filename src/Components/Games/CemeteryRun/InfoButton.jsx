@@ -36,7 +36,7 @@ const InfoButton = () => {
           <div className="info-modal" ref={modalRef}>
             <h2>About Cemetery Run</h2>
             <p>
-              Cemetery Run is a spooky endless runner game where you control a
+              Cemetery Run is a spooky 90 second runner game where you control a
               ghost trying to escape the graveyard.
             </p>
             <p>

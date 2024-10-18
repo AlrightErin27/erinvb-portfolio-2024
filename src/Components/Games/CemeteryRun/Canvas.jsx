@@ -53,7 +53,7 @@ const Canvas = ({
     });
   }, []);
 
-  // Effect for handling canvas resizing
+  // Effect for handling canvas resizing----------------------------------------------------------//
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
@@ -240,6 +240,7 @@ const Canvas = ({
 
     // Main game update function
     const updateGame = () => {
+      //--------------------------------------------------------------------------------------------------------------------//
       ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
       drawBackground();
       drawGhost();

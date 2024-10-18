@@ -41,9 +41,3 @@
 .audio-control:hover .icon-wrapper {
   opacity: 0.8;
 }
-
-/* Focus styles for accessibility */
-.audio-control:focus {
-  /* outline: 2px solid #ff6b1a; 
-  outline-offset: 2px; */
-}
