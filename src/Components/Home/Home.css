@@ -1,3 +1,10 @@
+:root {
+  --primary: #000000;
+  --secondary: #9f9f9e;
+  --accent: rgba(100, 149, 237, 0.2);
+  --text-glow: #e8e5e6a3;
+}
+
 html,
 body {
   height: 100%;
@@ -19,9 +26,8 @@ body {
 .home-content {
   flex: 1;
   overflow-y: auto;
-  align-items: end;
   background-image: url("../../Images/Home/clouds.jpg");
-  background-size: 127%;
+  background-size: 140%;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
@@ -33,7 +39,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(100, 149, 237, 0.2);
+  background-color: var(--accent);
   mix-blend-mode: color;
   animation: colorShift 5s infinite alternate;
 }
@@ -58,6 +64,7 @@ body {
 
 .icons-cont {
   padding-top: 10%;
+  height: fit-content;
 }
 
 /* ICON STYLING */
@@ -77,14 +84,12 @@ body {
 
 .Icon:hover {
   color: black;
-  filter: invert(100%) sepia(5%) saturate(500%) hue-rotate(350deg);
+  filter: sepia(5%) saturate(500%) hue-rotate(350deg);
   mix-blend-mode: normal;
   font-size: 1.5rem;
   font-weight: 700;
-  text-shadow: 0 0 5px rgba(170, 166, 161, 0.8),
-    /* Small inner glow */ 0 0 10px rgba(165, 165, 165, 0.7),
-    /* Medium glow */ 0 0 15px rgba(123, 123, 123, 0.6),
-    /* Outer glow */ 0 0 20px rgba(201, 201, 201, 0.5); /* Extended glow */
+  text-shadow: 0 0 5px var(--text-glow), 0 0 10px, 0 0 15px var(--text-glow),
+    0 0 20px var(--text-glow);
 }
 
 .icon-img {
@@ -107,93 +112,133 @@ body {
   }
 }
 
-/* Mobile styles */
-@media screen and (max-width: 768px) {
-  .grid-overlay {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: auto;
-    min-height: 100%;
-    background-size: 16.5px 16.5px;
+/* Tablet Styles */
+@media screen and (max-width: 1024px) {
+  .home-content {
+    background-size: 350%;
+    background-position: center;
+    min-height: 0;
   }
 
-  .home-content {
-    background-size: 270%;
-    background-position: center;
+  .grid-overlay {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5vh 0 0 0;
+    background-size: 16.5px 16.5px;
+    min-height: 100%;
   }
 
   .home-content img {
     height: auto;
     width: 90%;
-    max-width: 400px;
-    padding-left: 0;
-    margin-top: 5%;
+    max-width: 600px;
+    padding: 0;
+    margin-bottom: 0;
+    display: block;
+    flex-shrink: 0;
   }
 
   .icons-cont {
-    padding-top: 5%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     width: 100%;
-    padding: 10px 0 10rem 0;
-    position: static;
+    padding: 20px 0;
+    margin-top: 0;
+    background-color: var(--secondary);
+    border-bottom: solid black 2px;
+    border-top: solid black 2px;
+    position: relative;
+    overflow: visible;
     height: auto;
-    background-color: rgb(223, 218, 207);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-    background-size: 16.5px 16.5px;
-    border-top: black solid 2px;
+    flex: 1;
+    min-height: fit-content;
+  }
+
+  .icons-cont::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        var(--color-crt-effect1) 50%,
+        var(--color-crt-effect2) 50%
+      ),
+      linear-gradient(
+        90deg,
+        var(--color-crt-effect-r),
+        var(--color-crt-effect-g),
+        var(--color-crt-effect-b)
+      );
+    z-index: 0;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.7;
   }
 
   .Icon {
-    flex-direction: column;
-    height: auto;
-    min-height: auto;
-    max-height: none;
-    padding: 10px;
-    align-items: center;
-    width: auto;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 3%;
     color: black;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .Icon:hover {
+    font-size: 1rem;
   }
 
   .icon-img {
-    width: 40px;
-    height: 40px;
-    min-width: auto;
-  }
-
-  .icon-name {
-    display: block;
-    text-align: center;
-    margin-top: 5px;
-    max-width: 100%; /* Ensure text doesn't overflow the icon width */
-    word-wrap: break-word; /* Allow long words to break and wrap */
-  }
-
-  /* Specific styling for email icon text */
-  .Icon[href^="mailto:"] .icon-name {
-    font-size: 0.7rem; /* Slightly smaller font for email */
-    max-width: 90px; /* Limit width to force wrapping */
-    line-height: 1.2; /* Tighten line height for wrapped text */
-  }
-
-  .Icon:hover .icon-name {
-    display: block;
+    width: 30px;
+    height: 30px;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .grid-overlay {
-    background-size: 10px 10px;
-  }
-
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
   .home-content {
     background-size: 350%;
     background-position: center;
+  }
+
+  .grid-overlay {
+    padding: 3vh 0 0 0;
+    background-size: 16.5px 16.5px;
+  }
+
+  .icons-cont {
+    position: relative;
+    overflow: visible;
+    height: auto;
+  }
+
+  .Icon {
+    width: 85%;
+    padding: 4%;
+  }
+
+  .icon-name {
+    word-break: break-word;
+    max-width: 200px;
+  }
+}
+
+/* Small Mobile Styles */
+@media screen and (max-width: 480px) {
+  .home-content {
+    background-size: 350%;
+    background-position: center;
+  }
+
+  .grid-overlay {
+    padding: 2vh 0 0 0;
+    background-size: 16.5px 16.5px;
+    height: auto;
+    min-height: 100%;
   }
 
   .home-content img {
@@ -201,105 +246,119 @@ body {
   }
 
   .icons-cont {
-    height: 40vh;
+    position: relative;
+    overflow: visible;
+    height: auto;
+    padding: 15px 0;
   }
 
   .Icon {
-    width: 25%;
+    width: 80%;
+    padding: 5%;
   }
 
   .icon-img {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
   }
 }
 
-/* iPad-specific styles */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+/* iPhone SE and Similar Small Devices */
+@media screen and (max-width: 375px) {
   .home-content {
-    background-size: 221%;
-    overflow: hidden;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .grid-overlay {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 20px;
+  }
+
+  .home-content img {
+    width: 95%;
+    max-width: 350px;
+  }
+
+  .icons-cont {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .Icon {
+    width: 85%;
+    padding: 4% 2%;
+    min-height: auto;
+  }
+
+  .icon-img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* iPad Mini and Similar Devices */
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .home-content {
+    background-size: 350%;
+    background-position: center;
+  }
+
+  .grid-overlay {
+    padding: 4vh 0 0 0;
+    background-size: 16.5px 16.5px;
+  }
+
+  .icons-cont {
+    padding: 15px 0;
+    border-bottom: solid black 2px;
+    border-top: solid black 2px;
     position: relative;
+    overflow: visible;
+    height: auto;
+  }
+
+  .Icon {
+    width: 80%;
+    padding: 2%;
+  }
+}
+
+/* Landscape Orientation Adjustments */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  .home-content {
+    background-size: 350%;
+    background-position: center;
   }
 
   .grid-overlay {
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 70%;
-    position: relative;
-    z-index: 2;
-  }
-
-  .home-content::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 30%;
-    background-color: rgb(223, 218, 207);
-    border-top: 5px black solid;
-    z-index: 1;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    background-size: 16.5px 16.5px;
   }
 
   .home-content img {
-    height: 100%;
+    height: 90%;
     width: auto;
-    max-width: 70%;
-    object-fit: contain;
-    object-position: left bottom;
-    padding-left: 0;
-    margin-bottom: 0;
-    align-self: flex-end;
+    padding: 0 2%;
   }
 
   .icons-cont {
-    padding-top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    height: 100%;
+    height: 90%;
+    width: 40%;
+    overflow-y: auto;
     padding: 0;
+    margin: 0;
+    border-bottom: solid black 2px;
+    border-top: solid black 2px;
     position: relative;
-    background-color: transparent;
-    border-top: none;
-    margin-right: 2%;
-    color: black;
+    overflow: visible;
   }
 
   .Icon {
-    flex-direction: row;
-    height: auto;
-    min-height: auto;
-    max-height: none;
-    padding: 5% 0;
-    align-items: center;
-    width: 100%;
-    color: black; /* Changed from transparent to black */
-    font-size: 1rem; /* Changed from 0 to 1rem */
-  }
-
-  .icon-img {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-    max-width: 30px;
-    margin-right: 10px;
-  }
-
-  .icon-name {
-    display: inline;
-  }
-
-  /* Specific styling for email icon text on very small screens */
-  .Icon[href^="mailto:"] .icon-name {
-    font-size: 0.6rem; /* Even smaller font for email on very small screens */
-    max-width: 80px; /* Further limit width on very small screens */
-  }
-
-  .Icon:hover .icon-name {
-    display: inline;
+    padding: 3% 5%;
   }
 }

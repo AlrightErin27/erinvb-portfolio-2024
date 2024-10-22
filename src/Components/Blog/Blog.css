@@ -57,6 +57,8 @@ body {
     );
   background-size: 50px 50px;
   box-shadow: inset 0 0 50px rgba(0, 255, 255, 0.15);
+  position: relative;
+  padding-top: 60px;
 }
 
 .blog-container {
@@ -282,15 +284,16 @@ body {
 }
 
 /* Scanning line effect */
+/* Update just this portion in Blog.css */
 .scanning-line {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 2px;
   background-color: rgba(0, 255, 255, 0.5);
-  animation: scan 30s linear infinite;
-  z-index: 1000;
+  animation: scan 600s linear infinite;
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -391,19 +394,9 @@ body {
   }
 }
 
-/* Cool additional touch: Starfield background */
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
+/* Starfield background */
 .star {
-  position: fixed;
+  position: absolute;
   width: 2px;
   height: 2px;
   background: white;
@@ -417,6 +410,16 @@ body {
 
 .star:nth-child(5n) {
   animation: twinkle 5s infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Media Queries */

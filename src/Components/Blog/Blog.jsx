@@ -44,7 +44,7 @@ const Blog = () => {
 
   return (
     <div className="blog-overlay">
-      {[...Array(50)].map((_, i) => (
+      {[...Array(2000)].map((_, i) => (
         <div
           key={i}
           className="star"
