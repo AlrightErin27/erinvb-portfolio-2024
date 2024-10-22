@@ -5,7 +5,9 @@ export default function Header() {
   return (
     <>
       <header className="header">
-        <img className="e-logo" src={ELogo} alt="Evie Logo" />
+        <div className="circle-background">
+          <img className="e-logo" src={ELogo} alt="Evie Logo" />
+        </div>
       </header>
     </>
   );

@@ -5,6 +5,7 @@
   --secondary-color: #1c1b1b; /* Black */
   --accent-color: #937244; /* Muted gold */
   --text-color: #5a5a5a; /* Dark grey */
+  --white-grey-background: rgb(247, 247, 247);
 }
 
 * {
@@ -15,7 +16,7 @@
 
 .Shop {
   font-family: "Playfair Display", serif;
-  background-color: var(--primary-color);
+  background-color: var(--white-grey-background);
   color: var(--text-color);
   min-height: 100vh;
   display: flex;
