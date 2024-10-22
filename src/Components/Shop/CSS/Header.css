@@ -16,14 +16,6 @@
   filter: invert(0.8);
 }
 
-.circle-background {
-  width: 23rem;
-  height: 19rem;
-  background-color: rgba(176, 174, 168, 0.2);
-  border-radius: 50%;
-  z-index: 1;
-}
-
 @media (max-width: 768px) {
   .header {
     height: auto;
