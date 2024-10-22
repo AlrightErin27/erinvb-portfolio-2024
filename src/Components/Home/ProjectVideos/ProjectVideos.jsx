@@ -2,6 +2,63 @@ import React, { useState, useEffect, useRef } from "react";
 import "./ProjectVideos.css";
 import projectsData from "./ProjectsData";
 
+const TechList = ({ techUsed }) => {
+  const [showAll, setShowAll] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const initialTechCount = 9;
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // iPad mini width is 768px
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (!isMobile || techUsed.length <= initialTechCount) {
+    return (
+      <ul className="pv-tech">
+        {techUsed.map((tech, index) => (
+          <li key={index} className="pv-tech-item">
+            {tech}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  const displayedTech = showAll
+    ? techUsed
+    : techUsed.slice(0, initialTechCount);
+
+  return (
+    <div className="pv-tech-container">
+      <ul className="pv-tech">
+        {displayedTech.map((tech, index) => (
+          <li key={index} className="pv-tech-item">
+            {tech}
+          </li>
+        ))}
+        {!showAll && techUsed.length > initialTechCount && (
+          <li
+            className="pv-tech-item pv-tech-show-more"
+            onClick={() => setShowAll(true)}
+          >
+            Show All ({techUsed.length - initialTechCount} more)
+          </li>
+        )}
+      </ul>
+      {showAll && (
+        <button className="pv-tech-show-less" onClick={() => setShowAll(false)}>
+          Show Less
+        </button>
+      )}
+    </div>
+  );
+};
+
 const ProjectVideos = () => {
   const [projects, setProjects] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -150,13 +207,7 @@ const ProjectVideos = () => {
               <p className="pv-notes">{project.notes}</p>
               {renderProjectLinks(project)}
               <h3 className="pv-heading">Technologies Used:</h3>
-              <ul className="pv-tech">
-                {project.techUsed.map((tech, index) => (
-                  <li key={index} className="pv-tech-item">
-                    {tech}
-                  </li>
-                ))}
-              </ul>
+              <TechList techUsed={project.techUsed} />
             </div>
           </div>
         ))}
