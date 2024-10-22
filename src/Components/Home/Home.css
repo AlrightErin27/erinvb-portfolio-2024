@@ -3,12 +3,18 @@
   --secondary: #aba1a2;
   --accent: rgba(100, 149, 237, 0.2);
   --text-glow: #e8e5e6a3;
-  /* Adding CRT effect variables */
+  /* CRT effect variables */
   --color-crt-effect1: rgba(44, 44, 44, 0);
   --color-crt-effect2: rgba(0, 0, 0, 0.15);
   --color-crt-effect-r: rgba(128, 128, 128, 0.03);
   --color-crt-effect-g: rgba(128, 128, 128, 0.02);
   --color-crt-effect-b: rgba(128, 128, 128, 0.03);
+  /* Color shift variables */
+  --color-shift-1: rgba(222, 255, 252, 0.3); /* Grey Teal */
+  --color-shift-2: rgba(100, 149, 237, 0.3); /* Cornflower Blue */
+  --color-shift-3: rgba(171, 161, 162, 0.3); /* Grey Blue */
+  --color-shift-4: rgba(217, 210, 218, 0.3); /* Mauve */
+  --color-shift-5: rgba(255, 218, 185, 0.3); /* Pastel Peach */
 }
 
 html,
@@ -45,9 +51,9 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--accent);
+  background-color: transparent;
   mix-blend-mode: color;
-  animation: colorShift 5s infinite alternate;
+  animation: colorShift 30s infinite;
 }
 
 .grid-overlay {
@@ -112,10 +118,22 @@ body {
 @keyframes colorShift {
   0%,
   100% {
-    opacity: 0;
+    background-color: transparent;
   }
-  50% {
-    opacity: 1;
+  16% {
+    background-color: var(--color-shift-1);
+  }
+  32% {
+    background-color: var(--color-shift-2);
+  }
+  48% {
+    background-color: var(--color-shift-3);
+  }
+  64% {
+    background-color: var(--color-shift-4);
+  }
+  80% {
+    background-color: var(--color-shift-5);
   }
 }
 

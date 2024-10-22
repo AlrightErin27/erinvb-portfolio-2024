@@ -3,14 +3,14 @@ import "./CSS/Footer.css";
 
 import image1 from "../../Images/Shop/Banner/1.png";
 import image2 from "../../Images/Shop/Banner/2.png";
-import image3 from "../../Images/Shop/Banner/3.png";
+
 import image4 from "../../Images/Shop/Banner/4.png";
 import image5 from "../../Images/Shop/Banner/5.png";
 import image6 from "../../Images/Shop/Banner/6.png";
 import image7 from "../../Images/Shop/Banner/7.png";
 
 export default function Footer({ handleLogout }) {
-  const images = [image5, image4, image1, image2, image3, image6, image7];
+  const images = [image5, image4, image1, image2, image6, image7];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
