@@ -5,7 +5,7 @@ const Icon = ({ website }) => {
   const downloadFile = () => {
     const el = document.createElement("a");
     el.href = website.pdf;
-    el.download = "ErinVanBruntResume.pdf";
+    el.download = "ErinVanBruntSoftwareDevResume.pdf";
     document.body.appendChild(el);
     el.click();
     document.body.removeChild(el);
