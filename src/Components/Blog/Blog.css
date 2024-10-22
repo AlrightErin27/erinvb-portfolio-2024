@@ -82,10 +82,6 @@ body {
   border-radius: 15px;
   padding: 2%;
   font-size: clamp(24px, 5vw, 40px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   border: 4px solid var(--neon-color);
   position: relative;
   overflow: hidden;
@@ -96,8 +92,8 @@ body {
   color: var(--neon-color);
   text-decoration: none;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
   width: 100%;
   position: relative;
@@ -110,8 +106,11 @@ body {
 }
 
 .title:hover {
-  filter: invert(0.3);
-  background-color: transparent;
+  background-color: rgba(0, 47, 94, 0.6);
+}
+
+.title-text:hover {
+  background-color: rgba(0, 47, 94, 0.6);
 }
 
 /* Horizontal glitch effect for title */
@@ -128,7 +127,6 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--title-background);
 }
 
 .horizontal-glitch::before {
