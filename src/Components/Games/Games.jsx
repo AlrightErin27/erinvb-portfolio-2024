@@ -77,57 +77,59 @@ export default function Games() {
 
   return (
     <div className="Games">
-      <div className="window">
-        <div className="title-bar">
-          <div className="title-border">
-            <img src={FolderIcon} alt="icon" className="folder-img" />
-            <span>Games Folder</span>
-          </div>
-        </div>
-        <div className="window-body">
-          <div className="folder-section">
-            <div className="folder-header">
-              <span>Links...</span>
-              <button
-                className="button"
-                onClick={() => navigate(`/games/${select}`)}
-              >
-                Select
-              </button>
+      <div className="games-wrapper">
+        <div className="window">
+          <div className="title-bar">
+            <div className="title-border">
+              <img src={FolderIcon} alt="icon" className="folder-img" />
+              <span>Games Folder</span>
             </div>
-            <div className="folder-content">
-              <div
-                className="links-list"
-                ref={linksListRef}
-                onScroll={handleScroll}
-              >
-                {games.map((game) => (
-                  <div
-                    key={game.id}
-                    className={select === game.id ? "selected-li" : "link-li"}
-                    onClick={() => setSelect(game.id)}
-                  >
-                    {game.name}
-                  </div>
-                ))}
+          </div>
+          <div className="window-body">
+            <div className="folder-section">
+              <div className="folder-header">
+                <span>Links...</span>
+                <button
+                  className="button"
+                  onClick={() => navigate(`/games/${select}`)}
+                >
+                  Select
+                </button>
               </div>
-              <div
-                className="retro-scrollbar"
-                ref={scrollbarRef}
-                onClick={handleScrollbarClick}
-                onMouseDown={handleScrollbarMouseDown}
-              >
+              <div className="folder-content">
                 <div
-                  className="scrollbar-thumb"
-                  style={{ top: `${scrollPosition}%` }}
-                ></div>
+                  className="links-list"
+                  ref={linksListRef}
+                  onScroll={handleScroll}
+                >
+                  {games.map((game) => (
+                    <div
+                      key={game.id}
+                      className={select === game.id ? "selected-li" : "link-li"}
+                      onClick={() => setSelect(game.id)}
+                    >
+                      {game.name}
+                    </div>
+                  ))}
+                </div>
+                <div
+                  className="retro-scrollbar"
+                  ref={scrollbarRef}
+                  onClick={handleScrollbarClick}
+                  onMouseDown={handleScrollbarMouseDown}
+                >
+                  <div
+                    className="scrollbar-thumb"
+                    style={{ top: `${scrollPosition}%` }}
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="status-bar">
-          <span>{currentTime.toLocaleTimeString()}</span>
-          <span>{currentTime.toLocaleDateString()}</span>
+          <div className="status-bar">
+            <span>{currentTime.toLocaleTimeString()}</span>
+            <span>{currentTime.toLocaleDateString()}</span>
+          </div>
         </div>
       </div>
     </div>
