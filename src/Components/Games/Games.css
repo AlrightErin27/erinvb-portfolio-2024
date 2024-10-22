@@ -232,6 +232,10 @@ body,
   .Games {
     margin-top: auto;
   }
+
+  .window {
+    width: 86vw;
+  }
 }
 
 @media (max-width: 480px) {
