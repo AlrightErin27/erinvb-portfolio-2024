@@ -4,10 +4,10 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100vh; /* Ensures it covers the full viewport height */
+  min-height: 100vh;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column; /* Stack title on top of crossword content */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0vh 2vw;
@@ -15,15 +15,17 @@
     center center fixed;
   background-size: cover;
   background-position: center 0.1%;
+  background-color: #552020;
 }
 
 .crossword-title {
   font-family: "Bangers", cursive;
-  color: #94b9e6;
+  color: #fbfeff;
   text-shadow: 2px 2px 4px #000, 0 0 10px #91a2a9;
   font-size: clamp(2rem, 5vw, 3rem);
   text-align: center;
   margin-bottom: 2rem;
+  margin-top: 2rem;
   width: 70vw;
   letter-spacing: 2px;
   display: block;
@@ -73,8 +75,8 @@
   border-radius: 8px;
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.513);
-  color: #f0f0f0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* Subtle shadow */
+  color: #fbfeff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .questions p {
@@ -90,7 +92,6 @@
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  /* cursor: pointer; */
   margin-top: 10px;
 }
 
@@ -159,5 +160,13 @@
 
   .questions p {
     font-size: 1.4vh;
+  }
+}
+
+/* New media query for very narrow screens */
+@media (max-width: 450px) {
+  .Crossword {
+    background-position: 80% center;
+    background-size: auto 100vh;
   }
 }

@@ -10,7 +10,6 @@
   background-color: #000;
   height: 100%;
   width: 100%;
-  /* pointer-events: none; */
 }
 
 .highlight {
@@ -20,17 +19,17 @@
   display: flex;
   flex-direction: column;
   justify-content: end;
-  /* cursor: pointer; */
 }
 
 .white {
-  background-color: #a7b0bd;
+  background-color: #fbfeff;
   height: 100%;
   width: 100%;
+  padding-left: 2%;
   display: flex;
   flex-direction: column;
   justify-content: end;
-  transition: background-color 0.3s ease; /* Smooth background transition */
+  transition: background-color 0.3s ease;
 }
 
 .white:hover {
@@ -53,13 +52,13 @@
 }
 
 .corner-num {
-  height: 41%;
+  height: 43%;
   width: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: clamp(0.1rem, 1vw + 0.1rem, 0.7vw);
-  color: #b7c8dc; /* Light blue from the image */
+  color: #fbfeff; /* Light blue from the image */
   background-color: #2a2a2a; /* Dark background for corner numbers */
   border-right: 1px solid #555;
   border-bottom: 1px solid #555;
