@@ -1,19 +1,37 @@
 .Square {
-  border: 1px solid #444; /* Dark gray borders */
-  aspect-ratio: 1; /* Keeps the cells square */
+  border: 1px solid var(--color-gold-transparent);
+  aspect-ratio: 1;
   font-size: 92%;
-  /* background-color: #a7b0bd; */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.Square::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: var(--gradient-gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.Square:hover::after {
+  opacity: 0.1;
 }
 
 .blackout {
-  background-color: #000;
+  background-color: var(--color-dark);
   height: 100%;
   width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .highlight {
-  background-color: rgba(247, 250, 250, 0.904);
+  background-color: rgba(218, 165, 32, 0.15);
   height: 100%;
   width: 100%;
   display: flex;
@@ -22,33 +40,39 @@
 }
 
 .white {
-  background-color: #fbfeff;
+  background-color: rgba(251, 254, 255, 0.95);
   height: 100%;
   width: 100%;
   padding-left: 2%;
   display: flex;
   flex-direction: column;
   justify-content: end;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 0 1px var(--color-gold-transparent);
 }
 
 .white:hover {
-  box-shadow: 0 0 10px rgba(183, 200, 220, 0.8); /* Soft glow effect using a color from the image */
+  background-color: rgba(251, 254, 255, 1);
+  box-shadow: inset 0 0 0 1px var(--color-gold-transparent),
+    0 0 10px var(--color-gold-transparent);
 }
 
 .correct {
-  background-color: #a7b0bd;
-  /* pointer-events: none; */
+  background-color: var(--color-gold);
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: end;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 0 1px var(--color-gold-transparent),
+    0 0 15px rgba(0, 100, 0, 0.2);
 }
 
 .correct .input {
-  color: #25255a; /* Ensure the text color inside the input is black */
+  color: var(--color-light);
+  text-shadow: var(--shadow-text);
+  font-weight: 500;
 }
 
 .corner-num {
@@ -58,12 +82,15 @@
   justify-content: center;
   align-items: center;
   font-size: clamp(0.1rem, 1vw + 0.1rem, 0.7vw);
-  color: #fbfeff; /* Light blue from the image */
-  background-color: #2a2a2a; /* Dark background for corner numbers */
-  border-right: 1px solid #555;
-  border-bottom: 1px solid #555;
+  color: var(--color-gold);
+  background-color: rgba(42, 42, 42, 0.95);
+  border-right: 1px solid var(--color-gold-transparent);
+  border-bottom: 1px solid var(--color-gold-transparent);
   aspect-ratio: 1;
   overflow: hidden;
+  font-family: "Crimson Text", serif;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .corner-num p {
@@ -84,21 +111,41 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Cinzel", serif;
   width: 90%;
   text-align: center;
   border: none;
-  outline: none;
+  outline: none; /* This removes the default outline */
   font-size: larger;
-  color: #f0f0f0;
-  transition: box-shadow 0.3s ease; /* Smooth focus transition */
+  color: var(--color-gold);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-appearance: none; /* Removes default iOS styling */
 }
 
 .input:focus {
-  outline: none;
+  outline: none; /* Ensures no default outline */
   border: none;
+  background-color: transparent; /* Remove the yellow background */
+  box-shadow: none; /* Remove any default box-shadow */
 }
 
+/* highlight style for selected squares */
+div[style*="background-color: rgba(215, 184, 184, 0.2)"] {
+  background-color: var(--color-gold-transparent) !important;
+  box-shadow: inset 0 0 0 1px var(--color-gold-transparent),
+    0 0 10px rgba(218, 165, 32, 0.2);
+}
+
+/* highlighted squares have visible text */
+div[style*="background-color: rgba(215, 184, 184, 0.2)"] .input {
+  color: var(--color-gold) !important;
+  font-weight: 600;
+  text-shadow: var(--shadow-text);
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
   .Square {
     font-size: 80%;

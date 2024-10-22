@@ -121,8 +121,6 @@ export default function Crossword() {
   //handles squares being clicked and adds highlights to matched words
   const clickSquare = useCallback(
     (currSquare) => {
-      // console.log(currSquare);
-
       setCurrDir(null);
       // Remove highlights from all squares
       setSquares((sqs) => sqs.map((sq) => ({ ...sq, highlight: false })));
@@ -276,14 +274,7 @@ export default function Crossword() {
             })}
           </div>
         </div>
-        {isMobile && (
-          <button
-            className="mobile-questions-toggle"
-            onClick={() => setShowQuestions(!showQuestions)}
-          >
-            {showQuestions ? "Hide Questions" : "Show Questions"}
-          </button>
-        )}
+
         {(!isMobile || showQuestions) && (
           <div className={`questions ${isMobile ? "mobile" : ""}`}>
             {renderQuestions("vert")}
@@ -291,10 +282,10 @@ export default function Crossword() {
             <button className="Key-button" onClick={toggleKey} tabIndex={-1}>
               Key
             </button>
-            {isKeyOpen && <Key onClose={toggleKey} />}
           </div>
         )}
       </div>
+      {isKeyOpen && <Key onClose={toggleKey} />}
     </div>
   );
 }

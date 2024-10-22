@@ -46,7 +46,11 @@ export default function Square({ square, clickSquare, moveFocus, currDir }) {
         className={
           square.blackout ? "blackout" : isCorrect ? "correct" : "white"
         }
-        style={square.highlight ? { backgroundColor: "#d7b8b8" } : null}
+        style={
+          square.highlight
+            ? { backgroundColor: "rgba(255, 222, 222, 0.4)" }
+            : null
+        }
       >
         {!square.blackout && (
           <>

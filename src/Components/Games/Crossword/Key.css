@@ -1,58 +1,145 @@
+/* Key.css */
 .Key-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .Key {
-  background-color: rgb(114, 118, 125);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  background: var(--color-darker);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px var(--color-gold-transparent), var(--shadow-gold);
   width: 80%;
   max-width: 500px;
+  color: var(--color-gray);
+  border: 1px solid var(--color-gold-transparent);
+  z-index: 10000;
+}
+
+.Key::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-gold);
 }
 
 .Key-content {
   position: relative;
   padding: 20px;
+  font-family: "Inter", sans-serif;
+}
+
+.Key-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.Key-content li {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  padding-left: 24px;
+  position: relative;
+}
+
+.Key-content li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--color-gold);
+}
+
+.Key p {
+  margin: 8px 0;
+  padding-left: 24px;
+  color: var(--color-gray);
+}
+
+.Key-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: var(--color-darker);
+  border: 2px solid var(--color-gold);
+  color: var(--color-gold);
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 10001;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: var(--shadow-gold);
+  font-family: "Cinzel", serif;
+}
+
+.Key-close:hover {
+  color: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+  background: rgba(45, 45, 45, 0.95);
+  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+}
+
+.Key-close:active {
+  transform: scale(0.95);
+}
+
+.Key-close span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
 }
 
 .summon {
   all: unset;
-  /* Additional styles if needed to maintain functionality */
-  cursor: pointer !important;
-  display: inline-block; /* Maintain block-level behavior */
-  text-decoration: underline;
-  padding-right: 3px;
+  color: var(--color-gold);
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+  padding: 0 3px;
+  font-family: "Inter", sans-serif;
 }
 
 .summon:hover {
-  color: black;
+  color: var(--color-gold-light);
+  border-bottom-color: var(--color-gold-light);
+  text-shadow: var(--shadow-gold);
 }
 
-.Key-close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  /* cursor: pointer; */
+.summon:active {
+  transform: translateY(1px);
 }
 
 @media (max-width: 768px) {
   .Key {
     width: 90%;
-    max-width: none;
-    padding: 15px;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .Key-content {
@@ -60,23 +147,31 @@
   }
 
   .Key-close {
+    top: -10px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
     font-size: 1.2rem;
-    top: 5px;
-    right: 5px;
   }
 }
 
 @media (max-width: 480px) {
   .Key {
     width: 95%;
-    padding: 10px;
+    padding: 15px;
   }
 
   .Key-content {
     padding: 10px;
   }
 
-  .Key-close {
-    font-size: 1rem;
+  .Key-content li {
+    font-size: 0.9rem;
+    padding-left: 20px;
+  }
+
+  .Key p {
+    font-size: 0.9rem;
+    padding-left: 20px;
   }
 }
