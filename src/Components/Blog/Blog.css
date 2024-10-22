@@ -431,10 +431,14 @@ body {
 
   .title {
     padding: 4% 2%;
+    margin-top: -30px;
+    display: flex;
+    flex-direction: row;
   }
 
   .title-a {
-    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .posts {
