@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ProjectVideos.css";
 import projectsData from "./ProjectsData";
+import CookiesButton from "./CookiesButton";
 
 const TechList = ({ techUsed }) => {
   const [showAll, setShowAll] = useState(false);
@@ -9,7 +10,7 @@ const TechList = ({ techUsed }) => {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // iPad mini width is 768px
+      setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
@@ -66,12 +67,9 @@ const ProjectVideos = () => {
   const projectRefs = useRef({});
 
   useEffect(() => {
-    console.log("Imported projectsData:", projectsData);
-
     if (Array.isArray(projectsData) && projectsData.length > 0) {
       setProjects(projectsData);
       setSelectedProject(projectsData[0].id);
-      console.log("Projects set in state:", projectsData);
     } else {
       console.error("projectsData is not a valid array:", projectsData);
       setProjects([]);
@@ -79,7 +77,6 @@ const ProjectVideos = () => {
 
     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     setIsDarkMode(prefersDarkScheme.matches);
-
     const handleChange = (event) => setIsDarkMode(event.matches);
     prefersDarkScheme.addEventListener("change", handleChange);
 
@@ -106,20 +103,26 @@ const ProjectVideos = () => {
       return (
         <div className="pv-video-container">
           <iframe
-            src={project.videoUrl}
+            src={`${project.videoUrl}?dnt=1`}
             width="100%"
             height="100%"
             frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
             title={project.title}
+            allow="fullscreen"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       );
     } else if (project.videoUrl) {
       return (
         <div className="pv-video-container">
-          <video className="pv-video" controls>
+          <video
+            className="pv-video"
+            controls
+            preload="metadata"
+            crossOrigin="anonymous"
+          >
             <source src={project.videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -160,11 +163,9 @@ const ProjectVideos = () => {
     );
   };
 
-  console.log("Current projects state:", projects);
-
   if (projects.length === 0) {
     return (
-      <div>
+      <div className="pv-loading">
         Loading projects... If this persists, there might be an issue with the
         data.
       </div>
@@ -173,6 +174,7 @@ const ProjectVideos = () => {
 
   return (
     <div className="pv-container">
+      <CookiesButton />
       <button className="pv-toggle" onClick={toggleMode}>
         {isDarkMode ? "Light" : "Dark"}
       </button>

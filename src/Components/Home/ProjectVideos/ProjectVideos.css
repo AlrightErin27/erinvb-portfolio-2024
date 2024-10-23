@@ -40,19 +40,21 @@ body {
   top: 8%;
   right: 8%;
   z-index: 1000;
-  background-color: var(--pv-accent-color);
-  color: var(--pv-bg-color);
+  background-color: #00b4d8;
+  color: #121f3d;
   border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  font-family: "Kanit", sans-serif;
-  font-weight: 500;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-family: inherit;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .pv-toggle:hover {
-  background-color: var(--pv-hover-color);
+  background-color: #48cae4;
+  transform: translateY(-2px);
 }
 
 .pv-title {

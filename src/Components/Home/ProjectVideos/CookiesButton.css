@@ -1,0 +1,281 @@
+/* Container */
+.cookies-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  font-family: "Kanit", sans-serif;
+  max-height: 90vh; /* Ensure container doesn't exceed viewport height */
+}
+
+/* Toggle Button */
+.cookies-toggle-button {
+  background-color: #00b4d8;
+  color: #121f3d;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-family: inherit;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cookies-toggle-button:hover {
+  background-color: #48cae4;
+  transform: translateY(-2px);
+}
+
+.cookies-toggle-button.expanded {
+  background-color: #00b4d8;
+}
+
+/* Content Panel */
+.cookies-content {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  width: 60vw;
+  background-color: #1e3a5f;
+  color: #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+  max-height: 80vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Scrollbar styling */
+.cookies-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cookies-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.cookies-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 180, 216, 0.5);
+  border-radius: 4px;
+}
+
+/* Header */
+.cookies-header {
+  margin-bottom: 1rem;
+}
+
+.cookies-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00b4d8;
+  margin: 0;
+}
+
+/* Body Content */
+.cookies-body {
+  margin-bottom: 1rem;
+}
+
+.cookies-description {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Info Boxes */
+.info-box {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.info-box-primary {
+  background-color: #121f3d;
+  border: 1px solid #00b4d8;
+}
+
+.info-box-secondary {
+  background-color: #121f3d;
+  border: 1px solid #00b4d8;
+}
+
+.info-box-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: #00b4d8;
+}
+
+.info-box-secondary .info-box-title {
+  color: #00b4d8;
+}
+
+.info-box-list {
+  list-style-type: disc;
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.info-box-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.info-box p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Close Button */
+.cookies-close-button {
+  width: 20%;
+  background-color: #00b4d8;
+  color: #121f3d;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: inherit;
+  margin-top: 0.5rem;
+}
+
+.cookies-close-button:hover {
+  background-color: #48cae4;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Styles */
+@media (min-width: 1024px) {
+  .cookies-toggle-button,
+  .cookies-close-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cookies-toggle-button,
+  .cookies-close-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .cookies-content {
+    width: 500px;
+  }
+
+  .cookies-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .cookies-toggle-button,
+  .cookies-close-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .cookies-content {
+    width: 400px;
+    max-height: 75vh;
+  }
+}
+
+@media (max-width: 479px) {
+  .cookies-container {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .cookies-toggle-button,
+  .cookies-close-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .cookies-content {
+    width: calc(100vw - 40px);
+    right: -10px;
+    max-height: 70vh;
+    padding: 1rem;
+  }
+
+  .cookies-title {
+    font-size: 1.1rem;
+  }
+
+  .info-box {
+    padding: 0.75rem;
+  }
+
+  .info-box-title {
+    font-size: 1rem;
+  }
+
+  .cookies-description,
+  .info-box-list li {
+    font-size: 0.9rem;
+  }
+
+  /* Reduce vertical spacing */
+  .cookies-header {
+    margin-bottom: 0.75rem;
+  }
+
+  .cookies-body {
+    margin-bottom: 0.75rem;
+  }
+
+  .cookies-description {
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box {
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Specific adjustment for very small heights */
+@media (max-height: 740px) {
+  .cookies-content {
+    max-height: 65vh;
+    padding: 1rem;
+  }
+
+  .cookies-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cookies-header,
+  .cookies-body,
+  .cookies-description,
+  .info-box {
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box {
+    padding: 0.75rem;
+  }
+
+  .info-box-title {
+    margin-bottom: 0.5rem;
+  }
+}
