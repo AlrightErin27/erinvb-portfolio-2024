@@ -11,7 +11,7 @@ export default function Crossword() {
   const [currDir, setCurrDir] = useState(null);
   const [prevWord, setPrevWord] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [showQuestions, setShowQuestions] = useState(true);
+  const showQuestions = true;
 
   //useEffect runs only on page's 1st render
   //populates squares in state

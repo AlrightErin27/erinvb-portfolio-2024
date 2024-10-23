@@ -5,19 +5,48 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require("path");
+const helmet = require("helmet");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/shop";
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+const NODE_ENV = process.env.NODE_ENV || "development";
 
-app.use(cors());
+// Security middleware
+app.use(helmet());
+app.use(
+  cors({
+    origin:
+      NODE_ENV === "production"
+        ? ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"]
+        : "http://localhost:3000",
+  })
+);
 app.use(bodyParser.json());
 
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// Serve static files in production
+if (NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "build")));
+}
+
+// MongoDB connection with retry logic
+const connectDB = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+    // Retry connection after 5 seconds
+    setTimeout(connectDB, 5000);
+  }
+};
+
+connectDB();
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -54,6 +83,9 @@ const authMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     console.error("Auth error:", error);
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ message: "Token expired" });
+    }
     res.status(401).json({ message: "Please authenticate." });
   }
 };
@@ -155,4 +187,22 @@ app.post("/purchase", authMiddleware, async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Handle React routing in production
+if (NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}
+
+// Enhanced error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    message: "Something went wrong!",
+    error: NODE_ENV === "development" ? err.message : undefined,
+  });
+});
+
+app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT} in ${NODE_ENV} mode`)
+);
