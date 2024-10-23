@@ -1,0 +1,7 @@
+{
+  "manifest_version": 2,
+  "name": "Project Videos Extension",
+  "version": "1.0",
+  "description": "Project videos display",
+  "web_accessible_resources": ["cast_sender.js", "*://*.vimeo.com/*"]
+}
