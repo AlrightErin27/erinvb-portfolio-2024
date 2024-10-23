@@ -528,7 +528,7 @@ body {
 }
 
 .cookie-notice p {
-  color: var(--text-color);
+  color: var(--neon-color);
   margin: 0;
   font-size: 14px;
   line-height: 1.4;
