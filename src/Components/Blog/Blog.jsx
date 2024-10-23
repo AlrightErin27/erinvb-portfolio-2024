@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { AlertCircle, Loader2, X } from "lucide-react";
 import "./Blog.css";
 
 const Blog = () => {
@@ -6,44 +7,109 @@ const Blog = () => {
   const [authorImg, setAuthorImg] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const getPostData = () => {
-    setLoading(true);
-    fetch(
-      "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@erinmontybruce"
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setPosts(data.items);
-        setAuthorImg(data.feed.image);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching blog posts:", error);
-        setError("Failed to load blog posts. Please try again later.");
-        setLoading(false);
-      });
-  };
+  const [showCookieNotice, setShowCookieNotice] = useState(true);
 
   useEffect(() => {
+    const getPostData = () => {
+      setLoading(true);
+      fetch(
+        "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@erinmontybruce",
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const processedPosts = data.items.map((post) => ({
+            ...post,
+            content: sanitizeContent(post.content),
+          }));
+          setPosts(processedPosts);
+          setAuthorImg(data.feed.image);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching blog posts:", error);
+          setError("Failed to load blog posts. Please try again later.");
+          setLoading(false);
+        });
+    };
+
     getPostData();
   }, []);
 
+  // Function to sanitize Medium content
+  const sanitizeContent = (content) => {
+    const temp = document.createElement("div");
+    temp.innerHTML = content;
+
+    // Remove Medium's tracking iframes
+    temp.querySelectorAll("iframe").forEach((iframe) => iframe.remove());
+
+    // Replace giphy iframes with img tags
+    temp.querySelectorAll("figure").forEach((figure) => {
+      const iframe = figure.querySelector('iframe[src*="giphy.com"]');
+      if (iframe) {
+        const giphyUrl = iframe.src;
+        const img = document.createElement("img");
+        img.src = giphyUrl.replace("iframe", "media");
+        img.className = "giphy-img";
+        iframe.replaceWith(img);
+      }
+    });
+
+    // Handle responsive images
+    temp.querySelectorAll("img").forEach((img) => {
+      img.className = "responsive-img";
+      img.loading = "lazy";
+    });
+
+    return temp.innerHTML;
+  };
+
   if (loading) {
-    return <div className="loading">Loading blog posts...</div>;
+    return (
+      <div className="loading">
+        <Loader2 className="loading-spinner" />
+        <span>Loading blog posts...</span>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return (
+      <div className="error">
+        <AlertCircle className="error-icon" />
+        <p className="error-message">{error}</p>
+      </div>
+    );
   }
 
   return (
     <div className="blog-overlay">
+      {showCookieNotice && (
+        <div className="cookie-notice">
+          <p>
+            This blog uses RSS feeds which may require third-party cookies. If
+            content isn't loading, you may need to allow third-party cookies in
+            your browser settings.
+          </p>
+          <button
+            className="cookie-notice-close"
+            onClick={() => setShowCookieNotice(false)}
+            aria-label="Close notice"
+          >
+            <X size={20} />
+          </button>
+        </div>
+      )}
+
       {[...Array(2000)].map((_, i) => (
         <div
           key={i}
@@ -55,6 +121,7 @@ const Blog = () => {
           }}
         />
       ))}
+
       <div className="scanning-line"></div>
       <div className="blog-container">
         <div className="blog-content">
@@ -68,12 +135,14 @@ const Blog = () => {
               <span className="horizontal-glitch" data-text="Erin's Dev Blog">
                 Erin's Dev Blog
               </span>
-              <img
-                src={authorImg}
-                alt="author img"
-                className="author-img horizontal-glitch"
-                data-text=""
-              />
+              {authorImg && (
+                <img
+                  src={authorImg}
+                  alt="author img"
+                  className="author-img horizontal-glitch"
+                  data-text=""
+                />
+              )}
             </a>
           </div>
 
@@ -83,7 +152,7 @@ const Blog = () => {
                 <h2 className="glitch-text" data-text={post.title}>
                   {post.title}
                 </h2>
-                <p
+                <div
                   className="posts-p"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 />
