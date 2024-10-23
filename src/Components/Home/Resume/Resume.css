@@ -11,7 +11,7 @@
   position: fixed;
   top: 60px;
   left: 0;
-  right: 0;
+  right: calc(100% - 100vw + 17px); /* 17px is standard scrollbar width */
   bottom: 0;
   overflow: hidden;
   pointer-events: none;
@@ -21,7 +21,7 @@
   position: absolute;
   width: 3px;
   height: 3px;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.647);
   border-radius: 50%;
   animation: float linear infinite;
   will-change: transform;
