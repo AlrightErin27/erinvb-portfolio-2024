@@ -6,7 +6,6 @@ import CookiesButton from "./CookiesButton";
 const TechList = ({ techUsed }) => {
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
   const initialTechCount = 9;
 
   useEffect(() => {
@@ -100,27 +99,6 @@ const ProjectVideos = () => {
   };
 
   const renderVideo = (project) => {
-    const getFallbackLink = () => {
-      <div
-        className="pv-video-placeholder"
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background: "rgba(0, 0, 0, 0.7)",
-          padding: "1rem",
-          borderRadius: "8px",
-          zIndex: 10,
-        }}
-        href={project.videoUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="pv-link"
-        style={{ color: "white" }}
-      ></div>;
-    };
-
     if (project.videoUrl.includes("vimeo.com")) {
       return (
         <div className="pv-video-container">
@@ -139,7 +117,6 @@ const ProjectVideos = () => {
               title={project.title}
             ></iframe>
           </div>
-          {getFallbackLink()}
         </div>
       );
     } else if (project.videoUrl) {
@@ -154,7 +131,6 @@ const ProjectVideos = () => {
             <source src={project.videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {getFallbackLink()}
         </div>
       );
     } else {
