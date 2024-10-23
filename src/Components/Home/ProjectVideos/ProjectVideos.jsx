@@ -103,7 +103,7 @@ const ProjectVideos = () => {
       return (
         <div className="pv-video-container">
           <iframe
-            src={`${project.videoUrl}?dnt=1`}
+            src={`${project.videoUrl}?dnt=1&controls=1&app_id=58479`}
             width="100%"
             height="100%"
             frameBorder="0"

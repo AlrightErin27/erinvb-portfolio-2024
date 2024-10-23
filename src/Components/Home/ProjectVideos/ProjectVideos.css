@@ -37,8 +37,8 @@ body {
 
 .pv-toggle {
   position: fixed;
-  top: 8%;
-  right: 8%;
+  top: 60px;
+  right: 20px;
   z-index: 1000;
   background-color: #00b4d8;
   color: #121f3d;
@@ -251,7 +251,7 @@ body {
 
   .pv-toggle {
     top: 8%;
-    right: 8%;
+    right: 20px;
     padding: 8px 12px;
     font-size: 0.9rem;
   }
@@ -272,7 +272,7 @@ body {
 
   .pv-toggle {
     top: 8%;
-    right: 8%;
+    right: 20px;
     padding: 6px 10px;
     font-size: 0.8rem;
   }
