@@ -26,11 +26,6 @@ app.use(
 );
 app.use(bodyParser.json());
 
-// Serve static files in production
-if (NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "build")));
-}
-
 // MongoDB connection with retry logic
 const connectDB = async () => {
   try {
@@ -184,10 +179,11 @@ app.post("/purchase", authMiddleware, async (req, res) => {
   }
 });
 
-// Handle React routing in production
+// Serve static files and handle React routing in production
 if (NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../build")));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
+    res.sendFile(path.join(__dirname, "../build", "index.html"));
   });
 }
 
