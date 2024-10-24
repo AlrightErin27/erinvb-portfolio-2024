@@ -1,6 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-erinvb-portfolio/
-
 # dependencies
 /node_modules
 /.pnp
@@ -12,13 +9,35 @@ erinvb-portfolio/
 # production
 /build
 
-# misc
-.DS_Store
+# environment variables
+.env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
 
+# misc
+.DS_Store
+*.pem
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# IDE specific files
+.idea
+.vscode
+*.swp
+*.swo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Portfolio specific
+erinvb-portfolio/
