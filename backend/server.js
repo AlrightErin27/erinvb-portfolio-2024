@@ -15,7 +15,46 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 // Security middleware
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "player.vimeo.com",
+          "f.vimeocdn.com",
+          "www.gstatic.com",
+          "vimeocdn.com",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "fonts.googleapis.com",
+          "https://fonts.googleapis.com",
+        ],
+        fontSrc: ["'self'", "fonts.gstatic.com", "https://fonts.gstatic.com"],
+        imgSrc: ["'self'", "data:", "blob:", "*.vimeocdn.com", "*.vimeo.com"],
+        mediaSrc: ["'self'", "data:", "blob:", "*.vimeocdn.com", "*.vimeo.com"],
+        frameSrc: ["'self'", "player.vimeo.com", "*.vimeo.com"],
+        childSrc: ["'self'", "player.vimeo.com"],
+        connectSrc: [
+          "'self'",
+          "vimeo.com",
+          "player.vimeo.com",
+          "*.vimeocdn.com",
+          "fresnel.vimeocdn.com",
+          "https://fresnel.vimeocdn.com",
+        ],
+        workerSrc: ["'self'", "blob:"],
+        objectSrc: ["'none'"],
+        manifestSrc: ["'self'"],
+      },
+    },
+  })
+);
 app.use(
   cors({
     origin:
