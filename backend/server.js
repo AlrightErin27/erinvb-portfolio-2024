@@ -59,13 +59,13 @@ if (NODE_ENV === "production") {
             "'self'",
             "player.vimeo.com",
             "*.vimeo.com",
-            "*.giphy.com", // Add for Giphy embeds
+            "*.giphy.com",
           ],
           childSrc: ["'self'", "player.vimeo.com"],
           connectSrc: [
             "'self'",
-            "localhost:5001",
-            "http://localhost:5001",
+            "https://www.erinvanbrunt.com",
+            "https://erinvanbrunt.com",
             "vimeo.com",
             "player.vimeo.com",
             "*.vimeocdn.com",
@@ -89,13 +89,9 @@ if (NODE_ENV === "production") {
 }
 
 // CORS configuration should be after helmet but before routes
-//config for production currently
 app.use(
   cors({
-    origin:
-      NODE_ENV === "production"
-        ? ["http://localhost:5001", "http://localhost:3000"]
-        : "http://localhost:3000",
+    origin: ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
