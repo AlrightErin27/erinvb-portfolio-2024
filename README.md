@@ -87,7 +87,7 @@ Evie & Co. is a **React.js-based e-commerce platform** for a high-end online fas
 
 #### Technologies:
 
-- **React.js** for front-end user interface
+- **React.js** front-end user interface
 - **MongoDB** and **Mongoose** for database and schema modeling
 - **Node.js** and **Express.js** for backend server logic
 - **CSS** for responsive and sleek design
