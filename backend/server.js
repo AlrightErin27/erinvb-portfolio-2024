@@ -38,7 +38,16 @@ if (NODE_ENV === "production") {
             "https://fonts.googleapis.com",
           ],
           fontSrc: ["'self'", "fonts.gstatic.com", "https://fonts.gstatic.com"],
-          imgSrc: ["'self'", "data:", "blob:", "*.vimeocdn.com", "*.vimeo.com"],
+          imgSrc: [
+            "'self'",
+            "data:",
+            "blob:",
+            "*.vimeocdn.com",
+            "*.vimeo.com",
+            "*.medium.com",
+            "medium.com",
+            "*.giphy.com",
+          ],
           mediaSrc: [
             "'self'",
             "data:",
@@ -46,7 +55,12 @@ if (NODE_ENV === "production") {
             "*.vimeocdn.com",
             "*.vimeo.com",
           ],
-          frameSrc: ["'self'", "player.vimeo.com", "*.vimeo.com"],
+          frameSrc: [
+            "'self'",
+            "player.vimeo.com",
+            "*.vimeo.com",
+            "*.giphy.com", // Add for Giphy embeds
+          ],
           childSrc: ["'self'", "player.vimeo.com"],
           connectSrc: [
             "'self'",
@@ -57,6 +71,10 @@ if (NODE_ENV === "production") {
             "*.vimeocdn.com",
             "fresnel.vimeocdn.com",
             "https://fresnel.vimeocdn.com",
+            "https://api.rss2json.com",
+            "https://medium.com",
+            "medium.com",
+            "*.medium.com",
           ],
           workerSrc: ["'self'", "blob:"],
           objectSrc: ["'none'"],
