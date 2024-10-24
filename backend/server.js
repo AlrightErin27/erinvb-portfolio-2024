@@ -14,55 +14,76 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/shop";
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const NODE_ENV = process.env.NODE_ENV || "development";
 
-// Security middleware
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "'unsafe-eval'",
-          "player.vimeo.com",
-          "f.vimeocdn.com",
-          "www.gstatic.com",
-          "vimeocdn.com",
-        ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "fonts.googleapis.com",
-          "https://fonts.googleapis.com",
-        ],
-        fontSrc: ["'self'", "fonts.gstatic.com", "https://fonts.gstatic.com"],
-        imgSrc: ["'self'", "data:", "blob:", "*.vimeocdn.com", "*.vimeo.com"],
-        mediaSrc: ["'self'", "data:", "blob:", "*.vimeocdn.com", "*.vimeo.com"],
-        frameSrc: ["'self'", "player.vimeo.com", "*.vimeo.com"],
-        childSrc: ["'self'", "player.vimeo.com"],
-        connectSrc: [
-          "'self'",
-          "vimeo.com",
-          "player.vimeo.com",
-          "*.vimeocdn.com",
-          "fresnel.vimeocdn.com",
-          "https://fresnel.vimeocdn.com",
-        ],
-        workerSrc: ["'self'", "blob:"],
-        objectSrc: ["'none'"],
-        manifestSrc: ["'self'"],
+if (NODE_ENV === "production") {
+  // Production CSP configuration
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "'unsafe-eval'",
+            "player.vimeo.com",
+            "f.vimeocdn.com",
+            "*.vimeocdn.com",
+            "www.gstatic.com",
+            "vimeocdn.com",
+          ],
+          styleSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "fonts.googleapis.com",
+            "https://fonts.googleapis.com",
+          ],
+          fontSrc: ["'self'", "fonts.gstatic.com", "https://fonts.gstatic.com"],
+          imgSrc: ["'self'", "data:", "blob:", "*.vimeocdn.com", "*.vimeo.com"],
+          mediaSrc: [
+            "'self'",
+            "data:",
+            "blob:",
+            "*.vimeocdn.com",
+            "*.vimeo.com",
+          ],
+          frameSrc: ["'self'", "player.vimeo.com", "*.vimeo.com"],
+          childSrc: ["'self'", "player.vimeo.com"],
+          connectSrc: [
+            "'self'",
+            "localhost:5001",
+            "http://localhost:5001",
+            "vimeo.com",
+            "player.vimeo.com",
+            "*.vimeocdn.com",
+            "fresnel.vimeocdn.com",
+            "https://fresnel.vimeocdn.com",
+          ],
+          workerSrc: ["'self'", "blob:"],
+          objectSrc: ["'none'"],
+          manifestSrc: ["'self'"],
+        },
       },
-    },
-  })
-);
+    })
+  );
+} else {
+  // Development CSP configuration
+  app.use(helmet());
+}
+
+// CORS configuration should be after helmet but before routes
+//config for production currently
 app.use(
   cors({
     origin:
       NODE_ENV === "production"
-        ? ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"]
+        ? ["http://localhost:5001", "http://localhost:3000"]
         : "http://localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(bodyParser.json());
 
 // MongoDB connection with retry logic
