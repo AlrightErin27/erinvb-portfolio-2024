@@ -26,10 +26,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon backend/server.js",
+    "dev": "concurrently \"npm run server\" \"sleep 5 && npm run start\""
   },
   "eslintConfig": {
     "extends": [
@@ -51,7 +53,9 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-private-property-in-object": "^7.24.7"
+    "@babel/plugin-transform-private-property-in-object": "^7.24.7",
+    "concurrently": "^9.0.1",
+    "nodemon": "^3.1.7"
   },
   "description": "Welcome to my personal portfolio, showcasing my work as a Full-Stack Software Engineer with a strong focus on front-end development and user-centered design. My projects range from web applications and games to complex e-commerce platforms. Each project highlights my commitment to creating elegant, intuitive, and responsive user experiences.",
   "main": "index.js",
