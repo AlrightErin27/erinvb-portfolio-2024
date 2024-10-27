@@ -8,6 +8,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const helmet = require("helmet");
 
+// in root terminal, start back and front ends: npm run dev
+
 const app = express();
 const PORT = process.env.PORT || 5001;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/shop";
@@ -89,9 +91,15 @@ if (NODE_ENV === "production") {
 }
 
 // CORS configuration should be after helmet but before routes
+
+const allowedOrigins =
+  NODE_ENV === "production"
+    ? ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"]
+    : ["http://localhost:3000"];
+
 app.use(
   cors({
-    origin: ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"],
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],

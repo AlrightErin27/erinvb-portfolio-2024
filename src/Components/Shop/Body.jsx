@@ -1,100 +1,109 @@
-import React, { useRef, useCallback, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CSS/Body.css";
 import items from "./Items";
 
+/**
+ * Body Component - Displays a carousel of shop items
+ *
+ * This component implements a carousel that shows 3 items at a time on desktop
+ * and 1 item on mobile devices. It uses a simple index-based navigation system
+ * with smooth transitions between items.
+ *
+ * @param {Object} props
+ * @param {Function} props.addToCart - Function to handle adding items to cart
+ */
 export default function Body({ addToCart }) {
-  const containerRef = useRef(null);
-  const [duplicatedItems, setDuplicatedItems] = useState([]);
-  const [isScrolling, setIsScrolling] = useState(false);
+  // Track the current starting index of visible items
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Track viewport size for responsive design
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+  /**
+   * Handle viewport resize events to toggle between mobile and desktop layouts
+   * Sets up event listener on mount and cleans it up on unmount
+   */
   useEffect(() => {
-    // Duplicate the items array to create a seamless loop
-    setDuplicatedItems([...items, ...items, ...items]);
-
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
     window.addEventListener("resize", handleResize);
+    // Cleanup function to remove event listener
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const scroll = useCallback(
-    (direction) => {
-      if (isScrolling) return;
-      setIsScrolling(true);
+  /**
+   * Advance to the next set of items
+   * When at the end of the array, loops back to the beginning
+   */
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = prevIndex + 1;
+      // If we've reached the end, loop back to start
+      return nextIndex >= items.length ? 0 : nextIndex;
+    });
+  };
 
-      const container = containerRef.current;
-      const itemWidth = container.children[0].offsetWidth;
-      const gap = 20;
-      const scrollAmount = itemWidth + gap;
-      const maxScroll = container.scrollWidth - container.clientWidth;
+  /**
+   * Go back to the previous set of items
+   * When at the start of the array, loops to the end
+   */
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = prevIndex - 1;
+      // If we've reached the start, loop to end
+      return nextIndex < 0 ? items.length - 1 : nextIndex;
+    });
+  };
 
-      let newScrollPosition;
+  /**
+   * Calculate which items should be visible in the carousel
+   * Returns an array of 1 item for mobile or 3 items for desktop
+   * Uses modulo operator to handle wrapping around the array
+   *
+   * @returns {Array} Array of items to display
+   */
+  const getVisibleItems = () => {
+    if (isMobile) {
+      // On mobile, show only one item
+      return [items[currentIndex]];
+    }
 
-      if (direction === "left") {
-        newScrollPosition = container.scrollLeft - scrollAmount;
-        if (newScrollPosition <= 0) {
-          container.style.scrollBehavior = "auto";
-          container.scrollLeft = maxScroll / 3;
-          setTimeout(() => {
-            container.style.scrollBehavior = "smooth";
-            container.scrollLeft -= scrollAmount;
-          }, 0);
-        } else {
-          container.scrollLeft = newScrollPosition;
-        }
-      } else {
-        newScrollPosition = container.scrollLeft + scrollAmount;
-        if (newScrollPosition >= maxScroll) {
-          // If we've scrolled to the end, prepare to jump to the first set
-          container.style.scrollBehavior = "auto";
-          container.scrollLeft = maxScroll / 3;
-          setTimeout(() => {
-            container.style.scrollBehavior = "smooth";
-            container.scrollLeft += scrollAmount;
-          }, 0);
-        } else {
-          container.scrollLeft = newScrollPosition;
-        }
-      }
-
-      // Reset scrolling state after animation
-      setTimeout(() => {
-        setIsScrolling(false);
-      }, 300); // Adjust this timeout to match your CSS transition duration
-    },
-    [isScrolling]
-  );
-
-  const handleKeyDown = useCallback(
-    (e, direction) => {
-      if (e.key === "Enter" || e.key === " ") {
-        scroll(direction);
-      }
-    },
-    [scroll]
-  );
+    // On desktop, show three items
+    const visibleItems = [];
+    for (let i = 0; i < 3; i++) {
+      // Use modulo to wrap around to start of array when needed
+      const index = (currentIndex + i) % items.length;
+      visibleItems.push(items[index]);
+    }
+    return visibleItems;
+  };
 
   return (
-    <div className="carousel-wrapper" style={{ position: "relative" }}>
+    <div className="carousel-container">
+      {/* Left navigation arrow */}
       <button
         className="carousel-arrow left"
-        onClick={() => scroll("left")}
-        onKeyDown={(e) => handleKeyDown(e, "left")}
-        aria-label="Scroll left"
+        onClick={prevSlide}
+        aria-label="Previous items"
       >
         &#8249;
       </button>
 
-      <div className="clothes-cont" ref={containerRef}>
-        {duplicatedItems.map((item, index) => (
+      {/* Main carousel display */}
+      <div className="carousel-items">
+        {getVisibleItems().map((item, index) => (
           <div
-            className="clothes-item"
-            key={`${item.title}-${index}`}
+            key={`${item.title}-${currentIndex}-${index}`}
+            className="item-card"
             style={{
-              width: isMobile ? "calc(100% - 20px)" : "calc(33.333% - 20px)",
+              // Apply transition effect to each card
+              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              opacity: 0,
+              transform: "scale(0.95)",
+              animation:
+                "fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards",
             }}
           >
             <img src={item.image} alt={item.title} />
@@ -112,11 +121,11 @@ export default function Body({ addToCart }) {
         ))}
       </div>
 
+      {/* Right navigation arrow */}
       <button
         className="carousel-arrow right"
-        onClick={() => scroll("right")}
-        onKeyDown={(e) => handleKeyDown(e, "right")}
-        aria-label="Scroll right"
+        onClick={nextSlide}
+        aria-label="Next items"
       >
         &#8250;
       </button>

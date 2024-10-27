@@ -1,35 +1,100 @@
-/* Body.css */
-
-.main-content {
-  flex-grow: 1;
-  padding: 2rem;
+/* Define the fadeSlideIn animation */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
-.product-area {
-  flex-grow: 1;
-}
-
-.carousel-wrapper {
+.carousel-container {
   position: relative;
-  overflow: hidden;
   width: 100%;
-  padding: 0 3rem; /* Accommodates arrows */
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 3rem;
+  box-sizing: border-box;
 }
 
-.clothes-cont {
+.carousel-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 0 auto;
+  transition: all 0.4s cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+.item-card {
+  background: var(--primary-color);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  overflow-x: hidden;
-  gap: 20px;
-  padding: 20px 0;
-  margin-top: 40px;
-  white-space: nowrap;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
+  flex-direction: column;
+  /* Update transition to be smoother */
+  transition: all 0.4s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
-.clothes-cont::-webkit-scrollbar {
-  display: none;
+.item-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.item-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item-card:hover img {
+  transform: scale(1.05);
+}
+
+.item-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.item-card p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  flex-grow: 1;
+  transition: color 0.3s ease;
+}
+
+.item-card .price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.item-card .shop-button {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: auto;
+}
+
+.item-card .shop-button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-arrow {
@@ -39,15 +104,21 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  font-size: clamp(1.5rem, 2vw, 2.5rem);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
   cursor: pointer;
   z-index: 10;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-arrow.left {
@@ -58,111 +129,16 @@
   right: 0;
 }
 
-.carousel-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.clothes-item {
-  flex: 0 0 auto;
-  width: calc(33.333% - 20px); /* Base width for larger screens */
-  background-color: var(--primary-color);
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.clothes-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-  margin-bottom: 1rem;
-  object-fit: cover;
-  aspect-ratio: 1 / 1;
-}
-
-.clothes-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.clothes-item h2 {
-  font-size: clamp(18px, 2vw, 24px);
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-}
-
-.clothes-item p {
-  font-size: clamp(14px, 1.5vw, 18px);
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-  max-width: 100%;
-}
-
-.clothes-item .price {
-  font-weight: bold;
-  font-size: clamp(16px, 1.5vw, 22px);
-  color: var(--accent-color);
-  margin-bottom: 1rem;
-}
-
-.clothes-item .shop-button {
-  margin-top: auto;
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  border: none;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  width: fit-content;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.clothes-item .shop-button:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-2px);
-}
-
-@media (max-width: 1200px) {
-  .clothes-item {
-    width: calc(50% - 20px);
-  }
-}
-
 @media (max-width: 768px) {
-  .carousel-wrapper {
-    padding: 0 1.5rem;
+  .carousel-items {
+    grid-template-columns: 1fr;
   }
 
-  .clothes-item {
-    width: calc(100% - 20px);
+  .carousel-container {
+    padding: 0 2rem;
   }
 
-  .clothes-item h2 {
-    font-size: 1.2rem;
-  }
-
-  .clothes-item p {
-    font-size: 0.9rem;
-  }
-
-  .clothes-item .price {
-    font-size: 1.1rem;
-  }
-
-  .clothes-item .shop-button {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+  .item-card {
+    padding: 1rem;
   }
 }

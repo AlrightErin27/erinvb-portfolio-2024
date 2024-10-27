@@ -58,18 +58,6 @@ const Shop = () => {
     }
   }, [fetchUserData]);
 
-  // const handleRegister = async () => {
-  //   try {
-  //     await axios.post(`${API_URL}/register`, { username, password });
-  //     alert("Registration successful! Please log in.");
-  //   } catch (error) {
-  //     alert(
-  //       error.response?.data?.message ||
-  //         "Registration failed. Please try again."
-  //     );
-  //   }
-  // };
-
   const handleRegister = async () => {
     try {
       console.log("Attempting to register with URL:", `${API_URL}/register`);
