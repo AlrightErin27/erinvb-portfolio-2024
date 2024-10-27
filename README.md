@@ -92,7 +92,7 @@ Evie & Co. is a **React.js-based e-commerce platform** for a high-end online fas
 - **Node.js** and **Express.js** for backend server logic
 - **CSS** for responsive and sleek design
 
-For more details, please refer to the [Shop README](./src/Components/Shop/README.md).
+For details, please refer to the [Shop README](./src/Components/Shop/README.md).
 
 ### 6. **Medium Blog - Tech Insights and Tutorials**
 
