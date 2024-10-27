@@ -108,6 +108,9 @@ app.use(
 
 app.use(bodyParser.json());
 
+const router = express.Router();
+app.use("/api", router);
+
 // MongoDB connection with retry logic
 const connectDB = async () => {
   try {
@@ -164,7 +167,7 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-app.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });
@@ -187,7 +190,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -219,7 +222,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/user", authMiddleware, async (req, res) => {
+router.get("/user", authMiddleware, async (req, res) => {
   try {
     res.json({
       lastLogin: req.user.lastLogin,
@@ -231,7 +234,7 @@ app.get("/user", authMiddleware, async (req, res) => {
   }
 });
 
-app.post("/purchase", authMiddleware, async (req, res) => {
+router.post("/purchase", authMiddleware, async (req, res) => {
   try {
     const { cartItems } = req.body;
 
