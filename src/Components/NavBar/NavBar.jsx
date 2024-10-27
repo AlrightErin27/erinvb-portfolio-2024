@@ -8,7 +8,7 @@ const NavBar = () => {
   const components = [
     { title: "Home", path: "/" },
     { title: "Resume", path: "/resume" },
-    { title: "Projects", path: "/project-videos" },
+    { title: "Project Videos", path: "/project-videos" },
     { title: "Blog", path: "/blog" },
     { title: "Games", path: "/games" },
     { title: "Shop", path: "/shop" },

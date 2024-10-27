@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AlertCircle, Loader2, X } from "lucide-react";
+import { AlertCircle, Loader2, X, HelpCircle } from "lucide-react";
 import "./Blog.css";
 
 const Blog = () => {
@@ -7,7 +7,7 @@ const Blog = () => {
   const [authorImg, setAuthorImg] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showCookieNotice, setShowCookieNotice] = useState(true);
+  const [showCookieNotice, setShowCookieNotice] = useState(false);
 
   useEffect(() => {
     const getPostData = () => {
@@ -26,7 +26,7 @@ const Blog = () => {
           return response.json();
         })
         .then((data) => {
-          const processedPosts = data.items.map((post) => ({
+          const processedPosts = data.items.slice(0, 5).map((post) => ({
             ...post,
             content: sanitizeContent(post.content),
           }));
@@ -70,6 +70,11 @@ const Blog = () => {
       img.loading = "lazy";
     });
 
+    // Add a custom class to all <pre> tags
+    temp.querySelectorAll("pre").forEach((pre) => {
+      pre.className = "code-block";
+    });
+
     return temp.innerHTML;
   };
 
@@ -93,6 +98,16 @@ const Blog = () => {
 
   return (
     <div className="blog-overlay">
+      {/* "?" Button to toggle the cookie notice */}
+      <button
+        className="help-button"
+        onClick={() => setShowCookieNotice(!showCookieNotice)}
+        aria-label="Show cookie notice"
+      >
+        <HelpCircle size={24} />
+      </button>
+
+      {/* Cookie Notice Modal */}
       {showCookieNotice && (
         <div className="cookie-notice">
           <p>
@@ -167,6 +182,14 @@ const Blog = () => {
               </div>
             ))}
           </div>
+          <a
+            href="https://medium.com/@erinmontybruce"
+            target="_blank"
+            rel="noreferrer"
+            className="posts-a"
+          >
+            See All Posts
+          </a>
         </div>
       </div>
     </div>
