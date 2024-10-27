@@ -526,7 +526,7 @@ body {
 .help-button {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 35px;
   background-color: var(--background-color);
   color: var(--neon-color);
   border: 2px solid var(--neon-color);
@@ -618,7 +618,7 @@ body {
   .help-button {
     padding: 8px;
     bottom: 15px;
-    right: 15px;
+    right: 25px;
   }
 
   .posts {
