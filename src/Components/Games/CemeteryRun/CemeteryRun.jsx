@@ -14,6 +14,7 @@ const CemeteryRun = () => {
   const [timeLeft, setTimeLeft] = useState(90);
   const [hasEverStarted, setHasEverStarted] = useState(false);
   const [isMusicOn, setIsMusicOn] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const audioContextRef = useRef(null);
   const sourceNodeRef = useRef(null);
   const gainNodeRef = useRef(null);
@@ -70,6 +71,19 @@ const CemeteryRun = () => {
   }, [startGame]);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (sourceNodeRef.current) {
         sourceNodeRef.current.stop();
@@ -107,7 +121,9 @@ const CemeteryRun = () => {
           </div>
         )}
         <div className="cr-controls-container">
-          <AudioControl isMusicOn={isMusicOn} toggleMusic={toggleMusic} />
+          {!isMobile && (
+            <AudioControl isMusicOn={isMusicOn} toggleMusic={toggleMusic} />
+          )}
           <InfoButton />
         </div>
       </div>
