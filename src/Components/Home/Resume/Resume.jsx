@@ -104,9 +104,10 @@ const Resume = () => {
           <h2>Full-Stack Software Engineer</h2>
           <p>
             Versatile Full-Stack Software Engineer with a strong focus on
-            front-end development. Skilled in creating user-friendly, responsive
-            web applications and interactive games. Combines technical expertise
-            with artistic sensibility to deliver high-quality, intuitive user
+            front-end development and a growing expertise in AI and machine
+            learning. Skilled in creating user-friendly, responsive web
+            applications and interactive games that blend technical precision
+            with artistic sensibility to deliver high-quality, intelligent user
             experiences. Proficient in solving complex problems and transforming
             them into elegant, innovative solutions.
           </p>
@@ -125,9 +126,15 @@ const Resume = () => {
               MySQL, SQLite, Redux, React Hooks, Local Storage, Data Structures
             </li>
             <li>
+              <strong>Deployment & Server Configuration:</strong> Nginx, GoDaddy
+              VPS, SSH, SSL certificate management, environment variables, and
+              secure deployment practices.
+            </li>
+            <li>
               <strong>Web Technologies & API Integration:</strong> RESTful API
               Design, Server-Side Rendering, JWT, OAuth, bcrypt, Axios, Fetch
-              API, Web Audio API, HTML5 Canvas, Custom React Hooks, Algorithms
+              API, Web Audio API, HTML5 Canvas, Custom React Hooks, CORS
+              configuration
             </li>
             <li>
               <strong>Development Tools & Practices:</strong> Git, GitHub,
@@ -141,13 +148,43 @@ const Resume = () => {
               CSS Keyframes, CSS Animations, Wireframing, Pixel Art Design
             </li>
             <li>
-              <strong>IC Design Tools:</strong> Cadence Virtuoso IC6.1
+              <strong>EDA & AI Tools:</strong> Cadence Virtuoso IC6.1, Claude
+              AI.
             </li>
           </ul>
         </section>
 
         <section className="resume-section">
           <h2>Projects</h2>
+          <div className="project-item">
+            <h3>Professional Portfolio Deployment</h3>
+            <p>
+              Deployed a full-stack portfolio website hosted on a GoDaddy VPS
+              with AlmaLinux 8, featuring secure data handling, responsive
+              design, and optimized production configuration. Configured Nginx
+              for HTTP and HTTPS traffic management, integrated a Node.js
+              backend with MongoDB for shop functionality, and implemented
+              environment variable management for secure deployments.
+            </p>
+            <p>
+              <a
+                href="https://github.com/AlrightErin27/erinvb-portfolio-2024"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>{" "}
+              |{" "}
+              <a
+                href="https://www.erinvanbrunt.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Live Demo
+              </a>
+            </p>
+          </div>
+
           <div className="project-item">
             <h3>Full-Stack E-Commerce Platform: Evie & Co.</h3>
             <p>
