@@ -1,22 +1,15 @@
 import { useState, useEffect } from "react";
 import "./CSS/Footer.css";
 
-import binoculars from "../../Images/Shop/Banner/1.png";
-import joanna from "../../Images/Shop/Banner/2.png";
-import accessories from "../../Images/Shop/Banner/4.png";
-import comingSoon from "../../Images/Shop/Banner/5.png";
-import londonMag from "../../Images/Shop/Banner/6.png";
-import image7 from "../../Images/Shop/Banner/7.png";
+import p1 from "../../Images/Shop/Banner/1.png";
+import p2 from "../../Images/Shop/Banner/2.png";
+import p3 from "../../Images/Shop/Banner/4.png";
+import p4 from "../../Images/Shop/Banner/5.png";
+import p5 from "../../Images/Shop/Banner/6.png";
+import p6 from "../../Images/Shop/Banner/7.png";
 
 export default function Footer({ handleLogout }) {
-  const images = [
-    binoculars,
-    joanna,
-    accessories,
-    comingSoon,
-    londonMag,
-    image7,
-  ];
+  const images = [p1, p2, p3, p4, p5, p6];
 
   return (
     <footer>

@@ -42,7 +42,7 @@
 .scroll-track {
   display: flex;
   width: calc(350px * 12); /* Adjusted width to account for taller images */
-  animation: scroll 30s linear infinite;
+  animation: scroll 60s linear infinite;
 }
 
 .magazine-item {
@@ -70,10 +70,6 @@
     transform: translateX(-50%);
   }
 }
-
-/* .scroll-track:hover {
-  animation-play-state: paused;
-} */
 
 @media (max-width: 768px) {
   .magazine-scroll {
