@@ -1,46 +1,45 @@
 import { useState, useEffect } from "react";
 import "./CSS/Footer.css";
 
-import image1 from "../../Images/Shop/Banner/1.png";
-import image2 from "../../Images/Shop/Banner/2.png";
-
-import image4 from "../../Images/Shop/Banner/4.png";
-import image5 from "../../Images/Shop/Banner/5.png";
-import image6 from "../../Images/Shop/Banner/6.png";
+import binoculars from "../../Images/Shop/Banner/1.png";
+import joanna from "../../Images/Shop/Banner/2.png";
+import accessories from "../../Images/Shop/Banner/4.png";
+import comingSoon from "../../Images/Shop/Banner/5.png";
+import londonMag from "../../Images/Shop/Banner/6.png";
 import image7 from "../../Images/Shop/Banner/7.png";
 
 export default function Footer({ handleLogout }) {
-  const images = [image5, image4, image1, image2, image6, image7];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
+  const images = [
+    binoculars,
+    joanna,
+    accessories,
+    comingSoon,
+    londonMag,
+    image7,
+  ];
 
   return (
     <footer>
-      <div className="banner">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`Magazine cover ${index + 1}`}
-            className={`banner-image ${
-              index === currentImageIndex ? "active" : ""
-            }`}
-          />
-        ))}
+      <div className="magazine-scroll">
+        <div className="scroll-track">
+          {/* First set */}
+          {images.map((img, index) => (
+            <div key={`first-${index}`} className="magazine-item">
+              <img src={img} alt={`Magazine cover ${index + 1}`} />
+            </div>
+          ))}
+          {/* Second set for seamless loop */}
+          {images.map((img, index) => (
+            <div key={`second-${index}`} className="magazine-item">
+              <img src={img} alt={`Magazine cover ${index + 1}`} />
+            </div>
+          ))}
+        </div>
       </div>
       <p className="about">
         Evie & Co. is the epitome of sophisticated fashion, effortlessly merging
         timeless elegance with bold, modern aesthetics. Drawing inspiration from
-        London’s iconic mod movement, the romantic allure of Victorian design,
+        London's iconic mod movement, the romantic allure of Victorian design,
         and the audacious spirit of punk, the brand creates pieces that
         transcend trends. Each collection is meticulously crafted, offering
         refined silhouettes with unexpected details, perfect for those who seek

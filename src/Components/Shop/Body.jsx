@@ -72,7 +72,9 @@ export default function Body({ addToCart }) {
 
     // On desktop, show three items
     const visibleItems = [];
-    for (let i = 0; i < 3; i++) {
+    const itemsToShow = Math.min(3, items.length); // Ensure we don't try to show more items than exist
+
+    for (let i = 0; i < itemsToShow; i++) {
       // Use modulo to wrap around to start of array when needed
       const index = (currentIndex + i) % items.length;
       visibleItems.push(items[index]);
@@ -80,16 +82,21 @@ export default function Body({ addToCart }) {
     return visibleItems;
   };
 
+  // Don't render navigation buttons if there are 3 or fewer items
+  const showNavigation = items.length > 3;
+
   return (
     <div className="carousel-container">
       {/* Left navigation arrow */}
-      <button
-        className="carousel-arrow left"
-        onClick={prevSlide}
-        aria-label="Previous items"
-      >
-        &#8249;
-      </button>
+      {showNavigation && (
+        <button
+          className="carousel-arrow left"
+          onClick={prevSlide}
+          aria-label="Previous items"
+        >
+          &#8249;
+        </button>
+      )}
 
       {/* Main carousel display */}
       <div className="carousel-items">
@@ -122,13 +129,15 @@ export default function Body({ addToCart }) {
       </div>
 
       {/* Right navigation arrow */}
-      <button
-        className="carousel-arrow right"
-        onClick={nextSlide}
-        aria-label="Next items"
-      >
-        &#8250;
-      </button>
+      {showNavigation && (
+        <button
+          className="carousel-arrow right"
+          onClick={nextSlide}
+          aria-label="Next items"
+        >
+          &#8250;
+        </button>
+      )}
     </div>
   );
 }

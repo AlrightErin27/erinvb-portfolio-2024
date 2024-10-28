@@ -21,6 +21,7 @@ const Shop = () => {
   const [purchases, setPurchases] = useState([]);
   const [lastLogin, setLastLogin] = useState(null);
   const [loggedInUsername, setLoggedInUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
@@ -42,9 +43,12 @@ const Shop = () => {
         setPurchases(response.data.purchases);
         setLastLogin(response.data.lastLogin);
         setLoggedInUsername(response.data.username);
+        setIsLoggedIn(true);
       } catch (error) {
         console.error("Failed to fetch user data", error);
         handleLogout();
+      } finally {
+        setIsLoading(false);
       }
     },
     [handleLogout]
@@ -53,8 +57,9 @@ const Shop = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setIsLoggedIn(true);
       fetchUserData(token);
+    } else {
+      setIsLoading(false);
     }
   }, [fetchUserData]);
 
@@ -128,34 +133,37 @@ const Shop = () => {
     <div className="Shop">
       <Header />
       <div className="sub-header">
-        {isLoggedIn ? (
-          <div className="body-con">
-            <div className="icon-con">
-              <CartButton handleCart={handleCart} />
-            </div>
-            {showCart && (
-              <Cart
-                username={loggedInUsername}
-                lastLogin={lastLogin}
-                purchases={purchases}
-                handleCloseCart={() => setShowCart(false)}
-                cartItems={cartItems}
-                setCartItems={setCartItems}
-                handlePurchase={handlePurchase}
+        {!isLoading && (
+          <>
+            {isLoggedIn ? (
+              <div className="body-con">
+                <div className="icon-con">
+                  <CartButton handleCart={handleCart} />
+                </div>
+                {showCart && (
+                  <Cart
+                    username={loggedInUsername}
+                    lastLogin={lastLogin}
+                    purchases={purchases}
+                    handleCloseCart={() => setShowCart(false)}
+                    cartItems={cartItems}
+                    setCartItems={setCartItems}
+                    handlePurchase={handlePurchase}
+                  />
+                )}
+                <Body addToCart={addToCart} />
+              </div>
+            ) : (
+              <Entry
+                username={username}
+                setUsername={setUsername}
+                password={password}
+                setPassword={setPassword}
+                handleRegister={handleRegister}
+                handleLogin={handleLogin}
               />
             )}
-
-            <Body addToCart={addToCart} />
-          </div>
-        ) : (
-          <Entry
-            username={username}
-            setUsername={setUsername}
-            password={password}
-            setPassword={setPassword}
-            handleRegister={handleRegister}
-            handleLogin={handleLogin}
-          />
+          </>
         )}
       </div>
       <div className="footer">

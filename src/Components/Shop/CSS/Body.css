@@ -13,17 +13,24 @@
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 2rem auto;
   padding: 0 3rem;
   box-sizing: border-box;
 }
 
 .carousel-items {
+  /* display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 0 auto;
+  transition: all 0.4s cubic-bezier(0.3, 0, 0.2, 1); */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin: 0 auto;
+  max-width: 1800px; /* Added max-width for very large screens */
+  padding: 0 2rem;
   transition: all 0.4s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
@@ -133,6 +140,7 @@
 @media (max-width: 768px) {
   .carousel-items {
     grid-template-columns: 1fr;
+    padding: 0 1rem;
   }
 
   .carousel-container {
