@@ -373,8 +373,8 @@
 
   .cr-game-canvas {
     border: none; /* Remove the border for maximum canvas size */
-    width: 100%; /* Ensure canvas width is full */
-    height: auto; /* Maintain aspect ratio */
+    width: auto;
+    height: 47vh;
   }
 
   .cr-game-over {
