@@ -1,4 +1,5 @@
 :root {
+  /* Color variables for the theme */
   --background-color: #0a0a0a;
   --text-color: #f7f7f7;
   --neon-color: #00ffff;
@@ -25,7 +26,7 @@ body {
   overflow-y: auto;
 }
 
-/* Loading and Error States */
+/* Loading and error states */
 .loading,
 .error {
   display: flex;
@@ -69,7 +70,7 @@ body {
   }
 }
 
-/* Sci-fi starship background */
+/* Main blog overlay styling */
 .blog-overlay {
   font-family: "Cutive Mono", monospace;
   min-height: fit-content;
@@ -106,6 +107,7 @@ body {
   padding-top: 60px;
 }
 
+/* Blog container */
 .blog-container {
   width: 85vw;
   max-width: 1200px;
@@ -113,6 +115,7 @@ body {
   padding: 0 20px 20px 20px;
 }
 
+/* Blog content styling */
 .blog-content {
   display: flex;
   flex-direction: column;
@@ -121,7 +124,7 @@ body {
   width: 100%;
 }
 
-/* Title styles */
+/* Title section styling */
 .title {
   width: 100%;
   margin: 1% 0;
@@ -206,7 +209,7 @@ body {
   }
 }
 
-/* Author image styles */
+/* Author image styling */
 .author-img {
   width: clamp(100px, 20vw, 200px);
   height: clamp(100px, 20vw, 200px);
@@ -227,11 +230,12 @@ body {
   }
 }
 
-/* Blog post styles */
+/* Blog post block */
 .blog-block {
   width: 100%;
 }
 
+/* Styling for individual posts */
 .posts {
   width: 100%;
   border: 2px solid var(--neon-color);
@@ -242,7 +246,7 @@ body {
   box-sizing: border-box;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
   position: relative;
-  text-align: center;
+  text-align: left;
 }
 
 .posts::before {
@@ -268,13 +272,7 @@ body {
   z-index: 2;
 }
 
-.posts-p {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
+/* Post heading styling */
 .posts h2 {
   font-size: clamp(20px, 4vw, 30px);
   text-align: center;
@@ -282,9 +280,21 @@ body {
   color: var(--neon-color);
 }
 
+.posts h3 {
+  text-decoration: underline;
+}
+
 .posts-p {
-  font-size: clamp(20px, 4vw, 16px);
+  font-size: clamp(
+    22px,
+    5vw,
+    18px
+  ); /* Increased size for better readability on smaller screens */
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .posts img {
@@ -294,9 +304,17 @@ body {
   z-index: 1;
 }
 
+.posts li {
+  margin-bottom: 3px;
+  text-indent: 0.1%;
+  width: fit-content;
+  color: #a7ffff;
+}
+
+/* Code block styling */
 .code-block {
-  background-color: #24c86e14;
-  border: dashed 1px var(--neon-color-alt);
+  background-color: #00fcbd14;
+  border: dashed 1px var(--neon-color);
   padding: 3%;
   width: fit-content;
   border-radius: 1%;
@@ -304,13 +322,14 @@ body {
   text-align: start;
 }
 
+/* Link styling within posts */
 .posts-a {
   color: var(--neon-color);
-  font-size: clamp(14px, 3vw, 16px);
+  font-size: clamp(20px, 4vw, 16px);
+  border: 1px solid var(--neon-color);
   text-decoration: none;
   display: inline-block;
   padding: 10px 20px;
-  border: 1px solid var(--neon-color);
   border-radius: 5px;
   transition: all 0.3s ease;
   background-color: rgba(0, 255, 255, 0.1);
@@ -323,6 +342,7 @@ body {
   transform: translateY(-2px);
 }
 
+/* Flickering animation */
 @keyframes flicker {
   0%,
   100% {
@@ -443,7 +463,7 @@ body {
   }
 }
 
-/* Starfield background */
+/* Starfield background for a space effect */
 .star {
   position: absolute;
   width: 2px;
@@ -471,58 +491,31 @@ body {
   }
 }
 
-/* Image responsiveness for blog content */
+/* Responsive image styling for blog content */
+.figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 55vw;
+  display: flex;
+  flex-direction: column;
+}
+
 .responsive-img,
 .giphy-img {
-  max-width: 90%;
+  max-width: 98%;
   height: auto;
   margin: 1rem 0;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-  .blog-container {
-    width: 95vw;
-    padding: 10px;
-  }
-
-  .title {
-    padding: 4% 2%;
-    margin-top: -30px;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .title-a {
-    align-items: center;
-    gap: 10px;
-  }
-
-  .posts {
-    padding: 6%;
-  }
-
-  .author-img {
-    width: clamp(80px, 18vw, 150px);
-    height: clamp(80px, 18vw, 150px);
-  }
-
-  .posts h2 {
-    font-size: clamp(18px, 3.5vw, 24px);
-  }
-
-  .posts p {
-    font-size: clamp(14px, 3vw, 16px);
-  }
-
-  .posts-a {
-    font-size: clamp(14px, 3vw, 16px);
-    padding: 8px 16px;
-  }
+.figcaption {
+  font-size: x-small;
+  padding-bottom: 1.5rem;
 }
 
+/* Help button styling */
 .help-button {
   position: fixed;
   bottom: 20px;
@@ -543,6 +536,7 @@ body {
   color: var(--background-color);
 }
 
+/* Cookie notice styling */
 .cookie-notice {
   position: fixed;
   top: 15vh;
@@ -636,7 +630,11 @@ body {
   }
 
   .posts p {
-    font-size: clamp(14px, 3vw, 16px);
+    font-size: clamp(
+      20px,
+      3.5vw,
+      18px
+    ); /* ****** Updated for better readability */
   }
 
   .posts-a {
@@ -666,7 +664,11 @@ body {
   }
 
   .posts p {
-    font-size: clamp(12px, 2.5vw, 14px);
+    font-size: clamp(
+      18px,
+      3vw,
+      16px
+    ); /* ****** Updated for better readability */
   }
 
   .posts-a {
@@ -676,7 +678,7 @@ body {
 
   .responsive-img,
   .giphy-img {
-    max-width: 100%;
+    width: 98%;
     height: auto;
   }
 

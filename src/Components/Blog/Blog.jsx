@@ -26,7 +26,7 @@ const Blog = () => {
           return response.json();
         })
         .then((data) => {
-          const processedPosts = data.items.slice(0, 5).map((post) => ({
+          const processedPosts = data.items.slice(0, 4).map((post) => ({
             ...post,
             content: sanitizeContent(post.content),
           }));
@@ -54,6 +54,11 @@ const Blog = () => {
 
     // Replace giphy iframes with img tags
     temp.querySelectorAll("figure").forEach((figure) => {
+      // Add a custom class to all <figure> tags
+      if (figure) {
+        figure.className = "figure";
+      }
+
       const iframe = figure.querySelector('iframe[src*="giphy.com"]');
       if (iframe) {
         const giphyUrl = iframe.src;
@@ -61,6 +66,12 @@ const Blog = () => {
         img.src = giphyUrl.replace("iframe", "media");
         img.className = "giphy-img";
         iframe.replaceWith(img);
+      }
+
+      // Add a custom class to all <figcaption> tags
+      const figcaption = figure.querySelector("figcaption");
+      if (figcaption) {
+        figcaption.className = "figcaption";
       }
     });
 
