@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./CSS/Footer.css";
 
 import p1 from "../../Images/Shop/Banner/1.png";
