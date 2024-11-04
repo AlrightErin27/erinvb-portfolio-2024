@@ -260,70 +260,167 @@
   .cr-game-title {
     font-size: clamp(2rem, 6vw, 3rem);
   }
+
+  .cr-game-container {
+    width: 100%;
+  }
+
   .cr-game-info {
     font-size: clamp(1rem, 2.5vw, 1.2rem);
   }
+
   .cr-start-button,
   .cr-restart-button {
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
     padding: clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px);
   }
+
   .cr-game-over-text {
     font-size: clamp(1.8rem, 7vw, 3rem);
   }
+
   .cr-bottom-container {
     flex-direction: column;
     align-items: center;
   }
+
   .cr-info-audio-container {
     margin-right: 0;
     margin-bottom: 10px;
   }
+
   .cr-controls-container {
     margin-top: 10px;
   }
 }
 
-@media (max-width: 480px) {
+/* General responsive styles for larger screens */
+@media (max-width: 768px) {
   .cr-game-title {
-    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-size: clamp(2rem, 6vw, 3rem);
   }
+
+  .cr-game-container {
+    width: 100%;
+  }
+
   .cr-game-info {
-    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
   }
+
   .cr-start-button,
   .cr-restart-button {
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 20px);
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px);
   }
+
   .cr-game-over-text {
-    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    font-size: clamp(1.8rem, 7vw, 3rem);
   }
-}
 
-/* iPad-specific styles */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-  .cr-game-container {
-    width: 90%;
-  }
   .cr-bottom-container {
-    width: 90%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cr-info-audio-container {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .cr-controls-container {
+    margin-top: 10px;
   }
 }
 
-/* iPhone-specific styles */
+/* iPhone-specific responsive styles */
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
   .cr-game-container {
-    width: 95%;
+    width: 100%;
   }
+
   .cr-bottom-container {
-    width: 95%;
+    width: 95%; /* Adjust width to fit iPhone screens */
   }
+
   .cr-game-info {
     font-size: clamp(0.9rem, 2.2vw, 1.2rem);
   }
+
+  .cr-game-over {
+    max-height: 70vh; /* Adjust for iPhone screen height */
+    padding: clamp(15px, 4vw, 30px);
+  }
+}
+
+/* iPad-specific responsive styles */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  .cr-game-container {
+    width: 100%; /* Full width for iPad */
+  }
+
+  .cr-bottom-container {
+    width: 90%; /* Adjusted width for alignment */
+  }
+}
+
+/* Responsive styles for smaller than iPad mini screens */
+@media (max-width: 768px) {
+  .cr-game-container {
+    width: 100%; /* Increase width to use more screen space */
+    margin: 0 auto; /* Center the container */
+  }
+
+  .cr-game-canvas {
+    border: none; /* Remove the border for maximum canvas size */
+    width: 100%; /* Ensure canvas width is full */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .cr-game-over {
+    max-height: 60vh; /* Adjust for better viewing */
+    padding: clamp(15px, 4vw, 30px);
+  }
+
+  .cr-game-info {
+    font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+    margin: 5px 0; /* Adjust margin for better layout */
+  }
+
+  .cr-bottom-container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%; /* Ensure full width */
+  }
+
+  .cr-start-button,
+  .cr-restart-button {
+    font-size: clamp(0.9rem, 3vw, 1.3rem);
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px);
+  }
+
+  .cr-game-over-text {
+    font-size: clamp(1.8rem, 7vw, 3rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .cr-game-container {
+    width: 98%; /* Maximize width on very small screens */
+  }
+
+  .cr-game-info {
+    font-size: clamp(0.7rem, 2vw, 1rem);
+  }
+
+  .cr-start-button,
+  .cr-restart-button {
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 20px);
+  }
+
   .cr-game-over {
     max-height: 70vh;
-    padding: clamp(15px, 4vw, 30px);
   }
 }

@@ -2,10 +2,10 @@
   /* Color variables for the theme */
   --background-color: #0a0a0a;
   --text-color: #f7f7f7;
-  --neon-color: #00ffff;
+  --neon-color: #7cfe9f;
   --neon-color-alt: #00ffaa;
-  --title-background: rgba(0, 20, 40, 0.8);
-  --post-background: rgba(0, 20, 40, 0.6);
+  --title-background: rgb(0, 0, 0);
+  --post-background: rgba(0, 0, 0, 0.6);
   --glitch-color-1: #ff00de;
   --glitch-color-2: #00ff00;
   --error-color: #ff3333;
