@@ -12,19 +12,14 @@
 
 .carousel-container {
   position: relative;
-  width: 100%;
-  max-width: 100%;
+  width: 98%;
+  max-width: 97%;
   margin: 2rem auto;
   padding: 0 3rem;
   box-sizing: border-box;
 }
 
 .carousel-items {
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin: 0 auto;
-  transition: all 0.4s cubic-bezier(0.3, 0, 0.2, 1); */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;

@@ -360,19 +360,19 @@
   }
 
   .cr-bottom-container {
-    width: 90%; /* Adjusted width for alignment */
+    width: 90%;
   }
 }
 
 /* Responsive styles for smaller than iPad mini screens */
 @media (max-width: 768px) {
   .cr-game-container {
-    width: 100%; /* Increase width to use more screen space */
-    margin: 0 auto; /* Center the container */
+    width: 100%;
+    margin: 0 auto;
   }
 
   .cr-game-canvas {
-    border: none; /* Remove the border for maximum canvas size */
+    border: none;
     width: auto;
     height: 47vh;
   }

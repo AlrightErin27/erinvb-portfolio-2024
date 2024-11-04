@@ -6,9 +6,10 @@ import p3 from "../../Images/Shop/Banner/4.png";
 import p4 from "../../Images/Shop/Banner/5.png";
 import p5 from "../../Images/Shop/Banner/6.png";
 import p6 from "../../Images/Shop/Banner/7.png";
+import p7 from "../../Images/Shop/Banner/8.png";
 
 export default function Footer({ handleLogout }) {
-  const images = [p1, p2, p3, p4, p5, p6];
+  const images = [p1, p2, p3, p4, p5, p6, p7];
 
   return (
     <footer>
