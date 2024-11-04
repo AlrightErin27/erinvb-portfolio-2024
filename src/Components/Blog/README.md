@@ -3,7 +3,9 @@
 A sleek, cyberpunk-themed personal blog built with React.js, featuring a Medium RSS feed integration.
 
 [Medium Blog](https://medium.com/@erinmontybruce)
+
 [Medium Entry: Nostromo Computer Diary: Log Entry #042, Officer Ripley Reporting](https://medium.com/@erinmontybruce/nostromo-computer-diary-log-entry-042-officer-ripley-reporting-a30c8032d3c2)
+
 [Medium Entry: Axios](https://medium.com/@erinmontybruce/axios-48f3c8d7252b)
 
 ## Table of Contents
