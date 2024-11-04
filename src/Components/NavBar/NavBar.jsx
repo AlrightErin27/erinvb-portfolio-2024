@@ -6,16 +6,21 @@ const NavBar = () => {
   const [select, setSelect] = useState("home"); // State to track the selected navigation link
 
   const components = [
-    { title: "Home", path: "/" },
-    { title: "Resume", path: "/resume" },
     {
       title: [
-        <span key="1">Project</span>,
-        <br key="2" />,
-        <span key="3">Walkthrough Videos</span>,
+        <span key="1" className="navbar-span">
+          Project
+        </span>,
+        <br key="2" className="navbar-span" />,
+        <span key="3" className="navbar-span">
+          Walkthrough Videos
+        </span>,
       ],
       path: "/project-videos",
     },
+    { title: "Home", path: "/" },
+    { title: "Resume", path: "/resume" },
+
     { title: "Blog", path: "/blog" },
     { title: "Games", path: "/games" },
     { title: "Shop", path: "/shop" },
