@@ -299,9 +299,7 @@ body {
 }
 
 .posts-p strong {
-  font-size: larger;
-  text-transform: uppercase;
-  color: var(--neon-color);
+  text-decoration: underline;
 }
 
 .posts img {
@@ -314,8 +312,7 @@ body {
 .posts li {
   margin-bottom: 3px;
   text-indent: 0.1%;
-  width: fit-content;
-  color: #a7ffff;
+  width: 60vw;
 }
 
 /* Code block styling */
@@ -323,10 +320,13 @@ body {
   background-color: #00fcbd14;
   border: dashed 1px var(--neon-color);
   padding: 3%;
-  width: fit-content;
+  width: auto; /* Let width be automatic */
+  max-width: 100%; /* Prevent overflow beyond parent */
   border-radius: 1%;
-  font-size: clamp(12px, 2.5vw, 14px);
+  font-size: clamp(10px, 2.5vw, 14px);
   text-align: start;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 /* Link styling within posts */
