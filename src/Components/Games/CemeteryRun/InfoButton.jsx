@@ -40,8 +40,8 @@ const InfoButton = () => {
               ghost trying to escape the graveyard.
             </p>
             <p>
-              Use the spacebar to jump over headstones and survive as long as
-              you can!
+              Use the space-bar (or tap game on mobile) to jump over headstones
+              and survive as long as you can!
             </p>
             <p>
               The longer you survive, the higher your score. Can you beat your
