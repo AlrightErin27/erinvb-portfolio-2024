@@ -298,6 +298,12 @@ body {
   align-items: center;
 }
 
+.posts-p strong {
+  font-size: larger;
+  text-transform: uppercase;
+  color: var(--neon-color);
+}
+
 .posts img {
   max-width: 90%;
   height: auto;
