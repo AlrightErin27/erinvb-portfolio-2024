@@ -2,7 +2,7 @@ import React from "react";
 import "./Home.css";
 import Icon from "./Icon";
 import IntroImg from "../../Images/Home/Resume/hello.png";
-import ResumePDF from "../../Images/Home/Resume/SoftwareResumeOct2024.pdf";
+import ResumePDF from "../../Images/Home/Resume/SoftwareResume2024.pdf";
 import ResumeIcon from "../../Images/Home/Icons/resumeicon.png";
 import DownLoadIcon from "../../Images/Home/Icons/download.png";
 import VideoIcon from "../../Images/Home/Icons/video.png";

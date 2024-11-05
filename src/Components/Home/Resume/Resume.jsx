@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./Resume.css";
 import Icon from "../../../Images/Home/Icons/download.png";
-import PDF from "../../../Images/Home/Resume/SoftwareResumeOct2024.pdf";
+import PDF from "../../../Images/Home/Resume/SoftwareResume2024.pdf";
 
 const Resume = () => {
   useEffect(() => {
@@ -38,11 +38,11 @@ const Resume = () => {
     }
   }, []);
 
-  //download resume
+  // Download resume
   const downloadFile = () => {
     const el = document.createElement("a");
     el.href = PDF;
-    el.download = "ErinVanBruntSoftwareDevResume.pdf";
+    el.download = "ErinVanBruntSoftwareEngResume2024.pdf";
     document.body.appendChild(el);
     el.click();
     document.body.removeChild(el);
@@ -127,29 +127,24 @@ const Resume = () => {
             </li>
             <li>
               <strong>Deployment & Server Configuration:</strong> Nginx, GoDaddy
-              VPS, SSH, SSL certificate management, environment variables, and
-              secure deployment practices.
+              VPS, SSH, SSL certificate management, Environment Variables,
+              Secure Deployment Practices
             </li>
             <li>
               <strong>Web Technologies & API Integration:</strong> RESTful API
               Design, Server-Side Rendering, JWT, OAuth, bcrypt, Axios, Fetch
-              API, Web Audio API, HTML5 Canvas, Custom React Hooks, CORS
-              configuration
+              API, Web Audio API, HTML5 Canvas, Collision Detection (AABB),
+              Custom React Hooks, CORS configuration
             </li>
             <li>
-              <strong>Development Tools & Practices:</strong> Git, GitHub,
-              VSCode, npm, Heroku, Netlify, Agile, Scrum, TDD/BDD, RSpec,
+              <strong>Development Tools & AI:</strong> Git, GitHub, VSCode, npm,
+              Heroku, Netlify, Claude AI, Agile, Scrum, TDD/BDD, RSpec,
               Responsive Design, Cross-Browser Compatibility, Mobile-First
-              Development, Component-based Architecture, Collision Detection
-              (AABB)
+              Development, Component-based Architecture, Cadence Virtuoso IC6.1
             </li>
             <li>
               <strong>UI/UX & Design:</strong> CSS Grid, Flexbox, Media Queries,
               CSS Keyframes, CSS Animations, Wireframing, Pixel Art Design
-            </li>
-            <li>
-              <strong>EDA & AI Tools:</strong> Cadence Virtuoso IC6.1, Claude
-              AI.
             </li>
           </ul>
         </section>
@@ -157,14 +152,31 @@ const Resume = () => {
         <section className="resume-section">
           <h2>Projects</h2>
           <div className="project-item">
-            <h3>Professional Portfolio Deployment</h3>
+            <h3>Professional Portfolio Deployment | November 2024</h3>
             <p>
               Deployed a full-stack portfolio website hosted on a GoDaddy VPS
               with AlmaLinux 8, featuring secure data handling, responsive
-              design, and optimized production configuration. Configured Nginx
-              for HTTP and HTTPS traffic management, integrated a Node.js
-              backend with MongoDB for shop functionality, and implemented
-              environment variable management for secure deployments.
+              design, and optimized production configuration.
+            </p>
+            <ul>
+              <li>
+                Configured Nginx for HTTP and HTTPS traffic management, applied
+                a Node.js backend with MongoDB for shop functionality, and
+                configured environment variable management through .env files
+                for development and production.
+              </li>
+              <li>
+                SSL certificates ensure data security, while CORS policies allow
+                API requests from multiple domain variations.
+              </li>
+              <li>
+                Server.js was adapted to automate static file serving and
+                support a seamless production setup.
+              </li>
+            </ul>
+            <p>
+              <strong>Technologies Used:</strong> AlmaLinux 8, Nginx, Node.js,
+              MongoDB, CORS, Environment Variables
             </p>
             <p>
               <a
@@ -186,15 +198,26 @@ const Resume = () => {
           </div>
 
           <div className="project-item">
-            <h3>Full-Stack E-Commerce Platform: Evie & Co.</h3>
+            <h3>Full-Stack E-Commerce Platform: Evie & Co. | October 2024</h3>
             <p>
-              Developed a comprehensive e-commerce solution using React.js for
+              Created a comprehensive e-commerce solution applying React.js for
               the frontend and Node.js with Express.js for the backend,
-              integrated with MongoDB. Implemented secure user authentication
-              with JWT and bcrypt, along with a robust shopping cart system and
-              intuitive product browsing experience. Utilized React Hooks for
-              efficient state management and implemented RESTful API design
-              principles.
+              integrated with MongoDB.
+            </p>
+            <ul>
+              <li>
+                Established secure user authentication with JWT and bcrypt,
+                along with a comprehensive shopping cart system and intuitive
+                product browsing experience.
+              </li>
+              <li>
+                Adapted React Hooks for efficient state management and
+                implemented RESTful API design principles.
+              </li>
+            </ul>
+            <p>
+              <strong>Technologies Used:</strong> React, Node.js,
+              MongoDB/Mongoose, Express.js, JWT Authentication, bcrypt
             </p>
             <p>
               <a
@@ -224,16 +247,29 @@ const Resume = () => {
           </div>
 
           <div className="project-item">
-            <h3>Cemetery Run: Retro-Inspired Arcade Game</h3>
+            <h3>Cemetery Run: Retro-Inspired Arcade Game | October 2024</h3>
             <p>
               Engineered an engaging endless runner game using React.js and
               HTML5 Canvas, featuring custom pixel art and retro-style graphics.
-              Implemented complex game mechanics, including collision detection,
-              dynamic difficulty scaling, and custom controls for both desktop
-              and mobile. Utilized requestAnimationFrame for smooth animations
-              and game loop management. Integrated Web Audio API for immersive
-              sound effects and background music, with user-controlled audio
-              settings.
+            </p>
+            <ul>
+              <li>
+                Coded complex game mechanics, including collision detection,
+                dynamic difficulty scaling, and custom controls for both desktop
+                and mobile.
+              </li>
+              <li>
+                Leveraged requestAnimationFrame for smooth animations and game
+                loop management.
+              </li>
+              <li>
+                Incorporated Web Audio API for immersive sound, with
+                user-controlled audio settings.
+              </li>
+            </ul>
+            <p>
+              <strong>Technologies Used:</strong> React 17.0.2, HTML5 Canvas
+              API, requestAnimationFrame, Custom Game Physics
             </p>
             <p>
               <a
@@ -263,14 +299,31 @@ const Resume = () => {
           </div>
 
           <div className="project-item">
-            <h3>Interactive Crossword Puzzle</h3>
+            <h3>Interactive Crossword Puzzle | September 2024</h3>
             <p>
-              Designed and developed a React-based crossword puzzle game with
-              advanced state management and custom keyboard navigation.
-              Implemented a sophisticated grid generation algorithm and
-              intricate word highlighting system. Created a responsive design
-              using CSS Flexbox and media queries for seamless play across
-              various devices.
+              Designed and built a crossword puzzle game featuring complex data
+              structure manipulation and dynamic state management.
+            </p>
+            <ul>
+              <li>
+                Engineered an advanced grid generation algorithm that maps and
+                transforms question-answer pairs into an interactive game board,
+                handling multi-directional words and intersecting letters.
+              </li>
+              <li>
+                Streamlined sophisticated keyboard navigation and word
+                highlighting system using React's useState and useEffect hooks.
+              </li>
+              <li>
+                Created a responsive design using CSS Flexbox and media queries
+                for seamless play across various devices.
+              </li>
+            </ul>
+            <p>
+              <strong>Technologies Used:</strong> React Hooks (useState,
+              useEffect, useCallback), Complex Data Structure Mapping, Custom
+              Grid Generation Algorithm, Dynamic State Management, CSS
+              Grid/Flexbox
             </p>
             <p>
               <a
@@ -300,14 +353,25 @@ const Resume = () => {
           </div>
 
           <div className="project-item">
-            <h3>Dynamic Blog Content Integration</h3>
+            <h3>Dynamic Blog Content Integration | November 2024</h3>
             <p>
               Developed a React-based platform that dynamically fetches and
-              displays blog posts from Medium using Axios and the RSS2JSON API.
-              Implemented error handling and loading states to ensure a smooth
-              user experience. Designed a unique 80's sci-fi inspired interface
-              with custom CSS animations and transitions, fully responsive
-              across all devices.
+              displays blog posts from Medium employing Axios and the RSS2JSON
+              API.
+            </p>
+            <ul>
+              <li>
+                Initiated robust error handling patterns with loading state
+                management for optimal UX.
+              </li>
+              <li>
+                Designed an 80's sci-fi themed interface featuring custom CSS
+                animations and responsive design.
+              </li>
+            </ul>
+            <p>
+              <strong>Technologies Used:</strong> React, Axios, RSS2JSON API,
+              CSS Animations/Keyframes, Error Handling
             </p>
             <p>
               <a
@@ -341,38 +405,56 @@ const Resume = () => {
           <h2>Professional Experience</h2>
           <div className="experience-item">
             <h3>Restaurant Manager | April 2014 - Present</h3>
-            <p>
-              Alamo Drafthouse, San Antonio, TX | Persephone, Aptos, CA |
-              Mazzi's, Eugene, OR
-            </p>
-            <p>
-              Led teams of 15+ employees, driving a 20% increase in sales
-              through optimizing operations, improving workflows, and refining
-              inventory management. Developed data-driven strategies to enhance
-              operational efficiency and ensure smooth day-to-day functions.
-              Managed key areas including scheduling, staffing, inventory,
-              bookkeeping, and social media marketing, while ensuring compliance
-              with health and safety regulations. Strong focus on team
-              leadership, communication, and problem-solving, which resulted in
-              improved team productivity and customer satisfaction. This role
-              required a high level of adaptability, attention to detail, and a
-              solution-oriented mindset, skills that are valuable in any
-              professional environment.
-            </p>
+            <p>Pacific Northwest and Southwest US</p>
+            <ul>
+              <li>
+                Led teams of 15+ employees, driving a 20% increase in sales
+                through optimizing operations, improving workflows, and refining
+                inventory management.
+              </li>
+              <li>
+                Developed data-driven strategies to enhance operational
+                efficiency and ensure smooth day-to-day functions.
+              </li>
+              <li>
+                Managed key areas including scheduling, staffing, inventory,
+                bookkeeping, and social media marketing, while ensuring
+                compliance with health and safety regulations.
+              </li>
+              <li>
+                Demonstrated strong team leadership, communication, and
+                problem-solving skills, resulting in improved team productivity
+                and customer satisfaction.
+              </li>
+              <li>
+                Applied high level of adaptability, attention to detail, and
+                solution-oriented mindset to drive business success.
+              </li>
+            </ul>
           </div>
 
           <div className="experience-item">
-            <h3>Layout Engineer | February 2011 - March 2015</h3>
+            <h3>Layout Engineer | February 2011 - March 2014</h3>
             <p>Analog Devices, San Jose, CA</p>
-            <p>
-              Designed and optimized over 50 analog and digital layouts for ICs
-              in mobile devices using Cadence Virtuoso IC6.1. Utilized Cadence
-              tools for schematic capture, layout design, and simulation,
-              ensuring precise alignment and adherence to design rules.
-              Conducted DRC and LVS verifications using Cadence Assura, reducing
-              error rates. Collaborated with cross-functional teams to optimize
-              circuit performance and layout efficiency.
-            </p>
+            <ul>
+              <li>
+                Designed and optimized over 50 analog and digital layouts for
+                ICs in mobile devices using Cadence Virtuoso IC6.1.
+              </li>
+              <li>
+                Utilized Cadence tools for schematic capture, layout design, and
+                simulation, ensuring precise alignment and adherence to design
+                rules.
+              </li>
+              <li>
+                Conducted DRC and LVS verifications using Cadence Assura,
+                reducing error rates.
+              </li>
+              <li>
+                Collaborated with cross-functional teams to optimize circuit
+                performance and layout efficiency.
+              </li>
+            </ul>
           </div>
         </section>
 
@@ -383,12 +465,12 @@ const Resume = () => {
             Programming with Java | 2023
           </p>
           <p>
-            <strong>Flatiron School</strong> | Full-Stack Software Engineering |
-            2022
+            <strong>Flatiron School</strong> | Full-Stack Software Engineering
+            Certificate | 2022
           </p>
           <p>
-            <strong>General Assembly</strong> | Software Engineering Immersive |
-            2021
+            <strong>General Assembly</strong> | Software Engineering Immersive
+            Certificate | 2021
           </p>
           <p>
             <strong>Silicon Design Institute</strong> | Mask Design / Layout
