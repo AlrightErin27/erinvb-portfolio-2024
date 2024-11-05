@@ -411,12 +411,12 @@
   }
 
   .cr-game-info {
-    font-size: clamp(0.7rem, 2vw, 1rem);
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
   }
 
   .cr-start-button,
   .cr-restart-button {
-    font-size: clamp(0.7rem, 2vw, 1rem);
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
     padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 20px);
   }
 

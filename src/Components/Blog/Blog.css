@@ -23,7 +23,7 @@ body {
   height: 100%;
   background-color: var(--background-color);
   min-height: 100%;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 /* Loading and error states */
@@ -73,7 +73,7 @@ body {
 /* Main blog overlay styling */
 .blog-overlay {
   font-family: "Cutive Mono", monospace;
-  min-height: fit-content;
+  min-height: 100vh;
   width: 100%;
   overflow-y: auto;
   background-color: var(--background-color);

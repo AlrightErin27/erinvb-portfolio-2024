@@ -1,47 +1,64 @@
 import "./NavBar.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 const NavBar = () => {
-  const [select, setSelect] = useState("home"); // State to track the selected navigation link
+  const location = useLocation();
 
-  const components = [
-    {
-      title: [
-        <span key="1" className="navbar-span">
-          Project
-        </span>,
-        <br key="2" className="navbar-span" />,
-        <span key="3" className="navbar-span">
-          Walkthrough Videos
-        </span>,
-      ],
-      path: "/project-videos",
-    },
-    { title: "Home", path: "/" },
-    { title: "Resume", path: "/resume" },
+  // First, memoize the components array
+  const components = useMemo(
+    () => [
+      {
+        title: [
+          <span key="1" className="navbar-span">
+            Project
+          </span>,
+          <br key="2" className="navbar-span" />,
+          <span key="3" className="navbar-span">
+            Walkthrough Videos
+          </span>,
+        ],
+        path: "/project-videos",
+        id: "project-videos",
+      },
+      { title: "Home", path: "/", id: "home" },
+      { title: "Resume", path: "/resume", id: "resume" },
+      { title: "Blog", path: "/blog", id: "blog" },
+      { title: "Games", path: "/games", id: "games" },
+      { title: "Shop", path: "/shop", id: "shop" },
+    ],
+    []
+  ); // Empty dependency array since this never changes
 
-    { title: "Blog", path: "/blog" },
-    { title: "Games", path: "/games" },
-    { title: "Shop", path: "/shop" },
-  ];
+  // Then, memoize getTitleFromPath using the memoized components
+  const getTitleFromPath = useCallback((path) => {
+    const component = components.find((comp) => comp.path === path);
+    return component ? component.id : "home";
+  }, []); // Remove components from dependency array since it's now memoized
+
+  // Initialize state based on current path
+  const [select, setSelect] = useState(() =>
+    getTitleFromPath(location.pathname)
+  );
+
+  // Update selection when route changes
+  useEffect(() => {
+    const currentTitle = getTitleFromPath(location.pathname);
+    setSelect(currentTitle);
+  }, [location.pathname, getTitleFromPath]);
 
   return (
     <nav className="vintage-nav">
       <ul className="nav-ul">
-        {components.map((comp, idx) => (
-          // Each navigation item is a list item
+        {components.map((comp) => (
           <li
-            key={idx}
-            className={`nav-li ${select === comp.title ? "select-li" : ""}`} // Apply 'select-li' class if the item is selected
+            key={comp.id}
+            className={`nav-li ${select === comp.id ? "select-li" : ""}`}
           >
-            {/* Link component for navigation */}
             <Link
-              to={comp.path} // Path for the navigation link
-              onClick={() => setSelect(comp.title)}
-              className={`nav-link ${
-                select === comp.title ? "select-link" : ""
-              }`}
+              to={comp.path}
+              onClick={() => setSelect(comp.id)}
+              className={`nav-link ${select === comp.id ? "select-link" : ""}`}
             >
               {comp.title}
             </Link>
