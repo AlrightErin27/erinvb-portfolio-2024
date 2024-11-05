@@ -8,6 +8,34 @@
   --cr-canvas-border: #4a0e4e;
 }
 
+.cr-texture-overlay {
+  position: relative;
+}
+
+.cr-texture-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhJREFUeNpi+P//fwMTAwMDEwMDAwMIAAQYABEKA38bfIPxAAAAAElFTkSuQmCC");
+  background-repeat: repeat;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Special texture overlay for text only */
+.cr-texture-text {
+  position: relative;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhJREFUeNpi+P//fwMTAwMDEwMDAwMIAAQYABEKA38bfIPxAAAAAElFTkSuQmCC");
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .cr-cemetery-run {
   font-family: "Jersey 10", "Courier New", Courier, monospace;
   color: var(--cr-text-color);
@@ -66,16 +94,46 @@
 .cr-game-title {
   font-size: clamp(2rem, 6vw, 4rem);
   margin-bottom: 20px;
-  text-shadow: 4px 4px 0px var(--cr-secondary-color),
-    8px 8px 0px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   letter-spacing: 4px;
   text-align: center;
-  color: var(--cr-accent-color);
-  animation: cr-glow 2s ease-in-out infinite alternate;
   position: relative;
   z-index: 3;
 }
+
+/* Apply both the texture and color to the text */
+.cr-game-title span {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 4px 4px 0px var(--), 6px 6px 0px rgba(0, 0, 0, 0.3);
+  animation: cr-glow 2s ease-in-out infinite alternate;
+  position: relative;
+  display: inline-block;
+  color: var(--cr-text-color);
+}
+
+.cr-game-title span::after {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhJREFUeNpi+P//fwMTAwMDEwMDAwMIAAQYABEKA38bfIPxAAAAAElFTkSuQmCC");
+  background-repeat: repeat;
+  opacity: 0.3;
+
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhJREFUeNpi+P//fwMTAwMDEwMDAwMIAAQYABEKA38bfIPxAAAAAElFTkSuQmCC");
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--cr-accent-color);
+  opacity: 0.1;
+  z-index: 2;
+}
+
+/* .cr-game-title.cr-texture-overlay::after {
+  border-radius: 4px;
+} */
 
 @keyframes cr-glow {
   from {

@@ -342,11 +342,14 @@ const Canvas = ({
         className="cr-game-canvas"
       />
       {gameOver && (
-        <div className="cr-game-over">
+        <div className="cr-game-over cr-texture-overlay">
           <p className="cr-game-over-text">
             {isWinner ? "Winner!" : "Game Over!"}
           </p>
-          <button onClick={restartGame} className="cr-restart-button">
+          <button
+            onClick={restartGame}
+            className="cr-restart-button cr-texture-overlay"
+          >
             Restart Game
           </button>
         </div>

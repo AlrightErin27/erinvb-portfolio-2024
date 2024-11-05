@@ -33,7 +33,7 @@ const InfoButton = () => {
       </button>
       {showInfo && (
         <div className="info-modal-overlay">
-          <div className="info-modal" ref={modalRef}>
+          <div className="info-modal cr-texture-overlay" ref={modalRef}>
             <h2>About Cemetery Run</h2>
             <p>
               Cemetery Run is a spooky 90 second runner game where you control a
