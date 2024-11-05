@@ -19,8 +19,12 @@
   overflow-y: auto;
   background-image: url("../../../Images/Shop/camellogo.png");
   background-position: center;
-  background-size: 60%;
+  background-size: 50%;
   background-repeat: no-repeat;
+}
+
+.Cart.no-background {
+  background-image: none;
 }
 
 .cart-button-cont {

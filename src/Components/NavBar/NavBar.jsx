@@ -26,6 +26,10 @@ const NavBar = () => {
       { title: "Blog", path: "/blog", id: "blog" },
       { title: "Games", path: "/games", id: "games" },
       { title: "Shop", path: "/shop", id: "shop" },
+      { title: null, path: "/games/crossword", id: "games" },
+      { title: null, path: "/games/noughts-&-crosses", id: "games" },
+      { title: null, path: "/games/cemetery-run", id: "games" },
+      { title: null, path: "/games/concentration", id: "games" },
     ],
     []
   ); // Empty dependency array since this never changes
@@ -51,18 +55,24 @@ const NavBar = () => {
     <nav className="vintage-nav">
       <ul className="nav-ul">
         {components.map((comp) => (
-          <li
-            key={comp.id}
-            className={`nav-li ${select === comp.id ? "select-li" : ""}`}
-          >
-            <Link
-              to={comp.path}
-              onClick={() => setSelect(comp.id)}
-              className={`nav-link ${select === comp.id ? "select-link" : ""}`}
-            >
-              {comp.title}
-            </Link>
-          </li>
+          <>
+            {!comp.title ? null : (
+              <li
+                key={comp.id}
+                className={`nav-li ${select === comp.id ? "select-li" : ""}`}
+              >
+                <Link
+                  to={comp.path}
+                  onClick={() => setSelect(comp.id)}
+                  className={`nav-link ${
+                    select === comp.id ? "select-link" : ""
+                  }`}
+                >
+                  {comp.title}
+                </Link>
+              </li>
+            )}
+          </>
         ))}
       </ul>
     </nav>

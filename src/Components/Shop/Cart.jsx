@@ -62,7 +62,11 @@ export default function Cart({
 
   if (showThankYouMessage) {
     return (
-      <div className="Cart" role="dialog" aria-label="Shopping Cart">
+      <div
+        className="Cart no-background"
+        role="dialog"
+        aria-label="Shopping Cart"
+      >
         <p className="thank-you-message">
           Thank you for shopping at Evie & Co.!
         </p>
