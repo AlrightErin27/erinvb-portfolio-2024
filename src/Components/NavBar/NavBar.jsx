@@ -1,13 +1,13 @@
 import "./NavBar.css";
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const NavBar = () => {
   const location = useLocation();
 
-  // First, memoize the components array
-  const components = useMemo(
-    () => [
+  // Memoize the components array and getTitleFromPath function together
+  const { components, getTitleFromPath } = useMemo(() => {
+    const componentsArray = [
       {
         title: [
           <span key="1" className="navbar-span">
@@ -30,15 +30,18 @@ const NavBar = () => {
       { title: null, path: "/games/noughts-&-crosses", id: "games" },
       { title: null, path: "/games/cemetery-run", id: "games" },
       { title: null, path: "/games/concentration", id: "games" },
-    ],
-    []
-  ); // Empty dependency array since this never changes
+    ];
 
-  // Then, memoize getTitleFromPath using the memoized components
-  const getTitleFromPath = useCallback((path) => {
-    const component = components.find((comp) => comp.path === path);
-    return component ? component.id : "home";
-  }, []); // Remove components from dependency array since it's now memoized
+    const getTitleFromPathFunc = (path) => {
+      const component = componentsArray.find((comp) => comp.path === path);
+      return component ? component.id : "home";
+    };
+
+    return {
+      components: componentsArray,
+      getTitleFromPath: getTitleFromPathFunc,
+    };
+  }, []); // Empty dependency array since this never changes
 
   // Initialize state based on current path
   const [select, setSelect] = useState(() =>
@@ -54,26 +57,24 @@ const NavBar = () => {
   return (
     <nav className="vintage-nav">
       <ul className="nav-ul">
-        {components.map((comp) => (
-          <>
-            {!comp.title ? null : (
-              <li
-                key={comp.id}
-                className={`nav-li ${select === comp.id ? "select-li" : ""}`}
+        {components.map((comp) =>
+          comp.title ? (
+            <li
+              key={comp.id}
+              className={`nav-li ${select === comp.id ? "select-li" : ""}`}
+            >
+              <Link
+                to={comp.path}
+                onClick={() => setSelect(comp.id)}
+                className={`nav-link ${
+                  select === comp.id ? "select-link" : ""
+                }`}
               >
-                <Link
-                  to={comp.path}
-                  onClick={() => setSelect(comp.id)}
-                  className={`nav-link ${
-                    select === comp.id ? "select-link" : ""
-                  }`}
-                >
-                  {comp.title}
-                </Link>
-              </li>
-            )}
-          </>
-        ))}
+                {comp.title}
+              </Link>
+            </li>
+          ) : null
+        )}
       </ul>
     </nav>
   );
