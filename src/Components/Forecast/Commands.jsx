@@ -1,29 +1,8 @@
-// Commands.jsx
-import {
-  getCoordinates,
-  getCurrentWeather,
-  formatWeatherData,
-} from "./weatherAPI";
+const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
+const BASE_URL = "http://api.openweathermap.org/data/2.5";
+const GEO_URL = "http://api.openweathermap.org/geo/1.0";
 
-// Mock API validation (replace with real API calls later)
-const validateCountry = async (country) => {
-  // TODO: Replace with actual API call
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true); // Simulate API response
-    }, 500);
-  });
-};
-
-const validateCity = async (city, country) => {
-  // TODO: Replace with actual API call
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true); // Simulate API response
-    }, 500);
-  });
-};
-
+// Helper function for proper capitalization
 const properCapitalize = (str) => {
   return str
     .toLowerCase()
@@ -32,8 +11,88 @@ const properCapitalize = (str) => {
     .join(" ");
 };
 
+// Validate and get country/city coordinates
+const getCoordinates = async (city, country) => {
+  try {
+    const response = await fetch(
+      `${GEO_URL}/direct?q=${city},${country}&limit=1&appid=${API_KEY}`
+    );
+    const data = await response.json();
+
+    if (data && data.length > 0) {
+      return {
+        valid: true,
+        lat: data[0].lat,
+        lon: data[0].lon,
+        name: data[0].name,
+        country: data[0].country,
+      };
+    }
+    return { valid: false };
+  } catch (error) {
+    console.error("Error fetching coordinates:", error);
+    return { valid: false };
+  }
+};
+
+// Get current weather data
+const getCurrentWeather = async (lat, lon) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+    );
+    const data = await response.json();
+
+    if (data) {
+      const localTime = new Date(data.dt * 1000).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+
+      // Convert Celsius to Fahrenheit
+      const tempC = Math.round(data.main.temp);
+      const tempF = Math.round((tempC * 9) / 5 + 32);
+      const feelsLikeC = Math.round(data.main.feels_like);
+      const feelsLikeF = Math.round((feelsLikeC * 9) / 5 + 32);
+
+      return {
+        temp: { celsius: tempC, fahrenheit: tempF },
+        feels_like: { celsius: feelsLikeC, fahrenheit: feelsLikeF },
+        humidity: data.main.humidity,
+        wind_speed: Math.round(data.wind.speed),
+        description: data.weather[0].description,
+        icon: data.weather[0].icon,
+        time: localTime,
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error("Error fetching weather:", error);
+    return null;
+  }
+};
+
+// Format weather data for display
+const formatWeatherData = (weather) => {
+  return [
+    "Current Weather:",
+    `Local Time: ${weather.time}`,
+    `Temperature: ${weather.temp.celsius}°C / ${weather.temp.fahrenheit}°F`,
+    `Feels like: ${weather.feels_like.celsius}°C / ${weather.feels_like.fahrenheit}°F`,
+    `Humidity: ${weather.humidity}%`,
+    `Wind Speed: ${weather.wind_speed} m/s`,
+    `Conditions: ${weather.description}`,
+  ];
+};
+
 // Weather command handler
-const handleWeatherCommand = async (input, weatherMode, setWeatherMode) => {
+const handleWeatherCommand = async (
+  input,
+  weatherMode,
+  setWeatherMode,
+  onNewLocation
+) => {
   if (!weatherMode.active) {
     setWeatherMode({ active: true, step: "country", country: null });
     return ["Please enter a country name:"];
@@ -42,12 +101,21 @@ const handleWeatherCommand = async (input, weatherMode, setWeatherMode) => {
   const properInput = properCapitalize(input);
 
   if (weatherMode.step === "country") {
-    setWeatherMode({
-      active: true,
-      step: "city",
-      country: properInput,
-    });
-    return [`Country set to: ${properInput}`, "Please enter a city name:"];
+    const isValidCountry = await validateCountry(input.toLowerCase());
+    if (isValidCountry) {
+      setWeatherMode({
+        active: true,
+        step: "city",
+        country: properInput,
+      });
+      return [`Country set to: ${properInput}`, "Please enter a city name:"];
+    } else {
+      setWeatherMode({ active: false, step: null, country: null });
+      return [
+        `Invalid country: ${properInput}`,
+        "Weather command cancelled. Try again with 'weather'",
+      ];
+    }
   }
 
   if (weatherMode.step === "city") {
@@ -63,22 +131,18 @@ const handleWeatherCommand = async (input, weatherMode, setWeatherMode) => {
       );
       setWeatherMode({ active: false, step: null, country: null });
 
-      if (weather) {
-        return [
-          `Weather for ${properInput}, ${weatherMode.country}:`,
-          ...formatWeatherData(weather),
-        ];
-      } else {
-        return [
-          "Error fetching weather data.",
-          "Please try again with 'weather' command.",
-        ];
-      }
+      // Add this line to update the globe
+      onNewLocation(locationData.lat, locationData.lon);
+
+      return [
+        `Fetching weather for ${properInput}, ${weatherMode.country}:`,
+        ...formatWeatherData(weather),
+      ];
     } else {
       setWeatherMode({ active: false, step: null, country: null });
       return [
         `Location not found: ${properInput}, ${weatherMode.country}`,
-        "Please try again with 'weather' command.",
+        "Weather command cancelled. Try again with 'weather'",
       ];
     }
   }
@@ -178,11 +242,22 @@ const handleAboutCommand = async (input, aboutMode, setAboutMode) => {
   }
 };
 
+// Mock API validation (replace with real API calls later)
+const validateCountry = async (country) => {
+  // TODO: Replace with actual API call
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true); // Simulate API response
+    }, 500);
+  });
+};
+
 const createCommands = (
   weatherMode,
   setWeatherMode,
   aboutMode,
-  setAboutMode
+  setAboutMode,
+  onNewLocation
 ) => ({
   help: () => [
     "Available commands:",
@@ -192,7 +267,7 @@ const createCommands = (
     "  weather - Query weather for a location",
   ],
   weather: async () => {
-    return handleWeatherCommand("", weatherMode, setWeatherMode);
+    return handleWeatherCommand("", weatherMode, setWeatherMode, onNewLocation);
   },
   about: async () => {
     return handleAboutCommand("", aboutMode, setAboutMode);

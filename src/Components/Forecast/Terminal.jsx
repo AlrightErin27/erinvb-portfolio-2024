@@ -6,7 +6,7 @@ import {
 } from "./Commands";
 import "./Terminal.css";
 
-const Terminal = () => {
+const Terminal = ({ onNewLocation }) => {
   const [cursorVisible, setCursorVisible] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [commandHistory, setCommandHistory] = useState([]);
@@ -34,7 +34,8 @@ const Terminal = () => {
     weatherMode,
     setWeatherMode,
     aboutMode,
-    setAboutMode
+    setAboutMode,
+    onNewLocation
   );
 
   // Handle command execution
@@ -44,7 +45,12 @@ const Terminal = () => {
     if (trimmedCmd === "") return [];
 
     if (weatherMode.active) {
-      return handleWeatherCommand(trimmedCmd, weatherMode, setWeatherMode);
+      return handleWeatherCommand(
+        trimmedCmd,
+        weatherMode,
+        setWeatherMode,
+        onNewLocation
+      ); // Add onNewLocation here
     }
 
     if (aboutMode.active) {
@@ -172,3 +178,8 @@ const Terminal = () => {
 };
 
 export default Terminal;
+
+// Default prop types to be extra careful
+Terminal.defaultProps = {
+  onNewLocation: () => {}, // Default empty function
+};
