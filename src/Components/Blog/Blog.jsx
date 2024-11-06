@@ -8,6 +8,7 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showCookieNotice, setShowCookieNotice] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const getPostData = () => {
@@ -41,7 +42,15 @@ const Blog = () => {
         });
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
     getPostData();
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Function to sanitize Medium content
@@ -49,12 +58,9 @@ const Blog = () => {
     const temp = document.createElement("div");
     temp.innerHTML = content;
 
-    // Remove Medium's tracking iframes
     temp.querySelectorAll("iframe").forEach((iframe) => iframe.remove());
 
-    // Replace giphy iframes with img tags
     temp.querySelectorAll("figure").forEach((figure) => {
-      // Add a custom class to all <figure> tags
       if (figure) {
         figure.className = "figure";
       }
@@ -68,20 +74,17 @@ const Blog = () => {
         iframe.replaceWith(img);
       }
 
-      // Add a custom class to all <figcaption> tags
       const figcaption = figure.querySelector("figcaption");
       if (figcaption) {
         figcaption.className = "figcaption";
       }
     });
 
-    // Handle responsive images
     temp.querySelectorAll("img").forEach((img) => {
       img.className = "responsive-img";
       img.loading = "lazy";
     });
 
-    // Add a custom class to all <pre> tags
     temp.querySelectorAll("pre").forEach((pre) => {
       pre.className = "code-block";
     });
@@ -109,7 +112,6 @@ const Blog = () => {
 
   return (
     <div className="blog-overlay">
-      {/* "?" Button to toggle the cookie notice */}
       <button
         className="help-button"
         onClick={() => setShowCookieNotice(!showCookieNotice)}
@@ -118,7 +120,6 @@ const Blog = () => {
         <HelpCircle size={24} />
       </button>
 
-      {/* Cookie Notice Modal */}
       {showCookieNotice && (
         <div className="cookie-notice">
           <p>
@@ -148,7 +149,7 @@ const Blog = () => {
         />
       ))}
 
-      <div className="scanning-line"></div>
+      {!isMobile && <div className="scanning-line"></div>}
       <div className="blog-container">
         <div className="blog-content">
           <div className="title">
