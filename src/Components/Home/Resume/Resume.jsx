@@ -159,17 +159,17 @@ const Resume = () => {
               design, and optimized production configuration.
             </p>
             <ul>
-              <li>
+              <li className="bullet">
                 Configured Nginx for HTTP and HTTPS traffic management, applied
                 a Node.js backend with MongoDB for shop functionality, and
                 configured environment variable management through .env files
                 for development and production.
               </li>
-              <li>
+              <li className="bullet">
                 SSL certificates ensure data security, while CORS policies allow
                 API requests from multiple domain variations.
               </li>
-              <li>
+              <li className="bullet">
                 Server.js was adapted to automate static file serving and
                 support a seamless production setup.
               </li>
@@ -205,12 +205,12 @@ const Resume = () => {
               integrated with MongoDB.
             </p>
             <ul>
-              <li>
+              <li className="bullet">
                 Established secure user authentication with JWT and bcrypt,
                 along with a comprehensive shopping cart system and intuitive
                 product browsing experience.
               </li>
-              <li>
+              <li className="bullet">
                 Adapted React Hooks for efficient state management and
                 implemented RESTful API design principles.
               </li>
@@ -253,16 +253,16 @@ const Resume = () => {
               HTML5 Canvas, featuring custom pixel art and retro-style graphics.
             </p>
             <ul>
-              <li>
+              <li className="bullet">
                 Coded complex game mechanics, including collision detection,
                 dynamic difficulty scaling, and custom controls for both desktop
                 and mobile.
               </li>
-              <li>
+              <li className="bullet">
                 Leveraged requestAnimationFrame for smooth animations and game
                 loop management.
               </li>
-              <li>
+              <li className="bullet">
                 Incorporated Web Audio API for immersive sound, with
                 user-controlled audio settings.
               </li>
@@ -305,16 +305,16 @@ const Resume = () => {
               structure manipulation and dynamic state management.
             </p>
             <ul>
-              <li>
+              <li className="bullet">
                 Engineered an advanced grid generation algorithm that maps and
                 transforms question-answer pairs into an interactive game board,
                 handling multi-directional words and intersecting letters.
               </li>
-              <li>
+              <li className="bullet">
                 Streamlined sophisticated keyboard navigation and word
                 highlighting system using React's useState and useEffect hooks.
               </li>
-              <li>
+              <li className="bullet">
                 Created a responsive design using CSS Flexbox and media queries
                 for seamless play across various devices.
               </li>
@@ -360,11 +360,11 @@ const Resume = () => {
               API.
             </p>
             <ul>
-              <li>
+              <li className="bullet">
                 Initiated robust error handling patterns with loading state
                 management for optimal UX.
               </li>
-              <li>
+              <li className="bullet">
                 Designed an 80's sci-fi themed interface featuring custom CSS
                 animations and responsive design.
               </li>
@@ -407,26 +407,26 @@ const Resume = () => {
             <h3>Restaurant Manager | April 2014 - Present</h3>
             <p>Pacific Northwest and Southwest US</p>
             <ul>
-              <li>
+              <li className="bullet">
                 Led teams of 15+ employees, driving a 20% increase in sales
                 through optimizing operations, improving workflows, and refining
                 inventory management.
               </li>
-              <li>
+              <li className="bullet">
                 Developed data-driven strategies to enhance operational
                 efficiency and ensure smooth day-to-day functions.
               </li>
-              <li>
+              <li className="bullet">
                 Managed key areas including scheduling, staffing, inventory,
                 bookkeeping, and social media marketing, while ensuring
                 compliance with health and safety regulations.
               </li>
-              <li>
+              <li className="bullet">
                 Demonstrated strong team leadership, communication, and
                 problem-solving skills, resulting in improved team productivity
                 and customer satisfaction.
               </li>
-              <li>
+              <li className="bullet">
                 Applied high level of adaptability, attention to detail, and
                 solution-oriented mindset to drive business success.
               </li>
@@ -437,20 +437,20 @@ const Resume = () => {
             <h3>Layout Engineer | February 2011 - March 2014</h3>
             <p>Analog Devices, San Jose, CA</p>
             <ul>
-              <li>
+              <li className="bullet">
                 Designed and optimized over 50 analog and digital layouts for
                 ICs in mobile devices using Cadence Virtuoso IC6.1.
               </li>
-              <li>
+              <li className="bullet">
                 Utilized Cadence tools for schematic capture, layout design, and
                 simulation, ensuring precise alignment and adherence to design
                 rules.
               </li>
-              <li>
+              <li className="bullet">
                 Conducted DRC and LVS verifications using Cadence Assura,
                 reducing error rates.
               </li>
-              <li>
+              <li className="bullet">
                 Collaborated with cross-functional teams to optimize circuit
                 performance and layout efficiency.
               </li>

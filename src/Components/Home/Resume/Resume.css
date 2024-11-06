@@ -136,7 +136,7 @@
   padding-left: 0;
 }
 
-.skills-list li {
+.bullet {
   margin-bottom: 10px;
 }
 
@@ -198,7 +198,7 @@
     font-size: 1.5rem;
   }
 
-  .skills-list li {
+  .bullet {
     margin-bottom: 15px;
   }
 }
@@ -232,5 +232,9 @@
 
   .dl-icon {
     height: 16px;
+  }
+
+  .bullet {
+    margin-left: 5%;
   }
 }

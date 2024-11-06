@@ -9,11 +9,12 @@
   --color-crt-effect-g: rgba(128, 128, 128, 0.02);
   --color-crt-effect-b: rgba(128, 128, 128, 0.03);
   /* Color shift variables */
-  --color-shift-1: rgba(222, 255, 252, 0.3); /* Grey Teal */
-  --color-shift-2: rgba(100, 149, 237, 0.3); /* Cornflower Blue */
-  --color-shift-3: rgba(171, 161, 162, 0.3); /* Grey Blue */
-  --color-shift-4: rgba(217, 210, 218, 0.3); /* Mauve */
-  --color-shift-5: rgba(255, 218, 185, 0.3); /* Pastel Peach */
+  --color-shift-1: rgba(222, 255, 252, 0.45); /* Grey Teal */
+  --color-shift-2: rgba(100, 148, 237, 0.45); /* Cornflower Blue */
+  --color-shift-3: rgba(152, 159, 178, 0.45); /* Grey Blue */
+  --color-shift-4: rgba(182, 152, 186, 0.45); /* Mauve */
+  --color-shift-5: rgba(210, 178, 151, 0.45); /* Pastel Peach */
+  --color-shift-6: rgba(214, 205, 135, 0.45); /* Gold */
 }
 
 html,
@@ -52,7 +53,8 @@ body {
   bottom: 0;
   background-color: transparent;
   mix-blend-mode: color;
-  animation: colorShift 30s infinite;
+  animation: colorShift 38s infinite;
+  pointer-events: none;
 }
 
 .grid-overlay {
@@ -119,19 +121,22 @@ body {
   100% {
     background-color: transparent;
   }
-  16% {
+  14% {
     background-color: var(--color-shift-1);
   }
-  32% {
+  28% {
     background-color: var(--color-shift-2);
   }
-  48% {
+  42% {
+    background-color: var(--color-shift-6);
+  }
+  56% {
     background-color: var(--color-shift-3);
   }
-  64% {
+  70% {
     background-color: var(--color-shift-4);
   }
-  80% {
+  84% {
     background-color: var(--color-shift-5);
   }
 }
