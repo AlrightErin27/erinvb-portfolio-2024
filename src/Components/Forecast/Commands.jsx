@@ -1,4 +1,9 @@
 // Commands.jsx
+import {
+  getCoordinates,
+  getCurrentWeather,
+  formatWeatherData,
+} from "./weatherAPI";
 
 // Mock API validation (replace with real API calls later)
 const validateCountry = async (country) => {
@@ -37,40 +42,43 @@ const handleWeatherCommand = async (input, weatherMode, setWeatherMode) => {
   const properInput = properCapitalize(input);
 
   if (weatherMode.step === "country") {
-    const isValidCountry = await validateCountry(input.toLowerCase());
-    if (isValidCountry) {
-      setWeatherMode({
-        active: true,
-        step: "city",
-        country: properInput, // Store the properly capitalized country name
-      });
-      return [`Country set to: ${properInput}`, "Please enter a city name:"];
-    } else {
-      setWeatherMode({ active: false, step: null, country: null });
-      return [
-        `Invalid country: ${properInput}`,
-        "Weather command cancelled. Try again with 'weather'",
-      ];
-    }
+    setWeatherMode({
+      active: true,
+      step: "city",
+      country: properInput,
+    });
+    return [`Country set to: ${properInput}`, "Please enter a city name:"];
   }
 
   if (weatherMode.step === "city") {
-    const isValidCity = await validateCity(
+    const locationData = await getCoordinates(
       input.toLowerCase(),
       weatherMode.country.toLowerCase()
     );
-    if (isValidCity) {
+
+    if (locationData.valid) {
+      const weather = await getCurrentWeather(
+        locationData.lat,
+        locationData.lon
+      );
       setWeatherMode({ active: false, step: null, country: null });
-      return [
-        `Fetching weather for ${properInput}, ${weatherMode.country}...`,
-        "Weather data will be displayed here",
-        // TODO: Add actual weather data display
-      ];
+
+      if (weather) {
+        return [
+          `Weather for ${properInput}, ${weatherMode.country}:`,
+          ...formatWeatherData(weather),
+        ];
+      } else {
+        return [
+          "Error fetching weather data.",
+          "Please try again with 'weather' command.",
+        ];
+      }
     } else {
       setWeatherMode({ active: false, step: null, country: null });
       return [
-        `Invalid city: ${properInput}`,
-        "Weather command cancelled. Try again with 'weather'",
+        `Location not found: ${properInput}, ${weatherMode.country}`,
+        "Please try again with 'weather' command.",
       ];
     }
   }
