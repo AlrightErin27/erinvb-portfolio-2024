@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Forecast.css";
 import Globe from "./Globe";
 import Terminal from "./Terminal";
+import TEMP from "./TEMP/TEMP";
 
 export default function Forecast() {
   const [locations, setLocations] = useState([]);
@@ -21,6 +22,7 @@ export default function Forecast() {
 
   return (
     <div className="forecast-cont">
+      <TEMP />
       <Globe
         locations={locations}
         focusLat={

@@ -1,0 +1,48 @@
+/* TEMP.css */
+
+.TEMP {
+  /* Centered overlay box */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(
+    4,
+    23,
+    120,
+    0.628
+  ); /* Semi-transparent dark background */
+  color: #ffffff;
+  z-index: 9999; /* Sits above all other elements */
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.TEMP h1 {
+  font-size: clamp(1rem, 1.5vw + 0.75rem, 2rem);
+  margin-bottom: 1rem;
+}
+
+.TEMP h3 {
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.5rem);
+  margin-bottom: 1rem;
+}
+
+.TEMP p {
+  font-size: clamp(0.875rem, 1vw + 0.5rem, 1.25rem);
+  max-width: 90%;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.TEMP strong {
+  color: #49ffff; /* Highlight important tech details */
+}
