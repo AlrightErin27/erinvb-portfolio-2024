@@ -1,35 +1,90 @@
 # Weather Globe Project Continuation Guide
 
-## Project Overview
+## ⚠️ IMPORTANT DEVELOPMENT APPROACH ⚠️
 
-An interactive weather application featuring a 3D globe with an overlaid terminal interface. The terminal provides weather information and recommendations based on selected locations.
+TAKE EACH STEP SLOWLY AND DELIBERATELY:
 
-## Current Progress
+1. Discuss and plan before any implementation
+2. Never code ahead
+3. Test each small change
+4. Only move forward when current step is perfect
+5. No assumptions about next steps
+6. Wait for user confirmation before proceeding
 
-- Implemented responsive 3D globe using react-globe.gl
-- Created overlaid terminal with glass-effect design
-- Established responsive layout for various screen sizes
-- Set up initial color scheme and styling
+## Current Project State
 
-## Current Tech Stack
+### Active Files
 
-- React
-- react-globe.gl
-- Three.js (peer dependency)
-- Custom CSS with CSS variables
+1. Forecast.jsx (Parent Component)
 
-## Current Component Structure
+```javascript
+import "./Forecast.css";
+import Globe from "./Globe";
+import Terminal from "./Terminal";
 
+export default function Forecast() {
+  return (
+    <div className="forecast-cont">
+      <Globe />
+      <Terminal />
+    </div>
+  );
+}
 ```
-src/
-├── components/
-│   ├── Forecast.jsx (parent component)
-│   ├── Globe.jsx (3D globe visualization)
-│   ├── Terminal.jsx (terminal interface)
-│   └── Forecast.css (shared styles)
+
+2. Globe.jsx
+
+```javascript
+import { useEffect, useState } from "react";
+import ReactGlobe from "react-globe.gl";
+
+export default function Globe() {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
+  const getGlobeDimensions = () => {
+    if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+      return {
+        width: Math.max(dimensions.width, dimensions.height),
+        height: dimensions.height * 0.9,
+      };
+    }
+    return {
+      width: dimensions.width,
+      height: dimensions.height * 0.9,
+    };
+  };
+
+  const { width, height } = getGlobeDimensions();
+
+  return (
+    <div className="globe-cont">
+      <ReactGlobe
+        globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+        width={width}
+        height={height}
+        cameraDistanceRadiusScale={0.6}
+      />
+    </div>
+  );
+}
 ```
 
-## Current Color Palette
+3. Forecast.css
 
 ```css
 :root {
@@ -40,101 +95,189 @@ src/
   --egyptian-cream: #ebcc9d;
   --french-oak: #668636;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Cutive&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
+
+.forecast-cont {
+  position: relative;
+  height: 92.5vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--blue-space);
+  font-family: "Cutive", serif;
+}
+
+.globe-cont {
+  width: 100%;
+}
+
+.terminal-cont {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 700px;
+  height: 300px;
+  background: rgba(43, 126, 227, 0.1); /* More transparent */
+  backdrop-filter: blur(10px); /* Glass effect */
+  border: 1px solid rgba(242, 243, 245, 0.2);
+  border-radius: 15px;
+  padding: 25px;
+  color: var(--polar-white);
+  font-family: "Space Mono", monospace;
+  box-shadow: 0 0 30px rgba(43, 126, 227, 0.2), inset 0 0 20px rgba(242, 243, 245, 0.1);
+  z-index: 1000;
+}
+
+.terminal-cont::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(242, 243, 245, 0.1), transparent);
+  border-radius: 15px 15px 0 0;
+}
+
+/* Control buttons at top */
+.terminal-cont::after {
+  /* content: "● ● ●"; */
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: var(--polar-white);
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+/* iPad and Nest Hub */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .globe-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .terminal-cont {
+    width: 60vw;
+    height: 250px;
+    bottom: 30px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* Smaller tablets */
+@media screen and (max-width: 767px) {
+  .terminal-cont {
+    width: 85vw;
+    height: 200px;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 380px) {
+  .terminal-cont {
+    height: 150px;
+    bottom: 10px;
+  }
+}
 ```
 
-## Next Steps
+### Current Dependencies
 
-1. Terminal Interface Development:
-
-   - Implement terminal input functionality
-   - Add command history
-   - Create typing animations
-   - Finalize terminal styling
-
-2. Location Search:
-
-   - Integrate geocoding service
-   - Add location validation
-   - Implement globe animation to location
-
-3. Weather Integration:
-
-   - Choose and integrate weather API
-   - Design weather data display
-   - Create recommendation system
-
-4. Visual Polish:
-   - Add loading states
-   - Implement transitions
-   - Enhance responsive design
-   - Add interactive elements
-
-## Current Challenges/Decisions Needed
-
-1. Terminal theme selection
-2. Weather API choice
-3. Command structure for terminal
-4. Recommendation system approach
-
-## End Goal Features
-
-1. Interactive 3D globe visualization
-2. Sleek terminal interface
-3. Location-based weather data
-4. Intelligent recommendations
-5. Smooth animations
-6. Responsive design across devices
-
-## Implementation Phase (Current Status: Phase 1)
-
-- ✅ Phase 1: Basic Setup & Globe
-- 🔄 Phase 2: Terminal Interface
-- ⏳ Phase 3: Location & Weather
-- ⏳ Phase 4: Recommendations
-- ⏳ Phase 5: Polish & Optimization
-
-## Code Snippets to Reference
-
-### Current Forecast.css
-
-```css
-[Current CSS code with responsive design and glass effect styling]
+```json
+{
+  "react-globe.gl": "^2.27.1",
+  "three": "^0.158.0"
+}
 ```
 
-### Current Globe.jsx
+### Completed Features
 
-```javascript
-[Current Globe component code with responsive handling]
-```
+✅ Basic project structure
+✅ Responsive globe display
+✅ Basic terminal positioning
+✅ Initial color scheme
+✅ Responsive layout across devices
 
-## Next Session Focus Points
+### Current Focus
 
-1. Finalize terminal styling theme
-2. Implement basic terminal functionality
-3. Begin location search integration
+Working on terminal styling and theme selection. Last discussion was about implementing a glass-effect theme for the terminal.
 
-## Questions to Address Next Session
+## Next Steps (DO NOT IMPLEMENT WITHOUT USER CONFIRMATION)
 
-1. Preferred terminal theme direction?
-2. Weather API preferences?
-3. Desired terminal command structure?
-4. Additional features for globe interaction?
+1. Terminal Styling
 
-## Dependencies to Add
+   - Finalize theme choice
+   - Implement chosen design
+   - Add terminal header/controls
+   - Add input area styling
 
-- Weather API client (to be determined)
-- Geocoding service (to be determined)
-- Animation libraries (if needed)
+2. Terminal Functionality
 
-## Additional Notes
+   - Basic input handling
+   - Command history display
+   - Typing animations
+   - Error handling
 
-- Keep responsive design in mind for all new features
-- Maintain modular component structure
-- Focus on performance optimization
-- Consider accessibility features
+3. Location Integration
 
-When continuing this project in a new chat:
+   - Location input processing
+   - Geocoding integration
+   - Globe animation to location
+   - Error handling for invalid locations
 
-1. Share this document
-2. Specify which next step to focus on
-3. Indicate any preference changes from current implementation
+4. Weather Integration
+   - API selection and integration
+   - Weather data display
+   - Loading states
+   - Error handling
+
+## Technical Requirements
+
+- All styling in Forecast.css
+- No external UI libraries
+- Mobile-first responsive design
+- Performance optimization
+- Accessible design patterns
+
+## Development Notes
+
+- Test each change across all screen sizes
+- Maintain current responsive behavior
+- Keep terminal overlay positioning
+- Consider loading states
+- Consider error states
+- Consider user feedback
+
+## Discussion Points for Next Session
+
+1. Terminal theme preference
+2. Terminal functionality requirements
+3. Command structure design
+4. Weather API selection
+5. Animation preferences
+
+## Remember
+
+- The globe uses react-globe.gl with Three.js
+- The terminal overlays the globe
+- All styling is in Forecast.css
+- Mobile responsiveness is critical
+- Step-by-step implementation only
+- No rushing or coding ahead
+
+When continuing this project:
+
+1. Start by reviewing this entire document
+2. Confirm current state is accurate
+3. Discuss next specific step
+4. Plan implementation details
+5. Get approval before coding
+6. Test thoroughly
+7. Only then move to next step
