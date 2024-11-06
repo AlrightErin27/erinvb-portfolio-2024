@@ -160,10 +160,10 @@ const Resume = () => {
             </p>
             <ul>
               <li className="bullet">
-                Configured Nginx for HTTP and HTTPS traffic management, applied
-                a Node.js backend with MongoDB for shop functionality, and
-                configured environment variable management through .env files
-                for development and production.
+                Configured Nginx for HTTP and HTTPS traffic management,
+                implemented Node.js backend with MongoDB for shop functionality,
+                and configured environment variables through .env files for
+                secure handling across development and production environments.
               </li>
               <li className="bullet">
                 SSL certificates ensure data security, while CORS policies allow
@@ -301,7 +301,7 @@ const Resume = () => {
           <div className="project-item">
             <h3>Interactive Crossword Puzzle | September 2024</h3>
             <p>
-              Designed and built a crossword puzzle game featuring complex data
+              Composed and built a crossword puzzle game featuring complex data
               structure manipulation and dynamic state management.
             </p>
             <ul>
@@ -365,7 +365,7 @@ const Resume = () => {
                 management for optimal UX.
               </li>
               <li className="bullet">
-                Designed an 80's sci-fi themed interface featuring custom CSS
+                Fabricated an 80's sci-fi themed interface featuring custom CSS
                 animations and responsive design.
               </li>
             </ul>
@@ -438,7 +438,7 @@ const Resume = () => {
             <p>Analog Devices, San Jose, CA</p>
             <ul>
               <li className="bullet">
-                Designed and optimized over 50 analog and digital layouts for
+                Formulated and optimized over 50 analog and digital layouts for
                 ICs in mobile devices using Cadence Virtuoso IC6.1.
               </li>
               <li className="bullet">
