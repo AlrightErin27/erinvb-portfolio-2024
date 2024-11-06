@@ -26,6 +26,7 @@ const NavBar = () => {
       { title: "Blog", path: "/blog", id: "blog" },
       { title: "Games", path: "/games", id: "games" },
       { title: "Shop", path: "/shop", id: "shop" },
+      { title: "Forecast", path: "/forecast", id: "forecast" },
       { title: null, path: "/games/crossword", id: "games" },
       { title: null, path: "/games/noughts-&-crosses", id: "games" },
       { title: null, path: "/games/cemetery-run", id: "games" },

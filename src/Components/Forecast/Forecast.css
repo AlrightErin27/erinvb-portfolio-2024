@@ -1,0 +1,100 @@
+:root {
+  --blue-space: #000011;
+  --polar-white: #f2f3f5;
+  --sahara-sand: #f4dcb9;
+  --reef-blue: #2b7ee3;
+  --egyptian-cream: #ebcc9d;
+  --french-oak: #668636;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Cutive&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
+
+.forecast-cont {
+  position: relative;
+  height: 92.5vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--blue-space);
+  font-family: "Cutive", serif;
+}
+
+.globe-cont {
+  width: 100%;
+}
+
+.terminal-cont {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 700px;
+  height: 300px;
+  background: rgba(43, 126, 227, 0.1); /* More transparent */
+  backdrop-filter: blur(10px); /* Glass effect */
+  border: 1px solid rgba(242, 243, 245, 0.2);
+  border-radius: 15px;
+  padding: 25px;
+  color: var(--polar-white);
+  font-family: "Space Mono", monospace;
+  box-shadow: 0 0 30px rgba(43, 126, 227, 0.2),
+    inset 0 0 20px rgba(242, 243, 245, 0.1);
+  z-index: 1000;
+}
+
+.terminal-cont::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(242, 243, 245, 0.1), transparent);
+  border-radius: 15px 15px 0 0;
+}
+
+/* Control buttons at top */
+.terminal-cont::after {
+  /* content: "● ● ●"; */
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: var(--polar-white);
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+/* iPad and Nest Hub */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .globe-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .terminal-cont {
+    width: 60vw;
+    height: 250px;
+    bottom: 30px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* Smaller tablets */
+@media screen and (max-width: 767px) {
+  .terminal-cont {
+    width: 85vw;
+    height: 200px;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 380px) {
+  .terminal-cont {
+    height: 150px;
+    bottom: 10px;
+  }
+}
