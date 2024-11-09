@@ -66,9 +66,11 @@
 .terminal-close {
   background-color: #ff5f56;
 }
+
 .terminal-minimize {
   background-color: #ffbd2e;
 }
+
 .terminal-maximize {
   background-color: #27c93f;
 }

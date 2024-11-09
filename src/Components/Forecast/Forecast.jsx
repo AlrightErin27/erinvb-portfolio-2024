@@ -6,6 +6,7 @@ import TEMP from "./TEMP/TEMP";
 
 export default function Forecast() {
   const [locations, setLocations] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleNewLocation = (lat, lon) => {
     setLocations((prev) => [
@@ -22,7 +23,7 @@ export default function Forecast() {
 
   return (
     <div className="forecast-cont">
-      <TEMP />
+      {isModalOpen ? <TEMP setIsModalOpen={setIsModalOpen} /> : null}
       <Globe
         locations={locations}
         focusLat={
@@ -32,7 +33,14 @@ export default function Forecast() {
           locations.length > 0 ? locations[locations.length - 1].lon : 0
         }
       />
+
       <Terminal onNewLocation={handleNewLocation} />
+      <button
+        className="forecast-modal-btn"
+        onClick={() => setIsModalOpen(!isModalOpen)}
+      >
+        ?
+      </button>
     </div>
   );
 }

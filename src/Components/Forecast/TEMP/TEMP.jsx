@@ -1,8 +1,13 @@
 import "./TEMP.css";
 
-export default function TEMP() {
+export default function TEMP({ setIsModalOpen }) {
   return (
     <div className="TEMP">
+      <div className="temp-btn-cont">
+        <button className="temp-btn" onClick={() => setIsModalOpen(false)}>
+          x
+        </button>
+      </div>
       <h1>FORECAST Project Under Construction 🛠️</h1>
       <h3>Anticipated Completion: End of November 2024</h3>
       <p>
