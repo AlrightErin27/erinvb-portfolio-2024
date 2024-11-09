@@ -200,9 +200,9 @@ const Resume = () => {
           <div className="project-item">
             <h3>Full-Stack E-Commerce Platform: Evie & Co. | October 2024</h3>
             <p>
-              Created a comprehensive e-commerce solution applying React.js for
-              the frontend and Node.js with Express.js for the backend,
-              integrated with MongoDB.
+              Created a comprehensive MERN stack e-commerce solution applying
+              React.js for the frontend and Node.js with Express.js for the
+              backend, integrated with MongoDB.
             </p>
             <ul>
               <li className="bullet">
