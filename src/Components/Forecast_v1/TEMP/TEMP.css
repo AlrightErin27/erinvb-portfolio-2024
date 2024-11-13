@@ -1,0 +1,113 @@
+/* TEMP.css */
+
+.TEMP {
+  position: fixed;
+  top: 10%; /* Adjust top position to prevent covering the navbar */
+  left: 50%;
+  transform: translate(
+    -50%,
+    0
+  ); /* Remove vertical centering to avoid off-screen positioning */
+  width: 90%; /* Keeps width responsive */
+  max-width: 500px;
+  max-height: 80vh; /* Limit height for smaller screens */
+  overflow-y: auto; /* Add scroll if content exceeds max-height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(4, 23, 120, 0.85);
+  color: #ffffff;
+  z-index: 9999;
+  text-align: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.temp-btn-cont {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.temp-btn {
+  background-color: red;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  opacity: 0.7;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.612);
+}
+
+.temp-btn:hover {
+  opacity: 1;
+  color: black;
+}
+
+.TEMP h1 {
+  font-size: clamp(1.25rem, 2.5vw + 0.75rem, 2rem);
+  margin-bottom: 1rem;
+}
+
+.TEMP h3 {
+  font-size: clamp(1rem, 2vw + 0.5rem, 1.5rem);
+  margin-bottom: 0.75rem;
+}
+
+.TEMP p {
+  font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1.25rem);
+  max-width: 100%;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.TEMP strong {
+  color: #49ffff;
+}
+
+/* Additional Media Queries for Small Screens */
+@media (max-width: 768px) {
+  .TEMP {
+    padding: 1rem;
+    max-height: 70vh; /* Adjust max-height for mid-sized screens */
+    top: 12%; /* Further reduce top offset */
+  }
+
+  .TEMP h1 {
+    font-size: 1.5rem;
+  }
+
+  .TEMP h3 {
+    font-size: 1.25rem;
+  }
+
+  .TEMP p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .TEMP {
+    padding: 0.75rem;
+    max-height: 60vh; /* Adjust max-height for small screens */
+    top: 15%; /* Further reduce top offset */
+  }
+
+  .TEMP h1 {
+    font-size: 1.25rem;
+  }
+
+  .TEMP h3 {
+    font-size: 1rem;
+  }
+
+  .TEMP p {
+    font-size: 0.875rem;
+  }
+}
