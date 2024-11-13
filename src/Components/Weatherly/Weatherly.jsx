@@ -11,39 +11,63 @@ import {
 } from "cesium";
 import "./Weatherly.css";
 
-// Set the Cesium Ion access token
 Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_ION_ACCESS_TOKEN;
 
 export default function Weatherly() {
   const viewerRef = useRef(null);
 
-  // Define the initial camera position and orientation
-  const initialPosition = Cartesian3.fromDegrees(-100.0, 40.0, 10000000); // Adjust height for closer zoom
-
   useEffect(() => {
-    if (viewerRef.current && viewerRef.current.cesiumElement) {
-      const viewer = viewerRef.current.cesiumElement;
+    let viewer = null;
 
-      // Set initial view to Earth from the initial position and orientation
-      viewer.camera.setView({
-        destination: initialPosition,
-        orientation: {
-          heading: CesiumMath.toRadians(0.0), // Facing North
-          pitch: CesiumMath.toRadians(-45.0), // Slightly angled view
-          roll: 0.0,
-        },
-      });
+    const setupViewer = async () => {
+      if (viewerRef.current && viewerRef.current.cesiumElement) {
+        viewer = viewerRef.current.cesiumElement;
 
-      // Add imagery layer
-      const imageryLayer = ImageryLayer.fromProviderAsync(
-        IonImageryProvider.fromAssetId(2)
-      );
-      viewer.scene.imageryLayers.add(imageryLayer);
-    }
-  }, [initialPosition]); // Added initialPosition to dependency array
+        try {
+          // Create and add imagery layer
+          const imageryProvider = await IonImageryProvider.fromAssetId(2);
+          const imageryLayer = new ImageryLayer(imageryProvider);
+          viewer.scene.imageryLayers.add(imageryLayer);
 
-  // Example city position (New York)
-  const cityPosition = Cartesian3.fromDegrees(-74.006, 40.7128, 10000);
+          // Set fixed camera position
+          const centerLon = -97.5; // Center of continental US
+          const centerLat = 37.5;
+          const height = 2900000; // Lower this value for closer zoom
+
+          // Set the initial view
+          viewer.camera.setView({
+            destination: Cartesian3.fromDegrees(centerLon, centerLat, height),
+            orientation: {
+              heading: 0.0,
+              pitch: -CesiumMath.PI_OVER_TWO,
+              roll: 0.0,
+            },
+          });
+
+          // Set camera constraints
+          viewer.scene.screenSpaceCameraController.enableZoom = true;
+          viewer.scene.screenSpaceCameraController.enableTilt = false;
+          viewer.scene.screenSpaceCameraController.minimumZoomDistance = 50000;
+          viewer.scene.screenSpaceCameraController.maximumZoomDistance = 1000000;
+
+          // Force an immediate render
+          viewer.scene.requestRender();
+        } catch (error) {
+          console.error("Error setting up viewer:", error);
+        }
+      }
+    };
+
+    // Run setup with a small delay to ensure viewer is fully initialized
+    setTimeout(setupViewer, 100);
+
+    // Cleanup
+    return () => {
+      if (viewer && !viewer.isDestroyed()) {
+        viewer.scene.imageryLayers.removeAll();
+      }
+    };
+  }, []);
 
   return (
     <div className="weatherly">
@@ -51,14 +75,18 @@ export default function Weatherly() {
         <Viewer
           ref={viewerRef}
           terrainProvider={undefined}
-          imageryProvider={false}
-          baseLayerPicker={true}
+          baseLayerPicker={false}
           animation={false}
           timeline={false}
+          homeButton={false}
+          navigationHelpButton={false}
+          sceneModePicker={false}
+          navigationInstructionsInitiallyVisible={false}
+          fullscreenButton={false}
         >
           <Entity
             name="New York City"
-            position={cityPosition}
+            position={Cartesian3.fromDegrees(-74.006, 40.7128, 2000)}
             point={{ pixelSize: 10, color: Color.RED }}
             description="This is New York City"
           />
