@@ -1,0 +1,26 @@
+/* //Weatherly.css */
+
+:root {
+  --polar: #f3f3f3;
+  --oceanic: #007c8f;
+  --forest: #1d663f;
+  --desert: #b3a56e;
+  --sky: #94ced4;
+  --void: rgb(7, 13, 62);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.weatherly {
+  /* background-color: aqua; */
+  height: 100%;
+}
