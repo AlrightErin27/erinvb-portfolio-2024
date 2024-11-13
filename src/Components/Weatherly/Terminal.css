@@ -1,4 +1,3 @@
-/* Root Variables */
 :root {
   --polar: #f3f3f3;
   --oceanic: #007c8f;
@@ -26,6 +25,10 @@
   cursor: text;
   width: 88vw;
   height: 35vh;
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .w-terminal::before {
@@ -46,6 +49,7 @@
   height: 30px;
   margin-bottom: 15px;
   border-bottom: 1px solid rgba(243, 243, 243, 0.1);
+  flex-shrink: 0;
 }
 
 .w-terminal-controls {
@@ -62,6 +66,7 @@
   opacity: 0.7;
   border: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .w-terminal-control:hover {
@@ -87,15 +92,19 @@
   opacity: 0.7;
   font-size: 1.25em;
   margin-right: 45px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Terminal Content */
 .w-terminal-content {
-  height: calc(100% - 45px);
+  flex: 1;
   overflow-y: auto;
   padding: 0 15px;
   font-size: 1.1em;
   line-height: 1.6;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Scrollbar Styling */
@@ -123,6 +132,7 @@
   opacity: 0.8;
   white-space: pre-wrap;
   margin-bottom: 10px;
+  word-break: break-word;
 }
 
 .w-terminal-history div {
@@ -137,16 +147,19 @@
   align-items: center;
   color: var(--polar);
   position: relative;
+  min-height: 24px;
 }
 
 .w-terminal-prompt {
   color: var(--sky);
   margin-right: 8px;
+  flex-shrink: 0;
 }
 
 .w-terminal-input-wrapper {
   position: relative;
   flex: 1;
+  min-width: 0;
 }
 
 .w-terminal-cursor {
@@ -182,6 +195,7 @@
 
 .w-terminal-user-text {
   color: var(--sky);
+  word-break: break-word;
 }
 
 /* Style for command entries */
@@ -190,29 +204,112 @@
 }
 
 /* Responsive Design */
+@media screen and (min-width: 1441px) {
+  .w-terminal {
+    width: 88vw;
+    height: 40vh;
+    right: 30px;
+    bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  .w-terminal {
+    width: 88vw;
+    height: 35vh;
+    right: 25px;
+    bottom: 25px;
+  }
+}
+
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .w-terminal {
     width: 60vw;
-    height: 250px;
-    bottom: 30px;
+    height: 30vh;
     right: 50%;
     transform: translateX(50%);
+    bottom: 20px;
+  }
+
+  .w-terminal-title {
+    font-size: 1.1em;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 481px) and (max-width: 767px) {
   .w-terminal {
     width: 85vw;
-    height: 200px;
-    bottom: 20px;
+    height: 35vh;
     right: 50%;
     transform: translateX(50%);
+    bottom: 15px;
+    padding: 20px;
+  }
+
+  .w-terminal-title {
+    font-size: 1em;
+  }
+
+  .w-terminal-content {
+    font-size: 1em;
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 480px) {
   .w-terminal {
-    height: 150px;
+    width: 92vw;
+    height: 40vh;
+    right: 50%;
+    transform: translateX(50%);
     bottom: 10px;
+    padding: 15px;
+  }
+
+  .w-terminal-title {
+    font-size: 0.9em;
+    margin-right: 30px;
+  }
+
+  .w-terminal-content {
+    font-size: 0.95em;
+    padding: 0 10px;
+  }
+
+  .w-terminal-controls {
+    padding-left: 10px;
+    gap: 6px;
+  }
+
+  .w-terminal-control {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Handle landscape orientation on mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .w-terminal {
+    height: 60vh;
+    bottom: 10px;
+  }
+}
+
+/* Ensure touch input works properly on mobile devices */
+@media (hover: none) and (pointer: coarse) {
+  .w-terminal-input {
+    opacity: 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .w-terminal-control {
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
+
+/* Handle iOS Safari's viewport height quirks */
+@supports (-webkit-touch-callout: none) {
+  .w-terminal {
+    height: calc(35vh - env(safe-area-inset-bottom));
   }
 }

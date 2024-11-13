@@ -1,5 +1,3 @@
-/* //Weatherly.css */
-
 :root {
   --polar: #f3f3f3;
   --oceanic: #007c8f;
@@ -10,16 +8,77 @@
 }
 
 .weatherly {
-  height: fit-content;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
 }
 
 .w-globe {
-  width: 100%;
-
+  width: 150vw;
+  height: 100vh;
   position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
 }
 
 .cesium-viewer {
-  width: 100%;
-  height: 100%;
+  width: 150vw;
+  height: 100vh;
+}
+
+/* Large tablets and foldables (Surface Pro 7, Zenbook Fold) */
+@media screen and (min-width: 912px) and (max-width: 1280px) {
+  .w-globe {
+    width: 300vw;
+  }
+
+  .cesium-viewer {
+    width: 300vw;
+  }
+}
+
+/* Regular tablets */
+@media screen and (min-width: 768px) and (max-width: 911px) {
+  .w-globe {
+    width: 300vw;
+  }
+
+  .cesium-viewer {
+    width: 300vw;
+  }
+}
+
+/* Large phones and small tablets */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .w-globe {
+    width: 300vw;
+  }
+
+  .cesium-viewer {
+    width: 300vw;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+  .w-globe {
+    width: 340vw;
+  }
+
+  .cesium-viewer {
+    width: 340vw;
+  }
+}
+
+/* Landscape mode */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .w-globe {
+    width: 150vw;
+  }
+
+  .cesium-viewer {
+    width: 150vw;
+  }
 }

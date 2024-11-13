@@ -37,12 +37,13 @@ const Terminal = () => {
           <button className="w-terminal-control w-terminal-minimize" />
           <button className="w-terminal-control w-terminal-maximize" />
         </div>
-        <div className="w-terminal-title">Terminal</div>
+        <div className="w-terminal-title">Weatherly Command Terminal</div>
       </div>
 
       <div className="w-terminal-content">
         <div className="w-terminal-history">
-          Welcome to the terminal. Type 'help' for available commands.
+          Welcome to Weatherly! Explore real-time weather and time information
+          across the globe. Type 'help' to see available commands.
         </div>
 
         {commandHistory.map((cmd, index) => (
