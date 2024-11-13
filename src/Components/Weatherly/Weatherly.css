@@ -9,18 +9,17 @@
   --void: rgb(7, 13, 62);
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#root {
-  height: 100%;
-}
-
 .weatherly {
-  /* background-color: aqua; */
+  height: fit-content;
+}
+
+.w-globe {
+  width: 100%;
+
+  position: relative;
+}
+
+.cesium-viewer {
+  width: 100%;
   height: 100%;
 }

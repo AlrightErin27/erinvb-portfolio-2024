@@ -4,7 +4,13 @@
     <meta charset="utf-8" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com;"
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net; 
+               img-src 'self' data: *.virtualearth.net blob: *.cesium.com; 
+               connect-src 'self' *.cesium.com *.virtualearth.net *.arcgisonline.com; 
+               style-src 'self' 'unsafe-inline' https:; 
+               style-src-elem 'self' 'unsafe-inline' https:;
+               font-src 'self' data: https: blob:;"
     />
     <link rel="icon" href="%PUBLIC_URL%/evbDev.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

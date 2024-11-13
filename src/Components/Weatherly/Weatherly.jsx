@@ -1,8 +1,14 @@
-// Weatherly.jsx
 import React, { useEffect, useRef } from "react";
+import Terminal from "./Terminal";
 import { Ion } from "cesium";
 import { Viewer, Entity } from "resium";
-import { Cartesian3, Color, Math as CesiumMath } from "cesium";
+import {
+  Cartesian3,
+  Color,
+  Math as CesiumMath,
+  IonImageryProvider,
+  ImageryLayer,
+} from "cesium";
 import "./Weatherly.css";
 
 // Set the Cesium Ion access token
@@ -27,18 +33,29 @@ export default function Weatherly() {
           roll: 0.0,
         },
       });
+
+      // Add imagery layer
+      const imageryLayer = ImageryLayer.fromProviderAsync(
+        IonImageryProvider.fromAssetId(2)
+      );
+      viewer.scene.imageryLayers.add(imageryLayer);
     }
-  }, []);
+  }, [initialPosition]); // Added initialPosition to dependency array
 
   // Example city position (New York)
   const cityPosition = Cartesian3.fromDegrees(-74.006, 40.7128, 10000);
 
   return (
     <div className="weatherly">
-      {/* Cesium Viewer with basic settings */}
       <div className="w-globe">
-        <Viewer ref={viewerRef}>
-          {/* Add a sample marker (New York City) */}
+        <Viewer
+          ref={viewerRef}
+          terrainProvider={undefined}
+          imageryProvider={false}
+          baseLayerPicker={true}
+          animation={false}
+          timeline={false}
+        >
           <Entity
             name="New York City"
             position={cityPosition}
@@ -47,11 +64,7 @@ export default function Weatherly() {
           />
         </Viewer>
       </div>
-
-      {/* Terminal Interface */}
-      <div className="w-terminal">
-        {/* Add terminal or command input elements here */}
-      </div>
+      <Terminal />
     </div>
   );
 }
