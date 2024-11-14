@@ -60,8 +60,8 @@ export default function Weatherly() {
           const imageryLayer = new ImageryLayer(imageryProvider);
           viewer.scene.imageryLayers.add(imageryLayer);
 
-          const centerLon = -97.5;
-          const centerLat = 37.5;
+          const centerLon = -123.0868; // Longitude for Eugene, OR
+          const centerLat = 44.0521; // Latitude for Eugene, OR
           const height = 2900000;
 
           viewer.camera.setView({

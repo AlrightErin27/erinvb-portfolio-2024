@@ -154,9 +154,9 @@ export const handleAboutCommand = async (input, aboutMode, setAboutMode) => {
       "Version 1.0.0",
       "",
       "Select an option to learn more:",
-      "1. globe    - About the 3D globe visualization",
-      "2. weather api  - About the weather API integration",
-      "3. ai       - About the TensorFlow.js integration",
+      "1. globe    - About the 3D Cesium.js globe visualization",
+      "2. weather api  - About the Weather API integration",
+      "3. ai       - About the TensorFlow.js AI integration",
       "",
       "Enter your choice (globe/weather/ai):",
     ];
