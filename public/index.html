@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; 
-           script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net; 
-           img-src 'self' data: *.virtualearth.net blob: *.cesium.com; 
-           connect-src 'self' *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org; 
-           style-src 'self' 'unsafe-inline' https:; 
+      content="default-src 'self';
+           script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net;
+           img-src 'self' data: *.virtualearth.net blob: *.cesium.com;
+           connect-src 'self' http://localhost:5001 https://localhost:5001 https://www.erinvanbrunt.com https://erinvanbrunt.com *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org;
+           style-src 'self' 'unsafe-inline' https:;
            style-src-elem 'self' 'unsafe-inline' https:;
            font-src 'self' data: https: blob:;"
     />

@@ -11,5 +11,5 @@
     "*://*.arcgisonline.com/*",
     "*://*.openweathermap.org/*"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net *.cesium.com *.arcgisonline.com; object-src 'self'; img-src 'self' data: blob: *.virtualearth.net *.cesium.com *.arcgisonline.com; connect-src 'self' *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org"
+  "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net *.cesium.com *.arcgisonline.com; object-src 'self'; img-src 'self' data: blob: *.virtualearth.net *.cesium.com *.arcgisonline.com; connect-src 'self' http://localhost:5001 https://localhost:5001 https://www.erinvanbrunt.com https://erinvanbrunt.com *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org"
 }

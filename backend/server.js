@@ -17,7 +17,6 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 if (NODE_ENV === "production") {
-  // Production CSP configuration
   app.use(
     helmet({
       contentSecurityPolicy: {
@@ -32,6 +31,7 @@ if (NODE_ENV === "production") {
             "*.vimeocdn.com",
             "www.gstatic.com",
             "vimeocdn.com",
+            "*.virtualearth.net",
           ],
           styleSrc: [
             "'self'",
@@ -66,6 +66,8 @@ if (NODE_ENV === "production") {
           childSrc: ["'self'", "player.vimeo.com"],
           connectSrc: [
             "'self'",
+            "http://localhost:5001",
+            "https://localhost:5001",
             "https://www.erinvanbrunt.com",
             "https://erinvanbrunt.com",
             "vimeo.com",
@@ -77,6 +79,10 @@ if (NODE_ENV === "production") {
             "https://medium.com",
             "medium.com",
             "*.medium.com",
+            "*.cesium.com",
+            "*.virtualearth.net",
+            "*.arcgisonline.com",
+            "*.openweathermap.org",
           ],
           workerSrc: ["'self'", "blob:"],
           objectSrc: ["'none'"],
@@ -86,8 +92,11 @@ if (NODE_ENV === "production") {
     })
   );
 } else {
-  // Development CSP configuration
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+    })
+  );
 }
 
 // CORS configuration should be after helmet but before routes
