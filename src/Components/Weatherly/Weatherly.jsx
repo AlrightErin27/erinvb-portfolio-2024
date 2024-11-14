@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Terminal from "./Terminal";
 import { Ion } from "cesium";
 import { Viewer, Entity } from "resium";
@@ -8,6 +8,9 @@ import {
   Math as CesiumMath,
   IonImageryProvider,
   ImageryLayer,
+  LabelStyle,
+  VerticalOrigin,
+  Cartesian2,
 } from "cesium";
 import "./Weatherly.css";
 
@@ -15,6 +18,35 @@ Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_ION_ACCESS_TOKEN;
 
 export default function Weatherly() {
   const viewerRef = useRef(null);
+  const [locations, setLocations] = useState([]);
+
+  const handleNewLocation = (lat, lon, cityName, countryName) => {
+    if (viewerRef.current && viewerRef.current.cesiumElement) {
+      const viewer = viewerRef.current.cesiumElement;
+
+      // Add new location to state
+      setLocations((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          lat,
+          lon,
+          name: cityName ? `${cityName}, ${countryName}` : "Selected Location",
+        },
+      ]);
+
+      // Camera flight with adjusted height
+      viewer.camera.flyTo({
+        destination: Cartesian3.fromDegrees(lon, lat, 3500000),
+        orientation: {
+          heading: 0.0,
+          pitch: -CesiumMath.toRadians(96),
+          roll: 0.0,
+        },
+        duration: 2,
+      });
+    }
+  };
 
   useEffect(() => {
     let viewer = null;
@@ -24,17 +56,14 @@ export default function Weatherly() {
         viewer = viewerRef.current.cesiumElement;
 
         try {
-          // Create and add imagery layer
           const imageryProvider = await IonImageryProvider.fromAssetId(2);
           const imageryLayer = new ImageryLayer(imageryProvider);
           viewer.scene.imageryLayers.add(imageryLayer);
 
-          // Set fixed camera position
-          const centerLon = -97.5; // Center of continental US
+          const centerLon = -97.5;
           const centerLat = 37.5;
-          const height = 2900000; // Lower this value for closer zoom
+          const height = 2900000;
 
-          // Set the initial view
           viewer.camera.setView({
             destination: Cartesian3.fromDegrees(centerLon, centerLat, height),
             orientation: {
@@ -44,13 +73,11 @@ export default function Weatherly() {
             },
           });
 
-          // Set camera constraints
           viewer.scene.screenSpaceCameraController.enableZoom = true;
           viewer.scene.screenSpaceCameraController.enableTilt = false;
           viewer.scene.screenSpaceCameraController.minimumZoomDistance = 50000;
           viewer.scene.screenSpaceCameraController.maximumZoomDistance = 1000000;
 
-          // Force an immediate render
           viewer.scene.requestRender();
         } catch (error) {
           console.error("Error setting up viewer:", error);
@@ -58,10 +85,8 @@ export default function Weatherly() {
       }
     };
 
-    // Run setup with a small delay to ensure viewer is fully initialized
     setTimeout(setupViewer, 100);
 
-    // Cleanup
     return () => {
       if (viewer && !viewer.isDestroyed()) {
         viewer.scene.imageryLayers.removeAll();
@@ -84,15 +109,29 @@ export default function Weatherly() {
           navigationInstructionsInitiallyVisible={false}
           fullscreenButton={false}
         >
-          <Entity
-            name="New York City"
-            position={Cartesian3.fromDegrees(-74.006, 40.7128, 2000)}
-            point={{ pixelSize: 10, color: Color.RED }}
-            description="This is New York City"
-          />
+          {locations.map((location) => (
+            <Entity
+              key={location.id}
+              position={Cartesian3.fromDegrees(location.lon, location.lat)}
+              point={{
+                pixelSize: 10,
+                color: Color.RED,
+                outlineColor: Color.WHITE,
+                outlineWidth: 2,
+              }}
+              label={{
+                text: location.name,
+                font: "14pt sans-serif",
+                style: LabelStyle.FILL_AND_OUTLINE,
+                outlineWidth: 2,
+                verticalOrigin: VerticalOrigin.BOTTOM,
+                pixelOffset: new Cartesian2(0, -10),
+              }}
+            />
+          ))}
         </Viewer>
       </div>
-      <Terminal />
+      <Terminal onNewLocation={handleNewLocation} />
     </div>
   );
 }
