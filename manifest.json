@@ -1,15 +1,17 @@
 {
   "manifest_version": 2,
-  "name": "Project Videos Extension",
+  "name": "Weatherly AI",
   "version": "1.0",
-  "description": "Project videos display",
+  "description": "Weather application with AI-powered suggestions",
   "web_accessible_resources": [
     "cast_sender.js",
     "*://*.vimeo.com/*",
     "*://*.virtualearth.net/*",
     "*://*.cesium.com/*",
     "*://*.arcgisonline.com/*",
-    "*://*.openweathermap.org/*"
+    "*://*.openweathermap.org/*",
+    "*://*.tensorflow.org/*"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net *.cesium.com *.arcgisonline.com; object-src 'self'; img-src 'self' data: blob: *.virtualearth.net *.cesium.com *.arcgisonline.com; connect-src 'self' http://localhost:5001 https://localhost:5001 https://www.erinvanbrunt.com https://erinvanbrunt.com *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org"
+  "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net *.cesium.com *.arcgisonline.com cdn.tensorflow.org; object-src 'self'; img-src 'self' data: blob: *.virtualearth.net *.cesium.com *.arcgisonline.com; connect-src 'self' http://localhost:5001 https://localhost:5001 https://www.erinvanbrunt.com https://erinvanbrunt.com *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org https://cdn.tensorflow.org",
+  "permissions": ["geolocation"]
 }

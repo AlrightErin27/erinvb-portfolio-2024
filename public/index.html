@@ -5,12 +5,17 @@
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self';
-           script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net;
+           script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net cdn.tensorflow.org;
            img-src 'self' data: *.virtualearth.net blob: *.cesium.com;
-           connect-src 'self' http://localhost:5001 https://localhost:5001 https://www.erinvanbrunt.com https://erinvanbrunt.com *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org;
+           connect-src 'self' http://localhost:5001 https://localhost:5001 
+                      https://www.erinvanbrunt.com https://erinvanbrunt.com 
+                      *.cesium.com *.virtualearth.net *.arcgisonline.com 
+                      *.openweathermap.org 
+                      https://cdn.tensorflow.org;
            style-src 'self' 'unsafe-inline' https:;
            style-src-elem 'self' 'unsafe-inline' https:;
-           font-src 'self' data: https: blob:;"
+           font-src 'self' data: https: blob:;
+           worker-src 'self' blob: cdn.tensorflow.org;"
     />
     <link rel="icon" href="%PUBLIC_URL%/evbDev.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

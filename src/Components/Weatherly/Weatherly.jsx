@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Terminal from "./Terminal";
 import { Ion } from "cesium";
 import { Viewer, Entity } from "resium";
+import * as tf from "@tensorflow/tfjs";
+
 import {
   Cartesian3,
   Color,
@@ -92,6 +94,22 @@ export default function Weatherly() {
         viewer.scene.imageryLayers.removeAll();
       }
     };
+  }, []);
+
+  // Add TensorFlow test
+  useEffect(() => {
+    const testTensorFlow = async () => {
+      try {
+        const a = tf.tensor1d([1, 2, 3]);
+        console.log("TensorFlow.js loaded successfully");
+        console.log("Simple tensor test:", a.toString());
+        a.dispose();
+      } catch (error) {
+        console.error("TensorFlow.js test failed:", error);
+      }
+    };
+
+    testTensorFlow();
   }, []);
 
   return (

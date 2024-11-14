@@ -83,6 +83,7 @@ if (NODE_ENV === "production") {
             "*.virtualearth.net",
             "*.arcgisonline.com",
             "*.openweathermap.org",
+            "localhost:5001/api/weather",
           ],
           workerSrc: ["'self'", "blob:"],
           objectSrc: ["'none'"],
@@ -100,7 +101,6 @@ if (NODE_ENV === "production") {
 }
 
 // CORS configuration should be after helmet but before routes
-
 const allowedOrigins =
   NODE_ENV === "production"
     ? ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"]
@@ -134,6 +134,7 @@ const connectDB = async () => {
 
 connectDB();
 
+//EVIE & CO. SCHEMA 🛍️ 🛒 👚
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -146,8 +147,38 @@ const UserSchema = new mongoose.Schema({
   ],
   lastLogin: { type: Date, default: Date.now },
 });
-
 const User = mongoose.model("User", UserSchema);
+
+//-----------WEATHERLY SCHEMA ☔ 🧤 ❄️----------------------------------------------------------------//
+const WeatherAISchema = new mongoose.Schema({
+  weatherPattern: {
+    temperature: Number,
+    condition: String,
+    humidity: Number,
+    windSpeed: Number,
+    uvIndex: Number,
+    timeOfDay: String,
+    airQuality: Number,
+  },
+  suggestions: [
+    {
+      type: String,
+      confidence: Number,
+      category: {
+        type: String,
+        enum: ["clothing", "activities", "considerations"],
+      },
+    },
+  ],
+  feedback: {
+    positiveCount: { type: Number, default: 0 },
+    negativeCount: { type: Number, default: 0 },
+    totalInteractions: { type: Number, default: 0 },
+  },
+  lastUpdated: { type: Date, default: Date.now },
+});
+const WeatherAI = mongoose.model("WeatherAI", WeatherAISchema);
+//-----------------------------------------------------------------------------------------------------//
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -176,6 +207,7 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
+//EVIE & CO. ROUTE 🛍️ 🛒 👚
 router.post("/register", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -199,6 +231,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+//EVIE & CO. ROUTE 🛍️ 🛒 👚
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -231,6 +264,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//EVIE & CO. ROUTE 🛍️ 🛒 👚
 router.get("/user", authMiddleware, async (req, res) => {
   try {
     res.json({
@@ -243,6 +277,7 @@ router.get("/user", authMiddleware, async (req, res) => {
   }
 });
 
+//EVIE & CO. ROUTE 🛍️ 🛒 👚
 router.post("/purchase", authMiddleware, async (req, res) => {
   try {
     const { cartItems } = req.body;
@@ -273,6 +308,102 @@ router.post("/purchase", authMiddleware, async (req, res) => {
   }
 });
 
+//-----------WEATHERLY ROUTES ☔ 🧤 ❄️----------------------------------------------------------------//
+router.post("/weather/train", async (req, res) => {
+  try {
+    const { weatherData, suggestions, feedback } = req.body;
+    const weatherPattern = new WeatherAI({
+      weatherPattern: {
+        temperature: weatherData.temp.celsius,
+        condition: weatherData.description,
+        humidity: weatherData.humidity,
+        windSpeed: weatherData.wind_speed,
+        uvIndex: weatherData.uv || 0,
+        timeOfDay: weatherData.time,
+        airQuality: weatherData.airQuality || 0,
+      },
+      suggestions: suggestions.map((s) => ({
+        type: s.suggestion,
+        confidence: s.confidence,
+        category: s.category,
+      })),
+      feedback: {
+        positiveCount: feedback.positive ? 1 : 0,
+        negativeCount: feedback.negative ? 1 : 0,
+        totalInteractions: 1,
+      },
+    });
+    await weatherPattern.save();
+    res.status(201).json({ message: "AI training data saved successfully" });
+  } catch (error) {
+    console.error("Weather AI training error:", error);
+    res.status(500).json({ message: "Error saving AI training data" });
+  }
+});
+
+router.get("/weather/suggestions", async (req, res) => {
+  try {
+    const { temperature, condition, humidity, windSpeed, time } = req.query;
+
+    // Find similar weather patterns
+    const similarPatterns = await WeatherAI.find({
+      "weatherPattern.temperature": {
+        $gte: Number(temperature) - 5,
+        $lte: Number(temperature) + 5,
+      },
+      "weatherPattern.condition": condition,
+    })
+      .sort("-feedback.positiveCount")
+      .limit(5);
+
+    // Get most successful suggestions
+    const suggestions = similarPatterns.reduce((acc, pattern) => {
+      pattern.suggestions.forEach((suggestion) => {
+        if (suggestion.confidence > 0.7) {
+          // Only high confidence suggestions
+          acc.push({
+            type: suggestion.type,
+            confidence: suggestion.confidence,
+            category: suggestion.category,
+          });
+        }
+      });
+      return acc;
+    }, []);
+
+    res.json({ suggestions });
+  } catch (error) {
+    console.error("Weather suggestion error:", error);
+    res.status(500).json({ message: "Error getting weather suggestions" });
+  }
+});
+
+router.post("/weather/feedback", async (req, res) => {
+  try {
+    const { patternId, isPositive } = req.body;
+
+    const pattern = await WeatherAI.findById(patternId);
+    if (!pattern) {
+      return res.status(404).json({ message: "Pattern not found" });
+    }
+
+    if (isPositive) {
+      pattern.feedback.positiveCount += 1;
+    } else {
+      pattern.feedback.negativeCount += 1;
+    }
+    pattern.feedback.totalInteractions += 1;
+    pattern.lastUpdated = new Date();
+
+    await pattern.save();
+    res.json({ message: "Feedback recorded successfully" });
+  } catch (error) {
+    console.error("Weather feedback error:", error);
+    res.status(500).json({ message: "Error recording feedback" });
+  }
+});
+//---------------------------------------------------------------------------------------------------//
+
 // Serve static files and handle React routing in production
 if (NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../build")));
@@ -291,5 +422,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () =>
-  console.log(`Server running on port ${PORT} in ${NODE_ENV} mode`)
+  console.log(`Server running on port 🚢::${PORT} in ${NODE_ENV} mode`)
 );
