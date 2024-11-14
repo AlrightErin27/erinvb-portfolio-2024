@@ -4,6 +4,13 @@ import {
   validateCountry,
 } from "./WeatherAPI";
 
+// Map of country names to their ISO codes for precise matching
+const countryToISOCode = {
+  germany: "DE",
+  "united states": "US",
+  // Add other necessary country mappings as needed
+};
+
 // Function to properly capitalize input
 const properCapitalize = (str) => {
   return str
@@ -35,10 +42,14 @@ export const handleWeatherCommand = async (
   if (weatherMode.step === "country") {
     const isValidCountry = await checkValidCountry(input);
     if (isValidCountry) {
+      const countryCode =
+        countryToISOCode[input.toLowerCase()] ||
+        input.slice(0, 2).toUpperCase();
       setWeatherMode({
         active: true,
         step: "city",
         country: properInput,
+        countryCode, // Add country code to weatherMode state
       });
       return [`Country set to: ${properInput}`, "Please enter a city name:"];
     } else {
@@ -53,13 +64,13 @@ export const handleWeatherCommand = async (
   if (weatherMode.step === "city") {
     const locationData = await getCoordinates(
       input.toLowerCase(),
-      weatherMode.country.toLowerCase()
+      weatherMode.countryCode // Use the ISO country code here
     );
 
     if (locationData.length > 1) {
       console.log(`Multiple cities found for ${properInput}:`, locationData);
 
-      // Multiple locations found - prompt user to select
+      // Multiple locations found - prompt user to select with location details
       setWeatherMode({
         active: true,
         step: "selectCity",
@@ -67,8 +78,12 @@ export const handleWeatherCommand = async (
       });
       return [
         `Multiple locations found for "${properInput}":`,
-        ...locationData.map(
-          (loc, index) => `${index + 1}. ${loc.name}, ${loc.state}`
+        ...locationData.map((loc, index) =>
+          loc.country === "US"
+            ? `${index + 1}. ${loc.name}, ${loc.state}, ${loc.country}`
+            : `${index + 1}. ${loc.name}, ${loc.country} (Lat: ${
+                loc.lat
+              }, Lon: ${loc.lon})`
         ),
         "Enter the number of your choice:",
       ];
@@ -140,7 +155,7 @@ export const handleAboutCommand = async (input, aboutMode, setAboutMode) => {
       "",
       "Select an option to learn more:",
       "1. globe    - About the 3D globe visualization",
-      "2. weather  - About the weather API integration",
+      "2. weather api  - About the weather API integration",
       "3. ai       - About the TensorFlow.js integration",
       "",
       "Enter your choice (globe/weather/ai):",
@@ -167,11 +182,10 @@ export const handleAboutCommand = async (input, aboutMode, setAboutMode) => {
         "• Interactive 3D navigation",
         "• Location markers with weather data",
         "• Atmospheric effects",
-        "• Day/night cycle visualization",
         "• Temperature gradient overlay",
       ];
 
-    case "weather":
+    case "weather api":
       setAboutMode({ active: false });
       return [
         "Weather Data Integration",

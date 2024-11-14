@@ -1,23 +1,70 @@
 import axios from "axios";
 
-// Function to get coordinates for a city and country with state information
-export const getCoordinates = async (city, country) => {
+// Helper function to calculate the distance between two coordinates (in kilometers)
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // Earth's radius in kilometers
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) *
+      Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c; // Distance in kilometers
+};
+
+// Helper function to filter out nearby or duplicate locations within a distance threshold
+const filterUniqueLocations = (locations, threshold = 10) => {
+  const uniqueLocations = [];
+
+  locations.forEach((location) => {
+    const isDuplicate = uniqueLocations.some((uniqueLocation) => {
+      const distance = calculateDistance(
+        location.lat,
+        location.lon,
+        uniqueLocation.lat,
+        uniqueLocation.lon
+      );
+      return distance < threshold; // Check if within threshold
+    });
+
+    if (!isDuplicate) {
+      uniqueLocations.push(location);
+    }
+  });
+
+  return uniqueLocations;
+};
+
+// Function to get coordinates for a city and country with specified ISO code
+export const getCoordinates = async (city, countryCode) => {
   try {
     const response = await axios.get(
       `https://api.openweathermap.org/geo/1.0/direct`,
       {
         params: {
-          q: `${city},${country}`,
+          q: `${city},${countryCode}`,
           limit: 5,
           appid: process.env.REACT_APP_OPENWEATHER_API_KEY,
         },
       }
     );
 
+    console.log("getCoordinates response (before filtering):", response.data);
+
     if (response.data && response.data.length > 0) {
-      return response.data.map((location) => ({
+      const filteredResults = filterUniqueLocations(response.data);
+
+      console.log(
+        "getCoordinates response (after filtering):",
+        filteredResults
+      );
+
+      return filteredResults.map((location) => ({
         name: location.name,
-        state: location.state || "", // Includes state if available
+        state: location.country === "US" ? location.state || "" : "", // Only include state for U.S. locations
         country: location.country,
         lat: location.lat,
         lon: location.lon,
