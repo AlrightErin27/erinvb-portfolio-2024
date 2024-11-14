@@ -1,72 +1,92 @@
-const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
-if (!API_KEY) {
-  console.error(
-    "OpenWeather API key is missing. Please check your environment variables."
-  );
-}
+import axios from "axios";
 
-const BASE_URL = "http://api.openweathermap.org/data/2.5";
-const GEO_URL = "http://api.openweathermap.org/geo/1.0";
-
-// Validate and get country/city coordinates
-const getCoordinates = async (city, country) => {
+// Function to get coordinates for a city and country with state information
+export const getCoordinates = async (city, country) => {
   try {
-    const response = await fetch(
-      `${GEO_URL}/direct?q=${city},${country}&limit=1&appid=${API_KEY}`
+    const response = await axios.get(
+      `https://api.openweathermap.org/geo/1.0/direct`,
+      {
+        params: {
+          q: `${city},${country}`,
+          limit: 5,
+          appid: process.env.REACT_APP_OPENWEATHER_API_KEY,
+        },
+      }
     );
-    const data = await response.json();
 
-    if (data && data.length > 0) {
-      return {
+    if (response.data && response.data.length > 0) {
+      return response.data.map((location) => ({
+        name: location.name,
+        state: location.state || "", // Includes state if available
+        country: location.country,
+        lat: location.lat,
+        lon: location.lon,
         valid: true,
-        lat: data[0].lat,
-        lon: data[0].lon,
-        name: data[0].name,
-        country: data[0].country,
-      };
+      }));
+    } else {
+      return []; // No locations found
     }
-    return { valid: false };
   } catch (error) {
     console.error("Error fetching coordinates:", error);
-    return { valid: false };
+    return [];
   }
 };
 
-// Get current weather data
-const getCurrentWeather = async (lat, lon) => {
+// Function to get current weather data for a given latitude and longitude
+export const getCurrentWeather = async (lat, lon) => {
   try {
-    const response = await fetch(
-      `${BASE_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather`,
+      {
+        params: {
+          lat,
+          lon,
+          units: "metric",
+          appid: process.env.REACT_APP_OPENWEATHER_API_KEY,
+        },
+      }
     );
-    const data = await response.json();
 
-    if (data) {
-      const localTime = new Date(data.dt * 1000).toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      });
-
-      const tempC = Math.round(data.main.temp);
-      const tempF = Math.round((tempC * 9) / 5 + 32);
-      const feelsLikeC = Math.round(data.main.feels_like);
-      const feelsLikeF = Math.round((feelsLikeC * 9) / 5 + 32);
-
-      return {
-        temp: { celsius: tempC, fahrenheit: tempF },
-        feels_like: { celsius: feelsLikeC, fahrenheit: feelsLikeF },
-        humidity: data.main.humidity,
-        wind_speed: Math.round(data.wind.speed),
-        description: data.weather[0].description,
-        icon: data.weather[0].icon,
-        time: localTime,
-      };
-    }
-    return null;
+    const data = response.data;
+    return {
+      temp: {
+        celsius: data.main.temp,
+        fahrenheit: (data.main.temp * 9) / 5 + 32,
+      },
+      feels_like: {
+        celsius: data.main.feels_like,
+        fahrenheit: (data.main.feels_like * 9) / 5 + 32,
+      },
+      humidity: data.main.humidity,
+      wind_speed: data.wind.speed,
+      description: data.weather[0].description,
+      time: new Date(data.dt * 1000).toLocaleTimeString(),
+    };
   } catch (error) {
-    console.error("Error fetching weather:", error);
+    console.error("Error fetching weather data:", error);
     return null;
   }
 };
 
-export { getCoordinates, getCurrentWeather };
+// Function to validate if a given country name is valid using OpenWeather city list data
+export const validateCountry = async (country) => {
+  try {
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather`,
+      {
+        params: {
+          q: country,
+          appid: process.env.REACT_APP_OPENWEATHER_API_KEY,
+        },
+      }
+    );
+
+    // Check if any data is returned for the country name
+    return response.data && response.data.sys && response.data.sys.country
+      ? true
+      : false;
+  } catch (error) {
+    console.error("Error validating country:", error);
+    return false;
+  }
+};

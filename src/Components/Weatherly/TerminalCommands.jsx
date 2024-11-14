@@ -1,4 +1,8 @@
-import { getCoordinates, getCurrentWeather } from "./WeatherAPI";
+import {
+  getCoordinates,
+  getCurrentWeather,
+  validateCountry,
+} from "./WeatherAPI";
 
 // Function to properly capitalize input
 const properCapitalize = (str) => {
@@ -9,13 +13,10 @@ const properCapitalize = (str) => {
     .join(" ");
 };
 
-// Mock validation - replace with real API later
-const validateCountry = async (country) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true); // Mock response
-    }, 500);
-  });
+// Check if the country is valid using the actual API
+const checkValidCountry = async (country) => {
+  const isValid = await validateCountry(country.toLowerCase());
+  return isValid;
 };
 
 export const handleWeatherCommand = async (
@@ -32,7 +33,7 @@ export const handleWeatherCommand = async (
   const properInput = properCapitalize(input);
 
   if (weatherMode.step === "country") {
-    const isValidCountry = await validateCountry(input.toLowerCase());
+    const isValidCountry = await checkValidCountry(input);
     if (isValidCountry) {
       setWeatherMode({
         active: true,
@@ -55,31 +56,29 @@ export const handleWeatherCommand = async (
       weatherMode.country.toLowerCase()
     );
 
-    if (locationData.valid) {
-      const weather = await getCurrentWeather(
-        locationData.lat,
-        locationData.lon
-      );
-      setWeatherMode({ active: false, step: null, country: null });
+    if (locationData.length > 1) {
+      console.log(`Multiple cities found for ${properInput}:`, locationData);
 
-      if (onNewLocation) {
-        onNewLocation(
-          locationData.lat,
-          locationData.lon,
-          locationData.name,
-          locationData.country
-        );
-      }
-
+      // Multiple locations found - prompt user to select
+      setWeatherMode({
+        active: true,
+        step: "selectCity",
+        options: locationData,
+      });
       return [
-        `Weather for ${properInput}, ${weatherMode.country}:`,
-        `Temperature: ${weather.temp.celsius}°C / ${weather.temp.fahrenheit}°F`,
-        `Feels like: ${weather.feels_like.celsius}°C / ${weather.feels_like.fahrenheit}°F`,
-        `Humidity: ${weather.humidity}%`,
-        `Wind Speed: ${weather.wind_speed} m/s`,
-        `Conditions: ${weather.description}`,
-        `Local Time: ${weather.time}`,
+        `Multiple locations found for "${properInput}":`,
+        ...locationData.map(
+          (loc, index) => `${index + 1}. ${loc.name}, ${loc.state}`
+        ),
+        "Enter the number of your choice:",
       ];
+    } else if (locationData.length === 1) {
+      // Only one location found, proceed with weather
+      return await fetchWeatherAndUpdate(
+        locationData[0],
+        setWeatherMode,
+        onNewLocation
+      );
     } else {
       setWeatherMode({ active: false, step: null, country: null });
       return [
@@ -88,6 +87,48 @@ export const handleWeatherCommand = async (
       ];
     }
   }
+
+  if (weatherMode.step === "selectCity") {
+    const selectedIndex = parseInt(input, 10) - 1;
+    const selectedLocation = weatherMode.options[selectedIndex];
+
+    if (selectedLocation) {
+      return await fetchWeatherAndUpdate(
+        selectedLocation,
+        setWeatherMode,
+        onNewLocation
+      );
+    } else {
+      setWeatherMode({ active: false, step: null, country: null });
+      return [
+        "Invalid selection. Weather command cancelled. Try again with 'weather'.",
+      ];
+    }
+  }
+};
+
+// Helper function to fetch and display weather for a selected location
+const fetchWeatherAndUpdate = async (
+  location,
+  setWeatherMode,
+  onNewLocation
+) => {
+  const weather = await getCurrentWeather(location.lat, location.lon);
+  setWeatherMode({ active: false, step: null, country: null });
+
+  if (onNewLocation) {
+    onNewLocation(location.lat, location.lon, location.name, location.country);
+  }
+
+  return [
+    `Weather for ${location.name}, ${location.country}:`,
+    `Temperature: ${weather.temp.celsius}°C / ${weather.temp.fahrenheit}°F`,
+    `Feels like: ${weather.feels_like.celsius}°C / ${weather.feels_like.fahrenheit}°F`,
+    `Humidity: ${weather.humidity}%`,
+    `Wind Speed: ${weather.wind_speed} m/s`,
+    `Conditions: ${weather.description}`,
+    `Local Time: ${weather.time}`,
+  ];
 };
 
 export const handleAboutCommand = async (input, aboutMode, setAboutMode) => {
