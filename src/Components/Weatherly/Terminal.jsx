@@ -164,7 +164,7 @@ const Terminal = ({ onNewLocation }) => {
           <button className="w-terminal-control w-terminal-minimize" />
           <button className="w-terminal-control w-terminal-maximize" />
         </div>
-        <div className="w-terminal-title">Weather Query Mode</div>
+        <div className="w-terminal-title">Weatherly_v1 Query Mode</div>
       </div>
 
       <div className="w-terminal-content" ref={contentRef}>
