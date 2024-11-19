@@ -11,12 +11,13 @@
   --error-color: #ff3333;
 }
 
-/* Reset styles */
+/* Reset styles CHANGED NOV 19, 2024*/
 html,
 body {
   min-height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 /* Loading and error states */
