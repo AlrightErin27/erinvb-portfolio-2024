@@ -5,16 +5,17 @@
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self';
-           script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net cdn.tensorflow.org;
-           img-src 'self' data: *.virtualearth.net blob: *.cesium.com;
-           connect-src 'self' http://localhost:5001 https://localhost:5001 
-                      https://www.erinvanbrunt.com https://erinvanbrunt.com 
-                      *.cesium.com *.virtualearth.net *.arcgisonline.com 
-                      *.openweathermap.org 
-                      https://cdn.tensorflow.org;
+           script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net cdn.tensorflow.org f.vimeocdn.com *.vimeocdn.com www.gstatic.com vimeocdn.com;
+           img-src 'self' data: *.virtualearth.net blob: *.cesium.com *.vimeocdn.com *.vimeo.com;
+           connect-src 'self' http://localhost:5001 https://localhost:5001
+                       https://www.erinvanbrunt.com https://erinvanbrunt.com
+                       *.cesium.com *.virtualearth.net *.arcgisonline.com
+                       *.openweathermap.org vimeo.com *.vimeo.com player.vimeo.com
+                       *.vimeocdn.com fresnel.vimeocdn.com cdn.tensorflow.org;
            style-src 'self' 'unsafe-inline' https:;
            style-src-elem 'self' 'unsafe-inline' https:;
            font-src 'self' data: https: blob:;
+           frame-src 'self' player.vimeo.com *.vimeo.com vimeo.com;
            worker-src 'self' blob: cdn.tensorflow.org;"
     />
     <link rel="icon" href="%PUBLIC_URL%/evbDev.png" />

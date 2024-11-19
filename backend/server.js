@@ -17,81 +17,82 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 if (NODE_ENV === "production") {
-  app.use(
-    helmet({
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            "'unsafe-eval'",
-            "player.vimeo.com",
-            "f.vimeocdn.com",
-            "*.vimeocdn.com",
-            "www.gstatic.com",
-            "vimeocdn.com",
-            "*.virtualearth.net",
-          ],
-          styleSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            "fonts.googleapis.com",
-            "https://fonts.googleapis.com",
-          ],
-          fontSrc: ["'self'", "fonts.gstatic.com", "https://fonts.gstatic.com"],
-          imgSrc: [
-            "'self'",
-            "data:",
-            "blob:",
-            "*.vimeocdn.com",
-            "*.vimeo.com",
-            "*.medium.com",
-            "medium.com",
-            "*.giphy.com",
-          ],
-          mediaSrc: [
-            "'self'",
-            "data:",
-            "blob:",
-            "*.vimeocdn.com",
-            "*.vimeo.com",
-          ],
-          frameSrc: [
-            "'self'",
-            "player.vimeo.com",
-            "*.vimeo.com",
-            "*.giphy.com",
-          ],
-          childSrc: ["'self'", "player.vimeo.com"],
-          connectSrc: [
-            "'self'",
-            "http://localhost:5001",
-            "https://localhost:5001",
-            "https://www.erinvanbrunt.com",
-            "https://erinvanbrunt.com",
-            "vimeo.com",
-            "player.vimeo.com",
-            "*.vimeocdn.com",
-            "fresnel.vimeocdn.com",
-            "https://fresnel.vimeocdn.com",
-            "https://api.rss2json.com",
-            "https://medium.com",
-            "medium.com",
-            "*.medium.com",
-            "*.cesium.com",
-            "*.virtualearth.net",
-            "*.arcgisonline.com",
-            "*.openweathermap.org",
-            "localhost:5001/api/weather",
-          ],
-          workerSrc: ["'self'", "blob:"],
-          objectSrc: ["'none'"],
-          manifestSrc: ["'self'"],
+  // In your Express app configuration
+  if (NODE_ENV === "production") {
+    app.use(
+      helmet({
+        contentSecurityPolicy: {
+          directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+              "'self'",
+              "'unsafe-inline'",
+              "'unsafe-eval'",
+              "player.vimeo.com",
+              "*.vimeo.com",
+              "f.vimeocdn.com",
+              "*.vimeocdn.com",
+              "www.gstatic.com",
+              "vimeocdn.com",
+              "*.virtualearth.net",
+              "cdn.tensorflow.org",
+            ],
+            styleSrc: [
+              "'self'",
+              "'unsafe-inline'",
+              "fonts.googleapis.com",
+              "https://fonts.googleapis.com",
+            ],
+            fontSrc: [
+              "'self'",
+              "fonts.gstatic.com",
+              "https://fonts.gstatic.com",
+              "data:",
+              "https:",
+              "blob:",
+            ],
+            imgSrc: [
+              "'self'",
+              "data:",
+              "blob:",
+              "*.vimeocdn.com",
+              "*.vimeo.com",
+              "*.virtualearth.net",
+              "*.cesium.com",
+            ],
+            frameSrc: [
+              "'self'",
+              "player.vimeo.com",
+              "*.vimeo.com",
+              "*.giphy.com",
+              "vimeo.com",
+            ],
+            childSrc: ["'self'", "player.vimeo.com", "blob:"],
+            connectSrc: [
+              "'self'",
+              "http://localhost:5001",
+              "https://localhost:5001",
+              "https://www.erinvanbrunt.com",
+              "https://erinvanbrunt.com",
+              "vimeo.com",
+              "*.vimeo.com",
+              "player.vimeo.com",
+              "*.vimeocdn.com",
+              "fresnel.vimeocdn.com",
+              "*.cesium.com",
+              "*.virtualearth.net",
+              "*.arcgisonline.com",
+              "*.openweathermap.org",
+              "cdn.tensorflow.org",
+            ],
+            workerSrc: ["'self'", "blob:", "cdn.tensorflow.org"],
+            objectSrc: ["'none'"],
+            manifestSrc: ["'self'"],
+          },
         },
-      },
-    })
-  );
+      })
+    );
+  }
 } else {
   app.use(
     helmet({
