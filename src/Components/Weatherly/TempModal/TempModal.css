@@ -1,0 +1,68 @@
+.temp-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.temp-modal-content {
+  padding: 2rem;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.temp-modal-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.temp-modal-content p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.temp-modal-content ul {
+  list-style: disc;
+  text-align: left;
+  margin: 1rem 0 1rem 2rem;
+  color: #333;
+}
+
+/* Updated button styles */
+.temp-modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  background-color: #e0e0e0; /* Light grey button */
+  border: 2px solid #333; /* Solid border */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+.temp-modal-close-btn:hover {
+  background-color: #ff0000; /* Red background on hover */
+  color: #fff; /* White "X" on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+.temp-modal-close-btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7); /* Red focus ring */
+}
+
+.temp-modal-close-btn:active {
+  transform: scale(0.95); /* Shrink slightly when clicked */
+}

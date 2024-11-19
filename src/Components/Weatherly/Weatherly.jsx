@@ -3,6 +3,7 @@ import Terminal from "./Terminal";
 import { Ion } from "cesium";
 import { Viewer, Entity } from "resium";
 import * as tf from "@tensorflow/tfjs";
+import TempModal from "./TempModal/TempModal";
 
 import {
   Cartesian3,
@@ -21,6 +22,7 @@ Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_ION_ACCESS_TOKEN;
 export default function Weatherly() {
   const viewerRef = useRef(null);
   const [locations, setLocations] = useState([]);
+  const [tempModalOpen, setTempModalOpen] = useState(true);
 
   const handleNewLocation = (lat, lon, cityName, countryName) => {
     if (viewerRef.current && viewerRef.current.cesiumElement) {
@@ -112,8 +114,13 @@ export default function Weatherly() {
     testTensorFlow();
   }, []);
 
+  function handleModalClose() {
+    setTempModalOpen(false);
+  }
+
   return (
     <div className="weatherly">
+      {tempModalOpen ? <TempModal handleModalClose={handleModalClose} /> : null}
       <div className="w-globe">
         <Viewer
           ref={viewerRef}
