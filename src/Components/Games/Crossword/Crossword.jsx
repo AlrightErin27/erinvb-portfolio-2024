@@ -254,38 +254,40 @@ export default function Crossword() {
   }
 
   return (
-    <div className="Crossword">
-      <h1 className="crossword-title">
-        Buffy the Vampire Slayer: Cryptic Crossword
-      </h1>
-      <div className="crossword-cont">
-        <div className="grid-cont">
-          <div className="grid">
-            {squares.map((square) => {
-              return (
-                <Square
-                  key={square.idx}
-                  square={square}
-                  clickSquare={clickSquare}
-                  moveFocus={moveFocus}
-                  currDir={currDir}
-                />
-              );
-            })}
+    <div className="Crossword-background-cont">
+      <div className="Crossword">
+        <h1 className="crossword-title">
+          Buffy the Vampire Slayer: Cryptic Crossword
+        </h1>
+        <div className="crossword-cont">
+          <div className="grid-cont">
+            <div className="grid">
+              {squares.map((square) => {
+                return (
+                  <Square
+                    key={square.idx}
+                    square={square}
+                    clickSquare={clickSquare}
+                    moveFocus={moveFocus}
+                    currDir={currDir}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        {(!isMobile || showQuestions) && (
-          <div className={`questions ${isMobile ? "mobile" : ""}`}>
-            {renderQuestions("vert")}
-            {renderQuestions("hor")}
-            <button className="Key-button" onClick={toggleKey} tabIndex={-1}>
-              Key
-            </button>
-          </div>
-        )}
+          {(!isMobile || showQuestions) && (
+            <div className={`questions ${isMobile ? "mobile" : ""}`}>
+              {renderQuestions("vert")}
+              {renderQuestions("hor")}
+              <button className="Key-button" onClick={toggleKey} tabIndex={-1}>
+                Key
+              </button>
+            </div>
+          )}
+        </div>
+        {isKeyOpen && <Key onClose={toggleKey} />}
       </div>
-      {isKeyOpen && <Key onClose={toggleKey} />}
     </div>
   );
 }
