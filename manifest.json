@@ -11,8 +11,10 @@
     "*://*.cesium.com/*",
     "*://*.arcgisonline.com/*",
     "*://*.openweathermap.org/*",
-    "*://*.tensorflow.org/*"
+    "*://*.tensorflow.org/*",
+    "*://*.medium.com/*",
+    "*://api.rss2json.com/*"
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.vimeocdn.com f.vimeocdn.com www.gstatic.com vimeocdn.com *.virtualearth.net *.cesium.com *.arcgisonline.com cdn.tensorflow.org; object-src 'self'; img-src 'self' data: blob: *.virtualearth.net *.cesium.com *.arcgisonline.com *.vimeocdn.com *.vimeo.com; connect-src 'self' http://localhost:5001 https://localhost:5001 https://www.erinvanbrunt.com https://erinvanbrunt.com *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org vimeo.com *.vimeo.com player.vimeo.com *.vimeocdn.com fresnel.vimeocdn.com cdn.tensorflow.org; frame-src 'self' player.vimeo.com *.vimeo.com vimeo.com",
+  "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.vimeocdn.com f.vimeocdn.com www.gstatic.com vimeocdn.com *.virtualearth.net *.cesium.com *.arcgisonline.com cdn.tensorflow.org; object-src 'self'; img-src 'self' data: blob: *.virtualearth.net *.cesium.com *.arcgisonline.com *.vimeocdn.com *.vimeo.com *.medium.com medium.com; connect-src 'self' http://localhost:5001 https://localhost:5001 https://www.erinvanbrunt.com https://erinvanbrunt.com *.cesium.com *.virtualearth.net *.arcgisonline.com *.openweathermap.org vimeo.com *.vimeo.com player.vimeo.com *.vimeocdn.com fresnel.vimeocdn.com cdn.tensorflow.org https://api.rss2json.com https://medium.com medium.com *.medium.com; frame-src 'self' player.vimeo.com *.vimeo.com vimeo.com",
   "permissions": ["geolocation"]
 }
