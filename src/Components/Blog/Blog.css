@@ -19,13 +19,6 @@ body {
   padding: 0;
 }
 
-#root {
-  height: 100%;
-  background-color: var(--background-color);
-  min-height: 100%;
-  /* overflow-y: auto; */
-}
-
 /* Loading and error states */
 .loading,
 .error {

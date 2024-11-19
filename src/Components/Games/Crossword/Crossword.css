@@ -110,10 +110,10 @@
   padding: 1.5rem;
   border-radius: 12px;
   background: var(--color-darker);
-
   box-shadow: var(--shadow-box);
   border: 1px solid var(--color-gold-transparent);
   position: relative;
+  height: fit-content;
 }
 
 .grid-cont::before {
