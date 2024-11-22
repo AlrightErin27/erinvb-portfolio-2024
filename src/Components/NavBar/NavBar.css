@@ -36,8 +36,8 @@
   flex-wrap: nowrap;
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 1200px;
+  width: 100vw;
+  max-width: 95vw;
   gap: clamp(0.25rem, 1vw, 0.5rem);
   justify-content: space-between;
   height: 1.5rem;
