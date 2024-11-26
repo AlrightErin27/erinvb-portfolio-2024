@@ -28,6 +28,45 @@
   height: 100vh;
 }
 
+/* Problematic screen sizes */
+@media screen and (width: 414px) and (height: 896px),
+  /* iPhone XR,
+  XS Max */ screen and (width: 390px) and (height: 844px),
+  /* iPhone 12,
+  13 */ screen and (width: 344px) and (height: 882px),
+  /* Surface Duo */ screen and (width: 412px) and (height: 914px),
+  /* Pixel 6 Pro */ screen and (width: 430px) and (height: 932px),
+  /* iPhone 14 Pro Max */ screen and (width: 360px) and (height: 740px),
+  /* Samsung Galaxy S9 */ screen and (width: 412px) and (height: 915px) {
+  /* Samsung S20 Ultra */
+  .weatherly {
+    height: 100vh;
+    min-height: -webkit-fill-available;
+    /* position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+  }
+
+  .w-globe {
+    width: 340vw;
+    height: 100vh;
+    min-height: -webkit-fill-available;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+  }
+
+  .cesium-viewer {
+    width: 340vw;
+    height: 100vh !important;
+    min-height: -webkit-fill-available;
+  }
+}
+
 /* Large tablets and foldables (Surface Pro 7, Zenbook Fold) */
 @media screen and (min-width: 912px) and (max-width: 1280px) {
   .w-globe {
