@@ -1,68 +1,172 @@
+/* Base modal styles */
 .temp-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  padding: 1rem;
 }
 
 .temp-modal-content {
-  padding: 2rem;
-  border-radius: 10px;
-  width: 80%;
+  background-color: white;
+  padding: 2.5rem 2rem 2rem;
+  border-radius: 15px;
+  width: 90%;
   max-width: 600px;
-  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .temp-modal-content h2 {
   font-size: 1.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
 .temp-modal-content p {
   font-size: 1rem;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
+  line-height: 1.5;
   color: #333;
 }
 
 .temp-modal-content ul {
   list-style: disc;
   text-align: left;
-  margin: 1rem 0 1rem 2rem;
+  margin: 1.5rem 0 1.5rem 2rem;
   color: #333;
 }
 
-/* Updated button styles */
+.temp-modal-content li {
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+}
+
 .temp-modal-close-btn {
   position: absolute;
   top: 1rem;
-  right: 2rem;
-  background-color: #e0e0e0; /* Light grey button */
-  border: 2px solid #333; /* Solid border */
+  right: 1rem;
+  background-color: #e0e0e0;
+  border: 2px solid #333;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #333;
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transitions */
+  transition: all 0.3s ease;
 }
 
 .temp-modal-close-btn:hover {
-  background-color: #ff0000; /* Red background on hover */
-  color: #fff; /* White "X" on hover */
-  transform: scale(1.1); /* Slightly enlarge on hover */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+  background-color: #ff0000;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .temp-modal-close-btn:focus {
   outline: none;
-  box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7); /* Red focus ring */
+  box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.7);
 }
 
 .temp-modal-close-btn:active {
-  transform: scale(0.95); /* Shrink slightly when clicked */
+  transform: scale(0.95);
+}
+
+/* Tablets (portrait and landscape) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .temp-modal-content {
+    width: 85%;
+    padding: 2.5rem;
+  }
+
+  .temp-modal-content h2 {
+    font-size: 1.6rem;
+  }
+}
+
+/* Large phones and small tablets */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .temp-modal-content {
+    width: 90%;
+    padding: 2rem 1.5rem;
+  }
+
+  .temp-modal-content h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .temp-modal-close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+  .temp-modal {
+    padding: 0.5rem;
+  }
+
+  .temp-modal-content {
+    width: 95%;
+    padding: 1.5rem 1rem;
+  }
+
+  .temp-modal-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .temp-modal-content p {
+    font-size: 0.95rem;
+    margin: 0.8rem 0;
+  }
+
+  .temp-modal-content ul {
+    margin: 1rem 0 1rem 1.5rem;
+  }
+
+  .temp-modal-close-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+    top: 0.8rem;
+    right: 0.8rem;
+  }
+}
+
+/* Landscape mode for phones */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .temp-modal-content {
+    max-height: 85vh;
+    padding: 1.5rem;
+  }
+
+  .temp-modal-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .temp-modal-content p {
+    margin: 0.6rem 0;
+  }
+
+  .temp-modal-content ul {
+    margin: 0.8rem 0 0.8rem 1.5rem;
+  }
 }

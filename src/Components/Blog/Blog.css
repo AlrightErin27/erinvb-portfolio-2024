@@ -104,7 +104,7 @@ body {
 /* Blog container */
 .blog-container {
   width: 85vw;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 0 20px 20px 20px;
   height: fit-content;
