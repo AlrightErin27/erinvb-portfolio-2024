@@ -2,14 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
+    <!-- <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self';
        script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net cdn.tensorflow.org f.vimeocdn.com *.vimeocdn.com www.gstatic.com vimeocdn.com;
        img-src 'self' data: *.virtualearth.net blob: *.cesium.com *.vimeocdn.com *.vimeo.com *.medium.com medium.com;
        connect-src 'self' http://localhost:5001 https://localhost:5001
-                   https://www.erinvanbrunt.com https://erinvanbrunt.com
-                   *.cesium.com *.virtualearth.net *.arcgisonline.com
+                   https://www.erinvanbrunt.com https://erinvanbrunt.com 
+                   *.cesium.com api.cesium.com assets.cesium.com
+                    ion.cesium.com
+                   *.virtualearth.net *.arcgisonline.com
                    *.openweathermap.org vimeo.com *.vimeo.com player.vimeo.com
                    *.vimeocdn.com fresnel.vimeocdn.com cdn.tensorflow.org
                    https://api.rss2json.com https://medium.com medium.com *.medium.com;
@@ -17,6 +19,24 @@
        style-src-elem 'self' 'unsafe-inline' https:;
        font-src 'self' data: https: blob:;
        frame-src 'self' player.vimeo.com *.vimeo.com vimeo.com;"
+    /> -->
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+   script-src 'self' 'unsafe-inline' 'unsafe-eval' player.vimeo.com *.vimeo.com *.virtualearth.net cdn.tensorflow.org f.vimeocdn.com *.vimeocdn.com www.gstatic.com vimeocdn.com;
+   img-src 'self' data: *.virtualearth.net blob: *.cesium.com *.vimeocdn.com *.vimeo.com *.medium.com medium.com;
+   connect-src 'self' http://localhost:5001 https://localhost:5001
+               https://www.erinvanbrunt.com https://erinvanbrunt.com 
+               *.cesium.com api.cesium.com assets.cesium.com ion.cesium.com
+               *.virtualearth.net *.arcgisonline.com
+               *.openweathermap.org vimeo.com *.vimeo.com player.vimeo.com
+               *.vimeocdn.com fresnel.vimeocdn.com cdn.tensorflow.org
+               https://api.rss2json.com https://medium.com medium.com *.medium.com;
+   style-src 'self' 'unsafe-inline' https:;
+   style-src-elem 'self' 'unsafe-inline' https:;
+   font-src 'self' data: https: blob:;
+   frame-src 'self' player.vimeo.com *.vimeo.com vimeo.com;"
     />
     <link rel="icon" href="%PUBLIC_URL%/evbDev.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
