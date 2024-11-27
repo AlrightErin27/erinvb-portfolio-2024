@@ -83,6 +83,9 @@ if (NODE_ENV === "production") {
                 "*.vimeocdn.com",
                 "fresnel.vimeocdn.com",
                 "*.cesium.com",
+                "api.cesium.com", // Cesium Assets
+                "assets.cesium.com", // Cesium Assets
+                "ion.cesium.com", // Cesium Assets
                 "*.virtualearth.net",
                 "*.arcgisonline.com",
                 "*.openweathermap.org",
