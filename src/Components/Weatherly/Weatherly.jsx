@@ -18,7 +18,6 @@ import {
 import "./Weatherly.css";
 
 Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_ION_ACCESS_TOKEN;
-console.log("🐛 Cesium Token:", Ion.defaultAccessToken); // 🐛🐛🐛FIXME: Remove this after testing
 
 export default function Weatherly() {
   const viewerRef = useRef(null);
