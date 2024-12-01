@@ -18,91 +18,92 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 
 if (NODE_ENV === "production") {
   // In your Express app configuration
+
   if (NODE_ENV === "production") {
-    if (NODE_ENV === "production") {
-      app.use(
-        helmet({
-          contentSecurityPolicy: {
-            directives: {
-              defaultSrc: ["'self'"],
-              scriptSrc: [
-                "'self'",
-                "'unsafe-inline'",
-                "'unsafe-eval'",
-                "player.vimeo.com",
-                "*.vimeo.com",
-                "f.vimeocdn.com",
-                "*.vimeocdn.com",
-                "www.gstatic.com",
-                "vimeocdn.com",
-                "*.virtualearth.net",
-                "cdn.tensorflow.org",
-              ],
-              styleSrc: [
-                "'self'",
-                "'unsafe-inline'",
-                "fonts.googleapis.com",
-                "https://fonts.googleapis.com",
-              ],
-              fontSrc: [
-                "'self'",
-                "fonts.gstatic.com",
-                "https://fonts.gstatic.com",
-                "data:",
-                "https:",
-                "blob:",
-              ],
-              imgSrc: [
-                "'self'",
-                "data:",
-                "blob:",
-                "*.vimeocdn.com",
-                "*.vimeo.com",
-                "*.virtualearth.net",
-                "*.cesium.com",
-                "*.medium.com",
-                "medium.com",
-              ],
-              frameSrc: [
-                "'self'",
-                "player.vimeo.com",
-                "*.vimeo.com",
-                "*.giphy.com",
-                "vimeo.com",
-              ],
-              childSrc: ["'self'", "player.vimeo.com", "blob:"],
-              connectSrc: [
-                "'self'",
-                "http://localhost:5001",
-                "https://localhost:5001",
-                "https://www.erinvanbrunt.com",
-                "https://erinvanbrunt.com",
-                "vimeo.com",
-                "*.vimeo.com",
-                "player.vimeo.com",
-                "*.vimeocdn.com",
-                "fresnel.vimeocdn.com",
-                "*.cesium.com",
-                "api.cesium.com", // Cesium Assets
-                "assets.cesium.com", // Cesium Assets
-                "ion.cesium.com", // Cesium Assets
-                "*.virtualearth.net",
-                "*.arcgisonline.com",
-                "*.openweathermap.org",
-                "cdn.tensorflow.org",
-                "https://api.rss2json.com",
-                "https://medium.com",
-                "medium.com",
-                "*.medium.com",
-              ],
-              workerSrc: ["'self'", "blob:", "cdn.tensorflow.org"],
-              objectSrc: ["'none'"],
-              manifestSrc: ["'self'"],
-            },
+    app.use(
+      helmet({
+        contentSecurityPolicy: {
+          directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+              "'self'",
+              "'unsafe-inline'",
+              "'unsafe-eval'",
+              "player.vimeo.com",
+              "*.vimeo.com",
+              "f.vimeocdn.com",
+              "*.vimeocdn.com",
+              "www.gstatic.com",
+              "vimeocdn.com",
+              "*.virtualearth.net",
+              "cdn.tensorflow.org",
+            ],
+            styleSrc: [
+              "'self'",
+              "'unsafe-inline'",
+              "fonts.googleapis.com",
+              "https://fonts.googleapis.com",
+            ],
+            fontSrc: [
+              "'self'",
+              "fonts.gstatic.com",
+              "https://fonts.gstatic.com",
+              "data:",
+              "https:",
+              "blob:",
+            ],
+            imgSrc: [
+              "'self'",
+              "data:",
+              "blob:",
+              "*.vimeocdn.com",
+              "*.vimeo.com",
+              "*.virtualearth.net",
+              "*.cesium.com",
+              "*.medium.com",
+              "medium.com",
+            ],
+            frameSrc: [
+              "'self'",
+              "player.vimeo.com",
+              "*.vimeo.com",
+              "*.giphy.com",
+              "vimeo.com",
+            ],
+            childSrc: ["'self'", "player.vimeo.com", "blob:"],
+            connectSrc: [
+              "'self'",
+              "http://localhost:5001",
+              "https://localhost:5001",
+              "https://www.erinvanbrunt.com",
+              "https://erinvanbrunt.com",
+              "https://www.erinvanbrunt.com/api", //API endpoints
+              "https://erinvanbrunt.com/api", // API endpoints
+              "vimeo.com",
+              "*.vimeo.com",
+              "player.vimeo.com",
+              "*.vimeocdn.com",
+              "fresnel.vimeocdn.com",
+              "*.cesium.com",
+              "api.cesium.com", // Cesium Assets
+              "assets.cesium.com", // Cesium Assets
+              "ion.cesium.com", // Cesium Assets
+              "*.virtualearth.net",
+              "*.arcgisonline.com",
+              "*.openweathermap.org",
+              "cdn.tensorflow.org",
+              "https://api.rss2json.com",
+              "https://medium.com",
+              "medium.com",
+              "*.medium.com",
+            ],
+            workerSrc: ["'self'", "blob:", "cdn.tensorflow.org"],
+            objectSrc: ["'none'"],
+            manifestSrc: ["'self'"],
           },
-        })
-      );
-    }
+        },
+      })
+    );
   }
 } else {
   app.use(
@@ -115,12 +116,27 @@ if (NODE_ENV === "production") {
 // CORS configuration should be after helmet but before routes
 const allowedOrigins =
   NODE_ENV === "production"
-    ? ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"]
+    ? [
+        "https://www.erinvanbrunt.com",
+        "https://erinvanbrunt.com",
+        "https://www.erinvanbrunt.com/api",
+        "https://erinvanbrunt.com/api",
+      ]
     : ["http://localhost:3000"];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -136,9 +152,10 @@ app.use("/api", router);
 const connectDB = async () => {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB at:", MONGODB_URI); // Added more detail
   } catch (err) {
-    console.error("MongoDB connection error:", err);
+    console.error("MongoDB connection error:", err.message); // Added .message
+    console.error("MongoDB URI:", MONGODB_URI); // Added to help debug
     // Retry connection after 5 seconds
     setTimeout(connectDB, 5000);
   }
@@ -219,9 +236,23 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
+//added to fix non working shop
+router.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  next();
+});
+
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
 router.post("/register", async (req, res) => {
+  //added to fix non working shop
+  console.log("Register endpoint hit", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+  });
+
   try {
+    console.log("Register endpoint hit", req.body);
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });
 

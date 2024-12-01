@@ -11,6 +11,7 @@ import Cart from "./Cart";
 import CartButton from "./CartButton";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+console.log("API URL:", API_URL);
 
 const Shop = () => {
   const [username, setUsername] = useState("");
