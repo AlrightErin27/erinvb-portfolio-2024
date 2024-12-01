@@ -76,6 +76,7 @@ const Shop = () => {
           "Registration failed. Please try again."
       );
     }
+    console.log("API_URL in Shop.jsx:", API_URL);
   };
 
   const handleLogin = async () => {
