@@ -159,8 +159,11 @@ const Blog = () => {
               rel="noreferrer"
               className="title-a"
             >
-              <span className="horizontal-glitch" data-text="Erin's Dev Blog">
-                Erin's Dev Blog
+              <span
+                className="horizontal-glitch"
+                data-text="Erin's Medium.com Dev Blog"
+              >
+                Erin's Medium.com Dev Blog
               </span>
               {authorImg && (
                 <img

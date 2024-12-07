@@ -55,7 +55,7 @@ const Resume = () => {
         <header className="resume-header">
           <h1>Erin Van Brunt</h1>
           <p>
-            Eugene, OR | (541) 543-4781 |{" "}
+            Santa Cruz, CA | (541) 543-4781 |{" "}
             <a href="mailto:erinmontybruce@gmail.com">
               erinmontybruce@gmail.com
             </a>
