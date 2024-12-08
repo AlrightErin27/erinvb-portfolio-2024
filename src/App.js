@@ -5,7 +5,7 @@ import Home from "./Components/Home/Home";
 import Blog from "./Components/Blog/Blog";
 import Resume from "./Components/Home/Resume/Resume";
 import ProjectVideos from "./Components/Home/ProjectVideos/ProjectVideos";
-import Weatherly from "./Components/Weatherly/Weatherly";
+// import Weatherly from "./Components/Weatherly/Weatherly";
 
 import Games from "./Components/Games/Games";
 import Concentration from "./Components/Games/Concentration/Concentration";
@@ -25,7 +25,7 @@ function App() {
           <Route path="/resume" element={<Resume />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/project-videos" element={<ProjectVideos />} />
-          <Route path="/weatherly" element={<Weatherly />} />
+          {/* <Route path="/weatherly" element={<Weatherly />} /> */}
 
           <Route path="/games" element={<Games />} />
           <Route path="/games/concentration" element={<Concentration />} />

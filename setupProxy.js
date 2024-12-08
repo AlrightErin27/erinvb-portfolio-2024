@@ -1,19 +1,19 @@
-const { createProxyMiddleware } = require("http-proxy-middleware");
+// const { createProxyMiddleware } = require("http-proxy-middleware");
 
-module.exports = function (app) {
-  app.use(
-    "/api",
-    createProxyMiddleware({
-      target: "https://api.openweathermap.org",
-      changeOrigin: true,
-      pathRewrite: {
-        "^/api": "",
-      },
-      secure: true,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-  );
-};
+// module.exports = function (app) {
+//   app.use(
+//     "/api",
+//     createProxyMiddleware({
+//       target: "https://api.openweathermap.org",
+//       changeOrigin: true,
+//       pathRewrite: {
+//         "^/api": "",
+//       },
+//       secure: true,
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//       },
+//     })
+//   );
+// };

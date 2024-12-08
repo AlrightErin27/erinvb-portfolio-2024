@@ -3,10 +3,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const cors = require("cors");
+
 const bodyParser = require("body-parser");
 const path = require("path");
-const helmet = require("helmet");
 
 // in root terminal, start back and front ends: npm run dev
 
@@ -16,121 +15,38 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/shop";
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 const NODE_ENV = process.env.NODE_ENV || "development";
 
-if (NODE_ENV === "production") {
-  // In your Express app configuration
+// Headers middleware RIGHT HERE
+app.use((req, res, next) => {
+  const allowedOrigins =
+    NODE_ENV === "production"
+      ? ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"]
+      : ["http://localhost:3000"];
 
-  if (NODE_ENV === "production") {
-    app.use(
-      helmet({
-        contentSecurityPolicy: {
-          directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: [
-              "'self'",
-              "'unsafe-inline'",
-              "'unsafe-eval'",
-              "player.vimeo.com",
-              "*.vimeo.com",
-              "f.vimeocdn.com",
-              "*.vimeocdn.com",
-              "www.gstatic.com",
-              "vimeocdn.com",
-              "*.virtualearth.net",
-              "cdn.tensorflow.org",
-            ],
-            styleSrc: [
-              "'self'",
-              "'unsafe-inline'",
-              "fonts.googleapis.com",
-              "https://fonts.googleapis.com",
-            ],
-            fontSrc: [
-              "'self'",
-              "fonts.gstatic.com",
-              "https://fonts.gstatic.com",
-              "data:",
-              "https:",
-              "blob:",
-            ],
-            imgSrc: [
-              "'self'",
-              "data:",
-              "blob:",
-              "*.vimeocdn.com",
-              "*.vimeo.com",
-              "*.virtualearth.net",
-              "*.cesium.com",
-              "*.medium.com",
-              "medium.com",
-            ],
-            frameSrc: [
-              "'self'",
-              "player.vimeo.com",
-              "*.vimeo.com",
-              "*.giphy.com",
-              "vimeo.com",
-            ],
-            childSrc: ["'self'", "player.vimeo.com", "blob:"],
-            connectSrc: [
-              "'self'",
-              "http://localhost:5001",
-              "https://localhost:5001",
-              "https://www.erinvanbrunt.com",
-              "https://erinvanbrunt.com",
-              "https://www.erinvanbrunt.com/api", //API endpoints
-              "https://erinvanbrunt.com/api", // API endpoints
-              "vimeo.com",
-              "*.vimeo.com",
-              "player.vimeo.com",
-              "*.vimeocdn.com",
-              "fresnel.vimeocdn.com",
-              "*.cesium.com",
-              "api.cesium.com", // Cesium Assets
-              "assets.cesium.com", // Cesium Assets
-              "ion.cesium.com", // Cesium Assets
-              "*.virtualearth.net",
-              "*.arcgisonline.com",
-              "*.openweathermap.org",
-              "cdn.tensorflow.org",
-              "https://api.rss2json.com",
-              "https://medium.com",
-              "medium.com",
-              "*.medium.com",
-            ],
-            workerSrc: ["'self'", "blob:", "cdn.tensorflow.org"],
-            objectSrc: ["'none'"],
-            manifestSrc: ["'self'"],
-          },
-        },
-      })
+  const origin = req.headers.origin;
+
+  if (origin && allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  } else {
+    console.log(
+      `Denied access to origin: ${
+        origin || "unknown"
+      }. Allowed origins are: ${allowedOrigins.join(", ")}`
     );
   }
-} else {
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-    })
-  );
-}
 
-// CORS configuration should be after helmet but before routes
-const allowedOrigins =
-  NODE_ENV === "production"
-    ? ["https://www.erinvanbrunt.com", "https://erinvanbrunt.com"]
-    : ["http://localhost:3000"];
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 
 app.use(bodyParser.json());
-
 const router = express.Router();
+
 app.use("/api", router);
 
 // MongoDB connection with retry logic
@@ -138,6 +54,12 @@ const connectDB = async () => {
   try {
     await mongoose.connect(MONGODB_URI);
     console.log("Connected to MongoDB at:", MONGODB_URI); // Added more detail
+
+    console.log("Environment:", {
+      NODE_ENV: process.env.NODE_ENV,
+      MONGODB_URI: process.env.MONGODB_URI,
+      PORT: process.env.PORT,
+    });
   } catch (err) {
     console.error("MongoDB connection error:", err.message); // Added .message
     console.error("MongoDB URI:", MONGODB_URI); // Added to help debug
@@ -162,37 +84,6 @@ const UserSchema = new mongoose.Schema({
   lastLogin: { type: Date, default: Date.now },
 });
 const User = mongoose.model("User", UserSchema);
-
-//-----------WEATHERLY SCHEMA ☔ 🧤 ❄️----------------------------------------------------------------//
-const WeatherAISchema = new mongoose.Schema({
-  weatherPattern: {
-    temperature: Number,
-    condition: String,
-    humidity: Number,
-    windSpeed: Number,
-    uvIndex: Number,
-    timeOfDay: String,
-    airQuality: Number,
-  },
-  suggestions: [
-    {
-      type: String,
-      confidence: Number,
-      category: {
-        type: String,
-        enum: ["clothing", "activities", "considerations"],
-      },
-    },
-  ],
-  feedback: {
-    positiveCount: { type: Number, default: 0 },
-    negativeCount: { type: Number, default: 0 },
-    totalInteractions: { type: Number, default: 0 },
-  },
-  lastUpdated: { type: Date, default: Date.now },
-});
-const WeatherAI = mongoose.model("WeatherAI", WeatherAISchema);
-//-----------------------------------------------------------------------------------------------------//
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -228,6 +119,7 @@ router.use((req, res, next) => {
 });
 
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
+//POST
 router.post("/register", async (req, res) => {
   //added to fix non working shop
   console.log("Register endpoint hit", {
@@ -260,6 +152,7 @@ router.post("/register", async (req, res) => {
 });
 
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
+//POST
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -293,6 +186,7 @@ router.post("/login", async (req, res) => {
 });
 
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
+//GET
 router.get("/user", authMiddleware, async (req, res) => {
   try {
     res.json({
@@ -306,6 +200,7 @@ router.get("/user", authMiddleware, async (req, res) => {
 });
 
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
+//POST
 router.post("/purchase", authMiddleware, async (req, res) => {
   try {
     const { cartItems } = req.body;
@@ -335,102 +230,6 @@ router.post("/purchase", authMiddleware, async (req, res) => {
     });
   }
 });
-
-//-----------WEATHERLY ROUTES ☔ 🧤 ❄️----------------------------------------------------------------//
-router.post("/weather/train", async (req, res) => {
-  try {
-    const { weatherData, suggestions, feedback } = req.body;
-    const weatherPattern = new WeatherAI({
-      weatherPattern: {
-        temperature: weatherData.temp.celsius,
-        condition: weatherData.description,
-        humidity: weatherData.humidity,
-        windSpeed: weatherData.wind_speed,
-        uvIndex: weatherData.uv || 0,
-        timeOfDay: weatherData.time,
-        airQuality: weatherData.airQuality || 0,
-      },
-      suggestions: suggestions.map((s) => ({
-        type: s.suggestion,
-        confidence: s.confidence,
-        category: s.category,
-      })),
-      feedback: {
-        positiveCount: feedback.positive ? 1 : 0,
-        negativeCount: feedback.negative ? 1 : 0,
-        totalInteractions: 1,
-      },
-    });
-    await weatherPattern.save();
-    res.status(201).json({ message: "AI training data saved successfully" });
-  } catch (error) {
-    console.error("Weather AI training error:", error);
-    res.status(500).json({ message: "Error saving AI training data" });
-  }
-});
-
-router.get("/weather/suggestions", async (req, res) => {
-  try {
-    const { temperature, condition, humidity, windSpeed, time } = req.query;
-
-    // Find similar weather patterns
-    const similarPatterns = await WeatherAI.find({
-      "weatherPattern.temperature": {
-        $gte: Number(temperature) - 5,
-        $lte: Number(temperature) + 5,
-      },
-      "weatherPattern.condition": condition,
-    })
-      .sort("-feedback.positiveCount")
-      .limit(5);
-
-    // Get most successful suggestions
-    const suggestions = similarPatterns.reduce((acc, pattern) => {
-      pattern.suggestions.forEach((suggestion) => {
-        if (suggestion.confidence > 0.7) {
-          // Only high confidence suggestions
-          acc.push({
-            type: suggestion.type,
-            confidence: suggestion.confidence,
-            category: suggestion.category,
-          });
-        }
-      });
-      return acc;
-    }, []);
-
-    res.json({ suggestions });
-  } catch (error) {
-    console.error("Weather suggestion error:", error);
-    res.status(500).json({ message: "Error getting weather suggestions" });
-  }
-});
-
-router.post("/weather/feedback", async (req, res) => {
-  try {
-    const { patternId, isPositive } = req.body;
-
-    const pattern = await WeatherAI.findById(patternId);
-    if (!pattern) {
-      return res.status(404).json({ message: "Pattern not found" });
-    }
-
-    if (isPositive) {
-      pattern.feedback.positiveCount += 1;
-    } else {
-      pattern.feedback.negativeCount += 1;
-    }
-    pattern.feedback.totalInteractions += 1;
-    pattern.lastUpdated = new Date();
-
-    await pattern.save();
-    res.json({ message: "Feedback recorded successfully" });
-  } catch (error) {
-    console.error("Weather feedback error:", error);
-    res.status(500).json({ message: "Error recording feedback" });
-  }
-});
-//---------------------------------------------------------------------------------------------------//
 
 // Serve static files and handle React routing in production
 if (NODE_ENV === "production") {
