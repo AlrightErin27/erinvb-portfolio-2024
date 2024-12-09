@@ -112,7 +112,6 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-//added to fix non working shop
 router.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
   next();
@@ -121,15 +120,20 @@ router.use((req, res, next) => {
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
 //POST
 // router.post("/register", async (req, res) => {
-//   //added to fix non working shop
-//   console.log("Register endpoint hit", {
-//     body: req.body,
-//     headers: req.headers,
-//     origin: req.get("origin"),
-//   });
-
 //   try {
-//     console.log("Register endpoint hit", req.body);
+//     console.log("Register endpoint hit", {
+//       body: req.body,
+//       headers: req.headers,
+//       origin: req.get("origin"),
+//     });
+
+//     if (!req.body || !req.body.username || !req.body.password) {
+//       return res.status(400).json({
+//         message: "Missing required fields",
+//         received: req.body,
+//       });
+//     }
+
 //     const { username, password } = req.body;
 //     const existingUser = await User.findOne({ username });
 
@@ -144,51 +148,130 @@ router.use((req, res, next) => {
 //     });
 
 //     await newUser.save();
-//     res.status(201).json({ message: "User registered successfully!" });
+//     res.status(201).json({
+//       message: "User registered successfully!",
+//       success: true,
+//     });
 //   } catch (error) {
 //     console.error("Registration error:", error);
-//     res.status(500).json({ message: "Error registering user" });
+//     res.status(500).json({
+//       message: "Error registering user",
+//       error: error.message,
+//     });
 //   }
 // });
 
 router.post("/register", async (req, res) => {
-  try {
-    console.log("Register endpoint hit", {
-      body: req.body,
-      headers: req.headers,
-      origin: req.get("origin"),
-    });
+  console.log("Register endpoint hit with details:", {
+    body: req.body,
+    method: req.method,
+    path: req.path,
+    headers: {
+      ...req.headers,
+      authorization: req.headers.authorization ? "[REDACTED]" : undefined,
+    },
+    origin: req.get("origin"),
+    ip: req.ip,
+    timestamp: new Date().toISOString(),
+  });
 
-    if (!req.body || !req.body.username || !req.body.password) {
+  try {
+    // Validate request body
+    if (!req.body) {
+      console.error("Missing request body");
       return res.status(400).json({
-        message: "Missing required fields",
-        received: req.body,
+        message: "Missing request body",
+        success: false,
+        code: "MISSING_BODY",
       });
     }
 
     const { username, password } = req.body;
+
+    // Validate required fields
+    if (!username || !password) {
+      console.error("Missing required fields", {
+        hasUsername: !!username,
+        hasPassword: !!password,
+      });
+      return res.status(400).json({
+        message: "Username and password are required",
+        success: false,
+        code: "MISSING_FIELDS",
+      });
+    }
+
+    // Validate field types
+    if (typeof username !== "string" || typeof password !== "string") {
+      console.error("Invalid field types", {
+        usernameType: typeof username,
+        passwordType: typeof password,
+      });
+      return res.status(400).json({
+        message: "Invalid username or password format",
+        success: false,
+        code: "INVALID_TYPES",
+      });
+    }
+
+    // Check for existing user
+    console.log("Checking for existing user:", username);
     const existingUser = await User.findOne({ username });
 
     if (existingUser) {
-      return res.status(400).json({ message: "Username already exists" });
+      console.log("Username already exists:", username);
+      return res.status(400).json({
+        message: "Username already exists",
+        success: false,
+        code: "USERNAME_EXISTS",
+      });
     }
 
+    // Hash password
+    console.log("Hashing password");
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    console.log("Creating new user");
     const newUser = new User({
       username,
       password: hashedPassword,
+      created: new Date(),
     });
 
+    // Save user
+    console.log("Saving new user to database");
     await newUser.save();
+
+    console.log("User registered successfully:", username);
     res.status(201).json({
       message: "User registered successfully!",
       success: true,
+      code: "REGISTRATION_SUCCESS",
     });
   } catch (error) {
-    console.error("Registration error:", error);
+    console.error("Registration error:", {
+      error: error.message,
+      stack: error.stack,
+      type: error.name,
+      code: error.code,
+    });
+
+    // MongoDB duplicate key error
+    if (error.code === 11000) {
+      return res.status(400).json({
+        message: "Username already exists",
+        success: false,
+        code: "USERNAME_EXISTS",
+      });
+    }
+
+    // Generic error response
     res.status(500).json({
       message: "Error registering user",
-      error: error.message,
+      success: false,
+      code: "SERVER_ERROR",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 });
