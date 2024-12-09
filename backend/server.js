@@ -120,16 +120,52 @@ router.use((req, res, next) => {
 
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
 //POST
-router.post("/register", async (req, res) => {
-  //added to fix non working shop
-  console.log("Register endpoint hit", {
-    body: req.body,
-    headers: req.headers,
-    origin: req.get("origin"),
-  });
+// router.post("/register", async (req, res) => {
+//   //added to fix non working shop
+//   console.log("Register endpoint hit", {
+//     body: req.body,
+//     headers: req.headers,
+//     origin: req.get("origin"),
+//   });
 
+//   try {
+//     console.log("Register endpoint hit", req.body);
+//     const { username, password } = req.body;
+//     const existingUser = await User.findOne({ username });
+
+//     if (existingUser) {
+//       return res.status(400).json({ message: "Username already exists" });
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const newUser = new User({
+//       username,
+//       password: hashedPassword,
+//     });
+
+//     await newUser.save();
+//     res.status(201).json({ message: "User registered successfully!" });
+//   } catch (error) {
+//     console.error("Registration error:", error);
+//     res.status(500).json({ message: "Error registering user" });
+//   }
+// });
+
+router.post("/register", async (req, res) => {
   try {
-    console.log("Register endpoint hit", req.body);
+    console.log("Register endpoint hit", {
+      body: req.body,
+      headers: req.headers,
+      origin: req.get("origin"),
+    });
+
+    if (!req.body || !req.body.username || !req.body.password) {
+      return res.status(400).json({
+        message: "Missing required fields",
+        received: req.body,
+      });
+    }
+
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });
 
@@ -144,10 +180,16 @@ router.post("/register", async (req, res) => {
     });
 
     await newUser.save();
-    res.status(201).json({ message: "User registered successfully!" });
+    res.status(201).json({
+      message: "User registered successfully!",
+      success: true,
+    });
   } catch (error) {
     console.error("Registration error:", error);
-    res.status(500).json({ message: "Error registering user" });
+    res.status(500).json({
+      message: "Error registering user",
+      error: error.message,
+    });
   }
 });
 
