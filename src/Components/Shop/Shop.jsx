@@ -79,7 +79,15 @@ const Shop = () => {
   //   console.log("API_URL in Shop.jsx:", API_URL);
   // };
 
-  const handleRegister = async () => {
+  const handleRegister = async (req, res) => {
+    console.log("Register endpoint hit with full details:", {
+      body: req.body,
+      headers: req.headers,
+      method: req.method,
+      path: req.path,
+      query: req.query,
+    });
+
     try {
       console.log("Attempting to register with URL:", `${API_URL}/register`);
       await axios.post(
@@ -94,7 +102,13 @@ const Shop = () => {
       );
       alert("Registration successful! Please log in.");
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("Detailed registration error:", {
+        error: error.message,
+        stack: error.stack,
+      });
+
+      res.status(500).json({ message: "Error registering user" });
+
       alert(
         error.response?.data?.message ||
           "Registration failed. Please try again."
