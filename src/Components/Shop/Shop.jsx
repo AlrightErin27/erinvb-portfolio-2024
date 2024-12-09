@@ -64,10 +64,34 @@ const Shop = () => {
     }
   }, [fetchUserData]);
 
+  // const handleRegister = async () => {
+  //   try {
+  //     console.log("Attempting to register with URL:", `${API_URL}/register`);
+  //     await axios.post(`${API_URL}/register`, { username, password });
+  //     alert("Registration successful! Please log in.");
+  //   } catch (error) {
+  //     console.error("Registration error:", error);
+  //     alert(
+  //       error.response?.data?.message ||
+  //         "Registration failed. Please try again."
+  //     );
+  //   }
+  //   console.log("API_URL in Shop.jsx:", API_URL);
+  // };
+
   const handleRegister = async () => {
     try {
       console.log("Attempting to register with URL:", `${API_URL}/register`);
-      await axios.post(`${API_URL}/register`, { username, password });
+      await axios.post(
+        `${API_URL}/register`,
+        { username, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
       alert("Registration successful! Please log in.");
     } catch (error) {
       console.error("Registration error:", error);
