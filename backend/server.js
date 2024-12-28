@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 // in root terminal, start back and front ends: npm run dev
+//git log:  more robust error handling for reg. shop works locally ***has page working live!
 
 const app = express();
 const PORT = process.env.PORT || 5001;
