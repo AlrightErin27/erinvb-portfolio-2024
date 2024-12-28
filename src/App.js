@@ -12,6 +12,7 @@ import Concentration from "./Components/Games/Concentration/Concentration";
 import NoughtsAndCrosses from "./Components/Games/NoughtsAndCrosses/NoughtsAndCrosses";
 import Crossword from "./Components/Games/Crossword/Crossword";
 import CemeteryRun from "./Components/Games/CemeteryRun/CemeteryRun";
+import TwoZedFourEight from "./Components/Games/2048/TwoZedFourEight";
 
 import Shop from "./Components/Shop/Shop";
 
@@ -35,6 +36,7 @@ function App() {
           />
           <Route path="/games/crossword" element={<Crossword />} />
           <Route path="/games/cemetery-run" element={<CemeteryRun />} />
+          <Route path="/games/2048" element={<TwoZedFourEight />} />
 
           <Route path="/shop" element={<Shop />} />
         </Routes>
