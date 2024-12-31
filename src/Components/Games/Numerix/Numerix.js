@@ -1,6 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import "./Numerix.css";
 
+//TO DO:
+//change the ended game alert to a modal
+//check if game looks good on all screen sizes.
+//allow user to create a documented score if they'd like (saved to DB)
+
 export default function Numerix() {
   const [board, setBoard] = useState(Array(16).fill(null));
   const [showHelp, setShowHelp] = useState(false);
