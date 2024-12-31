@@ -4,7 +4,9 @@ import "./Numerix.css";
 //TO DO:
 //change the ended game alert to a modal
 //check if game looks good on all screen sizes.
+//make sure touch screen players can play
 //allow user to create a documented score if they'd like (saved to DB)
+//update readme, update larger portfolio read me
 
 export default function Numerix() {
   const [board, setBoard] = useState(Array(16).fill(null));

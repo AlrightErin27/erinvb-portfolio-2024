@@ -2,7 +2,7 @@
 
 [Numerix](http://www.erinvanbrunt.com/games/numerix) is a React-based adaptation of the classic 2048 game, offering a sleek and intuitive interface with modern aesthetics. This project is part of my portfolio, accessible at [erinvanbrunt.com](http://www.erinvanbrunt.com).
 
-[Medium Blog Post: Building 2048 (Game) in React.js: A Step-by-step Tutorial](https://medium.com/@erinmontybruce/building-2048-game-in-react-a-step-by-step-tutorial-ed83630e0488)
+#### Medium Blog Post: [Building 2048 (Game) in React.js: A Step-by-step Tutorial](https://medium.com/@erinmontybruce/building-2048-game-in-react-a-step-by-step-tutorial-ed83630e0488)
 
 ## 1. Overview and User Walkthrough
 

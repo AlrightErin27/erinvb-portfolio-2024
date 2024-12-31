@@ -188,3 +188,100 @@ body {
   background: var(--text-color);
   transform: translateY(-2px);
 }
+
+/* Tablet and smaller laptops */
+@media screen and (max-width: 1024px) {
+  .n-board {
+    width: 400px;
+    height: 400px;
+  }
+  .n-cell {
+    font-size: 2.5rem;
+  }
+  .n-title {
+    font-size: 3rem;
+  }
+  .n-button-bar {
+    width: 60%;
+  }
+}
+
+/* iPads and larger tablets */
+@media screen and (max-width: 768px) {
+  .n-board {
+    width: 350px;
+    height: 350px;
+  }
+  .n-cell {
+    font-size: 2rem;
+  }
+  .show-help {
+    width: 80%;
+  }
+}
+
+/* Large smartphones */
+@media screen and (max-width: 480px) {
+  .n-board {
+    width: 280px;
+    height: 280px;
+  }
+  .n-cell {
+    font-size: 1.8rem;
+  }
+  .n-title {
+    font-size: 2.5rem;
+  }
+  .n-button-bar {
+    width: 80%;
+  }
+  .show-help h3 {
+    font-size: 1.5rem;
+  }
+  .show-help p,
+  .show-help li {
+    font-size: 1rem;
+  }
+}
+
+/* Small smartphones */
+@media screen and (max-width: 320px) {
+  .n-board {
+    width: 240px;
+    height: 240px;
+  }
+  .n-cell {
+    font-size: 1.5rem;
+  }
+  .n-title {
+    font-size: 2rem;
+  }
+  .show-help {
+    width: 95%;
+    padding: 1rem;
+  }
+}
+
+/* For very tall mobile screens - prevent content overflow */
+@media screen and (max-height: 700px) {
+  .numerix {
+    height: auto;
+    padding: 2rem 0;
+  }
+}
+
+/* For landscape orientation on mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .numerix {
+    height: auto;
+    padding: 1rem 0;
+  }
+  .n-board {
+    width: 260px;
+    height: 260px;
+  }
+  .n-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+}
