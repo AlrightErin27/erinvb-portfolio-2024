@@ -58,63 +58,152 @@ export default function Numerix() {
     startGame();
   }, [startGame]);
 
-  const moveLeft = useCallback(() => {
-    //copy of current board
-    let newBoard = [...board];
-    let changed = false; //Track if anything moved
+  const moveHorizontal = useCallback(
+    (direction) => {
+      let newBoard = [...board];
+      let changed = false;
 
-    //process each row (all 4 els of each row)
-    for (let i = 0; i < 16; i += 4) {
-      //get curr row's 4 els
-      let row = newBoard.slice(i, i + 4);
+      // Process each row
+      for (let i = 0; i < 16; i += 4) {
+        // Get current row
+        let row = newBoard.slice(i, i + 4);
 
-      //remove nulls and pack the nums to the left
-      let filtered = row.filter((cell) => cell !== null);
+        // Remove nulls
+        let filtered = row.filter((cell) => cell !== null);
 
-      // Combine equal numbers
-      for (let j = 0; j < filtered.length - 1; j++) {
-        if (filtered[j] === filtered[j + 1]) {
-          filtered[j] = filtered[j] * 2;
-          filtered.splice(j + 1, 1);
-          changed = true;
+        // Combine equal numbers
+        if (direction === "right") {
+          // Right to left combining
+          for (let j = filtered.length - 1; j > 0; j--) {
+            if (filtered[j] === filtered[j - 1]) {
+              filtered[j] = filtered[j] * 2;
+              filtered.splice(j - 1, 1);
+              changed = true;
+            }
+          }
+        } else {
+          // Left to right combining
+          for (let j = 0; j < filtered.length - 1; j++) {
+            if (filtered[j] === filtered[j + 1]) {
+              filtered[j] = filtered[j] * 2;
+              filtered.splice(j + 1, 1);
+              changed = true;
+            }
+          }
+        }
+
+        // Pad with nulls
+        while (filtered.length < 4) {
+          if (direction === "right") {
+            filtered.unshift(null); // Add nulls to left
+          } else {
+            filtered.push(null); // Add nulls to right
+          }
+        }
+
+        // Update the board
+        for (let j = 0; j < 4; j++) {
+          if (newBoard[i + j] !== filtered[j]) {
+            changed = true;
+          }
+          newBoard[i + j] = filtered[j];
         }
       }
 
-      //pad the row with nulls on the right
-      while (filtered.length < 4) {
-        filtered.push(null);
-      }
-
-      //update the board with the modified row
-      for (let j = 0; j < 4; j++) {
-        if (newBoard[i + j] !== filtered[j]) {
-          changed = true;
+      if (changed) {
+        const emptyCell = getRandomEmptyCell(newBoard);
+        if (emptyCell !== null) {
+          newBoard[emptyCell] = generateNewNumber();
         }
-        newBoard[i + j] = filtered[j];
+        setBoard(newBoard);
       }
-    }
+    },
+    [board, getRandomEmptyCell, generateNewNumber]
+  );
 
-    if (changed) {
-      console.log("Board changed: ", newBoard);
-      setBoard(newBoard);
-    }
-  }, [board]);
+  const moveVertical = useCallback(
+    (direction) => {
+      let newBoard = [...board];
+      let changed = false;
 
-  //useEffect just for keyboard events
+      // Process each column (4 columns, starting at indices 0,1,2,3)
+      for (let i = 0; i < 4; i++) {
+        // Get current column
+        let column = [
+          newBoard[i], // First row
+          newBoard[i + 4], // Second row
+          newBoard[i + 8], // Third row
+          newBoard[i + 12], // Fourth row
+        ];
+
+        // Remove nulls
+        let filtered = column.filter((cell) => cell !== null);
+
+        // Combine equal numbers
+        if (direction === "down") {
+          for (let j = filtered.length - 1; j > 0; j--) {
+            if (filtered[j] === filtered[j - 1]) {
+              filtered[j] = filtered[j] * 2;
+              filtered.splice(j - 1, 1);
+              changed = true;
+            }
+          }
+        } else {
+          for (let j = 0; j < filtered.length - 1; j++) {
+            if (filtered[j] === filtered[j + 1]) {
+              filtered[j] = filtered[j] * 2;
+              filtered.splice(j + 1, 1);
+              changed = true;
+            }
+          }
+        }
+
+        // Pad with nulls
+        while (filtered.length < 4) {
+          if (direction === "down") {
+            filtered.unshift(null);
+          } else {
+            filtered.push(null);
+          }
+        }
+
+        // Update the board - THIS IS THE FIXED PART
+        for (let j = 0; j < 4; j++) {
+          // Calculate the correct index in the flat board array
+          const boardIndex = i + j * 4;
+          if (newBoard[boardIndex] !== filtered[j]) {
+            changed = true;
+          }
+          newBoard[boardIndex] = filtered[j];
+        }
+      }
+
+      if (changed) {
+        const emptyCell = getRandomEmptyCell(newBoard);
+        if (emptyCell !== null) {
+          newBoard[emptyCell] = generateNewNumber();
+        }
+        setBoard(newBoard);
+      }
+    },
+    [board, getRandomEmptyCell, generateNewNumber]
+  );
+
+  //useEffect just for arrow keyboard events
   useEffect(() => {
     const handleKeyPress = (event) => {
       switch (event.key) {
         case "ArrowUp":
-          console.log("Up arrow pressed");
+          moveVertical("up");
           break;
         case "ArrowDown":
-          console.log("Down arrow pressed");
+          moveVertical("down");
           break;
         case "ArrowLeft":
-          moveLeft();
+          moveHorizontal("left");
           break;
         case "ArrowRight":
-          console.log("Right arrow pressed");
+          moveHorizontal("right");
           break;
         default:
           // If any other key is pressed-> don't need to do anything
@@ -127,7 +216,7 @@ export default function Numerix() {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [moveLeft]);
+  }, [moveVertical, moveHorizontal]);
 
   return (
     <div className="numerix">
