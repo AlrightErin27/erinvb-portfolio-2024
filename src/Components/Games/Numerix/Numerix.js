@@ -3,6 +3,8 @@ import "./Numerix.css";
 
 export default function Numerix() {
   const [board, setBoard] = useState(Array(16).fill(null));
+  const [showHelp, setShowHelp] = useState(false);
+  const [score, setScore] = useState(0);
 
   const getRandomEmptyCell = useCallback((boardState) => {
     let emptyPositions = [];
@@ -40,6 +42,7 @@ export default function Numerix() {
   const startGame = useCallback(() => {
     // Create a new empty board
     const newBoard = Array(16).fill(null);
+    setScore(0);
 
     // Place first number
     const firstPosition = getRandomEmptyCell(newBoard);
@@ -78,6 +81,7 @@ export default function Numerix() {
     }
 
     console.log("No moves possible, game over!");
+
     return true;
   }, [board]);
 
@@ -90,6 +94,7 @@ export default function Numerix() {
     (direction) => {
       let newBoard = [...board];
       let changed = false;
+      let points = 0; //track points in just this move
 
       // Process each row
       for (let i = 0; i < 16; i += 4) {
@@ -105,6 +110,7 @@ export default function Numerix() {
           for (let j = filtered.length - 1; j > 0; j--) {
             if (filtered[j] === filtered[j - 1]) {
               filtered[j] = filtered[j] * 2;
+              points += filtered[j]; //update points
               filtered.splice(j - 1, 1);
               changed = true;
             }
@@ -114,6 +120,7 @@ export default function Numerix() {
           for (let j = 0; j < filtered.length - 1; j++) {
             if (filtered[j] === filtered[j + 1]) {
               filtered[j] = filtered[j] * 2;
+              points += filtered[j]; //update points
               filtered.splice(j + 1, 1);
               changed = true;
             }
@@ -144,11 +151,13 @@ export default function Numerix() {
           newBoard[emptyCell] = generateNewNumber();
         }
         setBoard(newBoard);
+        setScore((prev) => prev + points);
       }
 
       // Check for game over
       if (checkGameOver()) {
         alert("Game over!");
+        // setScore(0);
       }
     },
     [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
@@ -158,6 +167,7 @@ export default function Numerix() {
     (direction) => {
       let newBoard = [...board];
       let changed = false;
+      let points = 0;
 
       // Process each column (4 columns, starting at indices 0,1,2,3)
       for (let i = 0; i < 4; i++) {
@@ -177,6 +187,7 @@ export default function Numerix() {
           for (let j = filtered.length - 1; j > 0; j--) {
             if (filtered[j] === filtered[j - 1]) {
               filtered[j] = filtered[j] * 2;
+              points += filtered[j];
               filtered.splice(j - 1, 1);
               changed = true;
             }
@@ -185,6 +196,7 @@ export default function Numerix() {
           for (let j = 0; j < filtered.length - 1; j++) {
             if (filtered[j] === filtered[j + 1]) {
               filtered[j] = filtered[j] * 2;
+              points += filtered[j];
               filtered.splice(j + 1, 1);
               changed = true;
             }
@@ -217,6 +229,7 @@ export default function Numerix() {
           newBoard[emptyCell] = generateNewNumber();
         }
         setBoard(newBoard);
+        setScore((prev) => prev + points);
       }
 
       // Check for game over
@@ -230,6 +243,11 @@ export default function Numerix() {
   //useEffect just for arrow keyboard events
   useEffect(() => {
     const handleKeyPress = (event) => {
+      // Prevent default scrolling behavior for arrow keys
+      if (event.key.startsWith("Arrow")) {
+        event.preventDefault();
+      }
+
       switch (event.key) {
         case "ArrowUp":
           moveVertical("up");
@@ -259,6 +277,11 @@ export default function Numerix() {
   return (
     <div className="numerix">
       <div className="n-title">Numerix</div>
+      {score ? (
+        <p className="score">Score: {score}</p>
+      ) : (
+        <p className="score-null">""</p>
+      )}
       <div className="n-board-cont">
         <div className="n-board">
           {board.map((cell, index) => {
@@ -270,6 +293,38 @@ export default function Numerix() {
           })}
         </div>
       </div>
+      <div className="n-button-bar">
+        <button onClick={() => startGame()}>Restart</button>
+        <button onClick={() => setShowHelp(!showHelp)}>?</button>
+      </div>
+      {showHelp ? (
+        <div className="show-help">
+          <h3>Welcome to Numerix!</h3>
+          <p>
+            Numerix, also known as 2048, is a fun and addictive number puzzle
+            game. Here's how to play:
+          </p>
+          <ul>
+            <li>
+              Use your arrow keys (← ↑ → ↓) to slide the tiles across the grid.
+            </li>
+            <li>
+              When two tiles with the same number touch, they merge into one,
+              doubling their value!
+            </li>
+            <li>
+              Keep combining tiles to create bigger numbers. The ultimate goal
+              is to reach 2048, but you can keep playing to go even higher!
+            </li>
+          </ul>
+          <p>Can you master the game and achieve the highest score?</p>
+          <h3>Good luck!</h3>
+
+          <button className="close-help" onClick={() => setShowHelp(false)}>
+            Close
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

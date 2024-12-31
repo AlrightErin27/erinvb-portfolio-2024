@@ -1,13 +1,14 @@
 /* Numerix.css  */
 
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+MX+Guides&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rancho&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+MX:wght@100..400&display=swap");
 
 :root {
   --primary-background: #9f9e9b; /* Subtle pencil lead gradient */
   --secondary-background: #e1dfdd; /* Subtle secondary gradient */
-  --text-color: #333; /* Pencil graphite text color */
-  --alt-text-color: #3f3f3f; /* Dark pencil lead color */
+  --text-color: #2c2c2c; /* Pencil graphite text color */
+  --alt-text-color: #424242; /* Dark pencil lead color */
   --board-background: #d6d4d1; /* Light muted paper tone */
   --shadow-dark: rgba(0, 0, 0, 0.2); /* Old-school soft shadow */
   --shadow-light: rgba(232, 231, 231, 0.618); /* Light shadow effect */
@@ -43,6 +44,15 @@ body {
   margin-bottom: 1rem;
 }
 
+.score {
+  font-family: "Playwrite MX", serif;
+}
+
+.score-null {
+  color: transparent;
+  font-family: "Playwrite MX", serif;
+}
+
 .n-board-cont {
   display: flex;
   align-items: center;
@@ -50,6 +60,7 @@ body {
   background: var(--alt-text-color);
   border-radius: 10px;
   padding: 1rem;
+  cursor: not-allowed;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2),
     -4px -4px 10px var(--shadow-light);
 }
@@ -74,8 +85,106 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  font-family: "Kalam", serif;
+  font-family: "Rancho", serif;
   aspect-ratio: 1; /* Makes cell perfectly square */
   width: 100%; /* Fill the grid space */
   box-sizing: border-box;
+}
+
+.n-button-bar {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.n-button-bar button {
+  border: none;
+  font-family: "Playwrite MX", serif;
+  background-color: transparent;
+  font-size: 2rem;
+  color: var(--alt-text-color);
+  cursor: pointer;
+  outline: none;
+}
+
+.n-button-bar button:hover {
+  color: blue;
+}
+
+.show-help {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  border: 2px solid var(--alt-text-color);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: "Playwrite MX", serif;
+}
+
+.show-help::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(122, 122, 122, 0.5);
+  z-index: -1;
+}
+
+.show-help h3 {
+  color: var(--alt-text-color);
+  font-size: 2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.show-help p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.show-help ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.show-help li {
+  font-size: 1.1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+}
+
+.close-help {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: "Playwrite MX", serif;
+  font-size: 1.2rem;
+  background: var(--alt-text-color);
+  color: var(--board-background);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-help:hover {
+  background: var(--text-color);
+  transform: translateY(-2px);
 }
