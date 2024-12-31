@@ -1,0 +1,78 @@
+/* Numerix.css  */
+
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+MX+Guides&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap");
+
+:root {
+  --primary-background: #9f9e9b; /* Subtle pencil lead gradient */
+  --secondary-background: #e1dfdd; /* Subtle secondary gradient */
+  --text-color: #333; /* Pencil graphite text color */
+  --alt-text-color: #3f3f3f; /* Dark pencil lead color */
+  --board-background: #d6d4d1; /* Light muted paper tone */
+  --shadow-dark: rgba(0, 0, 0, 0.2); /* Old-school soft shadow */
+  --shadow-light: rgba(232, 231, 231, 0.8); /* Light shadow effect */
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url("../../../Images/Games/Numerix/papertexture.jpg");
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--text-color);
+}
+
+.numerix {
+  font-family: "Playwrite MX Guides", serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #9f9e9b7c;
+}
+
+.n-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--alt-text-color);
+  text-shadow: 1px 1px 0 #ddd, -1px -1px 0 #ddd;
+  margin-bottom: 1rem;
+}
+
+.n-board-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--alt-text-color);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2),
+    -4px -4px 10px var(--shadow-light);
+}
+
+.n-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding: 10px;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #b0aea9, var(--board-background));
+  border: 1px solid var(--alt-text-color);
+  border-radius: 5px;
+}
+
+.n-cell {
+  background: var(--board-background);
+  border: 2px solid var(--alt-text-color);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-family: "Kalam", serif;
+}
