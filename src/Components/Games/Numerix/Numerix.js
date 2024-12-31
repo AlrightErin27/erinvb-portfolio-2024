@@ -58,6 +58,77 @@ export default function Numerix() {
     startGame();
   }, [startGame]);
 
+  const moveLeft = useCallback(() => {
+    //copy of current board
+    let newBoard = [...board];
+    let changed = false; //Track if anything moved
+
+    //process each row (all 4 els of each row)
+    for (let i = 0; i < 16; i += 4) {
+      //get curr row's 4 els
+      let row = newBoard.slice(i, i + 4);
+
+      //remove nulls and pack the nums to the left
+      let filtered = row.filter((cell) => cell !== null);
+
+      // Combine equal numbers
+      for (let j = 0; j < filtered.length - 1; j++) {
+        if (filtered[j] === filtered[j + 1]) {
+          filtered[j] = filtered[j] * 2;
+          filtered.splice(j + 1, 1);
+          changed = true;
+        }
+      }
+
+      //pad the row with nulls on the right
+      while (filtered.length < 4) {
+        filtered.push(null);
+      }
+
+      //update the board with the modified row
+      for (let j = 0; j < 4; j++) {
+        if (newBoard[i + j] !== filtered[j]) {
+          changed = true;
+        }
+        newBoard[i + j] = filtered[j];
+      }
+    }
+
+    if (changed) {
+      console.log("Board changed: ", newBoard);
+      setBoard(newBoard);
+    }
+  }, [board]);
+
+  //useEffect just for keyboard events
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      switch (event.key) {
+        case "ArrowUp":
+          console.log("Up arrow pressed");
+          break;
+        case "ArrowDown":
+          console.log("Down arrow pressed");
+          break;
+        case "ArrowLeft":
+          moveLeft();
+          break;
+        case "ArrowRight":
+          console.log("Right arrow pressed");
+          break;
+        default:
+          // If any other key is pressed-> don't need to do anything
+          return;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [moveLeft]);
+
   return (
     <div className="numerix">
       <div className="n-title">Numerix</div>
