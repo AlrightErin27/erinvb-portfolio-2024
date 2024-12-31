@@ -53,6 +53,34 @@ export default function Numerix() {
     setBoard(newBoard);
   }, [getRandomEmptyCell, generateNewNumber]);
 
+  const checkGameOver = useCallback(() => {
+    //check if there are any empty cells
+    if (board.includes(null)) {
+      return false;
+    }
+
+    //check for possible horizontal combos
+    for (let i = 0; i < 16; i += 4) {
+      for (let j = 0; j < 3; j++) {
+        if (board[i + j] === board[i + j + 1]) {
+          return false;
+        }
+      }
+    }
+
+    // check for possible vertical combinations
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 12; j += 4) {
+        if (board[i + j] === board[i + j + 4]) {
+          return false;
+        }
+      }
+    }
+
+    console.log("No moves possible, game over!");
+    return true;
+  }, [board]);
+
   //useEffect starts game when page is first rendered
   useEffect(() => {
     startGame();
@@ -117,8 +145,13 @@ export default function Numerix() {
         }
         setBoard(newBoard);
       }
+
+      // Check for game over
+      if (checkGameOver()) {
+        alert("Game over!");
+      }
     },
-    [board, getRandomEmptyCell, generateNewNumber]
+    [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
   );
 
   const moveVertical = useCallback(
@@ -185,8 +218,13 @@ export default function Numerix() {
         }
         setBoard(newBoard);
       }
+
+      // Check for game over
+      if (checkGameOver()) {
+        alert("Game over!");
+      }
     },
-    [board, getRandomEmptyCell, generateNewNumber]
+    [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
   );
 
   //useEffect just for arrow keyboard events
