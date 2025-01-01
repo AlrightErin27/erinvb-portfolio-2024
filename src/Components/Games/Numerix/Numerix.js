@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import "./Numerix.css";
+import TouchModeIcon from "../../../Images/Games/Numerix/fingerprint.png";
+import CloseIcon from "../../../Images/Games/Numerix/close.png";
+import TouchPad from "./TouchPad";
 
 //TO DO:
 //change the ended game alert to a modal
@@ -12,6 +15,7 @@ export default function Numerix() {
   const [board, setBoard] = useState(Array(16).fill(null));
   const [showHelp, setShowHelp] = useState(false);
   const [score, setScore] = useState(0);
+  const [touchMode, setTouchMode] = useState(false);
 
   const getRandomEmptyCell = useCallback((boardState) => {
     let emptyPositions = [];
@@ -284,6 +288,7 @@ export default function Numerix() {
   return (
     <div className="numerix">
       <div className="n-title">Numerix</div>
+
       {score ? (
         <p className="score">Score: {score}</p>
       ) : (
@@ -302,6 +307,32 @@ export default function Numerix() {
       </div>
       <div className="n-button-bar">
         <button onClick={() => startGame()}>Restart</button>
+        <div className="touch-mode-cont">
+          {!touchMode ? (
+            <button onClick={() => setTouchMode(!touchMode)}>
+              <img
+                className="touch-mode-icon"
+                src={TouchModeIcon}
+                alt="touch"
+              />
+            </button>
+          ) : (
+            <div className="touch-mode-true-cont">
+              <TouchPad />
+              <button
+                onClick={() => setTouchMode(false)}
+                className="touch-mode-false-button"
+              >
+                <img
+                  src={CloseIcon}
+                  alt="close icon"
+                  style={{ height: "2rem", cursor: "pointer" }}
+                />
+              </button>
+            </div>
+          )}
+        </div>
+
         <button onClick={() => setShowHelp(!showHelp)}>?</button>
       </div>
       {showHelp ? (

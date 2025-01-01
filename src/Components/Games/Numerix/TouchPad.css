@@ -1,0 +1,58 @@
+.touch-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  width: 150px;
+  height: 150px;
+  background: var(--alt-text-color);
+  border: 5px solid var(--alt-text-color);
+  border-radius: 10px;
+  margin-top: 5%;
+}
+
+.touch-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--board-background);
+  border: 2px solid var(--alt-text-color);
+  font-family: "Rancho", serif;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  box-shadow: inset 1px 1px 5px var(--shadow-dark),
+    inset -1px -1px 5px var(--shadow-light);
+}
+
+.enable-touch-box {
+  cursor: pointer;
+}
+
+.enable-touch-box:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 103, 224, 0.714);
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  transform: scale(1.15);
+  box-shadow: inset 2px 2px 8px var(--shadow-dark),
+    inset -2px -2px 8px var(--shadow-light);
+}
+
+.enable-touch-box:active {
+  background: var(--primary-background);
+  transform: scale(0.95);
+  box-shadow: inset 3px 3px 10px var(--shadow-dark),
+    inset -3px -3px 10px var(--shadow-light);
+}
+
+.null-box {
+  background: var(--alt-text-color);
+  height: 100%;
+  width: 100%;
+  border: solid rgba(128, 128, 128, 0.515) 3px;
+}

@@ -1,17 +1,15 @@
-/* Numerix.css  */
-
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+MX+Guides&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rancho&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+MX:wght@100..400&display=swap");
 
 :root {
-  --primary-background: #9f9e9b; /* Subtle pencil lead gradient */
-  --secondary-background: #e1dfdd; /* Subtle secondary gradient */
-  --text-color: #2c2c2c; /* Pencil graphite text color */
-  --alt-text-color: #424242; /* Dark pencil lead color */
-  --board-background: #d6d4d1; /* Light muted paper tone */
-  --shadow-dark: rgba(0, 0, 0, 0.2); /* Old-school soft shadow */
-  --shadow-light: rgba(232, 231, 231, 0.618); /* Light shadow effect */
+  --primary-background: #9f9e9b;
+  --secondary-background: #e1dfdd;
+  --text-color: #2c2c2c;
+  --alt-text-color: #4d4d4d;
+  --board-background: #d6d4d1;
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --shadow-light: rgba(232, 231, 231, 0.618);
 }
 
 html,
@@ -33,6 +31,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 1rem;
   background-color: #9f9e9b7c;
 }
 
@@ -60,9 +59,6 @@ body {
   background: var(--alt-text-color);
   border-radius: 10px;
   padding: 1rem;
-  cursor: not-allowed;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2),
-    -4px -4px 10px var(--shadow-light);
 }
 
 .n-board {
@@ -86,14 +82,16 @@ body {
   justify-content: center;
   font-size: 3rem;
   font-family: "Rancho", serif;
-  aspect-ratio: 1; /* Makes cell perfectly square */
-  width: 100%; /* Fill the grid space */
+  aspect-ratio: 1;
+  width: 100%;
   box-sizing: border-box;
 }
 
 .n-button-bar {
-  width: 40%;
+  min-width: 30vw;
+  max-width: 50vw;
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -105,10 +103,24 @@ body {
   color: var(--alt-text-color);
   cursor: pointer;
   outline: none;
+  width: 4rem;
+}
+
+.touch-mode-true-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.touch-mode-icon {
+  height: 6vh;
+  padding-top: 15%;
+  margin-left: 2rem;
 }
 
 .n-button-bar button:hover {
-  color: blue;
+  filter: invert(0.4);
 }
 
 .show-help {
@@ -189,14 +201,14 @@ body {
   transform: translateY(-2px);
 }
 
-/* Tablet and smaller laptops */
-@media screen and (max-width: 1024px) {
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
   .n-board {
-    width: 400px;
-    height: 400px;
+    width: 350px;
+    height: 350px;
   }
   .n-cell {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   .n-title {
     font-size: 3rem;
@@ -206,21 +218,6 @@ body {
   }
 }
 
-/* iPads and larger tablets */
-@media screen and (max-width: 768px) {
-  .n-board {
-    width: 350px;
-    height: 350px;
-  }
-  .n-cell {
-    font-size: 2rem;
-  }
-  .show-help {
-    width: 80%;
-  }
-}
-
-/* Large smartphones */
 @media screen and (max-width: 480px) {
   .n-board {
     width: 280px;
@@ -241,47 +238,5 @@ body {
   .show-help p,
   .show-help li {
     font-size: 1rem;
-  }
-}
-
-/* Small smartphones */
-@media screen and (max-width: 320px) {
-  .n-board {
-    width: 240px;
-    height: 240px;
-  }
-  .n-cell {
-    font-size: 1.5rem;
-  }
-  .n-title {
-    font-size: 2rem;
-  }
-  .show-help {
-    width: 95%;
-    padding: 1rem;
-  }
-}
-
-/* For very tall mobile screens - prevent content overflow */
-@media screen and (max-height: 700px) {
-  .numerix {
-    height: auto;
-    padding: 2rem 0;
-  }
-}
-
-/* For landscape orientation on mobile */
-@media screen and (max-height: 500px) and (orientation: landscape) {
-  .numerix {
-    height: auto;
-    padding: 1rem 0;
-  }
-  .n-board {
-    width: 260px;
-    height: 260px;
-  }
-  .n-title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
   }
 }
