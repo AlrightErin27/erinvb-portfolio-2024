@@ -32,7 +32,6 @@ body {
   justify-content: center;
   height: 100vh;
   padding: 1rem;
-  background-color: #9f9e9b7c;
 }
 
 .n-title {
@@ -205,6 +204,64 @@ body {
 }
 
 /* Responsive Adjustments */
+/* //wide tables */
+/* Responsive Adjustments for iPad and Similar (wider than 768px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .numerix {
+    padding-top: 2rem; /* Extra padding for larger screens */
+    height: fit-content;
+  }
+
+  .n-board {
+    width: 450px; /* Slightly larger board size */
+    height: 450px;
+    margin: 1rem auto; /* Center the board */
+  }
+
+  .n-cell {
+    font-size: 2.5rem; /* Increase cell font size for readability */
+  }
+
+  .n-title {
+    font-size: 4rem; /* Larger title for iPad screens */
+  }
+
+  .n-button-bar {
+    width: 60%; /* Wider button bar for better alignment */
+    max-width: 700px; /* Cap the width */
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Keep buttons evenly spaced */
+    align-items: start; /* Center buttons vertically */
+    margin: 1rem auto; /* Center button bar in layout */
+    padding: 0; /* Remove any padding */
+  }
+
+  .n-button-bar button {
+    font-size: 1.5rem; /* Slightly larger font for buttons */
+    width: 5rem; /* Adjust button size for iPad */
+    height: 4rem;
+  }
+
+  .touch-mode-icon {
+    height: 4rem; /* Adjust icon size */
+    margin: 0; /* Remove extra margin */
+  }
+
+  .show-help h3 {
+    font-size: 1.5rem; /* Increase modal header size */
+  }
+
+  .show-help p,
+  .show-help li {
+    font-size: 1.2rem; /* Adjust modal content for readability */
+  }
+
+  .close-help {
+    font-size: 1.2rem; /* Match modal content size */
+  }
+}
+
+/* //tablets and smartphones */
 @media screen and (max-width: 768px) {
   .n-board {
     width: 350px;
@@ -217,7 +274,11 @@ body {
     font-size: 3rem;
   }
   .n-button-bar {
-    width: 60%;
+    width: 90%;
+    font-size: 1rem;
+  }
+  .n-button-bar button {
+    font-size: 1.25rem;
   }
 }
 
