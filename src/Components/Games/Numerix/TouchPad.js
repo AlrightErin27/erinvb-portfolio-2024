@@ -1,6 +1,6 @@
 import "./TouchPad.css";
 
-export default function TouchPad() {
+export default function TouchPad({ handleArrowClick }) {
   const grid = [null, "↑", null, "←", null, "→", null, "↓", null];
 
   return (
@@ -8,7 +8,11 @@ export default function TouchPad() {
       {grid.map((box, index) => (
         <div key={index} className="touch-box">
           {box !== null ? (
-            <div className="enable-touch-box" key={`child-${index}`}>
+            <div
+              className="enable-touch-box"
+              key={`child-${index}`}
+              onClick={() => handleArrowClick(box)} // Log arrow when clicked
+            >
               {box}
             </div>
           ) : (

@@ -285,6 +285,26 @@ export default function Numerix() {
     };
   }, [moveVertical, moveHorizontal]);
 
+  // Function to handle arrow clicks
+  const handleArrowClick = (arrow) => {
+    // console.log(`Arrow clicked: ${arrow}`);
+
+    // Map arrow symbols to keyboard event keys
+    const keyMap = {
+      "↑": "ArrowUp",
+      "↓": "ArrowDown",
+      "←": "ArrowLeft",
+      "→": "ArrowRight",
+    };
+
+    const eventKey = keyMap[arrow]; // Get the corresponding key
+    if (eventKey) {
+      // Create and dispatch a new KeyboardEvent
+      const event = new KeyboardEvent("keydown", { key: eventKey });
+      window.dispatchEvent(event); // Trigger the event
+    }
+  };
+
   return (
     <div className="numerix">
       <div className="n-title">Numerix</div>
@@ -318,7 +338,7 @@ export default function Numerix() {
             </button>
           ) : (
             <div className="touch-mode-true-cont">
-              <TouchPad />
+              <TouchPad handleArrowClick={handleArrowClick} />
               <button
                 onClick={() => setTouchMode(false)}
                 className="touch-mode-false-button"
