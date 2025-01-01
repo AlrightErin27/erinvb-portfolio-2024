@@ -70,10 +70,10 @@ export default function Games() {
 
   const games = [
     { id: "concentration", name: "Concentration" },
+    { id: "numerix", name: "Numerix" },
     { id: "noughts-&-crosses", name: "Noughts & Crosses" },
     { id: "crossword", name: "Crossword" },
     { id: "cemetery-run", name: "Cemetery Run" },
-    { id: "numerix", name: "Numerix" },
   ];
 
   return (
