@@ -8,7 +8,7 @@
   background: var(--alt-text-color);
   border: 5px solid var(--alt-text-color);
   border-radius: 10px;
-  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .touch-box {

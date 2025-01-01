@@ -5,8 +5,9 @@ import CloseIcon from "../../../Images/Games/Numerix/close.png";
 import TouchPad from "./TouchPad";
 
 //TO DO: TEST
-//check if game looks good on all screen sizes.
-//make sure touch screen players can play
+//check if game looks good on all screen sizes. ✅
+//make sure touch screen players can play ✅
+//modal to show game over ✅
 //allow user to create a documented score if they'd like (saved to DB)
 //update readme, update larger portfolio read me
 
@@ -15,6 +16,7 @@ export default function Numerix() {
   const [showHelp, setShowHelp] = useState(false);
   const [score, setScore] = useState(0);
   const [touchMode, setTouchMode] = useState(false);
+  const [noMovesLeft, setNoMovesLeft] = useState(false);
 
   const getRandomEmptyCell = useCallback((boardState) => {
     let emptyPositions = [];
@@ -166,8 +168,7 @@ export default function Numerix() {
 
       // Check for game over
       if (checkGameOver()) {
-        alert("Game over!");
-        // setScore(0);
+        setNoMovesLeft(true);
       }
     },
     [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
@@ -244,7 +245,7 @@ export default function Numerix() {
 
       // Check for game over
       if (checkGameOver()) {
-        alert("Game over!");
+        setNoMovesLeft(true);
       }
     },
     [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
@@ -283,6 +284,11 @@ export default function Numerix() {
       window.removeEventListener("keydown", handleKeyPress);
     };
   }, [moveVertical, moveHorizontal]);
+
+  function handleCloseGameOverModal() {
+    setNoMovesLeft(false);
+    startGame();
+  }
 
   // Function to handle arrow clicks
   const handleArrowClick = (arrow) => {
@@ -355,7 +361,7 @@ export default function Numerix() {
         <button onClick={() => setShowHelp(!showHelp)}>?</button>
       </div>
       {showHelp ? (
-        <div className="show-help">
+        <div className="show-modal">
           <h3>Welcome to Numerix!</h3>
           <p>
             Numerix, also known as 2048, is a fun and addictive number puzzle
@@ -377,7 +383,18 @@ export default function Numerix() {
           <p>Can you master the game and achieve the highest score?</p>
           <h3>Good luck!</h3>
 
-          <button className="close-help" onClick={() => setShowHelp(false)}>
+          <button className="close-modal" onClick={() => setShowHelp(false)}>
+            Close
+          </button>
+        </div>
+      ) : null}
+      {noMovesLeft ? (
+        <div className="show-modal">
+          <h3>Game Over!</h3>
+          <button
+            className="close-modal"
+            onClick={() => handleCloseGameOverModal()}
+          >
             Close
           </button>
         </div>
