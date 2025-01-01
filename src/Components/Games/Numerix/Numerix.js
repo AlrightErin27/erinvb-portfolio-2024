@@ -4,8 +4,7 @@ import TouchModeIcon from "../../../Images/Games/Numerix/fingerprint.png";
 import CloseIcon from "../../../Images/Games/Numerix/close.png";
 import TouchPad from "./TouchPad";
 
-//TO DO:
-//change the ended game alert to a modal
+//TO DO: TEST
 //check if game looks good on all screen sizes.
 //make sure touch screen players can play
 //allow user to create a documented score if they'd like (saved to DB)
