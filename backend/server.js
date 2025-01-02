@@ -71,6 +71,7 @@ const connectDB = async () => {
 
 connectDB();
 
+//---------------------------------- SCHEMA SECTION ----------------------------------//
 //EVIE & CO. SCHEMA 🛍️ 🛒 👚
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -86,6 +87,15 @@ const UserSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", UserSchema);
 
+//NUMERIX SCHEMA 🎮
+const NumerixScoreSchema = new mongoose.Schema({
+  numerixUsername: { type: String, required: true },
+  numerixScore: { type: Number, required: true },
+  numerixDate: { type: Date, default: Date.now },
+});
+const NumerixScore = mongoose.model("NumerixScore", NumerixScoreSchema);
+
+//---------------------------------- MIDDLEWARE SECTION ----------------------------------//
 const authMiddleware = async (req, res, next) => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -118,6 +128,7 @@ router.use((req, res, next) => {
   next();
 });
 
+//---------------------------------- ROUTES SECTION ----------------------------------//
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
 //POST
 router.post("/register", async (req, res) => {
@@ -315,6 +326,43 @@ router.post("/purchase", authMiddleware, async (req, res) => {
   }
 });
 
+//NUMERIX ROUTE 🎮
+//POST
+router.post("/numerix/score", async (req, res) => {
+  try {
+    const { numerixUsername, numerixScore } = req.body;
+
+    // Validate request body
+    if (!numerixUsername || !numerixScore) {
+      return res.status(400).json({
+        message: "Numerix username and score are required",
+        success: false,
+      });
+    }
+
+    // Create new score entry
+    const newNumerixScore = new NumerixScore({
+      numerixUsername,
+      numerixScore,
+    });
+
+    // Save to database
+    await newNumerixScore.save();
+
+    res.status(201).json({
+      message: "Numerix score saved successfully!",
+      success: true,
+    });
+  } catch (error) {
+    console.error("Save numerix score error:", error);
+    res.status(500).json({
+      message: "Error saving numerix score",
+      success: false,
+    });
+  }
+});
+
+//---------------------------------- PRODUCTION SECTION ----------------------------------//
 // Serve static files and handle React routing in production
 if (NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../build")));

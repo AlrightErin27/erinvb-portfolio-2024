@@ -1,10 +1,20 @@
 import { useState, useEffect, useCallback } from "react";
+import axios from "axios";
 import "./Numerix.css";
 import TouchModeIcon from "../../../Images/Games/Numerix/fingerprint.png";
 import CloseIcon from "../../../Images/Games/Numerix/close.png";
 import TouchPad from "./TouchPad";
 import ShowHelpModal from "./ShowHelpModal";
 import NoMovesModal from "./NoMovesModal";
+
+// TO DO:
+//do no let user make moves if noMovesLeft
+//display top 10 high scores via button
+//small screen size noMovesLeft modal overlaps close button FIXME
+//username CAN be re-used
+
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+console.log("API URL:", API_URL);
 
 export default function Numerix() {
   const [board, setBoard] = useState(Array(16).fill(null));
@@ -305,8 +315,21 @@ export default function Numerix() {
     }
   };
 
-  function handleSaveScore() {
-    setScoreSaved(true);
+  async function handleSaveScore() {
+    try {
+      const response = await axios.post(`${API_URL}/numerix/score`, {
+        numerixUsername: username,
+        numerixScore: score,
+      });
+
+      if (response.data.success) {
+        setScoreSaved(true);
+      } else {
+        console.error("Failed to save numerix score:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error saving numerix score:", error);
+    }
   }
 
   return (
