@@ -17,6 +17,8 @@ export default function Numerix() {
   const [score, setScore] = useState(0);
   const [touchMode, setTouchMode] = useState(false);
   const [noMovesLeft, setNoMovesLeft] = useState(false);
+  const [username, setUsername] = useState("");
+  const [scoreSaved, setScoreSaved] = useState(false);
 
   const getRandomEmptyCell = useCallback((boardState) => {
     let emptyPositions = [];
@@ -292,8 +294,6 @@ export default function Numerix() {
 
   // Function to handle arrow clicks
   const handleArrowClick = (arrow) => {
-    // console.log(`Arrow clicked: ${arrow}`);
-
     // Map arrow symbols to keyboard event keys
     const keyMap = {
       "↑": "ArrowUp",
@@ -310,10 +310,13 @@ export default function Numerix() {
     }
   };
 
+  function handleSaveScore() {
+    setScoreSaved(true);
+  }
+
   return (
     <div className="numerix">
       <div className="n-title">Numerix</div>
-
       {score ? (
         <p className="score">Score: {score}</p>
       ) : (
@@ -391,6 +394,23 @@ export default function Numerix() {
       {noMovesLeft ? (
         <div className="show-modal">
           <h3>Game Over!</h3>
+          <p>Save your score with username:</p>
+          {!scoreSaved ? (
+            <div className="save-score">
+              <input
+                type="text"
+                placeholder="Enter username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <button onClick={() => handleSaveScore()}>Save</button>
+            </div>
+          ) : (
+            <div className="score-saved-message">
+              <span>✔️ Score saved</span>
+            </div>
+          )}
+
           <button
             className="close-modal"
             onClick={() => handleCloseGameOverModal()}

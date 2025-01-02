@@ -203,6 +203,45 @@ body {
   transform: translateY(-2px);
 }
 
+.save-score {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.save-score input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--alt-text-color);
+  border-radius: 5px;
+  outline: none;
+  font-family: "Playwrite MX", serif;
+}
+
+.save-score button {
+  padding: 0.3rem 1rem;
+  font-family: "Playwrite MX", serif;
+  font-size: 1.2rem;
+  background: var(--alt-text-color);
+  color: var(--board-background);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.save-score button:hover {
+  background-color: var(--text-color);
+}
+
+.score-saved-message {
+  font-size: 1.2rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* Responsive Adjustments */
 /* Responsive Adjustments for Nest Hub 1280x800 */
 
