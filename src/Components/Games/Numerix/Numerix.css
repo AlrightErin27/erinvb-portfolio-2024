@@ -10,6 +10,7 @@
   --board-background: #d6d4d1;
   --shadow-dark: rgba(0, 0, 0, 0.2);
   --shadow-light: rgba(232, 231, 231, 0.618);
+  --school-blue: rgb(147, 183, 232);
 }
 
 html,
@@ -21,17 +22,17 @@ body {
 
 .numerix {
   font-family: "Playwrite MX Guides", serif;
-  background-image: url("../../../Images/Games/Numerix/papertexture.jpg");
-  background-blend-mode: overlay;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: var(--shadow-light);
+  background-image: linear-gradient(var(--school-blue) 1px, transparent 1px),
+    /* horizontal lines */
+      linear-gradient(90deg, var(--school-blue) 1px, transparent 1px); /* vertical lines */
+  background-size: 20px 20px; /* adjust grid spacing */
   display: flex;
   flex-direction: column;
   color: var(--text-color);
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 1rem;
+  justify-content: start;
+  height: 110vh;
 }
 
 .n-title {
@@ -124,13 +125,11 @@ body {
   filter: invert(0.4);
 }
 
-/* Responsive Adjustments */
 /* Responsive Adjustments for Nest Hub 1280x800 */
 @media screen and (max-width: 1280px) and (max-height: 800px) {
   .numerix {
     height: 165%;
   }
-
   .n-title {
     font-size: 3rem;
     margin-bottom: 0.8rem;
@@ -144,21 +143,17 @@ body {
     width: 480px;
     height: 480px;
   }
-
   .n-board {
     width: 450px;
     height: 450px;
     margin: 1rem auto;
   }
-
   .n-cell {
     font-size: 2.5rem;
   }
-
   .n-title {
     font-size: 4rem;
   }
-
   .n-button-bar {
     width: 60%;
     max-width: 700px;
@@ -168,13 +163,11 @@ body {
     margin: 1rem auto;
     padding: 0;
   }
-
   .n-button-bar button {
     font-size: 1.5rem;
     width: 5rem;
     height: 4rem;
   }
-
   .touch-mode-icon {
     height: 4rem;
     margin: 0;
@@ -240,7 +233,6 @@ body {
     width: clamp(3rem, 7vw, 4rem);
     height: clamp(2rem, 5vw, 3rem);
   }
-
   .touch-mode-icon {
     height: 3rem;
     margin-top: 10%;
