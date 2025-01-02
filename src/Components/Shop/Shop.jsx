@@ -10,6 +10,11 @@ import Footer from "./Footer";
 import Cart from "./Cart";
 import CartButton from "./CartButton";
 
+// TO DO:
+//let user add item to cart by clicking image of clothing
+//remove any alerts and replace with modals
+//add function to be able to click clothing and it pops up in its own page
+
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
 const Shop = () => {

@@ -1,4 +1,4 @@
-.touch-pad {
+.n-touch-pad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -11,7 +11,7 @@
   margin-bottom: 5%;
 }
 
-.touch-box {
+.n-touch-box {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,11 +26,11 @@
     inset -1px -1px 5px var(--shadow-light);
 }
 
-.enable-touch-box {
+.n-enable-touch-box {
   cursor: pointer;
 }
 
-.enable-touch-box:hover {
+.n-enable-touch-box:hover {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,14 +43,14 @@
     inset -2px -2px 8px var(--shadow-light);
 }
 
-.enable-touch-box:active {
+.n-enable-touch-box:active {
   background: var(--primary-background);
   transform: scale(0.95);
   box-shadow: inset 3px 3px 10px var(--shadow-dark),
     inset -3px -3px 10px var(--shadow-light);
 }
 
-.null-box {
+.n-null-box {
   background: var(--alt-text-color);
   height: 100%;
   width: 100%;

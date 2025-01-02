@@ -20,13 +20,13 @@ body {
   padding: 0;
 }
 
-.numerix {
+/* Main Container */
+.n-container {
   font-family: "Playwrite MX Guides", serif;
   background-color: var(--shadow-light);
   background-image: linear-gradient(var(--school-blue) 1px, transparent 1px),
-    /* horizontal lines */
-      linear-gradient(90deg, var(--school-blue) 1px, transparent 1px); /* vertical lines */
-  background-size: 20px 20px; /* adjust grid spacing */
+    linear-gradient(90deg, var(--school-blue) 1px, transparent 1px);
+  background-size: 20px 20px;
   display: flex;
   flex-direction: column;
   color: var(--text-color);
@@ -35,6 +35,7 @@ body {
   height: 110vh;
 }
 
+/* Title and Score */
 .n-title {
   font-size: 3.5rem;
   font-weight: bold;
@@ -43,13 +44,25 @@ body {
   margin-bottom: 1rem;
 }
 
-.score {
+.n-score {
   font-family: "Playwrite MX", serif;
 }
 
-.score-null {
+.n-score-null {
   color: transparent;
   font-family: "Playwrite MX", serif;
+}
+
+/* Board Container and Layout */
+.n-board-scores-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 0 200px;
 }
 
 .n-board-cont {
@@ -87,6 +100,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Button Bar and Controls */
 .n-button-bar {
   min-width: 30vw;
   max-width: 50vw;
@@ -109,25 +123,34 @@ body {
   align-items: center;
 }
 
-.touch-mode-true-cont {
+.n-button-bar button:hover {
+  filter: invert(0.4);
+}
+
+/* Touch Mode Controls */
+.n-touch-mode-cont {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.touch-mode-icon {
+.n-touch-mode-true-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.n-touch-mode-icon {
   height: 6vh;
   padding-top: 15%;
 }
 
-.n-button-bar button:hover {
-  filter: invert(0.4);
-}
-
-/* Responsive Adjustments for Nest Hub 1280x800 */
+/* Responsive Styles */
+/* Nest Hub */
 @media screen and (max-width: 1280px) and (max-height: 800px) {
-  .numerix {
+  .n-container {
     height: 165%;
   }
   .n-title {
@@ -136,7 +159,16 @@ body {
   }
 }
 
-/* Wide tables */
+/* Tablets and Small Screens */
+@media screen and (max-width: 1024px) {
+  .n-board-scores-cont {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Wide Tables */
 @media screen and (min-width: 769px) {
   .n-board-cont {
     aspect-ratio: 1;
@@ -168,13 +200,13 @@ body {
     width: 5rem;
     height: 4rem;
   }
-  .touch-mode-icon {
+  .n-touch-mode-icon {
     height: 4rem;
     margin: 0;
   }
 }
 
-/* Tablets and smartphones */
+/* Medium Screens */
 @media screen and (max-width: 768px) {
   .n-board {
     width: 350px;
@@ -202,6 +234,7 @@ body {
   }
 }
 
+/* Mobile */
 @media screen and (max-width: 480px) {
   .n-board-cont {
     aspect-ratio: 1;
@@ -233,7 +266,7 @@ body {
     width: clamp(3rem, 7vw, 4rem);
     height: clamp(2rem, 5vw, 3rem);
   }
-  .touch-mode-icon {
+  .n-touch-mode-icon {
     height: 3rem;
     margin-top: 10%;
   }

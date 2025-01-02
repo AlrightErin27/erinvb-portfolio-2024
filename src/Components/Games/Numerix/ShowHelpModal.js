@@ -3,7 +3,7 @@ import "./ShowModal.css";
 
 export default function ShowHelpModal({ setShowHelp }) {
   return (
-    <div className="show-modal">
+    <div className="n-show-modal">
       <h3>Welcome to Numerix!</h3>
       <p>
         Numerix, also known as 2048, is a fun and addictive number puzzle game.
@@ -25,7 +25,7 @@ export default function ShowHelpModal({ setShowHelp }) {
       <p>Can you master the game and achieve the highest score?</p>
       <h3>Good luck!</h3>
 
-      <button className="close-modal" onClick={() => setShowHelp(false)}>
+      <button className="n-close-modal" onClick={() => setShowHelp(false)}>
         Close
       </button>
     </div>

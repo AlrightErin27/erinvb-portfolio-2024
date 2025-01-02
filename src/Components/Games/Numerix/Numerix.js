@@ -6,11 +6,12 @@ import CloseIcon from "../../../Images/Games/Numerix/close.png";
 import TouchPad from "./TouchPad";
 import ShowHelpModal from "./ShowHelpModal";
 import NoMovesModal from "./NoMovesModal";
+import TopScores from "./TopScores";
 
 // TO DO:
 //do no let user make moves if noMovesLeft
 //display top 10 high scores via button
-//small screen size noMovesLeft modal overlaps close button FIXME
+//small screen size noMovesLeft modal overlaps close button (display score in modal)FIXME
 //username CAN be re-used
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
@@ -333,41 +334,46 @@ export default function Numerix() {
   }
 
   return (
-    <div className="numerix">
+    <div className="n-container">
       <div className="n-title">Numerix</div>
-      {score ? (
-        <p className="score">Score: {score}</p>
-      ) : (
-        <p className="score-null">""</p>
-      )}
-      <div className="n-board-cont">
-        <div className="n-board">
-          {board.map((cell, index) => {
-            return (
-              <div key={index} className="n-cell">
-                {cell}
-              </div>
-            );
-          })}
+
+      <div className="n-board-scores-cont">
+        {score ? (
+          <p className="n-score">Score: {score}</p>
+        ) : (
+          <p className="n-score-null">""</p>
+        )}
+        <div className="n-board-cont">
+          <div className="n-board">
+            {board.map((cell, index) => {
+              return (
+                <div key={index} className="n-cell">
+                  {cell}
+                </div>
+              );
+            })}
+          </div>
         </div>
+        <TopScores />
       </div>
+
       <div className="n-button-bar">
         <button onClick={() => startGame()}>Restart</button>
-        <div className="touch-mode-cont">
+        <div className="n-touch-mode-cont">
           {!touchMode ? (
             <button onClick={() => setTouchMode(!touchMode)}>
               <img
-                className="touch-mode-icon"
+                className="n-touch-mode-icon"
                 src={TouchModeIcon}
                 alt="touch"
               />
             </button>
           ) : (
-            <div className="touch-mode-true-cont">
+            <div className="n-touch-mode-true-cont">
               <TouchPad handleArrowClick={handleArrowClick} />
               <button
                 onClick={() => setTouchMode(false)}
-                className="touch-mode-false-button"
+                className="n-touch-mode-false-button"
               >
                 <img
                   src={CloseIcon}
@@ -381,9 +387,7 @@ export default function Numerix() {
 
         <button onClick={() => setShowHelp(!showHelp)}>?</button>
       </div>
-
       {showHelp && <ShowHelpModal setShowHelp={setShowHelp} />}
-
       {noMovesLeft && (
         <NoMovesModal
           username={username}

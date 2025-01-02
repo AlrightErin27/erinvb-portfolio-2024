@@ -9,11 +9,11 @@ export default function NoMovesModal({
   handleCloseGameOverModal,
 }) {
   return (
-    <div className="show-modal">
+    <div className="n-show-modal">
       <h3>Game Over!</h3>
       <p>Save your score with username:</p>
       {!scoreSaved ? (
-        <div className="save-score">
+        <div className="n-save-score">
           <input
             type="text"
             placeholder="Enter username"
@@ -23,13 +23,13 @@ export default function NoMovesModal({
           <button onClick={() => handleSaveScore()}>Save</button>
         </div>
       ) : (
-        <div className="score-saved-message">
+        <div className="n-score-saved-message">
           <span>✔️ Score saved</span>
         </div>
       )}
 
       <button
-        className="close-modal"
+        className="n-close-modal"
         onClick={() => handleCloseGameOverModal()}
       >
         Close
