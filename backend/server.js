@@ -362,6 +362,21 @@ router.post("/numerix/score", async (req, res) => {
   }
 });
 
+//NUMERIX ROUTE 🎮
+//GET
+router.get("/numerix/top-scores", async (req, res) => {
+  try {
+    const topScores = await NumerixScore.find({})
+      .sort({ numerixScore: -1 }) // Sort by score in descending order
+      .limit(5); // Limit to top 5 scores
+
+    res.status(200).json(topScores);
+  } catch (error) {
+    console.error("Error fetching top scores:", error);
+    res.status(500).json({ message: "Error fetching top scores" });
+  }
+});
+
 //---------------------------------- PRODUCTION SECTION ----------------------------------//
 // Serve static files and handle React routing in production
 if (NODE_ENV === "production") {

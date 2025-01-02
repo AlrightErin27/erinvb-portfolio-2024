@@ -9,6 +9,11 @@ import ShowHelpModal from "./ShowHelpModal";
 import NoMovesModal from "./NoMovesModal";
 import TopScoresModal from "./TopScoresModal";
 
+////////////TO
+//NoMovesModal: display gets scrunched when narrow screen view
+//update Readme for game and for portfolio
+//add current score display to no moves modal
+
 // Define API URL
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 console.log("API URL:", API_URL);
@@ -23,7 +28,7 @@ export default function Numerix() {
   const [noMovesLeft, setNoMovesLeft] = useState(false);
   const [username, setUsername] = useState("");
   const [scoreSaved, setScoreSaved] = useState(false);
-  const [disableGame, setDisableGame] = useState(false); // New state to disable game controls
+  const [disableGame, setDisableGame] = useState(false);
 
   // Utility function to get a random empty cell from the board
   const getRandomEmptyCell = useCallback((boardState) => {
@@ -54,6 +59,7 @@ export default function Numerix() {
 
     const newBoard = Array(16).fill(null);
     setScore(0);
+    setScoreSaved(false);
 
     const firstPosition = getRandomEmptyCell(newBoard);
     newBoard[firstPosition] = generateNewNumber();
