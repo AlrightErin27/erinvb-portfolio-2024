@@ -8,12 +8,6 @@ import ShowHelpModal from "./ShowHelpModal";
 import NoMovesModal from "./NoMovesModal";
 import TopScoresModal from "./TopScoresModal";
 
-// TO DO:
-//do no let user make moves if noMovesLeft
-//display top 10 high scores via button
-//small screen size noMovesLeft modal overlaps close button (display score in modal)FIXME
-//username CAN be re-used
-
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 console.log("API URL:", API_URL);
 
@@ -31,59 +25,49 @@ export default function Numerix() {
     let emptyPositions = [];
     for (let i = 0; i < boardState.length; i++) {
       if (boardState[i] === null) {
-        // If the cell is empty (null), add its position to emptyPositions
         emptyPositions.push(i);
       }
     }
 
-    //Check if there are any empty positions
     if (emptyPositions.length === 0) {
-      return null; // No empty cells left
+      return null;
     }
 
-    //Get a random position from our empty positions
     const randomPosition = Math.floor(Math.random() * emptyPositions.length);
-
-    // Return the random empty position
     return emptyPositions[randomPosition];
   }, []);
 
   const generateNewNumber = useCallback(() => {
-    //between 0 & 1
     const random = Math.random();
-
-    // 90% chance to return 2, 10% chance to return 4
-    if (random < 0.9) {
-      return 2;
-    } else {
-      return 4;
-    }
+    return random < 0.9 ? 2 : 4;
   }, []);
 
   const startGame = useCallback(() => {
-    // Create a new empty board
+    if (showTopScores || showHelp || noMovesLeft) return;
+
     const newBoard = Array(16).fill(null);
     setScore(0);
 
-    // Place first number
     const firstPosition = getRandomEmptyCell(newBoard);
     newBoard[firstPosition] = generateNewNumber();
 
-    // Place second number
     const secondPosition = getRandomEmptyCell(newBoard);
     newBoard[secondPosition] = generateNewNumber();
 
-    // Update the board state
     setBoard(newBoard);
-  }, [getRandomEmptyCell, generateNewNumber]);
+  }, [
+    getRandomEmptyCell,
+    generateNewNumber,
+    showTopScores,
+    showHelp,
+    noMovesLeft,
+  ]);
 
   const checkGameOver = useCallback(() => {
-    //check if there are any empty cells
     if (board.includes(null)) {
       return false;
     }
 
-    //check for possible horizontal combos
     for (let i = 0; i < 16; i += 4) {
       for (let j = 0; j < 3; j++) {
         if (board[i + j] === board[i + j + 1]) {
@@ -92,7 +76,6 @@ export default function Numerix() {
       }
     }
 
-    // check for possible vertical combinations
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 12; j += 4) {
         if (board[i + j] === board[i + j + 4]) {
@@ -102,62 +85,53 @@ export default function Numerix() {
     }
 
     console.log("No moves possible, game over!");
-
     return true;
   }, [board]);
 
-  //useEffect starts game when page is first rendered
   useEffect(() => {
     startGame();
   }, [startGame]);
 
   const moveHorizontal = useCallback(
     (direction) => {
+      if (showTopScores || showHelp || noMovesLeft) return;
+
       let newBoard = [...board];
       let changed = false;
-      let points = 0; //track points in just this move
+      let points = 0;
 
-      // Process each row
       for (let i = 0; i < 16; i += 4) {
-        // Get current row
         let row = newBoard.slice(i, i + 4);
-
-        // Remove nulls
         let filtered = row.filter((cell) => cell !== null);
 
-        // Combine equal numbers
         if (direction === "right") {
-          // Right to left combining
           for (let j = filtered.length - 1; j > 0; j--) {
             if (filtered[j] === filtered[j - 1]) {
               filtered[j] = filtered[j] * 2;
-              points += filtered[j]; //update points
+              points += filtered[j];
               filtered.splice(j - 1, 1);
               changed = true;
             }
           }
         } else {
-          // Left to right combining
           for (let j = 0; j < filtered.length - 1; j++) {
             if (filtered[j] === filtered[j + 1]) {
               filtered[j] = filtered[j] * 2;
-              points += filtered[j]; //update points
+              points += filtered[j];
               filtered.splice(j + 1, 1);
               changed = true;
             }
           }
         }
 
-        // Pad with nulls
         while (filtered.length < 4) {
           if (direction === "right") {
-            filtered.unshift(null); // Add nulls to left
+            filtered.unshift(null);
           } else {
-            filtered.push(null); // Add nulls to right
+            filtered.push(null);
           }
         }
 
-        // Update the board
         for (let j = 0; j < 4; j++) {
           if (newBoard[i + j] !== filtered[j]) {
             changed = true;
@@ -175,34 +149,39 @@ export default function Numerix() {
         setScore((prev) => prev + points);
       }
 
-      // Check for game over
       if (checkGameOver()) {
         setNoMovesLeft(true);
       }
     },
-    [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
+    [
+      board,
+      showTopScores,
+      showHelp,
+      noMovesLeft,
+      getRandomEmptyCell,
+      generateNewNumber,
+      checkGameOver,
+    ]
   );
 
   const moveVertical = useCallback(
     (direction) => {
+      if (showTopScores || showHelp || noMovesLeft) return;
+
       let newBoard = [...board];
       let changed = false;
       let points = 0;
 
-      // Process each column (4 columns, starting at indices 0,1,2,3)
       for (let i = 0; i < 4; i++) {
-        // Get current column
         let column = [
-          newBoard[i], // First row
-          newBoard[i + 4], // Second row
-          newBoard[i + 8], // Third row
-          newBoard[i + 12], // Fourth row
+          newBoard[i],
+          newBoard[i + 4],
+          newBoard[i + 8],
+          newBoard[i + 12],
         ];
 
-        // Remove nulls
         let filtered = column.filter((cell) => cell !== null);
 
-        // Combine equal numbers
         if (direction === "down") {
           for (let j = filtered.length - 1; j > 0; j--) {
             if (filtered[j] === filtered[j - 1]) {
@@ -223,7 +202,6 @@ export default function Numerix() {
           }
         }
 
-        // Pad with nulls
         while (filtered.length < 4) {
           if (direction === "down") {
             filtered.unshift(null);
@@ -232,9 +210,7 @@ export default function Numerix() {
           }
         }
 
-        // Update the board - THIS IS THE FIXED PART
         for (let j = 0; j < 4; j++) {
-          // Calculate the correct index in the flat board array
           const boardIndex = i + j * 4;
           if (newBoard[boardIndex] !== filtered[j]) {
             changed = true;
@@ -252,18 +228,25 @@ export default function Numerix() {
         setScore((prev) => prev + points);
       }
 
-      // Check for game over
       if (checkGameOver()) {
         setNoMovesLeft(true);
       }
     },
-    [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
+    [
+      board,
+      showTopScores,
+      showHelp,
+      noMovesLeft,
+      getRandomEmptyCell,
+      generateNewNumber,
+      checkGameOver,
+    ]
   );
 
-  //useEffect just for arrow keyboard events
   useEffect(() => {
     const handleKeyPress = (event) => {
-      // Prevent default scrolling behavior for arrow keys
+      if (showTopScores || showHelp || noMovesLeft) return;
+
       if (event.key.startsWith("Arrow")) {
         event.preventDefault();
       }
@@ -282,26 +265,24 @@ export default function Numerix() {
           moveHorizontal("right");
           break;
         default:
-          // If any other key is pressed-> don't need to do anything
           return;
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
-
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [moveVertical, moveHorizontal]);
+  }, [moveVertical, moveHorizontal, showTopScores, showHelp, noMovesLeft]);
 
   function handleCloseGameOverModal() {
     setNoMovesLeft(false);
     startGame();
   }
 
-  // Function to handle arrow clicks
   const handleArrowClick = (arrow) => {
-    // Map arrow symbols to keyboard event keys
+    if (showTopScores || showHelp || noMovesLeft) return;
+
     const keyMap = {
       "↑": "ArrowUp",
       "↓": "ArrowDown",
@@ -309,11 +290,10 @@ export default function Numerix() {
       "→": "ArrowRight",
     };
 
-    const eventKey = keyMap[arrow]; // Get the corresponding key
+    const eventKey = keyMap[arrow];
     if (eventKey) {
-      // Create and dispatch a new KeyboardEvent
       const event = new KeyboardEvent("keydown", { key: eventKey });
-      window.dispatchEvent(event); // Trigger the event
+      window.dispatchEvent(event);
     }
   };
 
@@ -356,22 +336,28 @@ export default function Numerix() {
         )}
         <div className="n-board-cont">
           <div className="n-board">
-            {board.map((cell, index) => {
-              return (
-                <div key={index} className="n-cell">
-                  {cell}
-                </div>
-              );
-            })}
+            {board.map((cell, index) => (
+              <div key={index} className="n-cell">
+                {cell}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="n-button-bar">
-        <button onClick={() => startGame()}>Restart</button>
+        <button
+          onClick={() => startGame()}
+          disabled={showTopScores || showHelp || noMovesLeft}
+        >
+          Restart
+        </button>
         <div className="n-touch-mode-cont">
           {!touchMode ? (
-            <button onClick={() => setTouchMode(!touchMode)}>
+            <button
+              onClick={() => setTouchMode(!touchMode)}
+              disabled={showTopScores || showHelp || noMovesLeft}
+            >
               <img
                 className="n-touch-mode-icon"
                 src={TouchModeIcon}
@@ -383,6 +369,7 @@ export default function Numerix() {
               <TouchPad handleArrowClick={handleArrowClick} />
               <button
                 onClick={() => setTouchMode(false)}
+                disabled={showTopScores || showHelp || noMovesLeft}
                 className="n-touch-mode-false-button"
               >
                 <img
@@ -395,7 +382,12 @@ export default function Numerix() {
           )}
         </div>
 
-        <button onClick={() => setShowHelp(!showHelp)}>?</button>
+        <button
+          onClick={() => setShowHelp(!showHelp)}
+          disabled={showTopScores || noMovesLeft}
+        >
+          ?
+        </button>
       </div>
       {showHelp && <ShowHelpModal setShowHelp={setShowHelp} />}
       {noMovesLeft && (
