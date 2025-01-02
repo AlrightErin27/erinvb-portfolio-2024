@@ -6,7 +6,7 @@ import CloseIcon from "../../../Images/Games/Numerix/close.png";
 import TouchPad from "./TouchPad";
 import ShowHelpModal from "./ShowHelpModal";
 import NoMovesModal from "./NoMovesModal";
-import TopScores from "./TopScores";
+import TopScoresModal from "./TopScoresModal";
 
 // TO DO:
 //do no let user make moves if noMovesLeft
@@ -20,6 +20,7 @@ console.log("API URL:", API_URL);
 export default function Numerix() {
   const [board, setBoard] = useState(Array(16).fill(null));
   const [showHelp, setShowHelp] = useState(false);
+  const [showTopScores, setShowTopScores] = useState(false);
   const [score, setScore] = useState(0);
   const [touchMode, setTouchMode] = useState(false);
   const [noMovesLeft, setNoMovesLeft] = useState(false);
@@ -335,6 +336,16 @@ export default function Numerix() {
 
   return (
     <div className="n-container">
+      {!showTopScores ? (
+        <button
+          className="n-top-scores-button"
+          onClick={() => setShowTopScores(true)}
+        >
+          Top Scores
+        </button>
+      ) : (
+        <TopScoresModal setShowTopScores={setShowTopScores} />
+      )}
       <div className="n-title">Numerix</div>
 
       <div className="n-board-scores-cont">
@@ -354,7 +365,6 @@ export default function Numerix() {
             })}
           </div>
         </div>
-        <TopScores />
       </div>
 
       <div className="n-button-bar">

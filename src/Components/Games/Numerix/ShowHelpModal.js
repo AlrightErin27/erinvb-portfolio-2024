@@ -11,7 +11,9 @@ export default function ShowHelpModal({ setShowHelp }) {
       </p>
       <ul>
         <li>
-          Use your arrow keys (← ↑ → ↓) to slide the tiles across the grid.
+          Use your keyboard's arrow keys (← ↑ → ↓) to slide tiles across the
+          grid. If you're on a touch screen device, tap the "touch screen"
+          button to show an on-screen keypad with arrows!
         </li>
         <li>
           When two tiles with the same number touch, they merge into one,
@@ -22,9 +24,11 @@ export default function ShowHelpModal({ setShowHelp }) {
           reach 2048, but you can keep playing to go even higher!
         </li>
       </ul>
-      <p>Can you master the game and achieve the highest score?</p>
+      <p>
+        When your game ends, you can save your score. Try to make it into our
+        top 5 highest scores!
+      </p>
       <h3>Good luck!</h3>
-
       <button className="n-close-modal" onClick={() => setShowHelp(false)}>
         Close
       </button>

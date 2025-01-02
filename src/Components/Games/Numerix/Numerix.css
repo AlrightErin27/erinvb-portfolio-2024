@@ -35,6 +35,27 @@ body {
   height: 110vh;
 }
 
+.n-top-scores-button {
+  position: fixed;
+  top: 10%;
+  right: 5%;
+  padding: 0.5rem 1rem;
+  font-family: "Playwrite MX", serif;
+  font-size: 1.2rem;
+  background: var(--alt-text-color);
+  color: var(--board-background);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.n-top-scores-button:hover {
+  background: var(--text-color);
+  transform: translateY(-2px);
+}
+
 /* Title and Score */
 .n-title {
   font-size: 3.5rem;
@@ -62,7 +83,7 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem 0 200px;
+  padding: 0 1rem;
 }
 
 .n-board-cont {
@@ -208,6 +229,12 @@ body {
 
 /* Medium Screens */
 @media screen and (max-width: 768px) {
+  .n-top-scores-button {
+    font-size: 1rem;
+    top: 90%;
+    right: 15px;
+    /* background-color: pink; */
+  }
   .n-board {
     width: 350px;
     height: 350px;
@@ -236,6 +263,12 @@ body {
 
 /* Mobile */
 @media screen and (max-width: 480px) {
+  .n-top-scores-button {
+    font-size: 0.9rem;
+    top: 90%;
+    right: 10px;
+    /* background-color: red; */
+  }
   .n-board-cont {
     aspect-ratio: 1;
     width: 300px;

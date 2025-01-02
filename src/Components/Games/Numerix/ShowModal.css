@@ -27,6 +27,25 @@
   z-index: -1;
 }
 
+Copy.n-top-scores-list-container {
+  margin: 1rem 0;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.n-top-scores-list {
+  padding-left: 2rem;
+  margin: 0;
+}
+
+.n-top-scores-list li {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-family: "Playwrite MX", serif;
+  padding: 0.5rem;
+}
+
 .n-show-modal h3 {
   color: var(--alt-text-color);
   font-size: 2rem;
@@ -150,7 +169,18 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .n-top-scores-list li {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
 @media screen and (max-width: 480px) {
+  .n-top-scores-list li {
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
   .n-show-modal h3 {
     font-size: 0.8rem;
   }
