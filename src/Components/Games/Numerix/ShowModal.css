@@ -1,0 +1,165 @@
+.show-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  border: 2px solid var(--alt-text-color);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: "Playwrite MX", serif;
+}
+
+.show-modal::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(122, 122, 122, 0.5);
+  z-index: -1;
+}
+
+.show-modal h3 {
+  color: var(--alt-text-color);
+  font-size: 2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.show-modal p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.show-modal ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.show-modal li {
+  font-size: 1.1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+}
+
+.close-modal {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: "Playwrite MX", serif;
+  font-size: 1.2rem;
+  background: var(--alt-text-color);
+  color: var(--board-background);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+  background: var(--text-color);
+  transform: translateY(-2px);
+}
+
+.save-score {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.save-score input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--alt-text-color);
+  border-radius: 5px;
+  outline: none;
+  font-family: "Playwrite MX", serif;
+}
+
+.save-score button {
+  padding: 0.3rem 1rem;
+  font-family: "Playwrite MX", serif;
+  font-size: 1.2rem;
+  background: var(--alt-text-color);
+  color: var(--board-background);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.save-score button:hover {
+  background-color: var(--text-color);
+}
+
+.score-saved-message {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media screen and (max-width: 1280px) and (max-height: 800px) {
+  .show-modal {
+    padding: 1.5rem;
+    max-width: 500px;
+  }
+
+  .show-modal h3 {
+    font-size: 1.8rem;
+  }
+
+  .show-modal p,
+  .show-modal li {
+    font-size: 1.1rem;
+  }
+
+  .close-modal {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .show-modal h3 {
+    font-size: 1.5rem;
+  }
+
+  .show-modal p,
+  .show-modal li {
+    font-size: 1.2rem;
+  }
+
+  .close-modal {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .show-modal h3 {
+    font-size: 0.8rem;
+  }
+  .show-modal p,
+  .show-modal li {
+    font-size: 0.8rem;
+  }
+
+  .close-modal {
+    font-size: 0.8rem;
+  }
+}

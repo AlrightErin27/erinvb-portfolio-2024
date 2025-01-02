@@ -3,13 +3,8 @@ import "./Numerix.css";
 import TouchModeIcon from "../../../Images/Games/Numerix/fingerprint.png";
 import CloseIcon from "../../../Images/Games/Numerix/close.png";
 import TouchPad from "./TouchPad";
-
-//TO DO: TEST
-//check if game looks good on all screen sizes. ✅
-//make sure touch screen players can play ✅
-//modal to show game over ✅
-//allow user to create a documented score if they'd like (saved to DB)
-//update readme, update larger portfolio read me
+import ShowHelpModal from "./ShowHelpModal";
+import NoMovesModal from "./NoMovesModal";
 
 export default function Numerix() {
   const [board, setBoard] = useState(Array(16).fill(null));
@@ -363,62 +358,18 @@ export default function Numerix() {
 
         <button onClick={() => setShowHelp(!showHelp)}>?</button>
       </div>
-      {showHelp ? (
-        <div className="show-modal">
-          <h3>Welcome to Numerix!</h3>
-          <p>
-            Numerix, also known as 2048, is a fun and addictive number puzzle
-            game. Here's how to play:
-          </p>
-          <ul>
-            <li>
-              Use your arrow keys (← ↑ → ↓) to slide the tiles across the grid.
-            </li>
-            <li>
-              When two tiles with the same number touch, they merge into one,
-              doubling their value!
-            </li>
-            <li>
-              Keep combining tiles to create bigger numbers. The ultimate goal
-              is to reach 2048, but you can keep playing to go even higher!
-            </li>
-          </ul>
-          <p>Can you master the game and achieve the highest score?</p>
-          <h3>Good luck!</h3>
 
-          <button className="close-modal" onClick={() => setShowHelp(false)}>
-            Close
-          </button>
-        </div>
-      ) : null}
-      {noMovesLeft ? (
-        <div className="show-modal">
-          <h3>Game Over!</h3>
-          <p>Save your score with username:</p>
-          {!scoreSaved ? (
-            <div className="save-score">
-              <input
-                type="text"
-                placeholder="Enter username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <button onClick={() => handleSaveScore()}>Save</button>
-            </div>
-          ) : (
-            <div className="score-saved-message">
-              <span>✔️ Score saved</span>
-            </div>
-          )}
+      {showHelp && <ShowHelpModal setShowHelp={setShowHelp} />}
 
-          <button
-            className="close-modal"
-            onClick={() => handleCloseGameOverModal()}
-          >
-            Close
-          </button>
-        </div>
-      ) : null}
+      {noMovesLeft && (
+        <NoMovesModal
+          username={username}
+          setUsername={setUsername}
+          scoreSaved={scoreSaved}
+          handleSaveScore={handleSaveScore}
+          handleCloseGameOverModal={handleCloseGameOverModal}
+        />
+      )}
     </div>
   );
 }
