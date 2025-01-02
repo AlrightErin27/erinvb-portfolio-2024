@@ -9,7 +9,7 @@
   --alt-text-color: #4d4d4d;
   --board-background: #d6d4d1;
   --shadow-dark: rgba(0, 0, 0, 0.2);
-  --shadow-light: rgba(232, 231, 231, 0.618);
+  --shadow-light: rgba(232, 231, 231);
   --school-blue: rgb(147, 183, 232);
 }
 
@@ -18,6 +18,17 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+/* Overlay for blocking clicks */
+.n-overlay {
+  position: fixed;
+  top: 6%;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  z-index: 999; /* Higher than other elements except modals */
+  pointer-events: all; /* Ensures it blocks clicks */
 }
 
 /* Main Container */
@@ -43,7 +54,7 @@ body {
   font-family: "Playwrite MX", serif;
   font-size: 1.2rem;
   background: var(--alt-text-color);
-  color: var(--board-background);
+  color: var(--shadow-light);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -79,7 +90,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  flex-direction: column;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;

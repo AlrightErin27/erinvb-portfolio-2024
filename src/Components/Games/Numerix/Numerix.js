@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "./Numerix.css";
@@ -8,10 +9,12 @@ import ShowHelpModal from "./ShowHelpModal";
 import NoMovesModal from "./NoMovesModal";
 import TopScoresModal from "./TopScoresModal";
 
+// Define API URL
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 console.log("API URL:", API_URL);
 
 export default function Numerix() {
+  // Define states for managing game and UI elements
   const [board, setBoard] = useState(Array(16).fill(null));
   const [showHelp, setShowHelp] = useState(false);
   const [showTopScores, setShowTopScores] = useState(false);
@@ -20,7 +23,9 @@ export default function Numerix() {
   const [noMovesLeft, setNoMovesLeft] = useState(false);
   const [username, setUsername] = useState("");
   const [scoreSaved, setScoreSaved] = useState(false);
+  const [disableGame, setDisableGame] = useState(false); // New state to disable game controls
 
+  // Utility function to get a random empty cell from the board
   const getRandomEmptyCell = useCallback((boardState) => {
     let emptyPositions = [];
     for (let i = 0; i < boardState.length; i++) {
@@ -37,13 +42,15 @@ export default function Numerix() {
     return emptyPositions[randomPosition];
   }, []);
 
+  // Utility function to generate a new number (2 or 4)
   const generateNewNumber = useCallback(() => {
     const random = Math.random();
     return random < 0.9 ? 2 : 4;
   }, []);
 
+  // Initialize and start a new game
   const startGame = useCallback(() => {
-    if (showTopScores || showHelp || noMovesLeft) return;
+    console.log("Starting a new game...");
 
     const newBoard = Array(16).fill(null);
     setScore(0);
@@ -55,14 +62,9 @@ export default function Numerix() {
     newBoard[secondPosition] = generateNewNumber();
 
     setBoard(newBoard);
-  }, [
-    getRandomEmptyCell,
-    generateNewNumber,
-    showTopScores,
-    showHelp,
-    noMovesLeft,
-  ]);
+  }, [getRandomEmptyCell, generateNewNumber]);
 
+  // Check if the game is over (no moves left)
   const checkGameOver = useCallback(() => {
     if (board.includes(null)) {
       return false;
@@ -88,14 +90,14 @@ export default function Numerix() {
     return true;
   }, [board]);
 
+  // Start a new game on initial load
   useEffect(() => {
     startGame();
   }, [startGame]);
 
+  // Handle horizontal moves (left and right)
   const moveHorizontal = useCallback(
     (direction) => {
-      if (showTopScores || showHelp || noMovesLeft) return;
-
       let newBoard = [...board];
       let changed = false;
       let points = 0;
@@ -153,21 +155,12 @@ export default function Numerix() {
         setNoMovesLeft(true);
       }
     },
-    [
-      board,
-      showTopScores,
-      showHelp,
-      noMovesLeft,
-      getRandomEmptyCell,
-      generateNewNumber,
-      checkGameOver,
-    ]
+    [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
   );
 
+  // Handle vertical moves (up and down)
   const moveVertical = useCallback(
     (direction) => {
-      if (showTopScores || showHelp || noMovesLeft) return;
-
       let newBoard = [...board];
       let changed = false;
       let points = 0;
@@ -232,20 +225,13 @@ export default function Numerix() {
         setNoMovesLeft(true);
       }
     },
-    [
-      board,
-      showTopScores,
-      showHelp,
-      noMovesLeft,
-      getRandomEmptyCell,
-      generateNewNumber,
-      checkGameOver,
-    ]
+    [board, getRandomEmptyCell, generateNewNumber, checkGameOver]
   );
 
+  // Listen for keyboard events to handle arrow keys
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (showTopScores || showHelp || noMovesLeft) return;
+      if (disableGame) return;
 
       if (event.key.startsWith("Arrow")) {
         event.preventDefault();
@@ -273,15 +259,17 @@ export default function Numerix() {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [moveVertical, moveHorizontal, showTopScores, showHelp, noMovesLeft]);
+  }, [moveVertical, moveHorizontal, disableGame]);
 
+  // Handle closing the game over modal
   function handleCloseGameOverModal() {
     setNoMovesLeft(false);
     startGame();
   }
 
+  // Handle arrow button clicks
   const handleArrowClick = (arrow) => {
-    if (showTopScores || showHelp || noMovesLeft) return;
+    if (disableGame) return;
 
     const keyMap = {
       "↑": "ArrowUp",
@@ -297,6 +285,7 @@ export default function Numerix() {
     }
   };
 
+  // Handle saving the score
   async function handleSaveScore() {
     try {
       const response = await axios.post(`${API_URL}/numerix/score`, {
@@ -314,8 +303,19 @@ export default function Numerix() {
     }
   }
 
+  // Toggle disableGame state when modals are displayed
+  useEffect(() => {
+    setDisableGame(showTopScores || showHelp || noMovesLeft);
+  }, [showTopScores, showHelp, noMovesLeft]);
+
   return (
     <div className="n-container">
+      {/* Overlay to block clicks when any modal is open */}
+      {(showTopScores || showHelp || noMovesLeft) && (
+        <div className="n-overlay" />
+      )}
+
+      {/* Top Scores Button */}
       {!showTopScores ? (
         <button
           className="n-top-scores-button"
@@ -326,8 +326,11 @@ export default function Numerix() {
       ) : (
         <TopScoresModal setShowTopScores={setShowTopScores} />
       )}
+
+      {/* Game Title */}
       <div className="n-title">Numerix</div>
 
+      {/* Board and Scores Display */}
       <div className="n-board-scores-cont">
         {score ? (
           <p className="n-score">Score: {score}</p>
@@ -345,19 +348,13 @@ export default function Numerix() {
         </div>
       </div>
 
+      {/* Control Buttons */}
       <div className="n-button-bar">
-        <button
-          onClick={() => startGame()}
-          disabled={showTopScores || showHelp || noMovesLeft}
-        >
-          Restart
-        </button>
+        <button onClick={() => !disableGame && startGame()}>Restart</button>
+
         <div className="n-touch-mode-cont">
           {!touchMode ? (
-            <button
-              onClick={() => setTouchMode(!touchMode)}
-              disabled={showTopScores || showHelp || noMovesLeft}
-            >
+            <button onClick={() => setTouchMode(!touchMode)}>
               <img
                 className="n-touch-mode-icon"
                 src={TouchModeIcon}
@@ -369,7 +366,6 @@ export default function Numerix() {
               <TouchPad handleArrowClick={handleArrowClick} />
               <button
                 onClick={() => setTouchMode(false)}
-                disabled={showTopScores || showHelp || noMovesLeft}
                 className="n-touch-mode-false-button"
               >
                 <img
@@ -382,13 +378,10 @@ export default function Numerix() {
           )}
         </div>
 
-        <button
-          onClick={() => setShowHelp(!showHelp)}
-          disabled={showTopScores || noMovesLeft}
-        >
-          ?
-        </button>
+        <button onClick={() => setShowHelp(!showHelp)}>?</button>
       </div>
+
+      {/* Modals */}
       {showHelp && <ShowHelpModal setShowHelp={setShowHelp} />}
       {noMovesLeft && (
         <NoMovesModal
