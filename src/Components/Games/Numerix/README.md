@@ -24,7 +24,17 @@ Numerix challenges players to combine tiles with matching numbers to create a ti
   - The game ends when no more moves are possible. Players can restart to try again.
 
 - **Help Menu**:
+
   - Players can access the Help menu for detailed instructions on how to play the game. This menu can be toggled on or off as needed.
+
+- **Game Over Modal**:
+
+  - When no moves are left, a Game Over modal appears, allowing players to save their score by entering a username.
+  - High scores are saved to a MongoDB database and displayed in the Top Scores modal.
+
+- **Top Scores Modal**:
+  - Players can view the top 5 high scores from the MongoDB database in a dedicated modal.
+  - The scores are fetched dynamically to ensure real-time accuracy.
 
 ---
 
@@ -35,12 +45,17 @@ Numerix challenges players to combine tiles with matching numbers to create a ti
 - React.js for a component-based structure and state management.
 - JavaScript (ES6+) for game logic, including moves, merges, score tracking, and game-over detection.
 - CSS for a custom, paper-texture-inspired aesthetic.
+- MongoDB for storing and retrieving player high scores.
+- Axios for making HTTP requests to interact with the backend API.
 
 ### Techniques:
 
 - Dynamic tile generation and movement logic.
-- State management for tracking the game board, score, and help menu visibility.
+- State management for tracking the game board, score, and modal visibility.
+- RESTful API integration for saving and fetching high scores from MongoDB.
 - Responsive design to ensure a consistent experience across devices and screen sizes.
+- Modals for improved user experience, including instructions, game over, and top scores.
+- Error handling and validation for saving scores to ensure data integrity.
 
 ---
 
@@ -52,34 +67,27 @@ Numerix challenges players to combine tiles with matching numbers to create a ti
 - Scoring system that tracks player progress.
 - Comprehensive in-game instructions via a Help menu.
 - Restart option for a fresh start at any time.
+- Game Over modal allowing players to save high scores with a username.
+- High scores fetched from a MongoDB database and displayed in a Top Scores modal.
 
 ### Installation and Setup:
 
 To set up Numerix locally:
 
 1. Clone the repository.
-2. Install dependencies using `npm install`.
-3. Run the project with `npm start`.
-4. Access the game at `http://localhost:3000`.
+2. Install dependencies using npm install.
+3. Set up a MongoDB instance and configure the connection in your environment variables.
+4. Run the project with npm run dev (starts both backend and frontend).
+5. Access the game at http://localhost:3000.
 
 ---
 
-## 4. To-Do List
-
-- Replace the Game Over alert with a modal for improved user experience.
-- Ensure responsive design across all screen sizes.
-- Add a feature for users to save high scores to a database.
-
----
-
-## 5. Contributing
+## 4. Contributing
 
 If you'd like to contribute to Numerix, please fork the repository and create a pull request with your changes. Feedback and feature suggestions are welcome!
 
 ---
 
-## 6. Acknowledgments
+## 5. Acknowledgments
 
 Numerix is inspired by the original 2048 game created by Gabriele Cirulli. This project pays homage to the addictive simplicity and strategic depth of the classic game.
-
----
