@@ -10,10 +10,10 @@ import NoMovesModal from "./NoMovesModal";
 import TopScoresModal from "./TopScoresModal";
 
 ////////////TO
-//NoMovesModal: display gets scrunched when narrow screen view
+//NoMovesModal: display gets scrunched when narrow screen view ✅
 //update Readme for game ✅ and for portfolio✅
 //add current score display to no moves modal
-//clear username input when modal re-appears after 1st win
+//clear username input when modal re-appears after 1st win ✅
 //add contact me modal to home page
 
 // Define API URL
@@ -303,6 +303,7 @@ export default function Numerix() {
 
       if (response.data.success) {
         setScoreSaved(true);
+        setUsername("");
       } else {
         console.error("Failed to save numerix score:", response.data.message);
       }

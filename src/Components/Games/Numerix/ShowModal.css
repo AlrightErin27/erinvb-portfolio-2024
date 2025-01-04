@@ -3,7 +3,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: var(--primary-background);
   padding: 2rem;
   border-radius: 10px;
   border: 2px solid var(--alt-text-color);
@@ -14,6 +14,10 @@
   max-height: 80vh;
   overflow-y: auto;
   font-family: "Playwrite MX", serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .n-show-modal::before {
@@ -23,7 +27,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(122, 122, 122, 0.5);
+
   z-index: -1;
 }
 
@@ -58,7 +62,7 @@ Copy.n-top-scores-list-container {
   font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 1rem;
-  color: var(--text-color);
+  color: var(--alt-text-color);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -72,10 +76,10 @@ Copy.n-top-scores-list-container {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   margin-bottom: 0.8rem;
-  color: var(--text-color);
+  color: var(--alt-text-color);
 }
 
-.n-close-modal {
+/* .n-close-modal {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
@@ -93,13 +97,50 @@ Copy.n-top-scores-list-container {
 .n-close-modal:hover {
   background: var(--text-color);
   transform: translateY(-2px);
+} */
+
+.n-close-modal {
+  margin-top: 1rem; /* Adds spacing above the button */
+  align-self: center; /* Centers the close button */
+  padding: 0.5rem 1rem;
+  max-width: fit-content;
+  font-family: "Playwrite MX", serif;
+  font-size: 1.2rem;
+  background: var(--alt-text-color);
+  color: var(--board-background);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
+
+.n-close-modal:hover {
+  background: var(--text-color);
+  transform: translateY(-2px);
+}
+
+/* .n-save-score {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+} */
 
 .n-save-score {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  flex-wrap: wrap; /* Allows wrapping when screen size is small */
+  justify-content: center;
 }
+/* 
+.n-save-score input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--alt-text-color);
+  border-radius: 5px;
+  outline: none;
+  font-family: "Playwrite MX", serif;
+} */
 
 .n-save-score input {
   padding: 0.5rem;
@@ -108,6 +149,9 @@ Copy.n-top-scores-list-container {
   border-radius: 5px;
   outline: none;
   font-family: "Playwrite MX", serif;
+  width: 100%; /* Adjust input width on small screens */
+  max-width: 300px;
+  box-sizing: border-box;
 }
 
 .n-save-score button {
@@ -120,6 +164,7 @@ Copy.n-top-scores-list-container {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s ease;
+  max-width: fit-content;
 }
 
 .n-save-score button:hover {
@@ -188,8 +233,26 @@ Copy.n-top-scores-list-container {
   .n-show-modal li {
     font-size: 0.8rem;
   }
-
   .n-close-modal {
     font-size: 0.8rem;
+  }
+  .n-save-score {
+    flex-direction: column; /* Stacks input and button vertically */
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .n-save-score input {
+    width: 100%; /* Full width input for small screens */
+    max-width: none;
+  }
+
+  .n-save-score button {
+    width: 100%; /* Full width button for small screens */
+  }
+
+  .n-close-modal {
+    width: 100%; /* Full width close button for small screens */
+    margin-top: 1rem;
   }
 }
