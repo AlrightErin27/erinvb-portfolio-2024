@@ -35,6 +35,37 @@ body {
   height: 100%;
 }
 
+.contact-me-button {
+  z-index: 10;
+  position: fixed;
+  height: 4rem;
+  width: 12rem; /* Adjusted width for a more readable label */
+  bottom: 1%;
+  right: 3%;
+  background: #fbeed7;
+  color: #2c2c2c; /* Dark text for contrast */
+  font-family: "Cutive Mono", monospace;
+  font-size: 1.75rem; /* Adjusted for readability */
+  font-weight: bold;
+  text-align: center;
+  line-height: 4rem; /* Center text vertically */
+  border: 2px solid black; /* Subtle border for definition */
+  border-radius: 10px; /* Rounded corners for a modern look */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.contact-me-button:hover {
+  filter: invert(0.1);
+  transform: translateY(-3px); /* Slight upward movement */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06); /* Enhanced shadow */
+}
+
+.contact-me-button:active {
+  transform: translateY(0); /* Reset movement on click */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); /* Reset shadow on click */
+}
+
 .home-content {
   flex: 1;
   overflow-y: auto;
@@ -143,6 +174,16 @@ body {
 
 /* Tablet Styles */
 @media screen and (max-width: 1024px) {
+  .contact-me-button {
+    height: 3.5rem;
+    width: 10rem;
+    bottom: 5%;
+    right: 1%;
+    font-size: 1.5rem;
+    line-height: 3.5rem;
+    /* color: rgb(255, 255, 0); */
+  }
+
   .home-content {
     background-size: 350%;
     background-position: center;
@@ -229,6 +270,16 @@ body {
 
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
+  .contact-me-button {
+    height: 3rem;
+    width: 8rem;
+    bottom: 1%;
+    right: 1%;
+    font-size: 1rem;
+    line-height: 3rem;
+    /* color: rgb(0, 204, 255); */
+  }
+
   .home-content {
     background-size: 350%;
     background-position: center;
@@ -258,6 +309,17 @@ body {
 
 /* Small Mobile Styles */
 @media screen and (max-width: 480px) {
+  .contact-me-button {
+    height: 2.5rem;
+    width: fit-content;
+    padding: 0 13px 0 13px;
+    bottom: 1%;
+    right: 1%;
+    font-size: 1rem;
+    line-height: 2.5rem;
+    /* color: red; */
+  }
+
   .home-content {
     background-size: 350%;
     background-position: center;
