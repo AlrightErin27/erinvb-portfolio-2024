@@ -12,7 +12,7 @@ import TopScoresModal from "./TopScoresModal";
 ////////////TO
 //NoMovesModal: display gets scrunched when narrow screen view ✅
 //update Readme for game ✅ and for portfolio✅
-//add current score display to no moves modal
+//add current score display to no moves modal✅
 //clear username input when modal re-appears after 1st win ✅
 //add contact me modal to home page
 
@@ -399,6 +399,7 @@ export default function Numerix() {
           scoreSaved={scoreSaved}
           handleSaveScore={handleSaveScore}
           handleCloseGameOverModal={handleCloseGameOverModal}
+          score={score}
         />
       )}
     </div>

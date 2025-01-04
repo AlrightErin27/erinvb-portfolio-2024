@@ -7,10 +7,12 @@ export default function NoMovesModal({
   scoreSaved,
   handleSaveScore,
   handleCloseGameOverModal,
+  score,
 }) {
   return (
     <div className="n-show-modal">
       <h3>Game Over!</h3>
+      <p>Score: {score}</p>
       <p>Save your score with username:</p>
       {!scoreSaved ? (
         <div className="n-save-score">
