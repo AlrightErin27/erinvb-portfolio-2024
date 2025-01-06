@@ -58,22 +58,19 @@ const Home = () => {
   ];
 
   return (
-    <>
-      <button className="contact-me-button">Contact Me</button>
-      <div className="home-container">
-        <div className="home-content">
-          <div className="color-shift-overlay" />
-          <div className="grid-overlay">
-            <img src={IntroImg} alt="intro" />
-            <div className="icons-cont">
-              {websites.map((website, idx) => (
-                <Icon website={website} key={idx} />
-              ))}
-            </div>
+    <div className="home-container">
+      <div className="home-content">
+        <div className="color-shift-overlay" />
+        <div className="grid-overlay">
+          <img src={IntroImg} alt="intro" />
+          <div className="icons-cont">
+            {websites.map((website, idx) => (
+              <Icon website={website} key={idx} />
+            ))}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
