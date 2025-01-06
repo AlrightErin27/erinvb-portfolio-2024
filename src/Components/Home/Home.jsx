@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import ContactForm from "./ContactForm";
 import Icon from "./Icon";
 import IntroImg from "../../Images/Home/Resume/hello.png";
 import ResumePDF from "../../Images/Home/Resume/SoftwareResume2024.pdf";
@@ -26,6 +27,12 @@ const Home = () => {
       pdf: ResumePDF,
     },
     {
+      name: "email",
+      url: null,
+      img: EmailIcon,
+      pdf: null,
+    },
+    {
       name: "project videos",
       url: "/project-videos",
       img: VideoIcon,
@@ -49,12 +56,6 @@ const Home = () => {
       img: MediumIcon,
       pdf: null,
     },
-    {
-      name: "email",
-      url: null,
-      img: EmailIcon,
-      pdf: null,
-    },
   ];
 
   return (
@@ -70,6 +71,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <ContactForm />
     </div>
   );
 };

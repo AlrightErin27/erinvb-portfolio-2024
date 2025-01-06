@@ -8,6 +8,8 @@ const NavBar = () => {
   // Memoize the components array and getTitleFromPath function together
   const { components, getTitleFromPath } = useMemo(() => {
     const componentsArray = [
+      { title: "Home", path: "/", id: "home" },
+      { title: "Resume", path: "/resume", id: "resume" },
       {
         title: [
           <span key="1" className="navbar-span">
@@ -21,12 +23,9 @@ const NavBar = () => {
         path: "/project-videos",
         id: "project-videos",
       },
-      { title: "Home", path: "/", id: "home" },
-      { title: "Resume", path: "/resume", id: "resume" },
       { title: "Blog", path: "/blog", id: "blog" },
       { title: "Games", path: "/games", id: "games" },
       { title: "Shop", path: "/shop", id: "shop" },
-
       { title: null, path: "/games/crossword", id: "games" },
       { title: null, path: "/games/numerix", id: "games" },
       { title: null, path: "/games/noughts-&-crosses", id: "games" },

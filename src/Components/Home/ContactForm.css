@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Oswald:wght@200..700&display=swap");
+
+:root {
+  --primary-bg: #fbeed7;
+  --primary-accent: #333;
+  --secondary-accent: #555;
+  --text-color: #000;
+  --border-radius: 8px;
+  --transition-speed: 0.4s ease-in-out;
+}
+
+/* Contact tab styling */
+.contact-tab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-accent);
+  color: var(--primary-bg);
+  font-family: "Oswald", serif;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: opacity var(--transition-speed);
+}
+
+.contact-tab.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Contact form container */
+.contact-form-container {
+  position: fixed;
+  font-family: "Fira Code", serif;
+  bottom: -100%;
+  right: 20px;
+  width: 90%; /* Default width for mobile */
+  max-width: 350px; /* Limits width for larger screens */
+  background-color: var(--primary-bg);
+  border: 2px solid var(--primary-accent);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: bottom var(--transition-speed);
+  z-index: 999;
+}
+
+.contact-form-container.open {
+  bottom: 20px;
+}
+
+/* Contact form styling */
+.contact-form {
+  padding: 20px;
+}
+
+.contact-form h3 {
+  margin: 0 0 15px;
+  font-family: "Oswald", serif;
+  color: var(--primary-accent);
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid var(--primary-accent);
+  border-radius: var(--border-radius);
+  font-family: "Fira Code", serif;
+  font-size: 0.95rem;
+  transition: border-color var(--transition-speed);
+}
+
+/* Textarea with scrollbar for long content */
+.contact-form textarea {
+  max-height: 150px;
+  overflow-y: auto;
+  resize: vertical; /* Allows resizing vertically */
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--secondary-accent);
+}
+
+.contact-form button {
+  width: 100%;
+  background-color: var(--primary-accent);
+  color: var(--primary-bg);
+  font-family: "Oswald", serif;
+  font-weight: 400;
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-speed), transform 0.2s;
+}
+
+.contact-form button:hover {
+  background-color: var(--secondary-accent);
+  transform: scale(1.05);
+}
+
+.contact-form button:active {
+  transform: scale(1);
+}
+
+/* Close button */
+.close-button {
+  margin-top: 10px;
+  background-color: transparent;
+  color: var(--primary-accent);
+  font-family: "Fira Code", serif;
+  font-size: 0.9rem;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+}
+
+.close-button:hover {
+  color: var(--secondary-accent);
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  .contact-form-container {
+    right: 10px;
+    width: 95%; /* Take most of the screen width */
+    max-width: none; /* Remove max-width restriction */
+  }
+
+  .contact-tab {
+    right: 10px;
+    bottom: 10px;
+    font-size: 0.9rem; /* Adjust font size */
+    padding: 10px 15px; /* Adjust padding */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contact-form-container {
+    right: 5px;
+    width: 90%;
+    max-width: none;
+  }
+
+  .contact-tab {
+    right: 5px;
+    bottom: 5px;
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+}
+
+/* Adjust for iPads and larger tablets */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .contact-form-container,
+  .contact-tab {
+    right: 40px; /* Move 10px further away from the scrollbar */
+  }
+}
