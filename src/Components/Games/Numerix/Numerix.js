@@ -290,17 +290,16 @@ export default function Numerix() {
   async function handleSaveScore() {
     try {
       console.log(
-        //🪱
+
         "Attempting to save score to:",
-        `${API_URL}/api/numerix/score`
+        `${API_URL}/numerix/score`
       );
       console.log("With data:", {
         numerixUsername: username,
         numerixScore: score,
       });
 
-      const response = await axios.post(`${API_URL}/api/numerix/score`, {
-        //🪱
+      const response = await axios.post(`${API_URL}/numerix/score`, {
         numerixUsername: username,
         numerixScore: score,
       });

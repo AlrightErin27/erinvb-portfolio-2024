@@ -42,8 +42,7 @@ const Shop = () => {
   const fetchUserData = useCallback(
     async (token) => {
       try {
-        //🪱
-        const response = await axios.get(`${API_URL}/api/user`, {
+        const response = await axios.get(`${API_URL}/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPurchases(response.data.purchases);
@@ -77,14 +76,12 @@ const Shop = () => {
 
     try {
       console.log("Starting registration attempt", {
-        //🪱
-        url: `${API_URL}/api/register`,
+        url: `${API_URL}/register`,
         username,
       });
 
       const response = await axios.post(
-        //🪱
-        `${API_URL}/api/register`,
+        `${API_URL}/register`,
         {
           username,
           password,
@@ -107,8 +104,7 @@ const Shop = () => {
 
   const handleLogin = async () => {
     try {
-      //🪱
-      const response = await axios.post(`${API_URL}/api/login`, {
+      const response = await axios.post(`${API_URL}/login`, {
         username,
         password,
       });
@@ -130,8 +126,7 @@ const Shop = () => {
       }
 
       await axios.post(
-        //🪱
-        `${API_URL}/api/purchase`,
+        `${API_URL}/purchase`,
         { cartItems },
         { headers: { Authorization: `Bearer ${token}` } }
       );
