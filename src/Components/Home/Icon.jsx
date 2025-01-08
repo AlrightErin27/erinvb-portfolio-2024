@@ -19,7 +19,7 @@ const Icon = ({ website }) => {
             className="icon-img"
             style={{ backgroundImage: `url(${website.img})` }}
           />
-          <span className="icon-name">erinmontybruce@gmail.com</span>
+          <span className="icon-name">erinmontybruce{<br />}@gmail.com</span>
         </Link>
       ) : (
         <Link
