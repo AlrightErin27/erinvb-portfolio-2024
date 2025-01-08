@@ -377,7 +377,7 @@ body {
 
   .icons-cont::before {
     background: transparent;
-    border-left: solid 2.75px black;
+    /* border-left: solid 2.75px black; */
   }
 
   .icons-cont {
