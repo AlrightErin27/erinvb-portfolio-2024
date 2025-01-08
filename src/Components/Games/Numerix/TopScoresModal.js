@@ -6,22 +6,6 @@ export default function TopScoresModal({ setShowTopScores }) {
   const [topScores, setTopScores] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchTopScores = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_API_URL}/numerix/top-scores`
-  //       );
-  //       setTopScores(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching top scores:", error);
-  //     } finally {
-  //       setLoading(false); // Set loading to false regardless of success or error
-  //     }
-  //   };
-
-  //   fetchTopScores();
-  // }, []);
   useEffect(() => {
     const fetchTopScores = async () => {
       try {

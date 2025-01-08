@@ -287,34 +287,6 @@ export default function Numerix() {
   };
 
   // Handle saving the score
-  // async function handleSaveScore() {
-  //   try {
-  //     console.log(
-
-  //       "Attempting to save score to:",
-  //       `${API_URL}/numerix/score`
-  //     );
-  //     console.log("With data:", {
-  //       numerixUsername: username,
-  //       numerixScore: score,
-  //     });
-
-  //     const response = await axios.post(`${API_URL}/numerix/score`, {
-  //       numerixUsername: username,
-  //       numerixScore: score,
-  //     });
-
-  //     if (response.data.success) {
-  //       setScoreSaved(true);
-  //       setUsername("");
-  //     } else {
-  //       console.error("Failed to save numerix score:", response.data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error saving numerix score:", error);
-  //   }
-  // }
-  // Handle saving the score
   async function handleSaveScore() {
     try {
       // Remove trailing slash if it exists
