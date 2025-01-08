@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import ContactForm from "./ContactForm";
+// import ContactForm from "./ContactForm";
 import Icon from "./Icon";
 import IntroImg from "../../Images/Home/Resume/hello.png";
 import ResumePDF from "../../Images/Home/Resume/SoftwareResume2024.pdf";
@@ -71,7 +71,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <ContactForm />
+      {/* <ContactForm /> */}
     </div>
   );
 };
