@@ -295,7 +295,7 @@ export default function Numerix() {
         numerixScore: score,
       });
 
-      const response = await axios.post(`${API_URL}numerix/score`, {
+      const response = await axios.post(`${API_URL}/numerix/score`, {
         numerixUsername: username,
         numerixScore: score,
       });
