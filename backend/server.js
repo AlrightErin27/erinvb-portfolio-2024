@@ -340,7 +340,7 @@ router.post("/purchase", authMiddleware, async (req, res) => {
 
 //NUMERIX ROUTE 🎮
 //POST
-router.post("numerix/score", async (req, res) => {
+router.post("/numerix/score", async (req, res) => {
   console.log("🎮 Numerix score save attempt:", {
     body: req.body,
     method: req.method,
@@ -384,7 +384,7 @@ router.post("numerix/score", async (req, res) => {
 
 //NUMERIX ROUTE 🎮
 //GET
-router.get("numerix/top-scores", async (req, res) => {
+router.get("/numerix/top-scores", async (req, res) => {
   try {
     const topScores = await NumerixScore.find({})
       .sort({ numerixScore: -1 }) // Sort by score in descending order
