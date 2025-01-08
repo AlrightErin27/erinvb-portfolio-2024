@@ -287,19 +287,48 @@ export default function Numerix() {
   };
 
   // Handle saving the score
+  // async function handleSaveScore() {
+  //   try {
+  //     console.log(
+
+  //       "Attempting to save score to:",
+  //       `${API_URL}/numerix/score`
+  //     );
+  //     console.log("With data:", {
+  //       numerixUsername: username,
+  //       numerixScore: score,
+  //     });
+
+  //     const response = await axios.post(`${API_URL}/numerix/score`, {
+  //       numerixUsername: username,
+  //       numerixScore: score,
+  //     });
+
+  //     if (response.data.success) {
+  //       setScoreSaved(true);
+  //       setUsername("");
+  //     } else {
+  //       console.error("Failed to save numerix score:", response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving numerix score:", error);
+  //   }
+  // }
+  // Handle saving the score
   async function handleSaveScore() {
     try {
-      console.log(
+      // Remove trailing slash if it exists
+      const baseUrl = API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL;
+      const endpoint = "numerix/score";
+      const fullUrl = `${baseUrl}/${endpoint}`;
 
-        "Attempting to save score to:",
-        `${API_URL}/numerix/score`
-      );
+      console.log("Attempting to save score to:", fullUrl);
       console.log("With data:", {
         numerixUsername: username,
         numerixScore: score,
       });
 
-      const response = await axios.post(`${API_URL}/numerix/score`, {
+      const response = await axios.post(fullUrl, {
         numerixUsername: username,
         numerixScore: score,
       });
