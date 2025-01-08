@@ -386,9 +386,11 @@ body {
     overflow-y: auto;
     padding: 0;
     margin: 0;
-    border-bottom: solid black 2px;
-    border-top: solid black 2px;
+    /* border-bottom: solid black 2px;
+    border-top: solid black 2px; */
+    border: none;
     position: relative;
+    background-color: transparent;
     overflow: visible;
   }
 

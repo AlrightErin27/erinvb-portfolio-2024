@@ -27,7 +27,7 @@ const ContactForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(`Input changed: ${name} = ${value}`);
+    // console.log(`Input changed: ${name} = ${value}`);
     if (name === "name") {
       setName(value);
     } else if (name === "eMail") {
@@ -75,7 +75,7 @@ const ContactForm = () => {
         )}`
       );
     } else {
-      console.log("Form Submitted Successfully:", { name, eMail, message });
+      // console.log("Form Submitted Successfully:", { name, eMail, message });
       alert("Your message has been sent!");
     }
   };
