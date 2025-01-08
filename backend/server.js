@@ -8,7 +8,6 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 // in root terminal, start back and front ends: npm run dev
-//git log:  more robust error handling for reg. shop works locally ***has page working live!
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -125,6 +124,12 @@ const authMiddleware = async (req, res, next) => {
 
 router.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  console.log("Incoming request:", {
+    method: req.method,
+    path: req.path,
+    body: req.body,
+    headers: req.headers,
+  });
   next();
 });
 
@@ -132,6 +137,13 @@ router.use((req, res, next) => {
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
 //POST
 router.post("/register", async (req, res) => {
+  console.log("📝 Register attempt:", {
+    body: req.body,
+    headers: {
+      ...req.headers,
+      authorization: req.headers.authorization ? "[REDACTED]" : undefined,
+    },
+  });
   console.log("Register endpoint hit with details:", {
     body: req.body,
     method: req.method,
@@ -329,6 +341,14 @@ router.post("/purchase", authMiddleware, async (req, res) => {
 //NUMERIX ROUTE 🎮
 //POST
 router.post("/numerix/score", async (req, res) => {
+  console.log("🎮 Numerix score save attempt:", {
+    body: req.body,
+    method: req.method,
+    path: req.path,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
   try {
     const { numerixUsername, numerixScore } = req.body;
 

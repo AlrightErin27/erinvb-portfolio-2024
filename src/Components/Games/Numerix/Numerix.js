@@ -9,13 +9,6 @@ import ShowHelpModal from "./ShowHelpModal";
 import NoMovesModal from "./NoMovesModal";
 import TopScoresModal from "./TopScoresModal";
 
-////////////TO
-//NoMovesModal: display gets scrunched when narrow screen view ✅
-//update Readme for game ✅ and for portfolio✅
-//add current score display to no moves modal✅
-//clear username input when modal re-appears after 1st win ✅
-//add contact me modal to home page
-
 // Define API URL
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 console.log("API URL:", API_URL);
@@ -296,7 +289,16 @@ export default function Numerix() {
   // Handle saving the score
   async function handleSaveScore() {
     try {
-      const response = await axios.post(`${API_URL}/numerix/score`, {
+      console.log(
+        "Attempting to save score to:",
+        `${API_URL}/api/numerix/score`
+      );
+      console.log("With data:", {
+        numerixUsername: username,
+        numerixScore: score,
+      });
+
+      const response = await axios.post(`${API_URL}/api/numerix/score`, {
         numerixUsername: username,
         numerixScore: score,
       });

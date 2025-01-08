@@ -10,7 +10,7 @@ export default function TopScoresModal({ setShowTopScores }) {
     const fetchTopScores = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/numerix/top-scores`
+          `${process.env.REACT_APP_API_URL}/api/numerix/top-scores`
         );
         setTopScores(response.data);
       } catch (error) {
