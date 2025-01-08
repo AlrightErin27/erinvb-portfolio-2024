@@ -116,7 +116,11 @@ const authMiddleware = async (req, res, next) => {
   } catch (error) {
     console.error("Auth error:", error);
     if (error.name === "TokenExpiredError") {
-      return res.status(401).json({ message: "Token expired" });
+      console.error("Auth error: Token expired");
+      return res
+        .status(401)
+        .json({ message: "Token expired, please log in again." });
+      // return res.status(401).json({ message: "Token expired" });
     }
     res.status(401).json({ message: "Please authenticate." });
   }
@@ -276,7 +280,7 @@ router.post("/login", async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "7d", //token extends to 7 days
     });
     user.lastLogin = new Date();
     await user.save();
