@@ -24,6 +24,13 @@ app.use((req, res, next) => {
 
   const origin = req.headers.origin;
 
+  console.log("🍎🚨 Debug CORS:", {
+    receivedOrigin: origin,
+    allowedOrigins,
+    headers: req.headers,
+    path: req.path,
+  });
+
   if (origin && allowedOrigins.includes(origin)) {
     res.header("Access-Control-Allow-Origin", origin);
   } else {

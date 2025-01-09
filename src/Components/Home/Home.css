@@ -115,10 +115,10 @@ body {
 
 .icon-name {
   display: block;
-  font-size: 1.5rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 1.2rem;
+  white-space: normal; /* Allow text wrapping */
+  overflow: visible; /* Ensure all text is shown */
+  text-overflow: clip; /* No ellipsis */
   max-width: 100%;
 }
 
@@ -135,17 +135,6 @@ body {
 .icon-img:hover {
   transform: scale(var(--icon-hover-scale));
 }
-
-/* Specific Fix for Email Icon */
-/* .Icon[href^="mailto"] {
-  min-width: 17vw;
-  justify-content: center;
-}
-
-.Icon[href^="mailto"] .icon-img {
-  width: 3.5vw;
-  height: 3.5vw;
-} */
 
 /* Color Shift Animation */
 @keyframes colorShift {
