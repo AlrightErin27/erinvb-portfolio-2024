@@ -147,6 +147,128 @@ router.use((req, res, next) => {
 //---------------------------------- ROUTES SECTION ----------------------------------//
 //EVIE & CO. ROUTE 🛍️ 🛒 👚
 //POST
+// router.post("/register", async (req, res) => {
+//   console.log("📝 Register attempt:", {
+//     body: req.body,
+//     headers: {
+//       ...req.headers,
+//       authorization: req.headers.authorization ? "[REDACTED]" : undefined,
+//     },
+//   });
+//   console.log("Register endpoint hit with details:", {
+//     body: req.body,
+//     method: req.method,
+//     path: req.path,
+//     headers: {
+//       ...req.headers,
+//       authorization: req.headers.authorization ? "[REDACTED]" : undefined,
+//     },
+//     origin: req.get("origin"),
+//     ip: req.ip,
+//     timestamp: new Date().toISOString(),
+//   });
+
+//   try {
+//     // Validate request body
+//     if (!req.body) {
+//       console.error("Missing request body");
+//       return res.status(400).json({
+//         message: "Missing request body",
+//         success: false,
+//         code: "MISSING_BODY",
+//       });
+//     }
+
+//     const { username, password } = req.body;
+
+//     // Validate required fields
+//     if (!username || !password) {
+//       console.error("Missing required fields", {
+//         hasUsername: !!username,
+//         hasPassword: !!password,
+//       });
+//       return res.status(400).json({
+//         message: "Username and password are required",
+//         success: false,
+//         code: "MISSING_FIELDS",
+//       });
+//     }
+
+//     // Validate field types
+//     if (typeof username !== "string" || typeof password !== "string") {
+//       console.error("Invalid field types", {
+//         usernameType: typeof username,
+//         passwordType: typeof password,
+//       });
+//       return res.status(400).json({
+//         message: "Invalid username or password format",
+//         success: false,
+//         code: "INVALID_TYPES",
+//       });
+//     }
+
+//     // Check for existing user
+//     console.log("Checking for existing user:", username);
+//     const existingUser = await User.findOne({ username });
+
+//     if (existingUser) {
+//       console.log("Username already exists:", username);
+//       return res.status(400).json({
+//         message: "Username already exists",
+//         success: false,
+//         code: "USERNAME_EXISTS",
+//       });
+//     }
+
+//     // Hash password
+//     console.log("Hashing password");
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Create new user
+//     console.log("Creating new user");
+//     const newUser = new User({
+//       username,
+//       password: hashedPassword,
+//       created: new Date(),
+//     });
+
+//     // Save user
+//     console.log("Saving new user to database");
+//     await newUser.save();
+
+//     console.log("User registered successfully:", username);
+//     res.status(201).json({
+//       message: "User registered successfully!",
+//       success: true,
+//       code: "REGISTRATION_SUCCESS",
+//     });
+//   } catch (error) {
+//     console.error("Registration error:", {
+//       error: error.message,
+//       stack: error.stack,
+//       type: error.name,
+//       code: error.code,
+//     });
+
+//     // MongoDB duplicate key error
+//     if (error.code === 11000) {
+//       return res.status(400).json({
+//         message: "Username already exists",
+//         success: false,
+//         code: "USERNAME_EXISTS",
+//       });
+//     }
+
+//     // Generic error response
+//     res.status(500).json({
+//       message: "Error registering user",
+//       success: false,
+//       code: "SERVER_ERROR",
+//       error: process.env.NODE_ENV === "development" ? error.message : undefined,
+//     });
+//   }
+// });
+
 router.post("/register", async (req, res) => {
   console.log("📝 Register attempt:", {
     body: req.body,
@@ -172,6 +294,10 @@ router.post("/register", async (req, res) => {
     // Validate request body
     if (!req.body) {
       console.error("Missing request body");
+      console.log(
+        "🚀 About to send error response with headers:",
+        res.getHeaders()
+      );
       return res.status(400).json({
         message: "Missing request body",
         success: false,
@@ -187,6 +313,10 @@ router.post("/register", async (req, res) => {
         hasUsername: !!username,
         hasPassword: !!password,
       });
+      console.log(
+        "🚀 About to send error response with headers:",
+        res.getHeaders()
+      );
       return res.status(400).json({
         message: "Username and password are required",
         success: false,
@@ -200,6 +330,10 @@ router.post("/register", async (req, res) => {
         usernameType: typeof username,
         passwordType: typeof password,
       });
+      console.log(
+        "🚀 About to send error response with headers:",
+        res.getHeaders()
+      );
       return res.status(400).json({
         message: "Invalid username or password format",
         success: false,
@@ -213,6 +347,10 @@ router.post("/register", async (req, res) => {
 
     if (existingUser) {
       console.log("Username already exists:", username);
+      console.log(
+        "🚀 About to send error response with headers:",
+        res.getHeaders()
+      );
       return res.status(400).json({
         message: "Username already exists",
         success: false,
@@ -237,11 +375,18 @@ router.post("/register", async (req, res) => {
     await newUser.save();
 
     console.log("User registered successfully:", username);
+    console.log(
+      "🚀 About to send success response with headers:",
+      res.getHeaders()
+    );
+
     res.status(201).json({
       message: "User registered successfully!",
       success: true,
       code: "REGISTRATION_SUCCESS",
     });
+
+    console.log("🚀 Response sent to client with status:", res.statusCode);
   } catch (error) {
     console.error("Registration error:", {
       error: error.message,
@@ -249,6 +394,11 @@ router.post("/register", async (req, res) => {
       type: error.name,
       code: error.code,
     });
+
+    console.log(
+      "🚀 About to send error response with headers:",
+      res.getHeaders()
+    );
 
     // MongoDB duplicate key error
     if (error.code === 11000) {
